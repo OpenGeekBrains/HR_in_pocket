@@ -17,6 +17,11 @@ namespace HRInPocket.DAL.Models.Users
         /// <summary>
         /// Менеджеры / представители работодателя
         /// </summary>
-        public List<CompanyManager> Managers { get; set; }
+        public List<CompanyManager> CompanyManagers { get; set; }
+
+        /// <summary>
+        /// Список закрепленных системных менеджеров
+        /// </summary>
+        public List<SystemManager> SystemManagers { get; set; }
     }
 }

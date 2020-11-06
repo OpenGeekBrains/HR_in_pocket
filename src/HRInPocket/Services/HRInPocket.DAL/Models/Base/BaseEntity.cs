@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace HRInPocket.DAL.Models.Base
 {
     /// <summary>
@@ -8,8 +7,8 @@ namespace HRInPocket.DAL.Models.Base
     public abstract class BaseEntity
     {
         /// <summary>
-        /// Идентификатор GUID
+        /// Идентификатор ID
         /// </summary>
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 }

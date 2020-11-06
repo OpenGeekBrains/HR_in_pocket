@@ -11,6 +11,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Список специальностей
         /// </summary>
-        public List<Specialty> Specialties { get; set; }
+        public List<Speciality> Specialties { get; set; }
     }
 }

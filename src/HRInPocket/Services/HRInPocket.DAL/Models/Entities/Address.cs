@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HRInPocket.DAL.Models.Base;
+﻿using HRInPocket.DAL.Models.Base;
 
 namespace HRInPocket.DAL.Models.Entities
 {
@@ -11,13 +10,11 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Страна
         /// </summary>
-        [Required]
         public string Country { get; set; }
 
         /// <summary>
         /// Город
         /// </summary>
-        [Required]
         public string City { get; set; }
 
         /// <summary>

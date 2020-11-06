@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HRInPocket.DAL.Models.Base;
+﻿using HRInPocket.DAL.Models.Base;
 
 namespace HRInPocket.DAL.Models.Entities
 {
@@ -11,8 +10,7 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Специальность
         /// </summary>
-        [Required]
-        public Specialty Specialty { get; set; }
+        public Speciality Specialty { get; set; }
 
         /// <summary>
         /// Минимальная зарплата
@@ -23,5 +21,10 @@ namespace HRInPocket.DAL.Models.Entities
         /// Максимальная зарплата
         /// </summary>
         public int MaxSalary { get; set; }
+
+        /// <summary>
+        /// Компания-владелец вакансии
+        /// </summary>
+        public Company Company { get; set; }
     }
 }

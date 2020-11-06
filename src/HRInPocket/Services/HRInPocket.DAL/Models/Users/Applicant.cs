@@ -8,18 +8,8 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Соискатель
     /// </summary>
-    public class Applicant : NamedEntity
+    public class Applicant : BaseUser
     {
-        /// <summary>
-        /// Фамилия
-        /// </summary>
-        public string LastName { get; set; }
-
-        /// <summary>
-        /// Отчество
-        /// </summary>
-        public string Patronymic { get; set; }
-
         /// <summary>
         /// Адрес
         /// </summary>
@@ -36,8 +26,13 @@ namespace HRInPocket.DAL.Models.Users
         public List<Resume> Resumes { get; set; }
 
         /// <summary>
-        /// Список интересующих вакансий
+        /// Список интересующих специальностей
         /// </summary>
-        public List<Vacancy> SelectVacancies { get; set; }
+        public List<Speciality> Speciality { get; set; }
+
+        /// <summary>
+        /// Закрепленный системный менеджер
+        /// </summary>
+        public SystemManager SystemManager { get; set; }
     }
 }

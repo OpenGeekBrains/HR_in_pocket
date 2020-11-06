@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using HRInPocket.DAL.Models.Base;
+using HRInPocket.DAL.Models.Users;
 
 namespace HRInPocket.DAL.Models.Entities
 {
@@ -12,7 +12,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// ИНН юридического лица
         /// </summary>
-        [Required]
         public string Inn { get; set; } 
 
         /// <summary>
@@ -29,5 +28,10 @@ namespace HRInPocket.DAL.Models.Entities
         /// Список вакансий
         /// </summary>
         public List<Vacancy> Vacancies { get; set; }
+
+        /// <summary>
+        /// Работодатель-владелец компании
+        /// </summary>
+        public Employer Employer { get; set; }
     }
 }

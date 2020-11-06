@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace HRInPocket.DAL.Models.Base
 {
@@ -9,9 +8,23 @@ namespace HRInPocket.DAL.Models.Base
     public abstract class BaseUser : NamedEntity
     {
         /// <summary>
+        /// Идентификатор GUID
+        /// </summary>
+        public new Guid Id { get; set; }
+
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public string Patronymic { get; set; }
+        
+        /// <summary>
         /// Подтвержденный адрес электронной почты
         /// </summary>
-        [Required]
         public string EmailAddress { get; set; }
 
         /// <summary>

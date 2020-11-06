@@ -1,4 +1,5 @@
 ﻿using HRInPocket.DAL.Models.Base;
+using HRInPocket.DAL.Models.Entities;
 
 namespace HRInPocket.DAL.Models.Users
 {
@@ -7,6 +8,9 @@ namespace HRInPocket.DAL.Models.Users
     /// </summary>
     public class CompanyManager : BaseUser
     {
-
+        /// <summary>
+        /// Компания, представляемая менеджером
+        /// </summary>
+        public Company Company { get; set; }
     }
 }
