@@ -1,14 +1,21 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace HRInPocket.DAL.Data
 {
     public class TestDbInitializer
     {
         private readonly ApplicationDbContext _DbContext;
+        private readonly ILogger<TestDbInitializer> _Logger;
 
-        public TestDbInitializer(ApplicationDbContext DbContext) => _DbContext = DbContext;
+        public TestDbInitializer(ApplicationDbContext DbContext, ILogger<TestDbInitializer> Logger)
+        {
+            _DbContext = DbContext;
+            _Logger = Logger;
+        }
 
         public void Initialize()
         {
@@ -32,24 +39,36 @@ namespace HRInPocket.DAL.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _Logger.LogError(e, "Ошибка инициализации БД");
                 throw;
             }
         }
 
         private void InitializeAddress()
         {
+            //var test = new StreamReader("testfile.txt").DisposeAfter(file => file.ReadToEnd());
+
             if (_DbContext.Addresses.Any()) return;
 
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Addresses.AddRange(TestData.Addresses);
+            _DbContext.Database.BeginTransaction().DisposeAfter(
+                transaction =>
+                {
+                    _DbContext.Addresses.AddRange(TestData.Addresses);
 
-                _DbContext.SaveChanges();
+                    _DbContext.SaveChanges();
 
-                db.CommitTransaction();
-            }
+                    transaction.Commit();
+                });
+
+            //var db = _DbContext.Database;
+            //using (db.BeginTransaction())
+            //{
+            //    _DbContext.Addresses.AddRange(TestData.Addresses);
+
+            //    _DbContext.SaveChanges();
+
+            //    db.CommitTransaction();
+            //}
         }
 
         private void InitializeSpecialities()

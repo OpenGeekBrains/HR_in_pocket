@@ -23,5 +23,21 @@ namespace HRInPocket.DAL.Data
         #endregion
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder model)
+        {
+            model.Entity<Company>()
+               .HasIndex(c => c.Inn)
+               .IsUnique();
+
+            //model.Entity<Company>(company => 
+            //{
+            //    company.HasIndex(e => e.Inn).IsUnique();
+            //});
+
+            //model.Entity<Person>()
+            //   .HasIndex(p => new { p.FirstName, p.LastName })
+            //   .IsUnique(true);
+        }
     }
 }

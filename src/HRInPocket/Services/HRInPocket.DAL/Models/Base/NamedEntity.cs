@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace HRInPocket.DAL.Models.Base
 {
     /// <summary>
@@ -9,6 +11,7 @@ namespace HRInPocket.DAL.Models.Base
         /// <summary>
         /// Имя / Название
         /// </summary>
+        [Required]
         public string Name { get; set; }
     }
 }

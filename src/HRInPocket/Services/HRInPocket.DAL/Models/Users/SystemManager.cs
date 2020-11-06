@@ -11,11 +11,11 @@ namespace HRInPocket.DAL.Models.Users
         /// <summary>
         /// Список закрепленных соискателей
         /// </summary>
-        public List<Applicant> Applicants { get; set; }
+        public ICollection<Applicant> Applicants { get; set; } = new HashSet<Applicant>();
 
         /// <summary>
         /// Список закрепленных работодателей
         /// </summary>
-        public List<Employer> Employers { get; set; }
+        public ICollection<Employer> Employers { get; set; } = new HashSet<Employer>();
     }
 }

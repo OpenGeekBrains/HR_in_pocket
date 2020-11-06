@@ -12,16 +12,16 @@ namespace HRInPocket.DAL.Models.Users
         /// <summary>
         /// Список компаний
         /// </summary>
-        public List<Company> Companies { get; set; }
+        public ICollection<Company> Companies { get; set; } = new HashSet<Company>();
 
         /// <summary>
         /// Менеджеры / представители работодателя
         /// </summary>
-        public List<CompanyManager> CompanyManagers { get; set; }
+        public ICollection<CompanyManager> CompanyManagers { get; set; } = new HashSet<CompanyManager>();
 
         /// <summary>
         /// Список закрепленных системных менеджеров
         /// </summary>
-        public List<SystemManager> SystemManagers { get; set; }
+        public ICollection<SystemManager> SystemManagers { get; set; } = new HashSet<SystemManager>();
     }
 }

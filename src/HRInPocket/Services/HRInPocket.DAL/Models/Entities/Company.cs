@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 using HRInPocket.DAL.Models.Base;
 using HRInPocket.DAL.Models.Users;
 
@@ -12,11 +14,13 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// ИНН юридического лица
         /// </summary>
-        public string Inn { get; set; } 
+        [Required]
+        public string Inn { get; set; }
 
         /// <summary>
         /// Юридический адрес
         /// </summary>
+        [Required]
         public Address FactAddress { get; set; }
 
         /// <summary>
@@ -27,11 +31,13 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Список вакансий
         /// </summary>
-        public List<Vacancy> Vacancies { get; set; }
+        public ICollection<Vacancy> Vacancies { get; set; } = new HashSet<Vacancy>();
 
         /// <summary>
         /// Работодатель-владелец компании
         /// </summary>
         public Employer Employer { get; set; }
+
+        //todo: добавить возможность добавления любых метаданных
     }
 }

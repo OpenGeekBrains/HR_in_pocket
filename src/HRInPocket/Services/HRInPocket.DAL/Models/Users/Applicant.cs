@@ -23,12 +23,12 @@ namespace HRInPocket.DAL.Models.Users
         /// <summary>
         /// Список резюме
         /// </summary>
-        public List<Resume> Resumes { get; set; }
+        public ICollection<Resume> Resumes { get; set; } = new HashSet<Resume>();
 
         /// <summary>
         /// Список интересующих специальностей
         /// </summary>
-        public List<Speciality> Speciality { get; set; }
+        public ICollection<Speciality> Speciality { get; set; } = new HashSet<Speciality>();
 
         /// <summary>
         /// Закрепленный системный менеджер
