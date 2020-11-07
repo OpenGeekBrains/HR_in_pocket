@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\..\Services\HRInPocket.Services\HRInPocket.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
