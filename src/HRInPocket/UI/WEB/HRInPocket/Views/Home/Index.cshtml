@@ -2,7 +2,250 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat&family=Open+Sans&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>HR</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header_wrapper">
+                <div class="row no-gutters justify-content-center">
+                    <div class="header_logo col ">
+                        <a href="#" class="header_logo-link"> <img src="img/svg/Logo%201.svg" alt="LOGO" class="header_logo-pic"></a>
+                    </div>
+                    <nav class="header_nav">
+                        <ul class=" menu header_list ">
+                            <li class="header_item active-item"> <a href="#" class="header_link ">Соискателям</a> </li>
+                            <li class="header_item nonactive-item "> <a href="#" class="header_link">Исполнителям</a> </li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <ul class=" menu sc">
+                            <li class="btn-request">
+                                <a href="#" class="btn-enter-link"><img src="img/svg/Button.svg" alt="Оставить заявку"></a>
+                            </li>
+                            <li class="btn-enter">
+                                <a href="#" class="btn-enter-link"><img src="img/svg/Button%20(1).svg" alt="Войти"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class=" d-flex plashka "><img src="img/svg/plashka.svg" alt="" class="   d-flex ml-0  menu-rectangle"> </div> <img src="img/svg/dots2.svg" alt="" class="plashka-top">
+        <div class="content">
+            <div class="executor">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="media-text">
+                            <h5 class="mt-0 mb-1 title">Устройся на работу мечты</h5> <span class="color-text">HR в кармане</span> - это веб-платформа, которая позволяет соискателю создавать задания на поиск работы с оплатой за приглашения. Вам останется лишь ходить на интервью.
+                        </div>
+                    </div> <img class="d-flex ml-0 main-photo" src="img/svg/photoplashka.svg" alt="img">
+                </div>
+                <form class="make-task">
+                    <div class="row no-gutters make-task-form">
+                        <input type="text" class="form_control  form_control-1" placeholder="Желаемая специальность">
+                        <input type="text" class="form_control form_control-2" placeholder="Ссылка на резюме">
+                    </div>
+                    <button type="button" class="send"><a href="#">Создать задание</a></button>
+                </form>
+                <div class="how-works">
+                    <p class="maintitle-how-works">Как это работает</p>
+                    <section id="how-works">
+                        <div class="row no-gutters rectangles-how-works">
+                            <div class="col odd">
+                                <img src="img/svg/account-rectangle.svg" alt="Создайте аккаунт">
+                                <br>
+                                <br>
+                                <br><span class="title-how-works">Создайте аккаунт</span>
+                                <br>
+                                <br><span class="describtion-how-works">Сначала вам надо создать аккаунт на платформе</span>
+                            </div>
+                            <div class="col-md-auto even "><img src="img/svg/Vector%201.svg" alt=""></div>
+                            <div class="col odd">
+                                <img src="img/svg/addinfo-rectangle.svg" alt="Добавьте информацию">
+                                <br>
+                                <br>
+                                <br><span class="title-how-works">
+                                    Добавьте о себе
+                                    информацию
+                                </span>
+                                <br>
+                                <br><span class="describtion-how-works">Загрузите вашу ссылку на резюме и вставьте сопроводительное письмо на платформу, либо закажите их у нас</span>
+                            </div>
+                            <div class="col-md-auto  even"><img src="img/svg/Vector%202.svg" alt=""></div>
+                            <div class="col odd ">
+                                <img src="img/svg/maketask-rectangle.svg" alt="Создайте задание">
+                                <br>
+                                <br>
+                                <br><span class="title-how-works">Разместите задание</span>
+                                <br>
+                                <br><span class="describtion-how-works">Заполните оставшиеся поля и разместите задание</span>
+                            </div>
+                            <div class="col-md-auto even "><img src="img/svg/Vector%201.svg" alt=""></div>
+                            <div class="col odd">
+                                <img src="img/svg/interview-rectangle.svg" alt="Ходите на интервью">
+                                <br>
+                                <br>
+                                <br><span class="title-how-works">Ходите на интервью</span>
+                                <br>
+                                <br><span class="describtion-how-works">После того, как ваше задание будет выполнено, вам останется только ходить на интервью</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tarifs">
+                    <p class="maintitle-tarifs">Тарифы</p>
+                    <section id="tarifs">
+                        <div class="row no-gutters tarifs-block">
+                            <div class="col tarifs-block-each tarifs-w ">
+                                <p class="title-tarifs">Базовый</p>
+                                <p class="desc-tarifs">Хороший повод начать</p>
+                                <p class="numb-visits">1 приглашение</p>
+                                <p class="price-tarifs">1500 руб.</p>
+                                <button type="button" class="buy"><a href="#">Купить</a></button>
+                            </div>
+                            <div class="col tarifs-block-each tarifs-w ">
+                                <p class="title-tarifs">Средний</p>
+                                <p class="desc-tarifs">Набирайте обороты</p>
+                                <p class="numb-visits">3 приглашения</p>
+                                <p class="price-tarifs">4500 руб.</p>
+                                <button type="button" class="buy"><a href="#">Купить</a></button>
+                            </div>
+                            <div class="col tarifs-block-each tarifs-w">
+                                <p class="title-tarifs">Эффективный</p>
+                                <p class="desc-tarifs">Выбирайте и сравнивайте разные предложения</p>
+                                <p class="numb-visits-">5 приглашений</p>
+                                <p class="price-tarifs">6000 руб.</p>
+                                <button type="button" class="buy"><a href="#">Купить</a></button>
+                            </div>
+                            <div class="col tarifs-block-each tarifs-block-each4 tarifs-w">
+                                <p class="title-tarifs">Профи</p>
+                                <p class="desc-tarifs">Обеспечьте гарантию трудоустройства</p>
+                                <p class="numb-visits-">10 приглашений</p>
+                                <p class="price-tarifs">10000 руб.</p>
+                                <button type="button" class="buy"><a href="">Купить</a></button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="price">
+                    <table class="table table-reflow price-table">
+                        <tbody>
+                            <tr>
+                                <td scope="row" id="first-ch-tb">Составление резюме</td>
+                                <td id="price-tb">2000 руб.</td>
+                                <td id="last-td-price">
+                                    <button type="button" class="buy"><a href="">Купить</a></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <table class="table table-reflow price-table">
+                            <tbody>
+                                <tr>
+                                    <td scope="row" id="first-ch-tb">Написание сопроводительного письма</td>
+                                    <td id="price-tb">800 руб.</td>
+                                    <td id="last-td-price">
+                                        <button type="button" class="buy"><a href="">Купить</a></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-reflow price-table">
+                            <tbody>
+                                <tr>
+                                    <td scope="row" id="first-ch-tb">Перевод резюме</td>
+                                    <td id="price-tb">1500 руб.</td>
+                                    <td id="last-td-price">
+                                        <button type="button" class="buy"><a href="">Купить</a></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </table>
+                </div>
+                <div class="callback">
+                    <p class="maintitle-callback">Связаться с нами</p>
+                    <form class="make-callback">
+                        <div class="form-row no-gutters make-callback-form form_control-cb1">
+                            <input type="text" class="form-group " placeholder="Имя">
+                        </div>
+                        <div class="form-row no-gutters make-callback-form form_control-cb2 ">
+                            <input type="text" class="form-group  " placeholder="Адрес электронной почты">
+                        </div>
+                        <div class="form-row no-gutters make-callback-form form_control-cb2">
+                            <input type="text" class="form-group  " placeholder="Номер телефона">
+                        </div>
+                        <div class="form-row no-gutters make-callback-form form_control-cb4">
+                            <input type="text" class="form-group  " placeholder="Сообщение">
+                        </div>
+                        <button type="button" class="send-callback"><a href="#">Создать задание</a></button>
+                    </form>
+                </div>
+                <div class="getdreamjob">
+                    <div class="row no-guttes ">
+                        <div class=" getdream">
+                            <p class="maintitle-getdreamjob">Устройся на работу мечты</p>
+                            <p>
+                                <button class="btn-getdream"><a href="#">Создать задание</a></button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer font-small indigo ">
+            <div class=" text-center text-md-left index-footer">
+                <!-- Grid row -->
+                <div class="row ">
+                    <!-- Grid column -->
+                    <div class="col-3">
+                        <!-- Links -->
+                        <ul class="list-unstyled footer-list">
+                            <li class="footer-list-1"> <a href="#!">Готовое резюме</a> </li>
+                            <li> <a href="#!">Написание сопроводительных писем</a> </li>
+                            <li> <a href="#!">Перевод резюме</a> </li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <!-- Links -->
+                        <ul class="list-unstyled footer-list">
+                            <li class="footer-list-1"> <a href="#!">О сервисе</a> </li>
+                            <li> <a href="#!">Как это работает</a> </li>
+                            <li> <a href="#!">Тарифы</a> </li>
+                            <li> <a href="#!">Связаться с нами</a> </li>
+                        </ul>
+                    </div>
+                    <!-- Grid column -->
+
+
+                    <div class="col-3 "></div>
+                    <div class="col-2 ">
+                        <h5 class="font-weight-bold text-uppercase mt-4 mb-4 footer-logo footer-list-1"><img src="img/svg/logo-footer.svg" alt=""></h5>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </footer>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
