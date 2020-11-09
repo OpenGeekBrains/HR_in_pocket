@@ -1,28 +1,88 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HRInPocket</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat&family=Open+Sans&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>HR</title>
 </head>
+
 <body>
-    <header>
-
-    </header>
     <div class="wrapper">
-       
-            @RenderBody()
-       
-    </div>
+        <header class="header">
+            <div class="header_wrapper">
+                <div class="row no-gutters justify-content-center">
+                    <div class="header_logo col ">
+                        <a href="#" class="header_logo-link"> <img src="~/img/svg/Logo%201.svg" alt="LOGO" class="header_logo-pic"></a>
+                    </div>
+                    <nav class="header_nav">
+                        <ul class=" menu header_list ">
+                            <li class="header_item active-item"> <a href="#" class="header_link ">Соискателям</a> </li>
+                            <li class="header_item nonactive-item "> <a href="#" class="header_link">Исполнителям</a> </li>
+                        </ul>
+                    </nav>
+                    <nav>
+                        <ul class=" menu sc">
+                            <li class="btn-request">
+                                <a href="#" class="btn-enter-link"><img src="~/img/svg/Button.svg" alt="Оставить заявку"></a>
+                            </li>
+                            <li class="btn-enter">
+                                <a href="#" class="btn-enter-link"><img src="~/img/svg/Button%20(1).svg" alt="Войти"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+       @RenderBody()
+        <footer class="page-footer font-small indigo ">
+            <div class=" text-center text-md-left index-footer">
+                <!-- Grid row -->
+                <div class="row ">
+                    <!-- Grid column -->
+                    <div class="col-3">
+                        <!-- Links -->
+                        <ul class="list-unstyled footer-list">
+                            <li class="footer-list-1"> <a href="#!">Готовое резюме</a> </li>
+                            <li> <a href="#!">Написание сопроводительных писем</a> </li>
+                            <li> <a href="#!">Перевод резюме</a> </li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <!-- Links -->
+                        <ul class="list-unstyled footer-list">
+                            <li class="footer-list-1"> <a href="#!">О сервисе</a> </li>
+                            <li> <a href="#!">Как это работает</a> </li>
+                            <li> <a href="#!">Тарифы</a> </li>
+                            <li> <a href="#!">Связаться с нами</a> </li>
+                        </ul>
+                    </div>
+                    <!-- Grid column -->
 
-    <footer class="border-top footer text-muted">
-      
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+
+                    <div class="col-3 "></div>
+                    <div class="col-2 ">
+                        <h5 class="font-weight-bold text-uppercase mt-4 mb-4 footer-logo footer-list-1"><img src="~/img/svg/logo-footer.svg" alt=""></h5>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </footer>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+
 </html>
