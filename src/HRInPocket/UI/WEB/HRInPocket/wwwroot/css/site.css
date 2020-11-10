@@ -1310,6 +1310,11 @@ footer {
         color: #000000;
     }
 
+.close-registration-btn {
+    position: absolute;
+    margin-left: 1274px;
+    margin-top: 38px;
+}
 
 
 /*---------Создать задание------*/
