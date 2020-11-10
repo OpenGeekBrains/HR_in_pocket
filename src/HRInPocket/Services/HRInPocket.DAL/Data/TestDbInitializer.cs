@@ -35,6 +35,7 @@ namespace HRInPocket.DAL.Data
                 InitializeCompanyManager();
                 InitializeEmployer(); 
                 InitializeSystemManager();
+                InitializeTarifs();
 
             }
             catch (Exception e)
@@ -42,6 +43,19 @@ namespace HRInPocket.DAL.Data
                 _Logger.LogError(e, "Ошибка инициализации БД");
                 throw;
             }
+        }
+
+        private void InitializeTarifs()
+        {
+            if(_DbContext.Tarifs.Any()) return;
+
+            _DbContext.Database.BeginTransaction().DisposeAfter(
+                transaction =>
+                {
+                    _DbContext.Tarifs.AddRange(TestData.Tarifs);
+                    _DbContext.SaveChanges();
+                    transaction.Commit();
+                });
         }
 
         private void InitializeAddress()

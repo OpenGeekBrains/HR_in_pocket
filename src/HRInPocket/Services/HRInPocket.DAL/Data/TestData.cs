@@ -30,6 +30,7 @@ namespace HRInPocket.DAL.Data
         private static readonly List<CompanyManager> __CompanyManagers;
         private static readonly List<Employer> __Employers;
         private static readonly List<SystemManager> __SystemManagers;
+        private static readonly List<Tarif> __Tarifs;
         #endregion
 
         #region Properties
@@ -43,6 +44,7 @@ namespace HRInPocket.DAL.Data
         public static List<CompanyManager> CompanyManagers => __CompanyManagers;
         public static List<Employer> Employers => __Employers;
         public static List<SystemManager> SystemManagers => __SystemManagers;
+        public static List<Tarif> Tarifs => __Tarifs;
 
         #endregion
 
@@ -121,6 +123,14 @@ namespace HRInPocket.DAL.Data
                 Applicants = new List<Applicant>(Applicants.GetRange(Source * 20, Source * 5)),
                 Employers = new List<Employer>(Employers.GetRange(Source, Source % 3))
             }));
+
+            __Tarifs = new List<Tarif>
+            {
+                new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
+                new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
+                new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
+                new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
+            };
         }
 
         #region Halp Methods
