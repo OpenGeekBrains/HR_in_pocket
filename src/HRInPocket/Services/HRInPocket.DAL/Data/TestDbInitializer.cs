@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -40,7 +39,7 @@ namespace HRInPocket.DAL.Data
             }
             catch (Exception e)
             {
-                _Logger.LogError(e, "Ошибка инициализации БД");
+                _Logger.LogError(e.Message, "Ошибка инициализации БД");
                 throw;
             }
         }
