@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "HR";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <partial name="Partial/_Styles" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="media registration">
+            <div class="media-body info-registration">
+                <p class="make-account">Создать учетную запись</p>
+                <div class="registration-options">
+
+                    <ul>
+                        <li class="reg-options-p">Регистрация через</li>
+                        <li>
+                            <a href="#"><img src="img/svg/vk.svg" alt="Вконтакте"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/svg/google.svg" alt="Google"></a>
+                        </li>
+                        <li>
+                            <a href="#"><img src="img/svg/fb.svg" alt="Facebook"></a>
+                        </li>
+                    </ul>
+                    <p>или зарегистрируйтесь с помощью электронной почты</p>
+                </div>
+                <div class="registration_form">
+                    <form class="registration-form">
+                        <div class="form-row no-gutters">
+                            <input type="text" class="form-group registration-data"> <p class="input-p">Имя</p>
+                        </div>
+                        <div class="form-row no-gutters ">
+                            <input type="text" class="form-group  registration-data"><p class="input-p">Адрес электронной почты</p>
+                        </div>
+                        <div class="form-row no-gutters">
+                            <input type="text" class="form-group  registration-data "><p class="input-p">Пароль</p>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input check" id="customCheck1">
+                            <label class="custom-control-label checkbox-registration" for="customCheck1">Даю разрешение на хранение и обработку своих персональных данных.</label>
+                        </div>
+                        <button type="button" class="make-acc-btn"><a href="#">Создать учетную запись</a></button>
+                    </form>
+                </div>
+            </div>
+            <img src="img/svg/linkedin-sales-navigator-wS73LE0GnKs-unsplash.svg" class=" ml-3">
+
+        </div>
+    </div>
+    <partial name="Partial/_Scripts" />
+</body>
+
+</html>
