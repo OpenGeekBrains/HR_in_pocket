@@ -39,5 +39,10 @@ namespace HRInPocket.DAL.Models.Users
         /// Выбранный тариф
         /// </summary>
         public Tarif Tarif { get; set; }
+
+        /// <summary>
+        /// Задание
+        /// </summary>
+        public TargetTask TargetTask { get; set; }
     }
 }
