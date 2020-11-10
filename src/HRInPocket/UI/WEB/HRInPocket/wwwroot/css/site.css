@@ -728,7 +728,6 @@ a:hover {
 }
 
 .media,
-.make-task,
 .how-works,
 .tarifs,
 .price,
@@ -784,8 +783,8 @@ a:hover {
 
 .make-task {
     height: 100px;
-    margin-right: 535px;
-    margin-top: -10%;
+    margin-top: 32px;
+    margin-right: 0.5%;
 }
 
 .form_control {
