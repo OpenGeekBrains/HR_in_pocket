@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.DAL.Models.Base;
 using HRInPocket.DAL.Models.Entities;
 

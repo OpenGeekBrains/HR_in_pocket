@@ -31,6 +31,7 @@ namespace HRInPocket.DAL.Data
         private static readonly List<Employer> __Employers;
         private static readonly List<SystemManager> __SystemManagers;
         private static readonly List<Tarif> __Tarifs;
+        private static readonly List<TargetTask> __TargetTasks;
         #endregion
 
         #region Properties
@@ -45,6 +46,7 @@ namespace HRInPocket.DAL.Data
         public static List<Employer> Employers => __Employers;
         public static List<SystemManager> SystemManagers => __SystemManagers;
         public static List<Tarif> Tarifs => __Tarifs;
+        public static List<TargetTask> TargetTasks => __TargetTasks;
 
         #endregion
 
@@ -72,6 +74,20 @@ namespace HRInPocket.DAL.Data
                 new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
             };
 
+            __TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
+                Source => new TargetTask
+                {
+                    Address = Addresses[new Random().Next(0, Addresses.Count - 1)],
+                    Speciality = Specialties[new Random().Next(0, Specialties.Count - 1)],
+                    CoverLetterLink = $"Ссылка на сопроводительное письмо {Source}",
+                    ResumeLink = $"Ссылка на резюме {Source}",
+                    Salary = new Random().Next(30, 301) * 1000,
+                    CreateCoverLetter = true,
+                    CreateResume = true,
+                    Tags = string.Empty,
+                    RemoteWork = new Random().Next(0, 100) % 2 == 0
+                }));
+
             __Applicants = new List<Applicant>(
                 Enumerable.Range(0, 500).Select(
                     Source => new Applicant
@@ -83,7 +99,8 @@ namespace HRInPocket.DAL.Data
                         Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime),
                         Address = Addresses[Source],
                         Speciality = new List<Speciality>(Specialties.GetRange(Source % (Specialties.Count - 5), Source % 4)),
-                        Tarif = Tarifs[new Random().Next(0, Tarifs.Count-1)]
+                        Tarif = Tarifs[new Random().Next(0, Tarifs.Count-1)],
+                        TargetTask = (Source % 3 == 0) ? TargetTasks[Source / 3] : null  
                     }));
 
             __Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count).Select(Source => new Resume {Applicant = Applicants[Source]}));

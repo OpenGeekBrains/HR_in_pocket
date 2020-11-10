@@ -36,13 +36,27 @@ namespace HRInPocket.DAL.Data
                 InitializeEmployer(); 
                 InitializeSystemManager();
                 InitializeTarifs();
-
+                InitializeTargetTasks();
             }
             catch (Exception e)
             {
                 _Logger.LogError(e, "Ошибка инициализации БД");
                 throw;
             }
+        }
+
+        private void InitializeTargetTasks()
+        {
+            if (_DbContext.TargetTasks.Any()) return;
+             
+            _DbContext.Database.BeginTransaction().DisposeAfter(
+                transaction =>
+                {
+                    _DbContext.TargetTasks.AddRange(TestData.TargetTasks);
+                    _DbContext.SaveChanges();
+                    transaction.Commit();
+                });
+
         }
 
         private void InitializeTarifs()

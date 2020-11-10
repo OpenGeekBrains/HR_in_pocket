@@ -21,6 +21,7 @@ namespace HRInPocket.DAL.Data
         public DbSet<Employer> Employers { get; set; } 
         public DbSet<SystemManager> SystemManagers { get; set; } 
         public DbSet<Tarif> Tarifs { get; set; }
+        public DbSet<TargetTask> TargetTasks { get; set; }
         #endregion
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

@@ -1,4 +1,7 @@
-﻿using HRInPocket.DAL.Models.Base;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using HRInPocket.DAL.Models.Base;
+using HRInPocket.DAL.Models.Users;
 
 namespace HRInPocket.DAL.Models.Entities
 {
@@ -53,5 +56,11 @@ namespace HRInPocket.DAL.Models.Entities
         /// Ссылка на сопроводительное письмо
         /// </summary>
         public string CoverLetterLink { get; set; }
+
+        /// <summary>
+        /// Внешний ключ
+        /// </summary>
+        public Guid ApplicantId { get; set; }
+        public Applicant Applicant { get; set; }
     }
 }
