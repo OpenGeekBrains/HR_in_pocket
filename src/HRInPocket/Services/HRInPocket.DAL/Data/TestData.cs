@@ -64,6 +64,14 @@ namespace HRInPocket.DAL.Data
                     Source => new ActivityCategory {Name = $"Категория_{Source}", 
                         Specialties = Specialties.GetRange(Source * 4, 5)}));
 
+            __Tarifs = new List<Tarif>
+            {
+                new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
+                new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
+                new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
+                new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
+            };
+
             __Applicants = new List<Applicant>(
                 Enumerable.Range(0, 500).Select(
                     Source => new Applicant
@@ -74,7 +82,8 @@ namespace HRInPocket.DAL.Data
                         EmailAddress = $"Email_Соискателя_{Source}@.com",
                         Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime),
                         Address = Addresses[Source],
-                        Speciality = new List<Speciality>(Specialties.GetRange(Source % (Specialties.Count - 5), Source % 4))
+                        Speciality = new List<Speciality>(Specialties.GetRange(Source % (Specialties.Count - 5), Source % 4)),
+                        Tarif = Tarifs[new Random().Next(0, Tarifs.Count-1)]
                     }));
 
             __Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count).Select(Source => new Resume {Applicant = Applicants[Source]}));
@@ -123,14 +132,6 @@ namespace HRInPocket.DAL.Data
                 Applicants = new List<Applicant>(Applicants.GetRange(Source * 20, Source * 5)),
                 Employers = new List<Employer>(Employers.GetRange(Source, Source % 3))
             }));
-
-            __Tarifs = new List<Tarif>
-            {
-                new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
-                new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
-                new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
-                new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
-            };
         }
 
         #region Halp Methods

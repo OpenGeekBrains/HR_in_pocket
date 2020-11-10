@@ -34,5 +34,10 @@ namespace HRInPocket.DAL.Models.Users
         /// Закрепленный системный менеджер
         /// </summary>
         public SystemManager SystemManager { get; set; }
+
+        /// <summary>
+        /// Выбранный тариф
+        /// </summary>
+        public Tarif Tarif { get; set; }
     }
 }
