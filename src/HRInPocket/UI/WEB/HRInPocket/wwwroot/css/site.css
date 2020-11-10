@@ -1,71 +1,1485 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* Сброс стилей браузера*/
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+
+/* make sure to set some focus styles for accessibility */
+
+:focus {
+    outline: 0;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+/* HTML5 display-role reset for older browsers */
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    line-height: 1;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+ol,
+ul {
+    list-style: none;
 }
+
+blockquote,
+q {
+    quotes: none;
+}
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-results-button,
+input[type=search]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+input[type=search] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: vertical;
+}
+
+
+/**
+ * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+
+audio,
+canvas,
+video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    max-width: 100%;
+}
+
+
+    /**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+    audio:not([controls]) {
+        display: none;
+        height: 0;
+    }
+
+
+/**
+ * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
+ * Known issue: no IE 6 support.
+ */
+
+[hidden] {
+    display: none;
+}
+
+
+/**
+ * 1. Correct text resizing oddly in IE 6/7 when body `font-size` is set using
+ *    `em` units.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+
+html {
+    font-size: 100%;
+    /* 1 */
+    -webkit-text-size-adjust: 100%;
+    /* 2 */
+    -ms-text-size-adjust: 100%;
+    /* 2 */
+}
+
+
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+
+a:focus {
+    outline: thin dotted;
+}
+
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+
+/**
+ * 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3.
+ * 2. Improve image quality when scaled in IE 7.
+ */
+
+img {
+    border: 0;
+    /* 1 */
+    -ms-interpolation-mode: bicubic;
+    /* 2 */
+}
+
+
+/**
+ * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
+ */
+
+figure {
+    margin: 0;
+}
+
+
+/**
+ * Correct margin displayed oddly in IE 6/7.
+ */
+
+form {
+    margin: 0;
+}
+
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+
+/**
+ * 1. Correct color not being inherited in IE 6/7/8/9.
+ * 2. Correct text not wrapping in Firefox 3.
+ * 3. Correct alignment displayed oddly in IE 6/7.
+ */
+
+legend {
+    border: 0;
+    /* 1 */
+    padding: 0;
+    white-space: normal;
+    /* 2 */
+    *margin-left: -7px;
+    /* 3 */
+}
+
+
+/**
+ * 1. Correct font size not being inherited in all browsers.
+ * 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5,
+ *    and Chrome.
+ * 3. Improve appearance and consistency in all browsers.
+ */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    vertical-align: baseline;
+    /* 3 */
+    *vertical-align: middle;
+    /* 3 */
+}
+
+
+/**
+ * Address Firefox 3+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+button,
+input {
+    line-height: normal;
+}
+
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+
+button,
+select {
+    text-transform: none;
+}
+
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+ *    Known issue: inner spacing remains in IE 6.
+ */
+
+button,
+html input[type="button"],
+/* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    /* 2 */
+    cursor: pointer;
+    /* 3 */
+    *overflow: visible;
+    /* 4 */
+}
+
+
+    /**
+ * Re-set default cursor for disabled elements.
+ */
+
+    button[disabled],
+    html input[disabled] {
+        cursor: default;
+    }
+
+
+/**
+ * 1. Address box sizing set to content-box in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ * 3. Remove excess padding in IE 7.
+ *    Known issue: excess padding remains in IE 6.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    /* 1 */
+    padding: 0;
+    /* 2 */
+    *height: 13px;
+    /* 3 */
+    *width: 13px;
+    /* 3 */
+}
+
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    /* 2 */
+    box-sizing: content-box;
+}
+
+
+    /**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+    }
+
+
+/**
+ * Remove inner padding and border in Firefox 3+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+
+/**
+ * 1. Remove default vertical scrollbar in IE 6/7/8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+textarea {
+    overflow: auto;
+    /* 1 */
+    vertical-align: top;
+    /* 2 */
+}
+
+
+/**
+ * Remove most spacing between table cells.
+ */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/*______________________________________*/
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.2;
+    color: #000000;
+}
+
+.wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: #000 !important;
+}
+
+/*header*/
+
+.header {
+    margin-top: 41px;
+    z-index: 7;
+}
+
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-left: 48px;
+    margin-bottom: 10px;
+}
+
+.btn-enter {
+    margin-left: 21px;
+}
+
+.btn-request {
+    width: 221px;
+    height: 50px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.header_list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 19px;
+}
+
+.sc {
+    display: flex;
+    margin-bottom: 1px;
+}
+
+.header_logo {
+    margin-bottom: -10px;
+    margin-left: -7px;
+}
+
+.header_nav {
+    margin-left: 10.4em;
+}
+
+.header_item {
+    margin-right: 28px;
+}
+
+    .header_item a {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 29px;
+    }
+
+
+
+.active-item a {
+    color: #353031;
+}
+
+.nonactive-item a {
+    color: #A0A0A0;
+}
+
+.header_item:last-child {
+    margin-right: 295px;
+}
+
+.header-notify-count {
+    position: absolute;
+    margin-left: -8.5px;
+}
+
+.count-notify {
+    position: absolute;
+    margin-top: 1.2px;
+    margin-left: -5.5px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    color: #000000;
+}
+
+.dropdown-menu {
+    background-color: #FFFFFF !important;
+    border: 0px !important;
+    border-top-left-radius: 40px !important;
+    border-bottom-left-radius: 40px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    margin-top: 2px !important;
+    width: 487px !important;
+    height: 681px !important;
+}
+
+.dropdown-item {
+    position: relative !important;
+    margin-top: 40px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: right !important;
+    padding-right: 76px !important;
+}
+
+    .dropdown-item:hover {
+        background: #FCE55A !important;
+        border-radius: 10px !important;
+        width: 335px !important;
+        height: 50px !important;
+    }
+
+    .dropdown-item a {
+        color: #000000;
+    }
+
+        .dropdown-item a:hover {
+            border: 0px;
+        }
+
+.dropdown-item-1 {
+    margin-top: 195px;
+}
+
+.dropdown-item-hr {
+    text-align: left !important;
+    position: absolute !important;
+    margin-top: 33px;
+}
+
+.dropdown-item-close {
+    position: absolute !important;
+    text-align: right !important;
+    margin-top: 33px;
+    padding-right: 47px !important;
+}
+
+    .dropdown-item-close:hover,
+    .dropdown-item-hr:hover {
+        background: none !important;
+    }
+
+.btn {
+    background: none !important;
+}
+
+.header-dropdown-menu {
+    margin-left: 34px;
+}
+
+.header-my-cabinet {
+    margin-left: 39px;
+}
+
+.header-notify {
+    margin-left: 34px;
+}
+
+
+/*плашка*/
+
+.plashka {
+    position: absolute;
+    top: 0px;
+    margin-left: 807px;
+    z-index: -5;
+}
+
+.menu-rectandle {
+    display: flex;
+}
+
+.plashka-top {
+    position: absolute;
+    top: 118px;
+    margin-left: 1225px;
+    z-index: 1;
+}
+
+
+/*content*/
+
+.top-image {
+    position: absolute;
+    margin-left: 866px;
+    margin-top: 23.13px;
+}
+
+.content {
+    margin-top: 84.87px;
+}
+
+.media,
+.make-task,
+.how-works,
+.tarifs,
+.price,
+.callback {
+    margin-left: 48px;
+    margin-right: 50px;
+}
+
+.media-body {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.media-text {
+    margin-right: 18%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.color-text {
+    color: #FCE55A;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.main-photo {
+    margin-right: 103px;
+    margin-top: 20px;
+}
+
+.executor {
+    margin-top: 84px;
+}
+
+.title {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 116.9%;
+    /* or 75px */
+    color: #000000;
+    padding-bottom: 30px;
+}
+
+.make-task {
+    height: 100px;
+    margin-right: 535px;
+    margin-top: -10%;
+}
+
+.form_control {
+    height: 60px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+  
+    /* identical to box height, or 200% */
+    display: flex;
+    text-align: center;
+    letter-spacing: 0.2px;
+    color: #A0A0A0;
+    width: 330px;
+}
+
+.form_control-1 {
+    border-radius: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #A0A0A0;
+    border-right: 0.1px;
+}
+
+.form_control-2 {
+    border-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #A0A0A0;
+    border-left: 0.1px solid #A0A0A0;
+}
+
+.send {
+    background: #FCE55A;
+    border-radius: 10px;
+    border: 0px;
+    height: 60px;
+    width: 228px;
+    margin-top: 32px;
+    color: #353031;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+    .send a {
+        color: #353031;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+
+/*----Как это работает и тарифы---*/
+
+.maintitle-how-works,
+.maintitle-tarifs {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.maintitle-how-works {
+    text-align: center;
+    margin-top: 230px;
+}
+
+.rectangles-how-works,
+.tarifs-block {
+    text-align: center;
+    max-width: 1310px;
+}
+
+#how-works,
+#tarifs {
+    margin-left: 50px;
+    margin-top: 84.5px;
+}
+
+.even {
+    margin-top: 6.5%;
+}
+
+.odd {
+    width: 250px;
+}
+
+.title-how-works {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.describtion-how-works {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #353031;
+}
+
+
+/*-----Тарифы----*/
+
+.maintitle-tarifs {
+    margin-top: 95px;
+    text-align: center;
+}
+
+.tarifs-block-each {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-right: 36px;
+    position: relative;
+}
+
+.tarifs-block-each4 {
+    margin-right: 0px;
+}
+
+.tarifs-w {
+    width: 308px;
+}
+
+.title-tarifs,
+.price-tarifs,
+.numb-visits,
+.desc-tarifs,
+.buy {
+    font-family: Montserrat;
+    font-style: normal;
+}
+
+.title-tarifs {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    /* Yellow */
+    color: #FCE55A;
+    margin-top: 55px;
+}
+
+.price-tarifs {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    color: #353031;
+    margin-top: 92px;
+}
+
+.numb-visits,
+.numb-visits- {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    font-family: Montserrat;
+    font-style: normal;
+}
+
+.numb-visits {
+    margin-top: 38px;
+}
+
+.numn-visits- {
+    margin-top: 21px;
+}
+
+.desc-tarifs {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #353031;
+    margin-top: 37px;
+}
+
+.buy {
+    width: 100%;
+    height: 70px;
+    border: 0px;
+    background: #FCE55A;
+    border-radius: 10px;
+}
+
+    .buy a {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        color: #353031;
+    }
+
+
+/*---прайс---*/
+
+.price {
+    margin-left: 95px;
+    margin-top: 109px;
+}
+
+.price-table tr {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.price-table {
+    margin-top: 32px;
+    align-content: center;
+    text-align: center;
+    height: 80px;
+}
+
+#last-td-price {
+    width: 280px;
+    background: #FCE55A;
+    border-radius: 10px;
+}
+
+#price-tb {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 37px;
+    color: #353031;
+    width: 371px;
+    padding-top: 26px;
+    padding-bottom: 25px;
+}
+
+#first-ch-tb {
+    text-align: left;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    padding-left: 45px;
+    padding-top: 26px;
+    padding-bottom: 25px;
+}
+
+
+
+/*-----Связаться с нами---*/
+
+.maintitle-callback {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+    margin-top: 139px;
+    text-align: center;
+}
+
+.make-callback input {
+    margin: 0 auto;
+}
+
+.form_control-cb2,
+.form_control-cb4 {
+    margin-top: 32px;
+}
+
+.form_control-cb1 {
+    margin-top: 55px;
+}
+
+    .form_control-cb2 input,
+    .form_control-cb1 input,
+    .form_control-cb4 input {
+        border: 1px solid #C8D7DB;
+        box-sizing: border-box;
+        width: 800px;
+        height: 70px;
+        border-radius: 21px;
+        padding-left: 43px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #BFC6C8;
+    }
+
+.form_control-cb4 input {
+    height: 150px;
+}
+
+.send-callback {
+    width: 300px;
+    height: 70px;
+    margin-left: 20%;
+    margin-top: 32px;
+    background: #FCE55A;
+    border-radius: 12px;
+    border: 0px;
+}
+
+    .send-callback a {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+
+
+/*---Устройся на работу мечты--*/
+
+.getdreamjob {
+    width: 100%;
+    height: 300px;
+    margin-top: 105px;
+    background: rgba(252, 229, 90, 0.8);
+}
+
+.maintitle-getdreamjob {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.getdream {
+    width: 100%;
+    text-align: center;
+    margin-top: 72px;
+}
+
+.btn-getdream {
+    background: #353031;
+    border-radius: 10px;
+    width: 240px;
+    height: 60px;
+    margin-top: 45px;
+}
+
+    .btn-getdream a {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #FFFFFF;
+    }
+
+
+/*---footer---*/
+
+footer {
+    background: #353031;
+    max-width: 1440px;
+    margin-top: 104px;
+}
+
+.footer-logo {
+    text-align: right;
+}
+
+.footer-list a {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+.footer-list {
+    margin-top: 16px;
+}
+
+.footer-list-1 {
+    margin-top: 32px;
+}
+
+.footer-list a:hover {
+    color: #ffffff;
+}
+
+.index-footer {
+    margin-left: 162px;
+    margin-right: 117px;
+}
+
+
+/*----Регистрация----*/
+
+.registration {
+    max-width: 1344px;
+    margin: 0 auto;
+    font-family: Montserrat;
+    font-style: normal;
+}
+
+.info-registration {
+    margin-top: 50px;
+    margin-left: 128px;
+    margin-right: 137px;
+}
+
+.img-registration {
+}
+
+.registration-options {
+    text-align: center;
+}
+
+.registration-options {
+    margin-top: 59px;
+}
+
+    .registration-options p {
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+        margin-bottom: 33px;
+        margin-top: 36px;
+    }
+
+    .registration-options li {
+        display: inline;
+    }
+
+.reg-options-p {
+    margin-right: 50px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.make-account {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    color: #000000;
+    text-align: center;
+}
+
+.registration-form input {
+    width: 600px;
+    height: 60px;
+    background: #F7F8F9;
+    border: 1px solid #C8DADF;
+    box-sizing: border-box;
+    border-radius: 21px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #BFC6C8;
+    padding-left: 32px;
+}
+
+.input-p {
+    position: absolute;
+    margin: 18px 0px 0px 33px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #BFC6C8;
+}
+
+    .input-p:after {
+        margin: 5px 0px 0px 33px;
+    }
+
+.checkbox-registration {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    margin-left: 17px;
+}
+
+.custom-checkbox {
+    margin-top: 49px;
+}
+
+.make-acc-btn {
+    width: 300px;
+    height: 60px;
+    margin-top: 68px;
+    border: 0px;
+    background: #FCE55A;
+    border-radius: 12px;
+}
+
+    .make-acc-btn a {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+
+
+/*---------Создать задание------*/
+
+.header-maketask {
+    margin-left: 49px;
+    margin-top: 28px;
+    margin-bottom: 33px;
+}
+
+    .header-maketask li {
+        display: inline;
+    }
+
+        .header-maketask li:nth-child(2) {
+            margin-left: 94px;
+        }
+
+    .header-maketask a {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 29px;
+        color: #000000;
+    }
+
+
+
+.body-maketask {
+    padding-left: 48px;
+    background: #F7F8F9;
+    font-family: Montserrat;
+    font-style: normal;
+    color: #000000;
+}
+
+    .body-maketask p {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 44px;
+        /* identical to box height */
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+.name-position label {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 20px;
+}
+
+.remote-checkbox {
+    margin-left: 76px;
+    padding-top: 20px;
+    padding-bottom: 2px;
+}
+
+    .remote-checkbox label {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        margin-left: 22px;
+    }
+
+.select-form-maketask {
+    background: #FFFFFF;
+    border: 1px solid #BFC6C8;
+    box-sizing: border-box;
+    border-radius: 21px;
+    width: 380px !important;
+    height: 60px !important;
+    margin-left: 15px;
+}
+
+.select-form-maketask-1 {
+    background: #FFFFFF;
+    border: 1px solid #BFC6C8;
+    box-sizing: border-box;
+    border-radius: 21px;
+    width: 380px !important;
+    height: 60px !important;
+}
+
+.maketask-label {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #BFC6C8;
+    padding-left: 24px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0;
+    position: absolute;
+}
+
+.form-group input {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #BFC6C8;
+    padding-left: 15px;
+    background: #FFFFFF;
+    border: 1px solid #BFC6C8;
+    box-sizing: border-box;
+    border-radius: 21px;
+    width: 600px;
+    height: 60px;
+}
+
+.form-group-salary input {
+    background: #FFFFFF;
+    border: 1px solid #BFC6C8;
+    box-sizing: border-box;
+    border-radius: 21px;
+    width: 200px;
+    height: 60px;
+    text-align: center;
+}
+
+.maketask-table {
+    margin-top: 38px;
+    width: 800px !important;
+}
+
+    .maketask-table th, .maketask-table td {
+        border: 0px !important;
+    }
+
+    .maketask-table button {
+        background: #FCE55A;
+        border-radius: 12px;
+        border: 0px;
+        width: 160px;
+        height: 50px;
+    }
+
+    .maketask-table a {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        /* identical to box height */
+        color: #000000;
+    }
+
+    .maketask-table th {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+.make-task-check {
+    width: 600px;
+}
+
+.continue {
+    background: #FCE55A;
+    border-radius: 12px;
+    width: 300px;
+    height: 70px;
+    border: 0px;
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+    .continue a {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000;
+    }
