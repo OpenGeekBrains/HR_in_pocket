@@ -24,13 +24,10 @@ namespace HRInPocket.DAL.Data
             var table = context.Set<TEntity>();
             if (table.Any()) return context;
 
-            context.Database.BeginTransaction().DisposeAfter(
-                transaction =>
-                {
-                    table.AddRange(entities);
-                    context.SaveChanges();
-                    transaction.Commit();
-                });
+            using var transaction = context.Database.BeginTransaction();
+            table.AddRange(entities);
+            context.SaveChanges();
+            transaction.Commit();
 
             return context;
         }
