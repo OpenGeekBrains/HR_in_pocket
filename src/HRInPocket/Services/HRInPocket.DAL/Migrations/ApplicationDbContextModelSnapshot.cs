@@ -182,6 +182,31 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Specialties");
                 });
 
+            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Tarif", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Visits")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tarifs");
+                });
+
             modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
                 {
                     b.Property<long>("Id")
