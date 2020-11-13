@@ -19,7 +19,7 @@ namespace HRInPocket.DAL.Data
         {
             _ = data ?? throw new ArgumentNullException(nameof(data));
             var entities = data as TEntity[] ?? data.ToArray();
-            if(!entities.Any()) throw new ArgumentException("There no data to import", nameof(data));
+            if(entities.Length == 0) throw new ArgumentException("There no data to import", nameof(data));
 
             var table = context.Set<TEntity>();
             if (table.Any()) return context;
