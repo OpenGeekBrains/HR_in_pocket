@@ -30,6 +30,7 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Желаемый оклад
         /// </summary>
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Salary { get; set; }
 
         /// <summary>
