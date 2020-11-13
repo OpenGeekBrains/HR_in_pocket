@@ -115,18 +115,6 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetter", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CoverLetters");
-                });
-
             modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
                 {
                     b.Property<long>("Id")
@@ -192,55 +180,6 @@ namespace HRInPocket.DAL.Migrations
                     b.HasIndex("ApplicantId");
 
                     b.ToTable("Specialties");
-                });
-
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.TargetTask", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<long?>("AddressId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ApplicantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CoverLetterLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CreateCoverLetter")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CreateResume")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("RemoteWork")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ResumeLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<long?>("SpecialityId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ApplicantId")
-                        .IsUnique();
-
-                    b.HasIndex("SpecialityId");
-
-                    b.ToTable("TargetTasks");
                 });
 
             modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Tarif", b =>
@@ -497,29 +436,6 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("ActivityCategory");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.TargetTask", b =>
-                {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
-                    b.HasOne("HRInPocket.DAL.Models.Users.Applicant", "Applicant")
-                        .WithOne("TargetTask")
-                        .HasForeignKey("HRInPocket.DAL.Models.Entities.TargetTask", "ApplicantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Speciality", "Speciality")
-                        .WithMany()
-                        .HasForeignKey("SpecialityId");
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Applicant");
-
-                    b.Navigation("Speciality");
-                });
-
             modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
                 {
                     b.HasOne("HRInPocket.DAL.Models.Entities.Company", "Company")
@@ -594,8 +510,6 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("Resumes");
 
                     b.Navigation("Speciality");
-
-                    b.Navigation("TargetTask");
                 });
 
             modelBuilder.Entity("HRInPocket.DAL.Models.Users.Employer", b =>
