@@ -185,7 +185,7 @@ namespace HRInPocket.DAL.Data
             #endregion
         }
 
-        #region Halp Methods
+        #region Methods
 
         /// <summary>
         /// Возвращает случайную дату в указанном диапазоне
