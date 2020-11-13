@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HRInPocket.DAL.Models.Entities;
+﻿using HRInPocket.DAL.Models.Entities;
 using HRInPocket.DAL.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +18,8 @@ namespace HRInPocket.DAL.Data
         public DbSet<Employer> Employers { get; set; } 
         public DbSet<SystemManager> SystemManagers { get; set; } 
         public DbSet<Tarif> Tarifs { get; set; }
+        public DbSet<TargetTask> TargetTasks { get; set; }
+        public DbSet<CoverLetter> CoverLetters { get; set; }
         #endregion
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
