@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRInPocket.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201110220620_Add_TargetTask")]
-    partial class Add_TargetTask
+    [Migration("20201113121633_Add_TargetTasks_and_CoverLetter")]
+    partial class Add_TargetTasks_and_CoverLetter
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -115,6 +115,18 @@ namespace HRInPocket.DAL.Migrations
                     b.HasIndex("LegalAddressId");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetter", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CoverLetters");
                 });
 
             modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
