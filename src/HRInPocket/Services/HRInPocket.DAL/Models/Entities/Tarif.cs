@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.DAL.Models.Base;
@@ -29,6 +30,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Коллекция соискателей с указанным тариформ
         /// </summary>
-        public Collection<Applicant> Applicants { get; set; }
+        public ICollection<Applicant> Applicants { get; set; } = new HashSet<Applicant>();
     }
 }

@@ -69,7 +69,8 @@ namespace HRInPocket.DAL.Data
             #endregion
 
             #region Specialties
-            Specialties = new List<Speciality>(Enumerable.Range(0, 100).Select(source => new Speciality { Name = $"Специальность_{source}" }));
+            Specialties = new List<Speciality>(Enumerable.Range(0, 100)
+               .Select(source => new Speciality { Name = $"Специальность_{source}" }));
             #endregion
 
             #region ActivityCategories
@@ -119,18 +120,20 @@ namespace HRInPocket.DAL.Data
                             EmailAddress = $"Email_Соискателя_{source}@.com",
                             Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime, __Random),
                             Address = Addresses[source],
-                            Speciality = Specialties.GetRange(source % (Specialties.Count - 5), source % 4),
+                            Speciality = Specialties.GetRange(source % (Specialties.Count-5), source % 4),
                             Tarif = Tarifs[__Random.Next(0, Tarifs.Count - 1)],
-                            TargetTask = (source % 3 == 0) ? TargetTasks[source / 3] : null
+                            TargetTask = (source % 10 == 0) ? TargetTasks[source / 10] : null
                         }));
             #endregion
 
             #region Resumes
-            Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count).Select(source => new Resume { Applicant = Applicants[source] }));
+            Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count)
+               .Select(source => new Resume { Applicant = Applicants[source] }));
             #endregion
 
             #region Vacancies
-            Vacancies = new List<Vacancy>(Enumerable.Range(0, 500).Select(source => new Vacancy { Specialty = Specialties[source % Specialties.Count] }));
+            Vacancies = new List<Vacancy>(Enumerable.Range(0, 500)
+               .Select(source => new Vacancy { Specialty = Specialties[source % Specialties.Count] }));
             #endregion
 
             #region Companies
