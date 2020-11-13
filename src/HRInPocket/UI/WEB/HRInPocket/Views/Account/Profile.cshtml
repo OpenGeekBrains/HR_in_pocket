@@ -1,0 +1,16 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="container">
+    <p>Firstname:               @Model.FirstName</p>
+    <p>Surname:                 @Model.Surname</p>
+    <p>Patronymic:              @Model.Patronymic</p>
+    <p>Age:                     @Model.Age</p>
+    <br />
+    <p>Sex:                     @Model.Sex</p>
+    <p>Birthday:                @Model.Birthday.ToShortDateString()</p>
+    <a asp-controller="Home" asp-action="Index">Back</a>
+</div>
