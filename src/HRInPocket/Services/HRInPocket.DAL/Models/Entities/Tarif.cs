@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.DAL.Models.Base;
 using HRInPocket.DAL.Models.Users;
 
@@ -17,6 +18,7 @@ namespace HRInPocket.DAL.Models.Entities
         /// Стоимость тарифа
         /// </summary>
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public  decimal Price { get; set; }
 
         /// <summary>
