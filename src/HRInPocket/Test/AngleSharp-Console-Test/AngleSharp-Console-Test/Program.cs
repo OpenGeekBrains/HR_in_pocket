@@ -51,7 +51,7 @@ namespace AngleSharp_Console_Test
                 Console.WriteLine(item.OuterHtml);
                 break;
             }
-
+            Console.ReadKey();
         }
     }
 }
