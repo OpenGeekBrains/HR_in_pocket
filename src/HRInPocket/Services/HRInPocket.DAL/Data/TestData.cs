@@ -20,135 +20,169 @@ namespace HRInPocket.DAL.Data
         /// </summary>
         private static readonly DateTime __MaxDateTime = Convert.ToDateTime(Now.AddYears(-18));
 
-        private static readonly List<Address> __Addresses;
-        private static readonly List<Speciality> __Specialties;
-        private static readonly List<ActivityCategory> __ActivityCategories;
-        private static readonly List<Applicant> __Applicants;
-        private static readonly List<Resume> __Resumes;
-        private static readonly List<Company> __Companies;
-        private static readonly List<Vacancy> __Vacancies;
-        private static readonly List<CompanyManager> __CompanyManagers;
-        private static readonly List<Employer> __Employers;
-        private static readonly List<SystemManager> __SystemManagers;
-        private static readonly List<Tarif> __Tarifs;
-        private static readonly List<TargetTask> __TargetTasks;
+        /// <summary>
+        /// Просто статический рандом для генерации
+        /// </summary>
+        private static readonly Random __Random = new Random();
         #endregion
 
+
         #region Properties
-        public static List<Address> Addresses => __Addresses;
-        public static List<Speciality> Specialties => __Specialties;
-        public static List<ActivityCategory> ActivityCategories => __ActivityCategories;
-        public static List<Applicant> Applicants => __Applicants;
-        public static List<Resume> Resumes => __Resumes;
-        public static List<Company> Companies => __Companies;
-        public static List<Vacancy> Vacancies => __Vacancies;
-        public static List<CompanyManager> CompanyManagers => __CompanyManagers;
-        public static List<Employer> Employers => __Employers;
-        public static List<SystemManager> SystemManagers => __SystemManagers;
-        public static List<Tarif> Tarifs => __Tarifs;
-        public static List<TargetTask> TargetTasks => __TargetTasks;
+        public static List<Address> Addresses { get; }
+
+        public static List<Speciality> Specialties { get; }
+
+        public static List<ActivityCategory> ActivityCategories { get; }
+
+        public static List<Applicant> Applicants { get; }
+
+        public static List<Resume> Resumes { get; }
+
+        public static List<Company> Companies { get; }
+
+        public static List<Vacancy> Vacancies { get; }
+
+        public static List<CompanyManager> CompanyManagers { get; }
+
+        public static List<Employer> Employers { get; }
+
+        public static List<SystemManager> SystemManagers { get; }
+
+        public static List<Tarif> Tarifs { get; }
+
+        public static List<TargetTask> TargetTasks { get; }
 
         #endregion
 
         static TestData()
         {
-            __Addresses = new List<Address>(
-                Enumerable.Range(0, 700).Select(
-                    Source => new Address
-                    {
-                        Country = $"Страна_{Source}", City = $"Город_{Source}", Street = $"Улица_{Source}", Building = $"Строение_{Source}"
-                    }));
+            #region Addresses
+            Addresses = new List<Address>(
+                    Enumerable.Range(0, 700).Select(
+                        source => new Address
+                        {
+                            Country = $"Страна_{source}",
+                            City = $"Город_{source}",
+                            Street = $"Улица_{source}",
+                            Building = $"Строение_{source}"
+                        }));
+            #endregion
 
-            __Specialties = new List<Speciality>(Enumerable.Range(0, 100).Select(Source => new Speciality {Name = $"Специальность_{Source}"}));
+            #region Specialties
+            Specialties = new List<Speciality>(Enumerable.Range(0, 100).Select(source => new Speciality { Name = $"Специальность_{source}" }));
+            #endregion
 
-            __ActivityCategories = new List<ActivityCategory>(
-                Enumerable.Range(0, 20).Select(
-                    Source => new ActivityCategory {Name = $"Категория_{Source}", 
-                        Specialties = Specialties.GetRange(Source * 4, 5)}));
+            #region ActivityCategories
+            ActivityCategories = new List<ActivityCategory>(
+                    Enumerable.Range(0, 20).Select(
+                        source => new ActivityCategory
+                        {
+                            Name = $"Категория_{source}",
+                            Specialties = Specialties.GetRange(source * 4, 5)
+                        }));
+            #endregion
 
-            __Tarifs = new List<Tarif>
+            #region Tarifs
+            Tarifs = new List<Tarif>
             {
                 new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
                 new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
                 new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
                 new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
             };
+            #endregion
 
-            __TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
-                Source => new TargetTask
-                {
-                    Address = Addresses[new Random().Next(0, Addresses.Count - 1)],
-                    Speciality = Specialties[new Random().Next(0, Specialties.Count - 1)],
-                    CoverLetterLink = $"Ссылка на сопроводительное письмо {Source}",
-                    ResumeLink = $"Ссылка на резюме {Source}",
-                    Salary = new Random().Next(30, 301) * 1000,
-                    CreateCoverLetter = true,
-                    CreateResume = true,
-                    Tags = string.Empty,
-                    RemoteWork = new Random().Next(0, 100) % 2 == 0
-                }));
-
-            __Applicants = new List<Applicant>(
-                Enumerable.Range(0, 500).Select(
-                    Source => new Applicant
+            #region TargetTasks
+            TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
+                    source => new TargetTask
                     {
-                        Name = $"Имя_{Source}",
-                        LastName = $"Фамилия_{Source}",
-                        Patronymic = $"Отчество_{Source}",
-                        EmailAddress = $"Email_Соискателя_{Source}@.com",
-                        Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime),
-                        Address = Addresses[Source],
-                        Speciality = new List<Speciality>(Specialties.GetRange(Source % (Specialties.Count - 5), Source % 4)),
-                        Tarif = Tarifs[new Random().Next(0, Tarifs.Count-1)],
-                        TargetTask = (Source % 3 == 0) ? TargetTasks[Source / 3] : null  
+                        Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
+                        Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
+                        CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
+                        ResumeLink = $"Ссылка на резюме {source}",
+                        Salary = __Random.Next(30, 301) * 1000,
+                        CreateCoverLetter = true,
+                        CreateResume = true,
+                        Tags = string.Empty,
+                        RemoteWork = __Random.Next(0, 100) % 2 == 0
                     }));
+            #endregion
 
-            __Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count).Select(Source => new Resume {Applicant = Applicants[Source]}));
+            #region Applicants
+            Applicants = new List<Applicant>(
+                    Enumerable.Range(0, 500).Select(
+                        source => new Applicant
+                        {
+                            Name = $"Имя_{source}",
+                            LastName = $"Фамилия_{source}",
+                            Patronymic = $"Отчество_{source}",
+                            EmailAddress = $"Email_Соискателя_{source}@.com",
+                            Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime, __Random),
+                            Address = Addresses[source],
+                            Speciality = Specialties.GetRange(source % (Specialties.Count - 5), source % 4),
+                            Tarif = Tarifs[__Random.Next(0, Tarifs.Count - 1)],
+                            TargetTask = (source % 3 == 0) ? TargetTasks[source / 3] : null
+                        }));
+            #endregion
 
-            __Vacancies = new List<Vacancy>(Enumerable.Range(0, 500).Select(Source => new Vacancy {Specialty = Specialties[Source % Specialties.Count]}));
+            #region Resumes
+            Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count).Select(source => new Resume { Applicant = Applicants[source] }));
+            #endregion
 
-            __Companies = new List<Company>(
-                Enumerable.Range(0, 100).Select(
-                    Source => new Company
-                    {
-                        Name = $"Название организации_{Source}",
-                        FactAddress = Addresses[500 + Source * 2],
-                        LegalAddress = Addresses[500 + Source * 2 + 1],
-                        Inn = $"ИНН_{Source}",
-                        Vacancies = new List<Vacancy>(Vacancies.GetRange(Source, 5))
-                    }));
+            #region Vacancies
+            Vacancies = new List<Vacancy>(Enumerable.Range(0, 500).Select(source => new Vacancy { Specialty = Specialties[source % Specialties.Count] }));
+            #endregion
 
-            
+            #region Companies
+            Companies = new List<Company>(
+                    Enumerable.Range(0, 100).Select(
+                        source => new Company
+                        {
+                            Name = $"Название организации_{source}",
+                            FactAddress = Addresses[500 + source * 2],
+                            LegalAddress = Addresses[500 + source * 2 + 1],
+                            Inn = $"ИНН_{source}",
+                            Vacancies = Vacancies.GetRange(source, 5)
+                        }));
+            #endregion
 
-            __CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(Source => new CompanyManager
+
+
+            #region CompanyManagers
+            CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
             {
-                Name = $"Имя_Менеджера_Работодателя_{Source}",
-                LastName = $"Фамилия_Менеджера_Работодателя_{Source}",
-                Patronymic = $"Отчество_Менеджера_Работодателя_{Source}",
-                EmailAddress = $"Email_Менеджера_Работодателя_{Source}@.com",
+                Name = $"Имя_Менеджера_Работодателя_{source}",
+                LastName = $"Фамилия_Менеджера_Работодателя_{source}",
+                Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
+                EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
             }));
+            #endregion
 
-            __Employers = new List<Employer>(
-                Enumerable.Range(0, 50).Select(
-                    Source => new Employer
-                    {
-                        Name = $"Имя_{Source}",
-                        LastName = $"Фамилия_{Source}",
-                        Patronymic = $"Отчество_{Source}",
-                        EmailAddress = $"Email_Работодателья{Source}@.com",
-                        Companies = new List<Company>(Companies.GetRange(Source, 2)),
-                        CompanyManagers = new List<CompanyManager>(CompanyManagers.GetRange(Source, 5))
-                    }));
+            #region Employers
+            Employers = new List<Employer>(
+                    Enumerable.Range(0, 50).Select(
+                        source => new Employer
+                        {
+                            Name = $"Имя_{source}",
+                            LastName = $"Фамилия_{source}",
+                            Patronymic = $"Отчество_{source}",
+                            EmailAddress = $"Email_Работодателья{source}@.com",
+                            Companies = Companies.GetRange(source, 2),
+                            CompanyManagers = CompanyManagers.GetRange(source, 5)
+                        }));
+            #endregion
 
-            __SystemManagers = new List<SystemManager>(Enumerable.Range(0, 20).Select(Source => new SystemManager
+            #region SystemManagers
+            SystemManagers = new List<SystemManager>(Enumerable.Range(0, 20).Select(source => new SystemManager
             {
-                Name = $"Имя_Менеджера_Системы_{Source}",
-                LastName = $"Фамилия_Менеджера_Системы_{Source}",
-                Patronymic = $"Отчество_Менеджера_Системы_{Source}",
-                EmailAddress = $"Email_Менеджера_Системы_{Source}@.com",
-                Applicants = new List<Applicant>(Applicants.GetRange(Source * 20, Source * 5)),
-                Employers = new List<Employer>(Employers.GetRange(Source, Source % 3))
-            }));
+                Name = $"Имя_Менеджера_Системы_{source}",
+                LastName = $"Фамилия_Менеджера_Системы_{source}",
+                Patronymic = $"Отчество_Менеджера_Системы_{source}",
+                EmailAddress = $"Email_Менеджера_Системы_{source}@.com",
+                Applicants = Applicants.GetRange(source * 20, source * 5),
+                Employers = Employers.GetRange(source, source % 3)
+            })); 
+            #endregion
         }
 
         #region Halp Methods
@@ -160,13 +194,12 @@ namespace HRInPocket.DAL.Data
         /// <param name="to">Конечная дата диапазона</param>
         /// <param name="random"></param>
         /// <returns></returns>
-        private static DateTime GenRandomDateTime(DateTime from, DateTime to, Random random = null)
+        private static DateTime GenRandomDateTime(DateTime from, DateTime to, Random random)
         {
             if (from >= to)
             {
-                throw new Exception("Параметр \"from\" должен быть меньше параметра \"to\"!");
+                throw new ArgumentOutOfRangeException(nameof(from),"Параметр \"from\" должен быть меньше параметра \"to\"!");
             }
-            random ??= new Random();
             var range = to - from;
             var randts = new TimeSpan((long)(random.NextDouble() * range.Ticks));
             var result = from + randts;
