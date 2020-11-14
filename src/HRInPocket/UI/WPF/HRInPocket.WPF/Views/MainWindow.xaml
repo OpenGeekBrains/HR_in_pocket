@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel
             Grid.Row="0"
@@ -40,8 +40,13 @@
                 SelectedIndex="0" />
             <TextBox Margin="5" Text="{Binding KeyWords}" />
         </DockPanel>
-        <Grid Grid.Row="1">
-            <DataGrid />
-        </Grid>
+        <DockPanel Grid.Row="1" Margin="2">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock Text="{Binding Status}" />
+                </StatusBarItem>
+            </StatusBar>
+            <DataGrid ItemsSource="{Binding DataCollection}"/>
+        </DockPanel>
     </Grid>
 </Window>

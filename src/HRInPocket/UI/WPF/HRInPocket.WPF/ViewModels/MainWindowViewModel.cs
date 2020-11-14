@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 using HRInPocket.WPF.Infrastructure.Commands;
@@ -84,6 +85,34 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
+        #region DataCollection : ObservableCollection<Vacancy> - Список данных
+
+        /// <summary>Список данных</summary>
+        private ObservableCollection<Vacancy> _DataCollection;
+
+        /// <summary>Список данных</summary>
+        public ObservableCollection<Vacancy> DataCollection
+        {
+            get => _DataCollection;
+            set => Set(ref _DataCollection, value);
+        }
+
+        #endregion
+
+        #region Status : string - Состояние приложения
+
+        /// <summary>Состояние приложения</summary>
+        private string _Status = "Готово";
+
+        /// <summary>Состояние приложения</summary>
+        public string Status
+        {
+            get => _Status;
+            set => Set(ref _Status, value);
+        }
+
+        #endregion
+
         #endregion
 
         #region Команды
@@ -101,13 +130,13 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
-        #region Сохранения данных в json
-        /// <summary>Сохранения данных в json</summary>
+        #region Сохранение данных в json
+        /// <summary>Сохранение данных в json</summary>
         public ICommand SaveDataToJSONCommand { get; }
-        /// <summary>Сохранения данных в json</summary>
+        /// <summary>Сохранение данных в json</summary>
         private void OnSaveDataToJSONCommandExecuted(object parameter)
         {
-            _SaveDataToJSON.SaveDataToFile(null, SelectedSite);
+            _SaveDataToJSON.SaveDataToFile(DataCollection, SelectedSite);
         }
 
         private bool CanSaveDataToJSONCommandExecute(object parameter) => true;
