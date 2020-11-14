@@ -84,15 +84,21 @@ namespace HRInPocket.DAL.Data
             //            }));
             //#endregion
 
-            //#region Tarifs
-            //Tarifs = new List<Tarif>
-            //{
-            //    new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
-            //    new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
-            //    new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
-            //    new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
-            //};
-            //#endregion
+            #region TargetTasks
+            TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
+                    source => new TargetTask
+                    {
+                        Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
+                        Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
+                        CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
+                        ResumeLink = $"Ссылка на резюме {source}",
+                        Salary = __Random.Next(30, 301) * 1000,
+                        CreateCoverLetter = true,
+                        CreateResume = true,
+                        Tags = string.Empty,
+                        RemoteWork = __Random.Next(0, 100) % 2 == 0
+                    }));
+            #endregion
 
             //#region TargetTasks
             //TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
@@ -128,33 +134,17 @@ namespace HRInPocket.DAL.Data
             //   .Select(source => new Resume { Applicant = Applicants[source] }));
             //#endregion
 
-            //#region Vacancies
-            //Vacancies = new List<Vacancy>(Enumerable.Range(0, 500)
-            //   .Select(source => new Vacancy { Specialty = Specialties[source % Specialties.Count] }));
-            //#endregion
 
-            //#region Companies
-            //Companies = new List<Company>(
-            //        Enumerable.Range(0, 100).Select(
-            //            source => new Company
-            //            {
-            //                Name = $"Название организации_{source}",
-            //                FactAddress = Addresses[500 + source * 2],
-            //                LegalAddress = Addresses[500 + source * 2 + 1],
-            //                Inn = $"ИНН_{source}",
-            //                Vacancies = Vacancies.GetRange(source, 5)
-            //            }));
-            //#endregion
 
-            //#region CompanyManagers
-            ////CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
-            ////{
-            ////    //Name = $"Имя_Менеджера_Работодателя_{source}",
-            ////    //LastName = $"Фамилия_Менеджера_Работодателя_{source}",
-            ////    //Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
-            ////    //EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
-            ////}));
-            //#endregion
+            #region CompanyManagers
+            CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
+            {
+                Name = $"Имя_Менеджера_Работодателя_{source}",
+                LastName = $"Фамилия_Менеджера_Работодателя_{source}",
+                Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
+                EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
+            }));
+            #endregion
 
             //#region Employers
             ////Employers = new List<Employer>(
