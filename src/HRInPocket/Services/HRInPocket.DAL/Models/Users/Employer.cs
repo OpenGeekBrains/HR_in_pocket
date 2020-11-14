@@ -7,7 +7,7 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Работодатель
     /// </summary>
-    public class Employer : BaseUser
+    public class Employer : BaseEntity
     {
         /// <summary>
         /// Список компаний

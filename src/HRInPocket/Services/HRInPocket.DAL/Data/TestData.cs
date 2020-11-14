@@ -114,10 +114,6 @@ namespace HRInPocket.DAL.Data
                     Enumerable.Range(0, 500).Select(
                         source => new Applicant
                         {
-                            Name = $"Имя_{source}",
-                            LastName = $"Фамилия_{source}",
-                            Patronymic = $"Отчество_{source}",
-                            EmailAddress = $"Email_Соискателя_{source}@.com",
                             Birthday = GenRandomDateTime(__MinDateTime, __MaxDateTime, __Random),
                             Address = Addresses[source],
                             Speciality = Specialties.GetRange(source % (Specialties.Count-5), source % 4),
@@ -149,15 +145,13 @@ namespace HRInPocket.DAL.Data
                         }));
             #endregion
 
-
-
             #region CompanyManagers
             CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
             {
-                Name = $"Имя_Менеджера_Работодателя_{source}",
-                LastName = $"Фамилия_Менеджера_Работодателя_{source}",
-                Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
-                EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
+                //Name = $"Имя_Менеджера_Работодателя_{source}",
+                //LastName = $"Фамилия_Менеджера_Работодателя_{source}",
+                //Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
+                //EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
             }));
             #endregion
 
@@ -166,10 +160,10 @@ namespace HRInPocket.DAL.Data
                     Enumerable.Range(0, 50).Select(
                         source => new Employer
                         {
-                            Name = $"Имя_{source}",
-                            LastName = $"Фамилия_{source}",
-                            Patronymic = $"Отчество_{source}",
-                            EmailAddress = $"Email_Работодателья{source}@.com",
+                            //Name = $"Имя_{source}",
+                            //LastName = $"Фамилия_{source}",
+                            //Patronymic = $"Отчество_{source}",
+                            //EmailAddress = $"Email_Работодателья{source}@.com",
                             Companies = Companies.GetRange(source, 2),
                             CompanyManagers = CompanyManagers.GetRange(source, 5)
                         }));
@@ -178,10 +172,10 @@ namespace HRInPocket.DAL.Data
             #region SystemManagers
             SystemManagers = new List<SystemManager>(Enumerable.Range(0, 20).Select(source => new SystemManager
             {
-                Name = $"Имя_Менеджера_Системы_{source}",
-                LastName = $"Фамилия_Менеджера_Системы_{source}",
-                Patronymic = $"Отчество_Менеджера_Системы_{source}",
-                EmailAddress = $"Email_Менеджера_Системы_{source}@.com",
+                //Name = $"Имя_Менеджера_Системы_{source}",
+                //LastName = $"Фамилия_Менеджера_Системы_{source}",
+                //Patronymic = $"Отчество_Менеджера_Системы_{source}",
+                //EmailAddress = $"Email_Менеджера_Системы_{source}@.com",
                 Applicants = Applicants.GetRange(source * 20, source * 5),
                 Employers = Employers.GetRange(source, source % 3)
             })); 

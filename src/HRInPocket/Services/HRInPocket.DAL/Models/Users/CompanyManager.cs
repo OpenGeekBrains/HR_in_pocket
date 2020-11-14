@@ -6,7 +6,7 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Менеджер организации
     /// </summary>
-    public class CompanyManager : BaseUser
+    public class CompanyManager : BaseEntity
     {
         /// <summary>
         /// Компания, представляемая менеджером

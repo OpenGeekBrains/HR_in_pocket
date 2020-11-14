@@ -9,7 +9,7 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Соискатель
     /// </summary>
-    public class Applicant : BaseUser
+    public class Applicant : BaseEntity
     {
         /// <summary>
         /// Адрес
