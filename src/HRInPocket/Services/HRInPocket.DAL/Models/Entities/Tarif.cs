@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.DAL.Models.Base;
@@ -7,6 +6,9 @@ using HRInPocket.DAL.Models.Users;
 
 namespace HRInPocket.DAL.Models.Entities
 {
+    /// <summary>
+    /// Тфриф соискателя
+    /// </summary>
     public class Tarif : NamedEntity
     {
         /// <summary>
