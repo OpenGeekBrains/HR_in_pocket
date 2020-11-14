@@ -6,7 +6,7 @@ using System.Text;
 using HRInPocket.Parsing.hh.ru.Models.Base;
 
 namespace HRInPocket.Parsing.hh.ru.Models.Entites
-{
+{    
     public class Vacancy
     {
         public VacancyName Name { get; set; }
@@ -17,6 +17,8 @@ namespace HRInPocket.Parsing.hh.ru.Models.Entites
         public string Description { get; set; }
 
         public uint Compensation { get; set; }
+
+        public string Prefix { get; set; }
 
         public DateTime Date { get; set; }
 
