@@ -61,7 +61,7 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Внешний ключ
         /// </summary>
-        public Guid ApplicantId { get; set; }
-        public Applicant Applicant { get; set; }
+        public string ProfileId { get; set; }
+        public Profile Profile { get; set; }
     }
 }

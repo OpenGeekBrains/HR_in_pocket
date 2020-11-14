@@ -32,12 +32,7 @@ namespace HRInPocket.DAL.Models.Entities
         /// Список вакансий
         /// </summary>
         public ICollection<Vacancy> Vacancies { get; set; } = new HashSet<Vacancy>();
-
-        /// <summary>
-        /// Работодатель-владелец компании
-        /// </summary>
-        public Employer Employer { get; set; }
-
+        
         //todo: добавить возможность добавления любых метаданных
     }
 }

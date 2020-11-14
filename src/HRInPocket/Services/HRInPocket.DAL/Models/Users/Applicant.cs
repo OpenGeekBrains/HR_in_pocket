@@ -9,27 +9,12 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Соискатель
     /// </summary>
-    public class Applicant : BaseEntity
+    public class Applicant : User
     {
         /// <summary>
-        /// Адрес
+        /// Выбранный тариф
         /// </summary>
-        public Address Address { get; set; }
-
-        /// <summary>
-        /// Дата рождения
-        /// </summary>
-        public DateTime Birthday { get; set; }
-
-        /// <summary>
-        /// Список резюме
-        /// </summary>
-        public ICollection<Resume> Resumes { get; set; } = new HashSet<Resume>();
-
-        /// <summary>
-        /// Список интересующих специальностей
-        /// </summary>
-        public ICollection<Speciality> Speciality { get; set; } = new HashSet<Speciality>();
+        public Tarif Tarif { get; set; }
 
         /// <summary>
         /// Закрепленный системный менеджер
@@ -37,13 +22,9 @@ namespace HRInPocket.DAL.Models.Users
         public SystemManager SystemManager { get; set; }
 
         /// <summary>
-        /// Выбранный тариф
-        /// </summary>
-        public Tarif Tarif { get; set; }
-
-        /// <summary>
         /// Задание
         /// </summary>
         public TargetTask TargetTask { get; set; }
+        public string TargetTaskId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace HRInPocket.Controllers
             Patronymic = "From Somebody",
             Age = 47,
             Birthday = DateTime.Now.AddYears(-47),
-            Sex = Sex.Other
+            //Sex = Sex.Other
         });
     }
 }

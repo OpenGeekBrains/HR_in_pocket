@@ -15,7 +15,7 @@ namespace HRInPocket.DAL.Data
         /// <param name="context">Контекст базы данных</param>
         /// <param name="data">Данные для инициализации таблицы</param>
         /// <returns>Контекст базы данных с которым проводилась работа</returns>
-        public static DbContext InitTable<TEntity>(this DbContext context, IEnumerable<TEntity> data) where TEntity : BaseEntity
+        public static DbContext InitTable<TEntity>(this DbContext context, IEnumerable<TEntity> data) where TEntity : class
         {
             _ = data ?? throw new ArgumentNullException(nameof(data));
             var entities = data as TEntity[] ?? data.ToArray();
