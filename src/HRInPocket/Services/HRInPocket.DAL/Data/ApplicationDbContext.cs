@@ -1,7 +1,5 @@
 ﻿using HRInPocket.DAL.Models.Entities;
 using HRInPocket.DAL.Models.Users;
-
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,14 +27,14 @@ namespace HRInPocket.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            base.OnModelCreating(model);            // Никогда, ни зачто не удалять
+            base.OnModelCreating(model);            // Никогда, ни за что не удалять, обязательно для поддержки функциональности базового класса
 
-            model.Entity<Company>()
+            model
+                .Entity<Company>()
                .HasIndex(c => c.Inn)
                .IsUnique();
 
-            model.Entity<IdentityUserLogin<string>>()
-               .HasKey(login => login.UserId);
+            
 
             //model.Entity<Company>(company => 
             //{
