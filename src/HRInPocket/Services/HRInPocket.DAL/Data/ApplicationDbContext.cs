@@ -1,10 +1,12 @@
 ﻿using HRInPocket.DAL.Models.Entities;
 using HRInPocket.DAL.Models.Users;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.DAL.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         #region Properties
         public DbSet<Address> Addresses { get; set; }
