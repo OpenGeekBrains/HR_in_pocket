@@ -1,35 +1,13 @@
-﻿<div class="tarifs">
-<p class="maintitle-tarifs">Тарифы</p>
-<section id="tarifs">
-    <div class="row no-gutters tarifs-block">
-        <div class="col tarifs-block-each tarifs-w ">
-            <p class="title-tarifs">Базовый</p>
-            <p class="desc-tarifs">Хороший повод начать</p>
-            <p class="numb-visits">1 приглашение</p>
-            <p class="price-tarifs">1500 руб.</p>
-            <button type="button" class="buy"><a href="#">Купить</a></button>
+﻿@model List<HRInPocket.DAL.Models.Entities.Tarif>
+
+<div class="tarifs">
+    <p class="maintitle-tarifs">Тарифы</p>
+    <section id="tarifs">
+        <div class="row no-gutters tarifs-block">
+            @foreach (var item in Model)
+            {
+                <vc:tarif-card tarif="item"></vc:tarif-card>
+            }
         </div>
-        <div class="col tarifs-block-each tarifs-w ">
-            <p class="title-tarifs">Средний</p>
-            <p class="desc-tarifs">Набирайте обороты</p>
-            <p class="numb-visits">3 приглашения</p>
-            <p class="price-tarifs">4500 руб.</p>
-            <button type="button" class="buy"><a href="#">Купить</a></button>
-        </div>
-        <div class="col tarifs-block-each tarifs-w">
-            <p class="title-tarifs">Эффективный</p>
-            <p class="desc-tarifs">Выбирайте и сравнивайте разные предложения</p>
-            <p class="numb-visits-">5 приглашений</p>
-            <p class="price-tarifs">6000 руб.</p>
-            <button type="button" class="buy"><a href="#">Купить</a></button>
-        </div>
-        <div class="col tarifs-block-each tarifs-block-each4 tarifs-w">
-            <p class="title-tarifs">Профи</p>
-            <p class="desc-tarifs">Обеспечьте гарантию трудоустройства</p>
-            <p class="numb-visits-">10 приглашений</p>
-            <p class="price-tarifs">10000 руб.</p>
-            <button type="button" class="buy"><a href="">Купить</a></button>
-        </div>
-    </div>
-</section>
+    </section>
 </div>
