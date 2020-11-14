@@ -1,4 +1,10 @@
-﻿<div class="executor">
+﻿@using HRInPocket.DAL.Data
+
+@{
+    var tarifs = TestData.Tarifs;
+}
+
+<div class="executor">
     <div class="media">
         <div class="media-body">
             <div class="media-text">
@@ -15,7 +21,7 @@
     </div>
 
     <partial name="Partial/_HowWorks" />
-    <partial name="Partial/_Tarifs" />
+    <partial name="Partial/_Tarifs" model="tarifs" />
     <partial name="Partial/_Price" />
     <partial name="Partial/_Callback" />
     <partial name="Partial/_GetDreamJob" />
