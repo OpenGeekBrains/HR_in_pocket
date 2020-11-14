@@ -1,7 +1,10 @@
 ﻿@*Пока нет сервиса поставщика данных*@
 @using HRInPocket.DAL.Data
 @{
-    var tarifs = TestData.Tarifs; }
+    var tarifs = TestData.Tarifs;
+    var price = TestData.Price;
+}
+
 @*Пока нет сервиса поставщика данных*@
 
 <div class="executor">
@@ -22,7 +25,7 @@
 
     <partial name="Partial/_HowWorks" />
     <partial name="Partial/_Tarifs" model="tarifs" />
-    <partial name="Partial/_Price" />
+    <partial name="Partial/_Price" model="price"/>
     <partial name="Partial/_Callback" />
     <partial name="Partial/_GetDreamJob" />
 
