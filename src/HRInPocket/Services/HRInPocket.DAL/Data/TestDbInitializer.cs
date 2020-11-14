@@ -24,18 +24,19 @@ namespace HRInPocket.DAL.Data
                 db.Migrate();
 
                 dbContext
-                .InitTable(TestData.Addresses)
-                .InitTable(TestData.Specialties)
-                .InitTable(TestData.ActivityCategories)
-                .InitTable(TestData.Applicants)
-                .InitTable(TestData.Resumes)
-                .InitTable(TestData.Companies)
-                .InitTable(TestData.Vacancies)
-                .InitTable(TestData.CompanyManagers)
-                .InitTable(TestData.Employers)
-                .InitTable(TestData.SystemManagers)
-                .InitTable(TestData.Tarifs)
-                .InitTable(TestData.TargetTasks);
+                   .InitTable(TestData.Addresses)
+                   .InitTable(TestData.Specialties)
+                   .InitTable(TestData.ActivityCategories)
+                   .InitTable(TestData.Applicants)
+                   .InitTable(TestData.Resumes)
+                   .InitTable(TestData.Companies)
+                   .InitTable(TestData.Vacancies)
+                   .InitTable(TestData.CompanyManagers)
+                   .InitTable(TestData.Employers)
+                   .InitTable(TestData.SystemManagers)
+                   .InitTable(TestData.Tarifs)
+                   .InitTable(TestData.TargetTasks)
+                   .InitTable(TestData.Price);
             }
             catch (Exception e)
             {
