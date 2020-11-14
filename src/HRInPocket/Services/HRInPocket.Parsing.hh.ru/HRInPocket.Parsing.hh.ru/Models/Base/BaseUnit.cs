@@ -7,7 +7,7 @@ namespace HRInPocket.Parsing.hh.ru.Models.Base
     /// <summary>
     /// Базовая сущность
     /// </summary>
-    class BaseUnit
+    public class BaseUnit
     {
         /// <summary>
         /// Имя
