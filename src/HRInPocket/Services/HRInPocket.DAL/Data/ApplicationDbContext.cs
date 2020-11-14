@@ -1,12 +1,13 @@
 ﻿using HRInPocket.DAL.Models.Entities;
 using HRInPocket.DAL.Models.Users;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.DAL.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         #region Properties
         public DbSet<Address> Addresses { get; set; }
@@ -31,6 +32,9 @@ namespace HRInPocket.DAL.Data
             model.Entity<Company>()
                .HasIndex(c => c.Inn)
                .IsUnique();
+
+            model.Entity<IdentityUserLogin<string>>()
+               .HasKey(login => login.UserId);
 
             //model.Entity<Company>(company => 
             //{
