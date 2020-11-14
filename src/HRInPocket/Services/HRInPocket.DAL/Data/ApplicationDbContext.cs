@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.DAL.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         #region Properties
         public DbSet<Address> Addresses { get; set; }
@@ -29,6 +29,8 @@ namespace HRInPocket.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder model)
         {
+            base.OnModelCreating(model);            // Никогда, ни зачто не удалять
+
             model.Entity<Company>()
                .HasIndex(c => c.Inn)
                .IsUnique();

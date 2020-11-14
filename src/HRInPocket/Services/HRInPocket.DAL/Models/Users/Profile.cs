@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 using HRInPocket.DAL.Models.Base;
 using HRInPocket.DAL.Models.Entities;
 
@@ -7,6 +9,9 @@ namespace HRInPocket.DAL.Models.Users
 {
     public class Profile : BaseEntity
     {
+        [Required]
+        public User User { get; set; }
+
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

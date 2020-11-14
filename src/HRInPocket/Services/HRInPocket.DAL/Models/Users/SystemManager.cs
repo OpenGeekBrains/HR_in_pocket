@@ -6,7 +6,7 @@ namespace HRInPocket.DAL.Models.Users
     /// <summary>
     /// Менеджер системы
     /// </summary>
-    public class SystemManager : BaseUser
+    public class SystemManager : BaseEntity
     {
         /// <summary>
         /// Список закрепленных соискателей
