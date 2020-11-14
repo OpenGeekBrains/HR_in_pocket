@@ -26,7 +26,6 @@ namespace HRInPocket.DAL.Data
         private static readonly Random __Random = new Random();
         #endregion
 
-
         #region Properties
         public static List<Address> Addresses { get; }
 
@@ -51,6 +50,8 @@ namespace HRInPocket.DAL.Data
         public static List<Tarif> Tarifs { get; }
 
         public static List<TargetTask> TargetTasks { get; }
+
+        public static List<PriceItem> Price { get; }
 
         #endregion
 
@@ -91,6 +92,15 @@ namespace HRInPocket.DAL.Data
                 new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
                 new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
             };
+            #endregion
+
+            #region Price
+            Price = new List<PriceItem>
+            {
+                new PriceItem{Name = "Составление резюме", Price = 2000},
+                new PriceItem{Name = "Написание сопроводительного письма", Price = 800},
+                new PriceItem{Name = "Перевод резюме", Price = 1500}
+            }; 
             #endregion
 
             #region TargetTasks
@@ -148,8 +158,6 @@ namespace HRInPocket.DAL.Data
                             Vacancies = Vacancies.GetRange(source, 5)
                         }));
             #endregion
-
-
 
             #region CompanyManagers
             CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
