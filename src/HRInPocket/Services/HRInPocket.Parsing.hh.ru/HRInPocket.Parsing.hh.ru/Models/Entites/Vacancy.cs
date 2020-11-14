@@ -7,7 +7,7 @@ using HRInPocket.Parsing.hh.ru.Models.Base;
 
 namespace HRInPocket.Parsing.hh.ru.Models.Entites
 {
-    class Vacancy
+    public class Vacancy
     {
         public VacancyName Name { get; set; }
 

@@ -6,7 +6,7 @@ using HRInPocket.Parsing.hh.ru.Models.Base;
 
 namespace HRInPocket.Parsing.hh.ru.Models.Entites
 {
-    class Metadata:BaseUnit
+    public class Metadata:BaseUnit
     {
     }
 }
