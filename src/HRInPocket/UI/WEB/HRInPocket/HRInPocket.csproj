@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\Components\PriceItemCard\Default.cshtml" />
     <Content Remove="Views\Shared\Components\TarifCard\Default.cshtml" />
   </ItemGroup>
 
@@ -30,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Shared\Components\PriceItemCard\Default.cshtml" />
     <None Include="Views\Shared\Components\TarifCard\Default.cshtml" />
   </ItemGroup>
 

@@ -1,5 +1,11 @@
-﻿<div class="price">
-    <table class="table table-reflow price-table">
+﻿@model List<HRInPocket.DAL.Models.Entities.PriceItem>
+
+<div class="price">
+    @foreach (var item in Model)
+    {
+        <vc:price-item-card price-item="item"></vc:price-item-card>
+    }
+    @*<table class="table table-reflow price-table">
         <tbody>
         <tr>
             <td scope="row" id="first-ch-tb">Составление резюме</td>
@@ -9,19 +15,22 @@
             </td>
         </tr>
         </tbody>
-        <table class="table table-reflow price-table">
-            <tbody>
-            <tr>
-                <td scope="row" id="first-ch-tb">Написание сопроводительного письма</td>
-                <td id="price-tb">800 руб.</td>
-                <td id="last-td-price">
-                    <button type="button" class="buy"><a href="">Купить</a></button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-reflow price-table">
-            <tbody>
+    </table>
+
+    <table class="table table-reflow price-table">
+        <tbody>
+        <tr>
+            <td scope="row" id="first-ch-tb">Написание сопроводительного письма</td>
+            <td id="price-tb">800 руб.</td>
+            <td id="last-td-price">
+                <button type="button" class="buy"><a href="">Купить</a></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-reflow price-table">
+        <tbody>
             <tr>
                 <td scope="row" id="first-ch-tb">Перевод резюме</td>
                 <td id="price-tb">1500 руб.</td>
@@ -29,7 +38,7 @@
                     <button type="button" class="buy"><a href="">Купить</a></button>
                 </td>
             </tr>
-            </tbody>
-        </table>
-    </table>
+        </tbody>
+    </table>*@
+
 </div>
