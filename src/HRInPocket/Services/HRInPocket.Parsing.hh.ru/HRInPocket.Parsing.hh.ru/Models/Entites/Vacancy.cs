@@ -18,7 +18,7 @@ namespace HRInPocket.Parsing.hh.ru.Models.Entites
 
         public uint Compensation { get; set; }
 
-        public string Prefix { get; set; }
+        public string PrefixCompensation { get; set; }
 
         public DateTime Date { get; set; }
 
