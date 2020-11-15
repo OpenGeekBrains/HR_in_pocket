@@ -71,8 +71,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                         var _vacancyname = VacancyNameParse.TextContent;
                         var _vacancynameUrl = VacancyNameParse.GetAttribute("href");
-                        var _company = CompanyParse.TextContent;
-                        var _companyUrl = "https://hh.ru" + CompanyParse.GetAttribute("href");
+                        var _company = CompanyParse?.TextContent;
+                        var _companyUrl = "https://hh.ru" + CompanyParse?.GetAttribute("href");
                         var _address = AddressParse.TextContent;
                         var _descriptionShort = DescriptionShortPasrse.TextContent;
                         var _date = DatePasrse.TextContent;
