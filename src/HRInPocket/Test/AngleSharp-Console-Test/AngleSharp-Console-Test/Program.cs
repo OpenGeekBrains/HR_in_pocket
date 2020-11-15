@@ -9,6 +9,7 @@ namespace AngleSharp_Console_Test
         static void Main()
         {
             ParseUseDLL();
+            Console.ReadKey();
         }
         static void ParseUseDLL()
         {
