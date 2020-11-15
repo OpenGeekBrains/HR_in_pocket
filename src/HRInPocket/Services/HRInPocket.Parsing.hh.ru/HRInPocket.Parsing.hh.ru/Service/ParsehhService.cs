@@ -61,7 +61,6 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         var CompensationParse = fitem.QuerySelectorAll("span")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
-                        //Console.WriteLine("Compensation: {0}", CompensationParse?.TextContent);
                         var DescriptionShortPasrse = fitem.QuerySelectorAll("div")
                             .Where(item => item.ClassName != null && item.ClassName
                                 .Equals("g-user-content")).FirstOrDefault();
@@ -75,10 +74,9 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         var _companyUrl = "https://hh.ru" + CompanyParse?.GetAttribute("href");
                         var _address = AddressParse.TextContent;
                         var _descriptionShort = DescriptionShortPasrse.TextContent;
-                        var _date = DatePasrse.TextContent;
                         var Prefix = "";
                         var Currency = "";
-                        var date = DateTime.Parse(DatePasrse.TextContent.Replace((char)160, (char)32));
+                        var _date = DateTime.Parse(DatePasrse.TextContent.Replace((char)160, (char)32));
                         ulong CompensationUp=0, CompensationDown=0;
                         if (CompensationParse != null)
                         {
@@ -134,7 +132,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                             CompensationUp = CompensationUp,
                             CompensationDown = CompensationDown,
                             CurrencyCode = Currency,
-                            Date = date,
+                            Date = _date,
                             PrefixCompensation = Prefix,
                             ShortDescription = _descriptionShort,
                             VacancyAddress = _address
