@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 
+using HRInPocket.Parsing.hh.ru.Interfaces;
+using HRInPocket.Parsing.hh.ru.Service;
 using HRInPocket.WPF.Services;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels;
@@ -16,6 +18,7 @@ namespace HRInPocket.WPF
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddTransient<ISaveDataToJSON, SaveDataToJSON>();
+            services.AddSingleton<IParsehhService, ParsehhService>();
         }
 
         private static IHost _Host;

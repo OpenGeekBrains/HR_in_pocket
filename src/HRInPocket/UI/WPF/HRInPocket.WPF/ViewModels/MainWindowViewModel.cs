@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using HRInPocket.Parsing.hh.ru.Interfaces;
+using HRInPocket.Parsing.hh.ru.Models.Entites;
 using HRInPocket.WPF.Infrastructure.Commands;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels.Core;
@@ -11,9 +13,12 @@ namespace HRInPocket.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModelCore
     {
-        public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON)
+        public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON,
+                                    IParsehhService ParsehhService)
         {
             _SaveDataToJSON = SaveDataToJSON;
+            _Parsehh = ParsehhService.GetPasrse();
+            _Parsehh.Result += GetDataCollection;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
@@ -23,6 +28,10 @@ namespace HRInPocket.WPF.ViewModels
 
         #region Сервис сохранения данных
         private readonly ISaveDataToJSON _SaveDataToJSON;
+        #endregion
+
+        #region Сервис парсинга hh.ru
+        private readonly IParsehh _Parsehh;
         #endregion
 
         #endregion
@@ -113,6 +122,20 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
+        #region SearchSwitcher : bool - Переключатель состояния кнопки поиска
+
+        /// <summary>Переключатель состояния кнопки поиска</summary>
+        private bool _SearchSwitcher = true;
+
+        /// <summary>Переключатель состояния кнопки поиска</summary>
+        public bool SearchSwitcher
+        {
+            get => _SearchSwitcher;
+            set => Set(ref _SearchSwitcher, value);
+        }
+
+        #endregion
+
         #endregion
 
         #region Команды
@@ -123,10 +146,11 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Поиск на выбранном сайте по ключевому слову</summary>
         private void OnSearchCommandExecuted(object parameter)
         {
-            throw new NotImplementedException();
+            _Parsehh.Parse();
+            SearchSwitcher = false;
         }
 
-        private bool CanSearchCommandExecute(object parameter) => true;
+        private bool CanSearchCommandExecute(object parameter) => SearchSwitcher;
 
         #endregion
 
@@ -142,6 +166,20 @@ namespace HRInPocket.WPF.ViewModels
         private bool CanSaveDataToJSONCommandExecute(object parameter) => true;
 
         #endregion
+
+        #endregion
+
+        #region Методы
+        /// <summary>
+        /// Добавление в коллекцию полученной вакансии
+        /// </summary>
+        /// <param name="vacancy">Полученная вакансия</param>
+        private void GetDataCollection(Vacancy vacancy)
+        {
+            if (DataCollection == null) DataCollection = new ObservableCollection<Vacancy>();
+
+            DataCollection.Add(vacancy);
+        }
 
         #endregion
     }

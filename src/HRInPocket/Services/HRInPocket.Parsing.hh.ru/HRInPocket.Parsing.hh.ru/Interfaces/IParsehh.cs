@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using HRInPocket.Parsing.hh.ru.Models.Entites;
+
 namespace HRInPocket.Parsing.hh.ru.Interfaces
 {
     public interface IParsehhService
@@ -10,6 +12,8 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
     }
     public interface IParsehh
     {
-        void Parse(string GetParameters);
+        event Action<Vacancy> Result;
+
+        void Parse(string GetParameters = null);
     }
 }
