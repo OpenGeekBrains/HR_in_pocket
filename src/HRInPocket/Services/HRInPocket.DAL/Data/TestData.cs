@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using HRInPocket.DAL.Models.Entities;
 using HRInPocket.DAL.Models.Users;
 using static System.DateTime;
@@ -47,6 +46,9 @@ namespace HRInPocket.DAL.Data
 
         public static List<TargetTask> TargetTasks { get; }
         public static List<CoverLetter> CoverLetters { get; }
+
+        public static List<PriceItem> Price { get; }
+
         public static List<Profile> Profiles { get; }
 
         public static List<User> Users { get; }
@@ -55,6 +57,25 @@ namespace HRInPocket.DAL.Data
 
         static TestData()
         {
+            #region Tarifs
+            Tarifs = new List<Tarif>
+            {
+                new Tarif{Name = "Базовый", Visits = 1, Price = 1500, Description = "Хороший повод начать"},
+                new Tarif{Name = "Средний", Visits = 3, Price = 4500, Description = "Набирайте обороты"},
+                new Tarif{Name = "Эффективный", Visits = 5, Price = 6000, Description = "Выбирайте и сравнивайте разные предложения"},
+                new Tarif{Name = "Профи", Visits = 10, Price = 10000, Description = "Обеспечьте гарантию трудоустройства"}
+            };
+            #endregion
+
+            #region Price
+            Price = new List<PriceItem>
+            {
+                new PriceItem{Name = "Составление резюме", Price = 2000},
+                new PriceItem{Name = "Написание сопроводительного письма", Price = 800},
+                new PriceItem{Name = "Перевод резюме", Price = 1500}
+            };
+            #endregion
+
             #region Old
 
             //#region Addresses
@@ -85,19 +106,19 @@ namespace HRInPocket.DAL.Data
             //#endregion
 
             #region TargetTasks
-            TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
-                    source => new TargetTask
-                    {
-                        Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
-                        Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
-                        CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
-                        ResumeLink = $"Ссылка на резюме {source}",
-                        Salary = __Random.Next(30, 301) * 1000,
-                        CreateCoverLetter = true,
-                        CreateResume = true,
-                        Tags = string.Empty,
-                        RemoteWork = __Random.Next(0, 100) % 2 == 0
-                    }));
+            //TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
+            //        source => new TargetTask
+            //        {
+            //            Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
+            //            Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
+            //            CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
+            //            ResumeLink = $"Ссылка на резюме {source}",
+            //            Salary = __Random.Next(30, 301) * 1000,
+            //            CreateCoverLetter = true,
+            //            CreateResume = true,
+            //            Tags = string.Empty,
+            //            RemoteWork = __Random.Next(0, 100) % 2 == 0
+            //        }));
             #endregion
 
             //#region TargetTasks
@@ -137,13 +158,13 @@ namespace HRInPocket.DAL.Data
 
 
             #region CompanyManagers
-            CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
-            {
-                Name = $"Имя_Менеджера_Работодателя_{source}",
-                LastName = $"Фамилия_Менеджера_Работодателя_{source}",
-                Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
-                EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
-            }));
+            //CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
+            //{
+            //    Name = $"Имя_Менеджера_Работодателя_{source}",
+            //    LastName = $"Фамилия_Менеджера_Работодателя_{source}",
+            //    Patronymic = $"Отчество_Менеджера_Работодателя_{source}",
+            //    EmailAddress = $"Email_Менеджера_Работодателя_{source}@.com",
+            //}));
             #endregion
 
             //#region Employers
