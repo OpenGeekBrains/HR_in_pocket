@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Users;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Профиль пользователя

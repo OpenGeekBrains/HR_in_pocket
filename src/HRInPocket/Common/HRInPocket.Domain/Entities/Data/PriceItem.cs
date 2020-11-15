@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using HRInPocket.DAL.Models.Base;
+﻿using HRInPocket.Domain.Entities.Base;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Разовая платная услуга

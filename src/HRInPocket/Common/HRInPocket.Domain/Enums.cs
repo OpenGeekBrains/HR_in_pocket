@@ -1,4 +1,4 @@
-﻿namespace HRInPocket.DAL.Models
+﻿namespace HRInPocket.Domain
 {
     public enum Sex
     {

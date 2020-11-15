@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HRInPocket.DAL.Models;
-using HRInPocket.DAL.Models.Entities;
+using HRInPocket.Domain;
+using HRInPocket.Domain.Entities.Data;
 
 namespace HRInPocket.ViewModels.Account
 {

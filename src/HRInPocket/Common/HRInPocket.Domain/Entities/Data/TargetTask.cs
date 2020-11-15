@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Users;
+﻿using HRInPocket.Domain.Entities.Base;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Задание

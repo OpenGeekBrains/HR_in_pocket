@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HRInPocket.DAL.Models.Entities;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Data;
+using HRInPocket.Domain.Entities.Users;
 using static System.DateTime;
 
 namespace HRInPocket.DAL.Data

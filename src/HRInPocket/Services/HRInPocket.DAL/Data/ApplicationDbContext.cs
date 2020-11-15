@@ -1,5 +1,5 @@
-﻿using HRInPocket.DAL.Models.Entities;
-using HRInPocket.DAL.Models.Users;
+﻿using HRInPocket.Domain.Entities.Data;
+using HRInPocket.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

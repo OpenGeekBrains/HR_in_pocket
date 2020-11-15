@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using HRInPocket.DAL.Models.Base;
 
-namespace HRInPocket.DAL.Models.Users
+namespace HRInPocket.Domain.Entities.Users
 {
     /// <summary>
     /// Менеджер системы

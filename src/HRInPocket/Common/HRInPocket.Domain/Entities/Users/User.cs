@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HRInPocket.DAL.Models.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using HRInPocket.Domain.Entities.Data;
 
-namespace HRInPocket.DAL.Models.Users
+namespace HRInPocket.Domain.Entities.Users
 {
     public class User : IdentityUser
     {

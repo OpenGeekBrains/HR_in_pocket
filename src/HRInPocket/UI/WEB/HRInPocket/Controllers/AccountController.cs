@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Users;
 using HRInPocket.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

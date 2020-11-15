@@ -1,7 +1,5 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace HRInPocket.DAL.Models.Base
+namespace HRInPocket.Domain.Entities.Base
 {
     /// <summary>
     /// Именованная сущность
