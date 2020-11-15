@@ -21,6 +21,7 @@ namespace HRInPocket.DAL.Data
         public DbSet<TargetTask> TargetTasks { get; set; }
         public DbSet<CoverLetter> CoverLetters { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PriceItem> Price { get; set; }
         #endregion
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

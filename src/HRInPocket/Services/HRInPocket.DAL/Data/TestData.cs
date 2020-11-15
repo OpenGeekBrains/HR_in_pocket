@@ -46,15 +46,14 @@ namespace HRInPocket.DAL.Data
 
         public static List<TargetTask> TargetTasks { get; }
         public static List<CoverLetter> CoverLetters { get; }
-
+       
         public static List<PriceItem> Price { get; }
 
         public static List<Profile> Profiles { get; }
 
         public static List<User> Users { get; }
 
-        #endregion
-
+       #endregion
         static TestData()
         {
             #region Tarifs
@@ -154,8 +153,6 @@ namespace HRInPocket.DAL.Data
             //Resumes = new List<Resume>(Enumerable.Range(0, Applicants.Count)
             //   .Select(source => new Resume { Applicant = Applicants[source] }));
             //#endregion
-
-
 
             #region CompanyManagers
             //CompanyManagers = new List<CompanyManager>(Enumerable.Range(0, 150).Select(source => new CompanyManager
