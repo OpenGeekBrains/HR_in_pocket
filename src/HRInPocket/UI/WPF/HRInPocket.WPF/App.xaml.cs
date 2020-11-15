@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 
+using HRInPocket.WPF.Services;
+using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ namespace HRInPocket.WPF
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+            services.AddTransient<ISaveDataToJSON, SaveDataToJSON>();
         }
 
         private static IHost _Host;
