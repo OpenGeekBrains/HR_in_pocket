@@ -28,23 +28,8 @@ namespace HRInPocket.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            base.OnModelCreating(model);            // Никогда, ни зачто не удалять
+            base.OnModelCreating(model);            // Никогда, ни за что не удалять, обязательно для поддержки функциональности базового класса
 
-            //model.Entity<Company>()
-            //   .HasIndex(c => c.Inn)
-            //   .IsUnique();
-
-            //model.Entity<IdentityUserLogin<string>>()
-            //   .HasKey(login => login.UserId);
-
-            //model.Entity<Company>(company => 
-            //{
-            //    company.HasIndex(e => e.Inn).IsUnique();
-            //});
-
-            //model.Entity<Person>()
-            //   .HasIndex(p => new { p.FirstName, p.LastName })
-            //   .IsUnique(true);
         }
     }
 }
