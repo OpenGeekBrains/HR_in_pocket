@@ -50,6 +50,19 @@ namespace HRInPocket.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Price",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Price", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tarifs",
                 columns: table => new
                 {
@@ -627,6 +640,9 @@ namespace HRInPocket.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "CoverLetterValue");
+
+            migrationBuilder.DropTable(
+                name: "Price");
 
             migrationBuilder.DropTable(
                 name: "ResumeValue");

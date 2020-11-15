@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRInPocket.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201114230716_Create")]
+    [Migration("20201115115801_Create")]
     partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace HRInPocket.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ActivityCategory", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ActivityCategory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("ActivityCategories");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Address", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetter", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("CoverLetters");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetterValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetterValue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,25 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("CoverLetterValue");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Profile", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.PriceItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Price");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -173,7 +191,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,7 +212,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Resumes");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ResumeValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ResumeValue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,7 +235,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("ResumeValue");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Speciality", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Speciality", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +260,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Specialties");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.TargetTask", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.TargetTask", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,7 +310,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("TargetTasks");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Tarif", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Tarif", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -316,7 +334,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Tarifs");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Vacancy", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -343,7 +361,7 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.User", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -548,9 +566,9 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Applicant", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.Applicant", b =>
                 {
-                    b.HasBaseType("HRInPocket.DAL.Models.Users.User");
+                    b.HasBaseType("HRInPocket.Domain.Entities.Users.User");
 
                     b.Property<string>("SystemManagerId")
                         .HasColumnType("nvarchar(450)");
@@ -573,20 +591,20 @@ namespace HRInPocket.DAL.Migrations
                     b.HasDiscriminator().HasValue("Applicant");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.SystemManager", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.SystemManager", b =>
                 {
-                    b.HasBaseType("HRInPocket.DAL.Models.Users.User");
+                    b.HasBaseType("HRInPocket.Domain.Entities.Users.User");
 
                     b.HasDiscriminator().HasValue("SystemManager");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "FactAddress")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "FactAddress")
                         .WithMany()
                         .HasForeignKey("FactAddressId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "LegalAddress")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "LegalAddress")
                         .WithMany()
                         .HasForeignKey("LegalAddressId");
 
@@ -595,35 +613,35 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("LegalAddress");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetter", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.Applicant", "Applicant")
+                    b.HasOne("HRInPocket.Domain.Entities.Users.Applicant", "Applicant")
                         .WithMany()
                         .HasForeignKey("ApplicantId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Profile", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
                         .WithMany("CoverLetters")
                         .HasForeignKey("ProfileId");
 
                     b.Navigation("Applicant");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetterValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetterValue", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.CoverLetter", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.CoverLetter", null)
                         .WithMany("Values")
                         .HasForeignKey("CoverLetterId");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Profile", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "Address")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Users.User", "User")
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", "User")
                         .WithOne("Profile")
-                        .HasForeignKey("HRInPocket.DAL.Models.Entities.Profile", "UserId")
+                        .HasForeignKey("HRInPocket.Domain.Entities.Data.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -632,50 +650,50 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.Applicant", "Applicant")
+                    b.HasOne("HRInPocket.Domain.Entities.Users.Applicant", "Applicant")
                         .WithMany()
                         .HasForeignKey("ApplicantId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Profile", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
                         .WithMany("Resumes")
                         .HasForeignKey("ProfileId");
 
                     b.Navigation("Applicant");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ResumeValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ResumeValue", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Resume", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Resume", null)
                         .WithMany("Values")
                         .HasForeignKey("ResumeId");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Speciality", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Speciality", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.ActivityCategory", "ActivityCategory")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.ActivityCategory", "ActivityCategory")
                         .WithMany("Specialties")
                         .HasForeignKey("ActivityCategoryId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Profile", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
                         .WithMany("Speciality")
                         .HasForeignKey("ProfileId");
 
                     b.Navigation("ActivityCategory");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.TargetTask", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.TargetTask", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "Address")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Profile", "Profile")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId1");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Speciality", "Speciality")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Speciality", "Speciality")
                         .WithMany()
                         .HasForeignKey("SpecialityId");
 
@@ -686,13 +704,13 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("Speciality");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Vacancy", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Company", "Company")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Company", "Company")
                         .WithMany("Vacancies")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Speciality", "Specialty")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Speciality", "Specialty")
                         .WithMany()
                         .HasForeignKey("SpecialtyId");
 
@@ -712,7 +730,7 @@ namespace HRInPocket.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.User", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -721,7 +739,7 @@ namespace HRInPocket.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.User", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -736,7 +754,7 @@ namespace HRInPocket.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRInPocket.DAL.Models.Users.User", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -745,24 +763,24 @@ namespace HRInPocket.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.User", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Applicant", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.Applicant", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.SystemManager", "SystemManager")
+                    b.HasOne("HRInPocket.Domain.Entities.Users.SystemManager", "SystemManager")
                         .WithMany("Applicants")
                         .HasForeignKey("SystemManagerId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.TargetTask", "TargetTask")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.TargetTask", "TargetTask")
                         .WithMany()
                         .HasForeignKey("TargetTaskId1");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Tarif", "Tarif")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Tarif", "Tarif")
                         .WithMany("Applicants")
                         .HasForeignKey("TarifId");
 
@@ -773,22 +791,22 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("Tarif");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ActivityCategory", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ActivityCategory", b =>
                 {
                     b.Navigation("Specialties");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
                     b.Navigation("Vacancies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.CoverLetter", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Profile", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
                 {
                     b.Navigation("CoverLetters");
 
@@ -797,23 +815,23 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("Speciality");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
                 {
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Tarif", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Tarif", b =>
                 {
                     b.Navigation("Applicants");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.User", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.User", b =>
                 {
                     b.Navigation("Profile")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.SystemManager", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.SystemManager", b =>
                 {
                     b.Navigation("Applicants");
                 });
