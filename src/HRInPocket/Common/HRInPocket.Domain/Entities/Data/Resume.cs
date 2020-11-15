@@ -17,6 +17,6 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Поля резюме
         /// </summary>
-        public ICollection<ResumeValue> Values { get; set; } = new HashSet<ResumeValue>();
+        public ICollection<ResumeValue> Values { get; set; }
     }
 }

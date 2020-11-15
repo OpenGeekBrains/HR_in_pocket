@@ -1,4 +1,6 @@
-﻿using HRInPocket.Domain.Entities.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using HRInPocket.Domain.Entities.Base;
 
 namespace HRInPocket.Domain.Entities.Data
 {

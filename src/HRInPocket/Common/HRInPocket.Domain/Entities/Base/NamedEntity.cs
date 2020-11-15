@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace HRInPocket.Domain.Entities.Base
 {
     /// <summary>

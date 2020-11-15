@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HRInPocket.Domain.Entities.Base;
 
 namespace HRInPocket.Domain.Entities.Data
@@ -28,7 +29,7 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Список вакансий
         /// </summary>
-        public ICollection<Vacancy> Vacancies { get; set; } = new HashSet<Vacancy>();
+        public ICollection<Vacancy> Vacancies { get; set; }
         
         //todo: добавить возможность добавления любых метаданных
     }

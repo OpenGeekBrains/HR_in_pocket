@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.Domain.Entities.Base;
 using HRInPocket.Domain.Entities.Users;
 
@@ -30,6 +32,6 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Коллекция соискателей с указанным тариформ
         /// </summary>
-        public ICollection<Applicant> Applicants { get; set; } = new HashSet<Applicant>();
+        public ICollection<Applicant> Applicants { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using HRInPocket.Domain.Entities.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using HRInPocket.Domain.Entities.Data;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace HRInPocket.Domain.Entities.Users
 {

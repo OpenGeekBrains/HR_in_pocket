@@ -10,6 +10,6 @@ namespace HRInPocket.Domain.Entities.Users
         /// <summary>
         /// Список закрепленных соискателей
         /// </summary>
-        public ICollection<Applicant> Applicants { get; set; } = new HashSet<Applicant>();
+        public ICollection<Applicant> Applicants { get; set; }
     }
 }

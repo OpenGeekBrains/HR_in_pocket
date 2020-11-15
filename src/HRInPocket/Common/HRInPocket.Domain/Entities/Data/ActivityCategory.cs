@@ -11,6 +11,6 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Список специальностей
         /// </summary>
-        public ICollection<Speciality> Specialties { get; set; } = new HashSet<Speciality>();
+        public ICollection<Speciality> Specialties { get; set; }
     }
 }
