@@ -30,7 +30,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
         /// в формате "?param1=value&param2=value&...&paramN=value"
         /// </param>
-        public void Parse(string GetParameters=null)
+        public async void Parse(string GetParameters=null)
         {
             string path;
             if (GetParameters != null) path = HHUrl + GetParameters;
@@ -38,7 +38,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
             do {
                 var config = Configuration.Default.WithDefaultLoader();
 
-                var document = BrowsingContext.New(config).OpenAsync(Url.Create(path)).Result;
+                var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
 
                 var items = document.QuerySelectorAll("div")
                     .Where(item => item.ClassName != null && (item.ClassName
