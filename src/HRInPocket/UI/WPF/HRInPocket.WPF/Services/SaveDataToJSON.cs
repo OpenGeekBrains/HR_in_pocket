@@ -24,7 +24,7 @@ namespace HRInPocket.WPF.Services
                 return false;
             }
 
-            using (StreamWriter file = File.CreateText(fileName + "--" + DateTime.Now.ToString("yyyy-MM-dd--HH-mm") + ".json"))
+            using (StreamWriter file = File.CreateText($"{filename}--{DateTime.Now:yyyy-MM-dd--HH-mm}.json")
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, data);
