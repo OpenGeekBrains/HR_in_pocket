@@ -15,16 +15,16 @@ namespace HRInPocket.WPF.Services
         /// </summary>
         /// <typeparam name="T">Тип сохраняемых данных</typeparam>
         /// <param name="data">Данные, сохраняемые в файл</param>
-        /// <param name="fileName">Имя в файла, который будет происходить запись данных</param>
+        /// <param name="filename">Имя в файла, который будет происходить запись данных</param>
         /// <returns>True, если сохранение прошло успешно</returns>
-        public bool SaveDataToFile<T>(IEnumerable<T> data, string fileName)
+        public bool SaveDataToFile<T>(IEnumerable<T> data, string filename)
         {
             if (data == null)
             {
                 return false;
             }
 
-            using (StreamWriter file = File.CreateText($"{filename}--{DateTime.Now:yyyy-MM-dd--HH-mm}.json")
+            using (StreamWriter file = File.CreateText($"{filename}--{DateTime.Now:yyyy-MM-dd--HH-mm}.json"))
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, data);

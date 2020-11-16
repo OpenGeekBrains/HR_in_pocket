@@ -24,17 +24,11 @@ namespace HRInPocket.WPF.ViewModels
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
         }
 
-        #region Сервисы
-
-        #region Сервис сохранения данных
+        /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
-        #endregion
 
-        #region Сервис парсинга hh.ru
+        /// <summary>Сервис парсинга hh.ru</summary>
         private readonly IParsehh _Parsehh;
-        #endregion
-
-        #endregion
 
         #region Свойства
 
