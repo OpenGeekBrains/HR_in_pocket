@@ -83,34 +83,31 @@ namespace HRInPocket.DAL.Data
             #region Not Filled
 
             #region Addresses
-            Addresses = new List<Address>(
-                    Enumerable.Range(0, 700).Select(
+            Addresses = Enumerable.Range(0, 700).Select(
                         source => new Address
                         {
                             Country = $"Страна_{source}",
                             City = $"Город_{source}",
                             Street = $"Улица_{source}",
                             Building = $"Строение_{source}"
-                        }));
+                        }).ToList();
             #endregion
 
             #region Specialties
-            Specialties = new List<Speciality>(Enumerable.Range(0, 100)
-               .Select(source => new Speciality { Name = $"Специальность_{source}" }));
+            Specialties = Enumerable.Range(0, 100).Select(source => new Speciality { Name = $"Специальность_{source}" }).ToList();
             #endregion
 
             #region ActivityCategories
-            ActivityCategories = new List<ActivityCategory>(
-                    Enumerable.Range(0, 20).Select(
-                        source => new ActivityCategory
-                        {
-                            Name = $"Категория_{source}",
-                            Specialties = Specialties.GetRange(source * 4, 5)
-                        }));
+            ActivityCategories = Enumerable.Range(0, 20)
+                .Select(source => new ActivityCategory
+                {
+                    Name = $"Категория_{source}", 
+                    Specialties = Specialties.GetRange(source * 4, 5)
+                }).ToList();
             #endregion
 
             #region TargetTasks
-            TargetTasks = new List<TargetTask>(Enumerable.Range(0, 50).Select(
+            TargetTasks = Enumerable.Range(0, 50).Select(
                     source => new TargetTask
                     {
                         Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
@@ -122,7 +119,7 @@ namespace HRInPocket.DAL.Data
                         CreateResume = true,
                         Tags = string.Empty,
                         RemoteWork = __Random.Next(0, 100) % 2 == 0
-                    }));
+                    }).ToList();
             #endregion
 
             #endregion
