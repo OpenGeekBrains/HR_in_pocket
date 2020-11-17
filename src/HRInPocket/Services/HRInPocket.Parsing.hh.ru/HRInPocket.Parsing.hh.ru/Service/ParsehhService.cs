@@ -21,7 +21,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
     public class Parsehh : IParsehh
     {
         //public event Action<Vacancy> Result;
-        readonly string HHUrl = "https://hh.ru/search/vacancy";
+        private const string HHUrl = "https://hh.ru/search/vacancy";
 
         public event EventHandler<Vacancy> Result;
         /// <summary>
