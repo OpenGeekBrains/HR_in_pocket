@@ -21,7 +21,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
     public class Parsehh : IParsehh
     {
         //public event Action<Vacancy> Result;
-        private const string HHUrl = "https://hh.ru/search/vacancy";
+        private const string _HHUrl = "https://hh.ru/search/vacancy";
 
         public event EventHandler<Vacancy> Result;
         /// <summary>
@@ -34,8 +34,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
         public async void Parse(string GetParameters=null)
         {
             string path;
-            if (GetParameters != null) path = HHUrl + GetParameters;
-            else path = HHUrl;            
+            if (GetParameters != null) path = _HHUrl + GetParameters;
+            else path = _HHUrl;            
             do {
                 var config = Configuration.Default.WithDefaultLoader();
 
@@ -47,74 +47,74 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                 foreach (var fitem in items)
                 {
-                    var VacancyNameParse = fitem.QuerySelectorAll("a")
+                    var vacancyNameParse = fitem.QuerySelectorAll("a")
                         .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                             .Equals("vacancy-serp__vacancy-title")).FirstOrDefault();
-                    if (VacancyNameParse != null)
+                    if (vacancyNameParse != null)
                     {
 
-                        var CompanyParse = fitem.QuerySelectorAll("a")
+                        var companyParse = fitem.QuerySelectorAll("a")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault();
-                        var AddressParse = fitem.QuerySelectorAll("span")
+                        var addressParse = fitem.QuerySelectorAll("span")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-address")).FirstOrDefault();
-                        var CompensationParse = fitem.QuerySelectorAll("span")
+                        var compensationParse = fitem.QuerySelectorAll("span")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
-                        var DescriptionShortPasrse = fitem.QuerySelectorAll("div")
+                        var descriptionShortPasrse = fitem.QuerySelectorAll("div")
                             .Where(item => item.ClassName != null && item.ClassName
                                 .Equals("g-user-content")).FirstOrDefault();
                         var DatePasrse = fitem.QuerySelectorAll("span")
                             .Where(item => item.ClassName != null && item.ClassName
                                 .Equals("vacancy-serp-item__publication-date")).FirstOrDefault();
 
-                        var _vacancyname = VacancyNameParse.TextContent;
-                        var _vacancynameUrl = VacancyNameParse.GetAttribute("href");
-                        var _company = CompanyParse?.TextContent;
-                        var _companyUrl = "https://hh.ru" + CompanyParse?.GetAttribute("href");
-                        var _address = AddressParse.TextContent;
-                        var _descriptionShort = DescriptionShortPasrse.TextContent;
-                        var Prefix = "";
-                        var Currency = "";
-                        var _date = DateTime.Parse(DatePasrse.TextContent.Replace((char)160, (char)32));
-                        ulong CompensationUp=0, CompensationDown=0;
-                        if (CompensationParse != null)
+                        var vacancyname = vacancyNameParse.TextContent;
+                        var vacancynameUrl = vacancyNameParse.GetAttribute("href");
+                        var company = companyParse?.TextContent;
+                        var companyUrl = "https://hh.ru" + companyParse?.GetAttribute("href");
+                        var address = addressParse.TextContent;
+                        var descriptionShort = descriptionShortPasrse.TextContent;
+                        var prefix = "";
+                        var currency = "";
+                        var date = DateTime.Parse(DatePasrse.TextContent.Replace((char)160, (char)32));
+                        ulong compensationUp=0, compensationDown=0;
+                        if (compensationParse != null)
                         {
-                            var CompensationString = CompensationParse.TextContent;
-                            Currency = CompensationString.Substring(CompensationString.LastIndexOf(' ') + 1);
-                            CompensationString = CompensationString.Substring(0, CompensationString.LastIndexOf(' '));
-                            var getIndexOff = CompensationString.IndexOf(' ');
+                            var compensationString = compensationParse.TextContent;
+                            currency = compensationString.Substring(compensationString.LastIndexOf(' ') + 1);
+                            compensationString = compensationString.Substring(0, compensationString.LastIndexOf(' '));
+                            var getIndexOff = compensationString.IndexOf(' ');
                             
                             if (getIndexOff>0)
                             {
-                                Prefix = CompensationString.Substring(0, getIndexOff);
+                                prefix = compensationString.Substring(0, getIndexOff);
                             }                            
-                            if (Prefix.Equals("от") || Prefix.Equals("до"))
+                            if (prefix.Equals("от") || prefix.Equals("до"))
                             {
-                                CompensationString = CompensationString.Substring(getIndexOff + 1);
-                                CompensationString = CompensationString.Replace((char)160, (char)32);
-                                CompensationString = CompensationString.Replace(" ", "");
-                                if (Prefix.Equals("от"))
+                                compensationString = compensationString.Substring(getIndexOff + 1);
+                                compensationString = compensationString.Replace((char)160, (char)32);
+                                compensationString = compensationString.Replace(" ", "");
+                                if (prefix.Equals("от"))
                                 {
-                                    CompensationDown = 0;
-                                    ulong.TryParse(CompensationString,out CompensationUp);
+                                    compensationDown = 0;
+                                    ulong.TryParse(compensationString,out compensationUp);
                                 }
-                                if (Prefix.Equals("до"))
+                                if (prefix.Equals("до"))
                                 {
-                                    CompensationUp = 0;
-                                    ulong.TryParse(CompensationString, out CompensationDown);
+                                    compensationUp = 0;
+                                    ulong.TryParse(compensationString, out compensationDown);
                                 }
                             }
                             else
                             {
-                                CompensationString = CompensationString.Replace((char)160, (char)32);
-                                CompensationString = CompensationString.Replace(" ", "");
-                                var CompensationStringSplit = CompensationString.Split('-');
+                                compensationString = compensationString.Replace((char)160, (char)32);
+                                compensationString = compensationString.Replace(" ", "");
+                                var CompensationStringSplit = compensationString.Split('-');
                                 if (CompensationStringSplit.GetLength(0)>1)
                                 {
-                                    ulong.TryParse(CompensationStringSplit[0], out CompensationUp);
-                                    ulong.TryParse(CompensationStringSplit[1], out CompensationDown);
+                                    ulong.TryParse(CompensationStringSplit[0], out compensationUp);
+                                    ulong.TryParse(CompensationStringSplit[1], out compensationDown);
                                 }
                             }
                         }
@@ -122,21 +122,21 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         {
                             Name = new VacancyName()
                             {
-                                Name = _vacancyname,
-                                Url = _vacancynameUrl
+                                Name = vacancyname,
+                                Url = vacancynameUrl
                             },
                             Company = new Company()
                             {
-                                Name = _company,
-                                Url = _companyUrl
+                                Name = company,
+                                Url = companyUrl
                             },
-                            CompensationUp = CompensationUp,
-                            CompensationDown = CompensationDown,
-                            CurrencyCode = Currency,
-                            Date = _date,
-                            PrefixCompensation = Prefix,
-                            ShortDescription = _descriptionShort,
-                            VacancyAddress = _address
+                            CompensationUp = compensationUp,
+                            CompensationDown = compensationDown,
+                            CurrencyCode = currency,
+                            Date = date,
+                            PrefixCompensation = prefix,
+                            ShortDescription = descriptionShort,
+                            VacancyAddress = address
                         };
                         Result?.Invoke(this,vacancy);
                     }
