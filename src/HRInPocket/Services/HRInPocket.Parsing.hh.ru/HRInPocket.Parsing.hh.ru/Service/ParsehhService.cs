@@ -120,7 +120,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                                 compensationString = compensationString.Replace((char)160, (char)32);
                                 compensationString = compensationString.Replace(" ", "");
                                 var CompensationStringSplit = compensationString.Split('-');
-                                if (CompensationStringSplit.GetLength(0)>1)
+                                if (CompensationStringSplit.Length>1)
                                 {
                                     ulong.TryParse(CompensationStringSplit[0], out compensationUp);
                                     ulong.TryParse(CompensationStringSplit[1], out compensationDown);
