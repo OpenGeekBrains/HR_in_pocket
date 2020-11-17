@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,40 +57,60 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                 foreach (var fitem in items)
                 {
-                    var vacancyNameParse = fitem.QuerySelectorAll("a")
+                    AngleSharp.Dom.IElement vacancyNameParse = null;
+                    try
+                    {
+                        vacancyNameParse = fitem.QuerySelectorAll("a")
                         .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                             .Equals("vacancy-serp__vacancy-title")).FirstOrDefault();
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.TraceError(e.ToString());
+                        throw;
+                    }                    
                     if (vacancyNameParse != null)
                     {
-
-                        var companyParse = fitem.QuerySelectorAll("a")
+                        AngleSharp.Dom.IElement companyParse;
+                        AngleSharp.Dom.IElement addressParse;
+                        AngleSharp.Dom.IElement compensationParse;
+                        AngleSharp.Dom.IElement descriptionShortPasrse;
+                        AngleSharp.Dom.IElement DatePasrse;
+                        try
+                        {
+                            companyParse = fitem.QuerySelectorAll("a")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault();
-                        var addressParse = fitem.QuerySelectorAll("span")
-                            .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
-                                .Equals("vacancy-serp__vacancy-address")).FirstOrDefault();
-                        var compensationParse = fitem.QuerySelectorAll("span")
-                            .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
-                                .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
-                        var descriptionShortPasrse = fitem.QuerySelectorAll("div")
-                            .Where(item => item.ClassName != null && item.ClassName
-                                .Equals("g-user-content")).FirstOrDefault();
-                        var DatePasrse = fitem.QuerySelectorAll("span")
-                            .Where(item => item.ClassName != null && item.ClassName
-                                .Equals("vacancy-serp-item__publication-date")).FirstOrDefault();
-
-                        var vacancyname = vacancyNameParse.TextContent;
-                        var vacancynameUrl = vacancyNameParse.GetAttribute("href");
+                            addressParse = fitem.QuerySelectorAll("span")
+                                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                                    .Equals("vacancy-serp__vacancy-address")).FirstOrDefault();
+                            compensationParse = fitem.QuerySelectorAll("span")
+                                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                                    .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
+                            descriptionShortPasrse = fitem.QuerySelectorAll("div")
+                                .Where(item => item.ClassName != null && item.ClassName
+                                    .Equals("g-user-content")).FirstOrDefault();
+                            DatePasrse = fitem.QuerySelectorAll("span")
+                                .Where(item => item.ClassName != null && item.ClassName
+                                    .Equals("vacancy-serp-item__publication-date")).FirstOrDefault();
+                        } catch (Exception e)
+                        {
+                            Trace.TraceError(e.ToString());
+                            throw;
+                        }
+                        
+                        var vacancyname = vacancyNameParse?.TextContent;
+                        var vacancynameUrl = vacancyNameParse?.GetAttribute("href");
                         var company = companyParse?.TextContent;
                         var companyUrl = "https://hh.ru" + companyParse?.GetAttribute("href");
-                        var address = addressParse.TextContent;
-                        var descriptionShort = descriptionShortPasrse.TextContent;
+                        var address = addressParse?.TextContent;
+                        var descriptionShort = descriptionShortPasrse?.TextContent;
                         var prefix = "";
                         var currency = "";
-                        var date = DateTime.Parse(DatePasrse.TextContent.Replace((char)160, (char)32));
+                        var date = DateTime.Parse(DatePasrse?.TextContent.Replace((char)160, (char)32));
                         ulong compensationUp=0, compensationDown=0;
                         if (compensationParse != null)
-                        {
+                        {                            
                             var compensationString = compensationParse.TextContent;
                             currency = compensationString.Substring(compensationString.LastIndexOf(' ') + 1);
                             compensationString = compensationString.Substring(0, compensationString.LastIndexOf(' '));
@@ -107,12 +128,18 @@ namespace HRInPocket.Parsing.hh.ru.Service
                                 if (prefix.Equals("от"))
                                 {
                                     compensationDown = 0;
-                                    ulong.TryParse(compensationString,out compensationUp);
+                                    if(!ulong.TryParse(compensationString,out compensationUp))
+                                    {
+                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationUp}}:\n\"{compensationParse.TextContent}\"");
+                                    }
                                 }
                                 if (prefix.Equals("до"))
                                 {
                                     compensationUp = 0;
-                                    ulong.TryParse(compensationString, out compensationDown);
+                                    if (!ulong.TryParse(compensationString, out compensationDown))
+                                    {
+                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationDown}}:\n\"{compensationParse.TextContent}\"");
+                                    }
                                 }
                             }
                             else
@@ -122,8 +149,14 @@ namespace HRInPocket.Parsing.hh.ru.Service
                                 var CompensationStringSplit = compensationString.Split('-');
                                 if (CompensationStringSplit.Length>1)
                                 {
-                                    ulong.TryParse(CompensationStringSplit[0], out compensationUp);
-                                    ulong.TryParse(CompensationStringSplit[1], out compensationDown);
+                                    if (!ulong.TryParse(CompensationStringSplit[0], out compensationUp))
+                                    {
+                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationUp}}:\n\"{compensationParse.TextContent}\"");
+                                    }
+                                    if (!ulong.TryParse(CompensationStringSplit[1], out compensationDown))
+                                    {
+                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationDown}}:\n\"{compensationParse.TextContent}\"");
+                                    }
                                 }
                             }
                         }
