@@ -12,7 +12,8 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
     }
     public interface IParsehh
     {
-        event Action<Vacancy> Result;
+        //event Action<Vacancy> Result;
+        event EventHandler<Vacancy> Result;
 
         void Parse(string GetParameters = null);
     }

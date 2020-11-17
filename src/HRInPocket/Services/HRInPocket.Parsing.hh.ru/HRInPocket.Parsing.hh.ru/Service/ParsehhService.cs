@@ -20,9 +20,10 @@ namespace HRInPocket.Parsing.hh.ru.Service
     /// </summary>
     public class Parsehh : IParsehh
     {
-        public event Action<Vacancy> Result;
+        //public event Action<Vacancy> Result;
         readonly string HHUrl = "https://hh.ru/search/vacancy";
 
+        public event EventHandler<Vacancy> Result;
         /// <summary>
         /// Парсит https://hh.ru/search/vacancy и возвращает значения по готовности через событие Result
         /// </summary>
@@ -137,7 +138,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                             ShortDescription = _descriptionShort,
                             VacancyAddress = _address
                         };
-                        Result?.Invoke(vacancy);
+                        Result?.Invoke(this,vacancy);
                     }
                 }
                 var NextPage = document.QuerySelectorAll("a")
