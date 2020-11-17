@@ -1345,11 +1345,11 @@ footer {
 
 
 .body-maketask {
-    padding-left: 48px;
-    background: #F7F8F9;
-    font-family: Montserrat;
-    font-style: normal;
-    color: #000000;
+    padding-left: 48px !important;
+    background: #F7F8F9 !important;
+    font-family: Montserrat !important;
+    font-style: normal !important;
+    color: #000000 !important;
 }
 
     .body-maketask p {
@@ -1362,10 +1362,10 @@ footer {
     }
 
 .name-position label {
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    margin-bottom: 20px;
+    font-weight: 500 !important;
+    font-size: 24px !important;
+    line-height: 29px !important;
+    margin-bottom: 20px !important;
 }
 
 .remote-checkbox {
@@ -1383,19 +1383,22 @@ footer {
 
 .select-form-maketask {
     background: #FFFFFF;
-    border: 1px solid #BFC6C8;
+    border: 1px solid #BFC6C8 !important;
     box-sizing: border-box;
-    border-radius: 21px;
-    width: 380px !important;
+    border-radius: 21px !important;
+    width: 306px !important;
     height: 60px !important;
     margin-left: 15px;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
 }
 
 .select-form-maketask-1 {
     background: #FFFFFF;
     border: 1px solid #BFC6C8;
     box-sizing: border-box;
-    border-radius: 21px;
+    border-radius: 21px !important;
     width: 380px !important;
     height: 60px !important;
 }
@@ -1435,7 +1438,9 @@ footer {
     height: 60px;
     text-align: center;
 }
-
+.form-group-salary {
+    margin-left: 17px;
+}
 .maketask-table {
     margin-top: 38px;
     width: 800px !important;
@@ -1487,3 +1492,27 @@ footer {
         line-height: 24px;
         color: #000;
     }
+.checkbox-salary {
+    margin-top: 38px;
+    margin-left: 136px;
+}
+
+.form-group-maketask button {
+    background: #FCE55A;
+    border-radius: 12px;
+    border: 0px;
+    width: 160px;
+    height: 50px;
+    margin-left: 10px;
+}
+
+    .form-group-maketask button a {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #000000;
+    }
+
+.letter {
+    height: 176px !important;
+}

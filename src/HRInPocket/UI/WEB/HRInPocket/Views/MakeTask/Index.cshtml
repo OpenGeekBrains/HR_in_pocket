@@ -22,7 +22,7 @@
                 <label for="exampleFormControlInput1">Город</label>
                 <div class="row">
                     <select class="form-control select-form-maketask ">
-                        <option>Москва</option>
+                        <option>Страна, регион, город</option>
                     </select>
                     <div class="form-check mb-2 mr-sm-2 remote-checkbox">
                         <input class="form-check-input" type="checkbox" id="inlineFormCheck">
@@ -40,43 +40,33 @@
                         <option>Менеджемент</option>
                     </select>
                 </div>
-                <div class="form-group form-group-salary">
-                    <label for="exampleFormControlInput1">Зарплата от:</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="10 000 ₽">
-
+                <div class="row">
+                    <div class="form-group form-group-salary">
+                        <label for="exampleFormControlInput1">Зарплата от:</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="10 000 ₽">
+                    </div>
+                    <div class="form-check mb-2 mr-sm-2 remote-checkbox checkbox-salary">
+                        <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                        <label class="form-check-label" for="inlineFormCheck"> По договоренности</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Теги</label>
                     <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Основные слова через запятую">
 
                 </div>
+                <div class="form-group form-group-maketask">
+                    <label for="exampleFormControlInput1">Сопроводительное письмо</label>
+                    <button type="button"><a href="#">Заказать</a></button>
+                    <input type="email" class="form-control letter" id="exampleFormControlInput1 " placeholder="Вставьте сюда свое сопроводительное письмо">
+                </div>
+                <div class="form-group form-group-maketask">
+                    <label for="exampleFormControlInput1">Резюме</label>
+                    <button type="button"><a href="#">Заказать</a></button>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ссылка на резюме">
+                </div>
             </form>
-            <table class="table maketask-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Резюме</th>
-                        <th scope="col">Сопроводительное письмо</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <button class="btn-download"><a href="#">Загрузить</a></button>
-                        </td>
-                        <td>
-                            <button class="btn-download"><a href="#">Загрузить</a></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="btn-order"><a href="#">Заказать</a></button>
-                        </td>
-                        <td>
-                            <button class="btn-order"><a href="#">Заказать</a></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+         
             <div class="custom-control custom-checkbox make-task-check">
                 <input type="checkbox" class="custom-control-input " id="customCheck1">
                 <label class="custom-control-label checkbox-registration" for="customCheck1">Даю разрешение на хранение и обработку своих персональных данных.</label>
