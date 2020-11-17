@@ -14,11 +14,11 @@ namespace AngleSharp_Console_Test
         static void ParseUseDLL()
         {
             var parse = new Parsehh();
-            parse.Result += getResult;
+            parse.Result += GetResult;
             parse.Parse();
         }
 
-        private static void getResult(object sender, Vacancy e)
+        private static void GetResult(object sender, Vacancy e)
         {
             Console.WriteLine("{0} - {1}", e.Name.Name, e.Name.Url);
             Console.WriteLine(e.VacancyAddress);
