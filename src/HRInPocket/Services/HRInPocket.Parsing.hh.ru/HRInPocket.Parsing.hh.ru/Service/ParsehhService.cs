@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AngleSharp;
 
@@ -39,7 +40,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
         /// в формате "?param1=value&param2=value&...&paramN=value"
         /// </param>
-        public async void Parse(string GetParameters=null)
+        public async Task Parse(string GetParameters=null)
         {
             string path;
             if (GetParameters != null) path = _HHUrl + GetParameters;
