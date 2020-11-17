@@ -5,6 +5,7 @@ using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Service;
 using HRInPocket.WPF.Infrastructure.Commands;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels.Core;
@@ -23,6 +24,8 @@ namespace HRInPocket.WPF.ViewModels
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
         }
+
+        
 
         /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
@@ -168,11 +171,11 @@ namespace HRInPocket.WPF.ViewModels
         /// Добавление в коллекцию полученной вакансии
         /// </summary>
         /// <param name="vacancy">Полученная вакансия</param>
-        private void GetDataCollection(Vacancy vacancy)
+        private void GetDataCollection(object sender, VacancyEventArgs e)
         {
             if (DataCollection == null) DataCollection = new ObservableCollection<Vacancy>();
 
-            DataCollection.Add(vacancy);
+            DataCollection.Add(e.Vacancy);
         }
 
         #endregion
