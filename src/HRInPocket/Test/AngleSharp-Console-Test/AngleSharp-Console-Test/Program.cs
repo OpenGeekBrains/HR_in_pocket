@@ -18,25 +18,26 @@ namespace AngleSharp_Console_Test
             parse.Parse();
         }
 
-        private static void GetResult(object sender, Vacancy e)
+        private static void GetResult(object sender, VacancyEventArgs e)
         {
-            Console.WriteLine("{0} - {1}", e.Name.Name, e.Name.Url);
-            Console.WriteLine(e.VacancyAddress);
-            if (e.CompensationUp == 0 && e.CompensationDown > 0)
+            var vacancy = e.Vacancy;
+            Console.WriteLine("{0} - {1}", vacancy.Name.Name, vacancy.Name.Url);
+            Console.WriteLine(vacancy.VacancyAddress);
+            if (vacancy.CompensationUp == 0 && vacancy.CompensationDown > 0)
             {
-                Console.WriteLine("{0} {1} {2}", e.PrefixCompensation, e.CompensationDown, e.CurrencyCode);
+                Console.WriteLine("{0} {1} {2}", vacancy.PrefixCompensation, vacancy.CompensationDown, vacancy.CurrencyCode);
             }
-            if (e.CompensationDown == 0 && e.CompensationUp > 0)
+            if (vacancy.CompensationDown == 0 && vacancy.CompensationUp > 0)
             {
-                Console.WriteLine("{0} {1} {2}", e.PrefixCompensation, e.CompensationUp, e.CurrencyCode);
+                Console.WriteLine("{0} {1} {2}", vacancy.PrefixCompensation, vacancy.CompensationUp, vacancy.CurrencyCode);
             }
-            if (e.CompensationDown > 0 && e.CompensationUp > 0)
+            if (vacancy.CompensationDown > 0 && vacancy.CompensationUp > 0)
             {
-                Console.WriteLine("{0}-{1} {2}", e.CompensationUp, e.CompensationDown, e.CurrencyCode);
+                Console.WriteLine("{0}-{1} {2}", vacancy.CompensationUp, vacancy.CompensationDown, vacancy.CurrencyCode);
             }
-            Console.WriteLine("{0} - {1}", e.Company.Name, e.Company.Url);
-            Console.WriteLine(e.ShortDescription);
-            Console.WriteLine("Date: {0}", e.Date.ToString());
+            Console.WriteLine("{0} - {1}", vacancy.Company.Name, vacancy.Company.Url);
+            Console.WriteLine(vacancy.ShortDescription);
+            Console.WriteLine("Date: {0}", vacancy.Date.ToString());
             Console.WriteLine("-----------");
         }
     }
