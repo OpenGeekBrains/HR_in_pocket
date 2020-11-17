@@ -1,6 +1,6 @@
 using System;
 using HRInPocket.DAL.Data;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

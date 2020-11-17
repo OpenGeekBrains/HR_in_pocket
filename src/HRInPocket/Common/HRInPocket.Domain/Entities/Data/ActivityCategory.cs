@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using HRInPocket.DAL.Models.Base;
+using HRInPocket.Domain.Entities.Base;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Вид деятельности
@@ -11,6 +11,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Список специальностей
         /// </summary>
-        public ICollection<Speciality> Specialties { get; set; } = new HashSet<Speciality>();
+        public ICollection<Speciality> Specialties { get; set; }
     }
 }

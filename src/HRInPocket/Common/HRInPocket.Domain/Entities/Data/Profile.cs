@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Users;
 
-namespace HRInPocket.DAL.Models.Entities
+using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Users;
+
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Профиль пользователя
@@ -44,17 +45,17 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Список резюме
         /// </summary>
-        public ICollection<Resume> Resumes { get; set; } = new HashSet<Resume>();
+        public ICollection<Resume> Resumes { get; set; }
 
         /// <summary>
         /// Список сопроводительных писем
         /// </summary>
-        public  ICollection<CoverLetter> CoverLetters { get; set; } = new HashSet<CoverLetter>();
+        public  ICollection<CoverLetter> CoverLetters { get; set; }
 
         /// <summary>
         /// Список интересующих специальностей
         /// </summary>
-        public ICollection<Speciality> Speciality { get; set; } = new HashSet<Speciality>();
+        public ICollection<Speciality> Speciality { get; set; }
 
         /// <summary>
         /// Связанный пользователь

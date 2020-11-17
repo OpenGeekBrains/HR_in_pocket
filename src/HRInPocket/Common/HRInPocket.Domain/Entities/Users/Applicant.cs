@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Entities;
+﻿using HRInPocket.Domain.Entities.Data;
 
-namespace HRInPocket.DAL.Models.Users
+namespace HRInPocket.Domain.Entities.Users
 {
     /// <summary>
     /// Соискатель

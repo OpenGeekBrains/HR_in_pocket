@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Users;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Резюме соискателя
@@ -17,6 +17,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Поля резюме
         /// </summary>
-        public ICollection<ResumeValue> Values { get; set; } = new HashSet<ResumeValue>();
+        public ICollection<ResumeValue> Values { get; set; }
     }
 }
