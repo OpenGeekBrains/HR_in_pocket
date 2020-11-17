@@ -49,9 +49,13 @@ namespace HRInPocket.Parsing.hh.ru.Service
             do {
                 var config = Configuration.Default.WithDefaultLoader();
 
+                //todo: Разобраться с исключениями: 
+                // Вызвано исключение: "System.Net.WebException" в System.Net.Requests.dll
+                // Вызвано исключение: "System.Net.WebException" в System.Private.CoreLib.dll
+                // при вызове await BrowsingContext.New(config).OpenAsync(Url.Create(path));
                 var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-
-                var items = document.QuerySelectorAll("div")
+                
+                                var items = document.QuerySelectorAll("div")
                     .Where(item => item.ClassName != null && (item.ClassName
                         .Equals("vacancy-serp-item") || item.ClassName.Contains("vacancy-serp-item ")));
 
