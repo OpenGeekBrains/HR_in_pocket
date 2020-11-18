@@ -35,7 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.Clients", "Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.WPF", "UI\WPF\HRInPocket.WPF\HRInPocket.WPF.csproj", "{B950BCFC-AAC2-4A25-B0F6-E61E3AF8B1BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocketTests", "HRInPocketTests\HRInPocketTests.csproj", "{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocketTests", "HRInPocketTests\HRInPocketTests.csproj", "{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocket.Parsing.hh.ru", "Services\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru.csproj", "{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +102,8 @@ Global
 		{BDDF8B29-8A4C-4033-8715-5A3AF1A6A6B0} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 		{B950BCFC-AAC2-4A25-B0F6-E61E3AF8B1BC} = {53C2BED4-C371-4988-8C7A-2B06D490EFCF}
 		{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
+		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
+		{45E7FE81-C786-4010-8AF7-38EABAE8D337} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AACFA313-15B6-4805-8B8F-4077F8582B52}
