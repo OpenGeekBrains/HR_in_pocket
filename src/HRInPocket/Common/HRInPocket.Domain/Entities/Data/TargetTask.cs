@@ -25,6 +25,7 @@ namespace HRInPocket.Domain.Entities.Data
         /// </summary>
         public Speciality Speciality { get; set; }
 
+        // todo: Сделать свойство опциональным
         /// <summary>
         /// Желаемый оклад
         /// </summary>
