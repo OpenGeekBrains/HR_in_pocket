@@ -16,8 +16,9 @@ namespace HRInPocket.ViewModels.Account
         public DateTime Birthday { get; set; }
 
         /// TODO: заменить Address на ViewModel
-        public List<Address> Addresses { get; set; }
-        public List<string> Emails { get; set; }
-        public List<string> Phones { get; set; }
+        public Address Address { get; set; }
+        public List<Resume> Resumes { get; set; }
+        public List<CoverLetter> CoverLetters { get; set; }
+        public List<Speciality> Specialities { get; set; }
     }
 }
