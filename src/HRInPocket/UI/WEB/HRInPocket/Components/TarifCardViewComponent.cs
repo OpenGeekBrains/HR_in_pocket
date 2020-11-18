@@ -1,4 +1,4 @@
-﻿using HRInPocket.DAL.Models.Entities;
+﻿using HRInPocket.Domain.Entities.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRInPocket.Components

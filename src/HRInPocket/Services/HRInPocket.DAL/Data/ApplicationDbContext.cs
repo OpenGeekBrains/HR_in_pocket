@@ -1,6 +1,6 @@
-﻿using HRInPocket.DAL.Models.Entities;
-using HRInPocket.DAL.Models.Users;
-using Microsoft.AspNetCore.Identity;
+﻿using HRInPocket.Domain.Entities.Data;
+using HRInPocket.Domain.Entities.Users;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +16,7 @@ namespace HRInPocket.DAL.Data
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
-        public DbSet<SystemManager> SystemManagers { get; set; } 
+        public DbSet<SystemManager> SystemManagers { get; set; }
         public DbSet<Tarif> Tarifs { get; set; }
         public DbSet<TargetTask> TargetTasks { get; set; }
         public DbSet<CoverLetter> CoverLetters { get; set; }
@@ -28,7 +28,8 @@ namespace HRInPocket.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            base.OnModelCreating(model);            // Никогда, ни за что не удалять, обязательно для поддержки функциональности базового класса
+            base.OnModelCreating(model);            // Необходимо для работы системы Identity
+            // Все модификации указывать ниже
 
         }
     }

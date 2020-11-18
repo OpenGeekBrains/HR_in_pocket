@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HRInPocket.DAL.Models.Base
+namespace HRInPocket.Domain.Entities.Base
 {
     /// <summary>
     /// Базовая сущность

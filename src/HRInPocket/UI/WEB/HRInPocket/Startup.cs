@@ -1,6 +1,8 @@
 using System;
+using AutoMapper;
 using HRInPocket.DAL.Data;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Infrastructure.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +26,10 @@ namespace HRInPocket
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<TestDbInitializer>();
+
+            services.AddAutoMapper(
+                typeof(AccountsProfile)
+                );
 
             services.AddIdentity<User, IdentityRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>()

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Users;
+using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Users;
 
-namespace HRInPocket.DAL.Models.Entities
+namespace HRInPocket.Domain.Entities.Data
 {
     /// <summary>
     /// Тфриф соискателя
@@ -32,6 +32,6 @@ namespace HRInPocket.DAL.Models.Entities
         /// <summary>
         /// Коллекция соискателей с указанным тариформ
         /// </summary>
-        public ICollection<Applicant> Applicants { get; set; } = new HashSet<Applicant>();
+        public ICollection<Applicant> Applicants { get; set; }
     }
 }
