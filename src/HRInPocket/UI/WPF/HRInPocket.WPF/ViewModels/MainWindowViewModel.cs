@@ -165,7 +165,7 @@ namespace HRInPocket.WPF.ViewModels
             {
                 s_cts.Cancel();
                 StopParse = false;
-                Status = "Парсер остановлен";
+                Status = $"Парсер остановлен. Получено {DataCollection.Count} вакансий";
                 ButtonContent = "Запустить";
                 s_cts.Dispose();
             }

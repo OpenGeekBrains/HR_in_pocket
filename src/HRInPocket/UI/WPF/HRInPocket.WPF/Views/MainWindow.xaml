@@ -50,7 +50,7 @@
                     <TextBlock Text="{Binding Status}" />
                 </StatusBarItem>
             </StatusBar>
-            <DataGrid ItemsSource="{Binding DataCollection}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding DataCollection}" AutoGenerateColumns="False" IsReadOnly="True" ScrollViewer.CanContentScroll="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Name.Name}" Width="Auto">
                         <DataGridTextColumn.Header>
