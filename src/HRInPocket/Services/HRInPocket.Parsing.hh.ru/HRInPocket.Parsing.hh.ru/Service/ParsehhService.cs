@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using AngleSharp;
@@ -28,10 +29,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
         protected virtual void OnVacancyEventArgs(Vacancy vacancy)
         {
-            var e = new VacancyEventArgs();
-            e.Vacancy = vacancy;
+            var e = new VacancyEventArgs { Vacancy = vacancy };
             Result?.Invoke(this, e);
-
         }
 
         /// <summary>
@@ -41,12 +40,11 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
         /// в формате "?param1=value&param2=value&...&paramN=value"
         /// </param>
-        public async Task Parse(string GetParameters=null)
+        public async Task ParseAsync(CancellationToken token, string GetParameters = null)
         {
-            string path;
-            if (GetParameters != null) path = _HHUrl + GetParameters;
-            else path = _HHUrl;            
-            do {
+            var path = GetParameters != null ? _HHUrl + GetParameters : _HHUrl;
+            do
+            {
                 var config = Configuration.Default.WithDefaultLoader();
 
                 //todo: Разобраться с исключениями: 
@@ -55,7 +53,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                 // при вызове await BrowsingContext.New(config).OpenAsync(Url.Create(path));
                 var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
                 
-                                var items = document.QuerySelectorAll("div")
+                var items = document.QuerySelectorAll("div")
                     .Where(item => item.ClassName != null && (item.ClassName
                         .Equals("vacancy-serp-item") || item.ClassName.Contains("vacancy-serp-item ")));
 
@@ -192,7 +190,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         .Equals("pager-next")).FirstOrDefault();
                 if (NextPage is null) return;
                 else path = "https://hh.ru" + NextPage.GetAttribute("href");
-            } while (true);
+            } while (!token.IsCancellationRequested);
         }
     }
 

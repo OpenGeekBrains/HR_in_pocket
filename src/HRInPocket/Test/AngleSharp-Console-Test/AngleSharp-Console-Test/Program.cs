@@ -1,11 +1,13 @@
 ﻿using System;
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using System.Threading;
+
 using HRInPocket.Parsing.hh.ru.Service;
 
 namespace AngleSharp_Console_Test
 {
     class Program
     {
+        static readonly CancellationTokenSource s_cts = new CancellationTokenSource();
         static void Main()
         {
             ParseUseDLL();
@@ -15,7 +17,7 @@ namespace AngleSharp_Console_Test
         {
             var parse = new Parsehh();
             parse.Result += GetResult;
-            parse.Parse();
+            _ = parse.ParseAsync(s_cts.Token);
         }
 
         private static void GetResult(object sender, VacancyEventArgs e)

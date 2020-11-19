@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using HRInPocket.Parsing.hh.ru.Models.Entites;
@@ -16,6 +17,6 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
     {
         event EventHandler<VacancyEventArgs> Result;
 
-        Task Parse(string GetParameters = null);
+        Task ParseAsync(CancellationToken token, string GetParameters = null);
     }
 }

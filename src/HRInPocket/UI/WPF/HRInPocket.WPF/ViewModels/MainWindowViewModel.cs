@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
@@ -52,7 +53,7 @@ namespace HRInPocket.WPF.ViewModels
         #region Sites : List<string> - Сайты поиска работы
 
         /// <summary>Сайты поиска работы</summary>
-        private List<string> _Sites = new List<string>()
+        private readonly List<string> _Sites = new List<string>()
         {
             "hh.ru",
             "superjob.ru"
@@ -119,19 +120,36 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
-        #region SearchSwitcher : bool - Переключатель состояния кнопки поиска
+        #region ButtonContent : string - Текст кнопки
 
-        /// <summary>Переключатель состояния кнопки поиска</summary>
-        private bool _SearchSwitcher = true;
+        /// <summary>Текст кнопки</summary>
+        private string _ButtonContent = "Запустить";
 
-        /// <summary>Переключатель состояния кнопки поиска</summary>
-        public bool SearchSwitcher
+        /// <summary>Текст кнопки</summary>
+        public string ButtonContent
         {
-            get => _SearchSwitcher;
-            set => Set(ref _SearchSwitcher, value);
+            get => _ButtonContent;
+            set => Set(ref _ButtonContent, value);
         }
 
         #endregion
+
+        #region StopParse : bool - Остановка парсера
+
+        /// <summary>Остановка парсера</summary>
+        private bool _StopParse = false;
+
+        /// <summary>Остановка парсера</summary>
+        public bool StopParse
+        {
+            get => _StopParse;
+            set => Set(ref _StopParse, value);
+        }
+
+        #endregion
+
+        /// <summary>Источник токена отмены асинхронной операции</summary>
+        private static CancellationTokenSource s_cts;
 
         #endregion
 
@@ -143,11 +161,25 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Поиск на выбранном сайте по ключевому слову</summary>
         private void OnSearchCommandExecuted(object parameter)
         {
-            _Parsehh.Parse();
-            SearchSwitcher = false;
+            if (StopParse)
+            {
+                s_cts.Cancel();
+                StopParse = false;
+                Status = "Парсер остановлен";
+                ButtonContent = "Запустить";
+                s_cts.Dispose();
+            }
+            else
+            {
+                s_cts = new CancellationTokenSource();
+                _Parsehh.ParseAsync(s_cts.Token);
+                StopParse = true;
+                ButtonContent = "Остановить";
+                Status = "Парсер запущен";
+            }
         }
 
-        private bool CanSearchCommandExecute(object parameter) => SearchSwitcher;
+        private bool CanSearchCommandExecute(object parameter) => true;
 
         #endregion
 
@@ -177,7 +209,7 @@ namespace HRInPocket.WPF.ViewModels
 
             DataCollection.Add(e.Vacancy);
         }
-
         #endregion
+
     }
 }

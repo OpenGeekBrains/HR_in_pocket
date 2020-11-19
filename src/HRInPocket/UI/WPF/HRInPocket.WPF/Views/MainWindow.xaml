@@ -28,7 +28,7 @@
                 Width="70"
                 Margin="5"
                 Command="{Binding SearchCommand}"
-                Content="Поиск"
+                Content="{Binding ButtonContent}"
                 DockPanel.Dock="Right" />
             <ComboBox
                 Width="100"
