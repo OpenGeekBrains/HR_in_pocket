@@ -5,12 +5,17 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using AngleSharp;
+using AngleSharp.Dom;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models.Entites;
 
 namespace HRInPocket.Parsing.hh.ru.Service
 {
+    public class VacancyEventArgs : EventArgs
+    {
+        public Vacancy Vacancy { get; set; }
+    }
     public class ParsehhService : IParsehhService
     {
         public IParsehh GetPasrse()
@@ -52,34 +57,31 @@ namespace HRInPocket.Parsing.hh.ru.Service
                 // Вызвано исключение: "System.Net.WebException" в System.Private.CoreLib.dll
                 // при вызове await BrowsingContext.New(config).OpenAsync(Url.Create(path));
                 var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-                
+
                 var items = document.QuerySelectorAll("div")
                     .Where(item => item.ClassName != null && (item.ClassName
                         .Equals("vacancy-serp-item") || item.ClassName.Contains("vacancy-serp-item ")));
 
                 foreach (var fitem in items)
                 {
-                    AngleSharp.Dom.IElement vacancyNameParse = null;
+                    var vacancy = new Vacancy()
+                    {
+                        Name = new VacancyName(),
+                        Company = new Company()
+                    };
+
+                    IElement vacancyNameParse;
+
                     try
                     {
                         vacancyNameParse = fitem.QuerySelectorAll("a")
                         .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                             .Equals("vacancy-serp__vacancy-title")).FirstOrDefault();
-                    }
-                    catch (Exception e)
-                    {
-                        Trace.TraceError(e.ToString());
-                        throw;
-                    }                    
-                    if (vacancyNameParse != null)
-                    {
-                        AngleSharp.Dom.IElement companyParse;
-                        AngleSharp.Dom.IElement addressParse;
-                        AngleSharp.Dom.IElement compensationParse;
-                        AngleSharp.Dom.IElement descriptionShortPasrse;
-                        AngleSharp.Dom.IElement DatePasrse;
-                        try
+
+                        if (vacancyNameParse != null)
                         {
+                            IElement companyParse, addressParse, compensationParse, descriptionShortPasrse, DatePasrse;
+
                             companyParse = fitem.QuerySelectorAll("a")
                             .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                                 .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault();
@@ -95,94 +97,26 @@ namespace HRInPocket.Parsing.hh.ru.Service
                             DatePasrse = fitem.QuerySelectorAll("span")
                                 .Where(item => item.ClassName != null && item.ClassName
                                     .Equals("vacancy-serp-item__publication-date")).FirstOrDefault();
-                        } catch (Exception e)
-                        {
-                            Trace.TraceError(e.ToString());
-                            throw;
-                        }
-                        
-                        var vacancyname = vacancyNameParse?.TextContent;
-                        var vacancynameUrl = vacancyNameParse?.GetAttribute("href");
-                        var company = companyParse?.TextContent;
-                        var companyUrl = "https://hh.ru" + companyParse?.GetAttribute("href");
-                        var address = addressParse?.TextContent;
-                        var descriptionShort = descriptionShortPasrse?.TextContent;
-                        var prefix = "";
-                        var currency = "";
-                        var date = DateTime.Parse(DatePasrse?.TextContent.Replace((char)160, (char)32));
-                        ulong compensationUp=0, compensationDown=0;
-                        if (compensationParse != null)
-                        {                            
-                            var compensationString = compensationParse.TextContent;
-                            currency = compensationString.Substring(compensationString.LastIndexOf(' ') + 1);
-                            compensationString = compensationString.Substring(0, compensationString.LastIndexOf(' '));
-                            var getIndexOff = compensationString.IndexOf(' ');
-                            
-                            if (getIndexOff>0)
+
+                            vacancy.Name.Name = vacancyNameParse?.TextContent;
+                            vacancy.Name.Url = vacancyNameParse?.GetAttribute("href");
+                            vacancy.Company.Name = companyParse?.TextContent;
+                            vacancy.Company.Url = "https://hh.ru" + companyParse?.GetAttribute("href");
+                            vacancy.VacancyAddress = addressParse?.TextContent;
+                            vacancy.ShortDescription = descriptionShortPasrse?.TextContent;
+                            vacancy.Date = DateTime.Parse(DatePasrse?.TextContent.Replace((char)160, (char)32));
+
+                            if (compensationParse != null)
                             {
-                                prefix = compensationString.Substring(0, getIndexOff);
-                            }                            
-                            if (prefix.Equals("от") || prefix.Equals("до"))
-                            {
-                                compensationString = compensationString.Substring(getIndexOff + 1);
-                                compensationString = compensationString.Replace((char)160, (char)32);
-                                compensationString = compensationString.Replace(" ", "");
-                                if (prefix.Equals("от"))
-                                {
-                                    compensationDown = 0;
-                                    if(!ulong.TryParse(compensationString,out compensationUp))
-                                    {
-                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationUp}}:\n\"{compensationParse.TextContent}\"");
-                                    }
-                                }
-                                if (prefix.Equals("до"))
-                                {
-                                    compensationUp = 0;
-                                    if (!ulong.TryParse(compensationString, out compensationDown))
-                                    {
-                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationDown}}:\n\"{compensationParse.TextContent}\"");
-                                    }
-                                }
+                                CompenstionParse(vacancy, compensationParse);
                             }
-                            else
-                            {
-                                compensationString = compensationString.Replace((char)160, (char)32);
-                                compensationString = compensationString.Replace(" ", "");
-                                var CompensationStringSplit = compensationString.Split('-');
-                                if (CompensationStringSplit.Length>1)
-                                {
-                                    if (!ulong.TryParse(CompensationStringSplit[0], out compensationUp))
-                                    {
-                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationUp}}:\n\"{compensationParse.TextContent}\"");
-                                    }
-                                    if (!ulong.TryParse(CompensationStringSplit[1], out compensationDown))
-                                    {
-                                        throw new FormatException($"Ошибка формата строки, не удалось извлечь значение {{compensationDown}}:\n\"{compensationParse.TextContent}\"");
-                                    }
-                                }
-                            }
+                            OnVacancyEventArgs(vacancy);
                         }
-                        var vacancy = new Vacancy()
-                        {
-                            Name = new VacancyName()
-                            {
-                                Name = vacancyname,
-                                Url = vacancynameUrl
-                            },
-                            Company = new Company()
-                            {
-                                Name = company,
-                                Url = companyUrl
-                            },
-                            CompensationUp = compensationUp,
-                            CompensationDown = compensationDown,
-                            CurrencyCode = currency,
-                            Date = date,
-                            PrefixCompensation = prefix,
-                            ShortDescription = descriptionShort,
-                            VacancyAddress = address
-                        };
-                        OnVacancyEventArgs(vacancy);
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.TraceError(e.ToString());
+                        throw;
                     }
                 }
                 var NextPage = document.QuerySelectorAll("a")
@@ -192,10 +126,51 @@ namespace HRInPocket.Parsing.hh.ru.Service
                 else path = "https://hh.ru" + NextPage.GetAttribute("href");
             } while (!token.IsCancellationRequested);
         }
-    }
 
-    public class VacancyEventArgs: EventArgs
-    {
-        public Vacancy Vacancy { get; set; }
+        private static void CompenstionParse(Vacancy vacancy, IElement compensationParse)
+        {
+            vacancy.CurrencyCode = compensationParse.TextContent.Substring(compensationParse.TextContent.LastIndexOf(' ') + 1);
+            var compensationString = compensationParse.TextContent.Substring(0, compensationParse.TextContent.LastIndexOf(' '));
+
+            var getIndexOff = compensationString.IndexOf(' ');
+
+            if (getIndexOff > 0)
+            {
+                vacancy.PrefixCompensation = compensationString.Substring(0, getIndexOff);
+            }
+
+            if (!string.IsNullOrEmpty(vacancy.PrefixCompensation) && (vacancy.PrefixCompensation.Equals("от") || vacancy.PrefixCompensation.Equals("до")))
+            {
+                compensationString = compensationString.Substring(getIndexOff + 1).Replace((char)160, (char)32).Replace(" ", "");
+
+                if (vacancy.PrefixCompensation.Equals("от") && ulong.TryParse(compensationString, out ulong compensationDown))
+                {
+                    vacancy.CompensationDown = compensationDown;
+                }
+                if (vacancy.PrefixCompensation.Equals("до") && ulong.TryParse(compensationString, out ulong compensationUp))
+                {
+                    vacancy.CompensationUp = compensationUp;
+                }
+            }
+            else
+            {
+                compensationString = compensationString.Replace((char)160, (char)32).Replace(" ", "");
+                var CompensationStringSplit = compensationString.Split('-');
+
+                if (CompensationStringSplit.Length > 1)
+                {
+                    if (ulong.TryParse(CompensationStringSplit[0], out ulong compensationUp))
+                    {
+                        vacancy.CompensationUp = compensationUp;
+                    }
+                    if (ulong.TryParse(CompensationStringSplit[1], out ulong compensationDown))
+                    {
+                        vacancy.CompensationDown = compensationDown;
+                    }
+                }
+                //else throw new FormatException();
+            }
+        }
     }
 }
+
