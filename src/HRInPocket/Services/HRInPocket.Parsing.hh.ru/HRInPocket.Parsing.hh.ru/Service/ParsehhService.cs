@@ -18,10 +18,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
     }
     public class ParsehhService : IParsehhService
     {
-        public IParsehh GetPasrse()
-        {
-            return new Parsehh();
-        }
+        public IParsehh GetPasrse() => new Parsehh();
     }
     /// <summary>
     /// Парсер загружает страницу по адресу https://hh.ru/search/vacancy
@@ -64,59 +61,23 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                 foreach (var fitem in items)
                 {
-                    var vacancy = new Vacancy()
-                    {
-                        Name = new VacancyName(),
-                        Company = new Company()
-                    };
-
-                    IElement vacancyNameParse;
-
                     try
                     {
-                        vacancyNameParse = fitem.QuerySelectorAll("a")
+                        var vacancyNameParse = fitem.QuerySelectorAll("a")
                         .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
                             .Equals("vacancy-serp__vacancy-title")).FirstOrDefault();
 
                         if (vacancyNameParse != null)
                         {
-                            IElement companyParse, addressParse, compensationParse, descriptionShortPasrse, DatePasrse;
-
-                            companyParse = fitem.QuerySelectorAll("a")
-                            .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
-                                .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault();
-                            addressParse = fitem.QuerySelectorAll("span")
-                                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
-                                    .Equals("vacancy-serp__vacancy-address")).FirstOrDefault();
-                            compensationParse = fitem.QuerySelectorAll("span")
-                                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
-                                    .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
-                            descriptionShortPasrse = fitem.QuerySelectorAll("div")
-                                .Where(item => item.ClassName != null && item.ClassName
-                                    .Equals("g-user-content")).FirstOrDefault();
-                            DatePasrse = fitem.QuerySelectorAll("span")
-                                .Where(item => item.ClassName != null && item.ClassName
-                                    .Equals("vacancy-serp-item__publication-date")).FirstOrDefault();
-
-                            vacancy.Name.Name = vacancyNameParse?.TextContent;
-                            vacancy.Name.Url = vacancyNameParse?.GetAttribute("href");
-                            vacancy.Company.Name = companyParse?.TextContent;
-                            vacancy.Company.Url = "https://hh.ru" + companyParse?.GetAttribute("href");
-                            vacancy.VacancyAddress = addressParse?.TextContent;
-                            vacancy.ShortDescription = descriptionShortPasrse?.TextContent;
-                            vacancy.Date = DateTime.Parse(DatePasrse?.TextContent.Replace((char)160, (char)32));
-
-                            if (compensationParse != null)
-                            {
-                                CompenstionParse(vacancy, compensationParse);
-                            }
+                            var vacancy = VacancyCreate(fitem, vacancyNameParse);
+                            CompenstionParse(vacancy, fitem);
                             OnVacancyEventArgs(vacancy);
                         }
                     }
                     catch (Exception e)
                     {
                         Trace.TraceError(e.ToString());
-                        throw;
+                        throw e;
                     }
                 }
                 var NextPage = document.QuerySelectorAll("a")
@@ -127,8 +88,57 @@ namespace HRInPocket.Parsing.hh.ru.Service
             } while (!token.IsCancellationRequested);
         }
 
-        private static void CompenstionParse(Vacancy vacancy, IElement compensationParse)
+        /// <summary>
+        /// Создание вакансии
+        /// </summary>
+        /// <param name="fitem">Объект коллекции, из которой получают данные о вакансии</param>
+        /// <param name="vacancyNameParse">Объект из fitem, содержащий данные о названии и адресе вакансии</param>
+        /// <returns>Созданная вакансия</returns>
+        private static Vacancy VacancyCreate(IElement fitem, IElement vacancyNameParse) => new Vacancy()
         {
+            Name = new VacancyName()
+            {
+                Name = vacancyNameParse?.TextContent,
+                Url = vacancyNameParse?.GetAttribute("href")
+            },
+            Company = new Company()
+            {
+                Name = fitem.QuerySelectorAll("a")
+                    .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                    .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault()
+                    ?.TextContent,
+                Url = "https://hh.ru" + fitem.QuerySelectorAll("a")
+                    .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                    .Equals("vacancy-serp__vacancy-employer")).FirstOrDefault()
+                    ?.GetAttribute("href")
+            },
+            VacancyAddress = fitem.QuerySelectorAll("span")
+                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                .Equals("vacancy-serp__vacancy-address")).FirstOrDefault()
+                ?.TextContent,
+            ShortDescription = fitem.QuerySelectorAll("div")
+                .Where(item => item.ClassName != null && item.ClassName
+                .Equals("g-user-content")).FirstOrDefault()
+                ?.TextContent,
+            Date = DateTime.Parse(fitem.QuerySelectorAll("span")
+                .Where(item => item.ClassName != null && item.ClassName
+                .Equals("vacancy-serp-item__publication-date")).FirstOrDefault()
+                ?.TextContent.Replace((char)160, (char)32)),
+        };
+
+        /// <summary>
+        /// Метод рассчета заработной платы для вакансии
+        /// </summary>
+        /// <param name="vacancy">Вакансия, в которую записываются данные о зарплате</param>
+        /// <param name="compensationParse">Объект, из которого получают данные о зарплате</param>
+        private static void CompenstionParse(Vacancy vacancy, IElement fitem)
+        {
+            var compensationParse = fitem.QuerySelectorAll("span")
+                .Where(item => item.HasAttribute("data-qa") != false && item.GetAttribute("data-qa")
+                .Equals("vacancy-serp__vacancy-compensation")).FirstOrDefault();
+
+            if (compensationParse == null) return;
+
             vacancy.CurrencyCode = compensationParse.TextContent.Substring(compensationParse.TextContent.LastIndexOf(' ') + 1);
             var compensationString = compensationParse.TextContent.Substring(0, compensationParse.TextContent.LastIndexOf(' '));
 
@@ -137,20 +147,18 @@ namespace HRInPocket.Parsing.hh.ru.Service
             if (getIndexOff > 0)
             {
                 vacancy.PrefixCompensation = compensationString.Substring(0, getIndexOff);
-            }
 
-            if (!string.IsNullOrEmpty(vacancy.PrefixCompensation) && (vacancy.PrefixCompensation.Equals("от") || vacancy.PrefixCompensation.Equals("до")))
-            {
                 compensationString = compensationString.Substring(getIndexOff + 1).Replace((char)160, (char)32).Replace(" ", "");
 
                 if (vacancy.PrefixCompensation.Equals("от") && ulong.TryParse(compensationString, out ulong compensationDown))
                 {
                     vacancy.CompensationDown = compensationDown;
                 }
-                if (vacancy.PrefixCompensation.Equals("до") && ulong.TryParse(compensationString, out ulong compensationUp))
+                else if (vacancy.PrefixCompensation.Equals("до") && ulong.TryParse(compensationString, out ulong compensationUp))
                 {
                     vacancy.CompensationUp = compensationUp;
                 }
+                return;
             }
             else
             {
@@ -159,16 +167,24 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                 if (CompensationStringSplit.Length > 1)
                 {
-                    if (ulong.TryParse(CompensationStringSplit[0], out ulong compensationUp))
-                    {
-                        vacancy.CompensationUp = compensationUp;
-                    }
-                    if (ulong.TryParse(CompensationStringSplit[1], out ulong compensationDown))
-                    {
-                        vacancy.CompensationDown = compensationDown;
-                    }
+                    ulong.TryParse(CompensationStringSplit[0], out ulong compensationDown);
+                    ulong.TryParse(CompensationStringSplit[1], out ulong compensationUp);
+
+                    vacancy.CompensationDown = compensationDown;
+                    vacancy.CompensationUp = compensationUp;
                 }
-                //else throw new FormatException();
+            }
+
+            if (ulong.TryParse(vacancy.PrefixCompensation, out var s))
+            {
+                var c = 5;
+                //TODO:  throw new FormatException();
+            }
+
+            if(!string.IsNullOrEmpty(vacancy.PrefixCompensation) && vacancy.CompensationDown == 0 && vacancy.CompensationUp == 0)
+            {
+                var x = 0;
+                //TODO:  throw new FormatException();
             }
         }
     }

@@ -187,10 +187,7 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Сохранение данных в json</summary>
         public ICommand SaveDataToJSONCommand { get; }
         /// <summary>Сохранение данных в json</summary>
-        private void OnSaveDataToJSONCommandExecuted(object parameter)
-        {
-            _SaveDataToJSON.SaveDataToFile(DataCollection, SelectedSite);
-        }
+        private void OnSaveDataToJSONCommandExecuted(object parameter) => _SaveDataToJSON.SaveDataToFile(DataCollection, SelectedSite);
 
         private bool CanSaveDataToJSONCommandExecute(object parameter) => true;
 
