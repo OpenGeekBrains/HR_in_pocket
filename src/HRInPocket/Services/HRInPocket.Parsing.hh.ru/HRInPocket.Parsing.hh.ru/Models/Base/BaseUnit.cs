@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HRInPocket.Parsing.hh.ru.Models.Base
+﻿namespace HRInPocket.Parsing.hh.ru.Models.Base
 {
     /// <summary>
     /// Базовая сущность
