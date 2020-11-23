@@ -1,9 +1,10 @@
-﻿@{
+﻿@model ShortFormCreateTaskViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class=" d-flex plashka "><img src="~/img/svg/plashka.svg" alt="" class="   d-flex ml-0  menu-rectangle"> </div>
 <img src="~/img/svg/dots2.svg" alt="" class="plashka-top">
 <div class="content">
-  <partial name="Partial/_Executor" />
+  <partial name="Partial/_Executor" model="Model"/>
 </div>
