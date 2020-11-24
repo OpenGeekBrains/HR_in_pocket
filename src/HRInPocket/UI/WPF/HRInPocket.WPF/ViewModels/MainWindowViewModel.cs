@@ -7,6 +7,7 @@ using System.Windows.Input;
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models.Entites;
 using HRInPocket.Parsing.hh.ru.Service;
+using HRInPocket.WPF.Data;
 using HRInPocket.WPF.Infrastructure.Commands;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels.Core;
@@ -95,7 +96,7 @@ namespace HRInPocket.WPF.ViewModels
         #region DataCollection : ObservableCollection<Vacancy> - Список данных
 
         /// <summary>Список данных</summary>
-        private ObservableCollection<Vacancy> _DataCollection;
+        private ObservableCollection<Vacancy> _DataCollection = TestData.GetTestData();
 
         /// <summary>Список данных</summary>
         public ObservableCollection<Vacancy> DataCollection
