@@ -36,7 +36,9 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// </param>
         public async Task ParseAsync(CancellationToken token, string GetParameters = null)
         {
+            var random = new Random();
             var path = GetParameters != null ? _HHUrl + GetParameters : _HHUrl;
+
             do
             {
                 var config = Configuration.Default.WithDefaultLoader();
@@ -77,9 +79,11 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
                 if (NextPage is null) return;
                 path = "https://hh.ru" + NextPage.GetAttribute("href");
+                
+                var taskDelay = Task.Delay(random.Next(300, 2000));
+                await taskDelay;
+
             } while (!token.IsCancellationRequested);
-
-
         }
 
         /// <summary>
