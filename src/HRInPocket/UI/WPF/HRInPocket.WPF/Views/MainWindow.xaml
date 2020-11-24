@@ -74,21 +74,9 @@
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto" MaxWidth="250" Binding="{Binding Path=Name.Name}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Название" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="Auto" MaxWidth="250" Binding="{Binding Path=Company.Name}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Работодатель" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="Auto" Binding="{Binding Path=Date}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Дата" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Название" Width="Auto" MaxWidth="250" Binding="{Binding Path=Name.Name}" />
+                    <DataGridTextColumn Header="Работодатель" Width="Auto" MaxWidth="250" Binding="{Binding Path=Company.Name}" />
+                    <DataGridTextColumn Header="Дата" Width="Auto" Binding="{Binding Path=Date}" />
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
