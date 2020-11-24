@@ -12,52 +12,42 @@ using HRInPocket.Parsing.hh.ru.Models.Entites;
 
 namespace HRInPocket.Parsing.hh.ru.Service
 {
-    /// <summary>
-    /// Парсер загружает страницу по адресу https://hh.ru/search/vacancy
-    /// </summary>
+    ///<inheritdoc cref="IParsehh"/>
     public class Parsehh : IParsehh
     {
         private const string _HHUrl = "https://hh.ru/search/vacancy";
 
+        ///<inheritdoc/>
         public event EventHandler<VacancyEventArgs> Result;
-
+        
         protected virtual void OnVacancyEventArgs(Vacancy vacancy)
         {
             var e = new VacancyEventArgs { Vacancy = vacancy };
             Result?.Invoke(this, e);
         }
 
-        /// <summary>
-        /// Парсит https://hh.ru/search/vacancy и возвращает значения по готовности через событие Result
-        /// </summary>
-        /// <param name="GetParameters">
-        /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
-        /// в формате "?param1=value&param2=value&...&paramN=value"
-        /// </param>
+        ///<inheritdoc/>
         public async Task ParseAsync(CancellationToken token, string GetParameters = null)
         {
             var random = new Random();
             var path = GetParameters != null ? _HHUrl + "?text=" + GetParameters : _HHUrl;
 
-            do
+            try
             {
-                var config = Configuration.Default.WithDefaultLoader();
-
-                //todo: Разобраться с исключениями: 
-                // Вызвано исключение: "System.Net.WebException" в System.Net.Requests.dll
-                // Вызвано исключение: "System.Net.WebException" в System.Private.CoreLib.dll
-                // при вызове await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-                var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-
-                var items = document.QuerySelectorAll("div")
-                    .Where(item => item.ClassName != null &&
-                                   (item.ClassName.Equals("vacancy-serp-item") ||
-                                   item.ClassName.Contains("vacancy-serp-item ")));
-
-                foreach (var fitem in items)
+                do
                 {
-                    try
+                    var config = Configuration.Default.WithDefaultLoader();
+
+                    var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
+
+                    var items = document.QuerySelectorAll("div")
+                        .Where(item => item.ClassName != null &&
+                                       (item.ClassName.Equals("vacancy-serp-item") ||
+                                       item.ClassName.Contains("vacancy-serp-item ")));
+
+                    foreach (var fitem in items)
                     {
+
                         var vacancyNameParse = fitem.QuerySelectorAll("a")
                             .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
 
@@ -67,23 +57,24 @@ namespace HRInPocket.Parsing.hh.ru.Service
                             CompenstionParse(vacancy, fitem);
                             OnVacancyEventArgs(vacancy);
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Trace.TraceError(e.ToString());
-                        throw e;
-                    }
-                }
-                var NextPage = document.QuerySelectorAll("a")
-                    .FirstOrDefault(item => DataQA(item, "pager-next"));
 
-                if (NextPage is null) return;
-                path = "https://hh.ru" + NextPage.GetAttribute("href");
-                
-                var taskDelay = Task.Delay(random.Next(300, 2000));
-                await taskDelay;
+                    }
+                    var NextPage = document.QuerySelectorAll("a")
+                        .FirstOrDefault(item => DataQA(item, "pager-next"));
 
-            } while (!token.IsCancellationRequested);
+                    if (NextPage is null) return;
+                    path = "https://hh.ru" + NextPage.GetAttribute("href");
+
+                    var taskDelay = Task.Delay(random.Next(300, 2000));
+                    await taskDelay;
+
+                } while (!token.IsCancellationRequested);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                throw e;
+            }
         }
 
         /// <summary>
@@ -134,9 +125,10 @@ namespace HRInPocket.Parsing.hh.ru.Service
 
             if (compensationParse == null) return;
 
-            vacancy.CurrencyCode = compensationParse.TextContent.Substring(compensationParse.TextContent.LastIndexOf(' ') + 1);
-            var compensationString = compensationParse.TextContent.Substring(0, compensationParse.TextContent.LastIndexOf(' '));
-            compensationString = compensationString.Replace((char)160, (char)32).Replace((char)8239, (char)32).Replace(" ", "");
+            var spaceIndex = compensationParse.TextContent.LastIndexOf(' ');
+            vacancy.CurrencyCode = compensationParse.TextContent.Substring(spaceIndex + 1);
+            var compensationString = compensationParse.TextContent.Substring(0, spaceIndex).Replace((char)160, (char)32).Replace((char)8239, (char)32).Replace(" ", "");
+
 
             if (compensationString.Contains("от")) CompensationWithPrefix("от");
             else if (compensationString.Contains("до")) CompensationWithPrefix("до");
