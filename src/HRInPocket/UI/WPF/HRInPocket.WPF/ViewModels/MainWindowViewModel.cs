@@ -171,8 +171,10 @@ namespace HRInPocket.WPF.ViewModels
             }
             else
             {
+                DataCollection = new ObservableCollection<Vacancy>();
                 s_cts = new CancellationTokenSource();
-                _Parsehh.ParseAsync(s_cts.Token);
+                if(string.IsNullOrEmpty(KeyWords)) _Parsehh.ParseAsync(s_cts.Token);
+                else _Parsehh.ParseAsync(s_cts.Token, KeyWords);
                 StopParse = true;
                 ButtonContent = "Остановить";
                 Status = "Парсер запущен";

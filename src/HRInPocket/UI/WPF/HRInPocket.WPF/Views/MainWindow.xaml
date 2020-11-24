@@ -41,7 +41,8 @@
                 SelectedItem="{Binding SelectedSite}" />
             <TextBox
                 Margin="5"
-                IsEnabled="False"
+                Padding="5,0,0,0"
+                VerticalContentAlignment="Center"
                 Text="{Binding KeyWords}" />
         </DockPanel>
         <DockPanel Grid.Row="1" Margin="2">
@@ -52,10 +53,10 @@
             </StatusBar>
             <DataGrid
                 AutoGenerateColumns="False"
-                IsReadOnly="True"
-                ItemsSource="{Binding DataCollection}"
                 EnableColumnVirtualization="True"
-                EnableRowVirtualization="True">
+                EnableRowVirtualization="True"
+                IsReadOnly="True"
+                ItemsSource="{Binding DataCollection}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="200" Binding="{Binding Path=Name.Name}">
                         <DataGridTextColumn.Header>

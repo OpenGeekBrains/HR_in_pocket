@@ -37,7 +37,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
         public async Task ParseAsync(CancellationToken token, string GetParameters = null)
         {
             var random = new Random();
-            var path = GetParameters != null ? _HHUrl + GetParameters : _HHUrl;
+            var path = GetParameters != null ? _HHUrl + "?text=" + GetParameters : _HHUrl;
 
             do
             {
