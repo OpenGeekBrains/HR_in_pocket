@@ -68,13 +68,13 @@
                             </StackPanel>
                             <TextBlock Margin="5,0" Text="{Binding VacancyAddress}" />
                             <TextBlock Margin="5,0" Text="{Binding ShortDescription}" TextWrapping="Wrap" MaxWidth="600" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="5,0" Text="{Binding Path=Name.Url}" />
+                            <TextBlock Margin="5,0" Text="{Binding Path=Url}" />
                             <TextBlock Margin="5,0" Text="{Binding Path=Company.Url}" />
                         </StackPanel>
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Width="Auto" MaxWidth="250" Binding="{Binding Path=Name.Name}" />
+                    <DataGridTextColumn Header="Название" Width="Auto" MaxWidth="250" Binding="{Binding Path=Name}" />
                     <DataGridTextColumn Header="Работодатель" Width="Auto" MaxWidth="250" Binding="{Binding Path=Company.Name}" />
                     <DataGridTextColumn Header="Дата" Width="Auto" Binding="{Binding Path=Date}" />
                 </DataGrid.Columns>

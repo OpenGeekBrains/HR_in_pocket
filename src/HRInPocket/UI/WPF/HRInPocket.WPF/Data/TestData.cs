@@ -17,16 +17,13 @@ namespace HRInPocket.WPF.Data
             {
                 testData.Add(new Vacancy()
                 {
-                    Name = new VacancyName()
-                    {
-                        Name = "VacancyName " + i,
-                        Url = "VacancyUrl " + i
-                    },
                     Company = new Company()
                     {
                         Name = "CompanyName " + i,
                         Url = "CompanyUrl " + i
                     },
+                    Name = "VacancyName " + i,
+                    Url = "VacancyUrl " + i,
                     VacancyAddress = "VacancyAddres " + i,
                     Description = "VacancyDescription" + i,
                     ShortDescription = "VacancyShortDescription " + i,

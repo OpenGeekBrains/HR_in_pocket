@@ -23,7 +23,7 @@ namespace AngleSharp_Console_Test
         private static void GetResult(object sender, VacancyEventArgs e)
         {
             var vacancy = e.Vacancy;
-            Console.WriteLine("{0} - {1}", vacancy.Name.Name, vacancy.Name.Url);
+            Console.WriteLine("{0} - {1}", vacancy.Name, vacancy.Url);
             Console.WriteLine(vacancy.VacancyAddress);
             if (vacancy.CompensationUp == 0 && vacancy.CompensationDown > 0)
             {

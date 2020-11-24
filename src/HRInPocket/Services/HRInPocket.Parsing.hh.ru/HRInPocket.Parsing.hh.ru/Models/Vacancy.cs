@@ -1,27 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using HRInPocket.Parsing.hh.ru.Models.Base;
 
 namespace HRInPocket.Parsing.hh.ru.Models.Entites
 {    
-    public class Vacancy
+    public class Vacancy : BaseUnit
     {
-        /// <summary>
-        /// Название вакансии
-        /// </summary>
-        public VacancyName Name { get; set; }
-
         /// <summary>
         /// Компания, разместившая вакансию
         /// </summary>
         public Company Company { get; set; }
 
-        public IEnumerable<BaseUnit> Meta {get;set;}        
         /// <summary>
         /// Адрес
         /// </summary>
         public string VacancyAddress { get; set; }
+        
         /// <summary>
         /// Описание Вакансии
         /// </summary>

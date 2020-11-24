@@ -85,11 +85,6 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <returns>Созданная вакансия</returns>
         private static Vacancy VacancyCreate(IElement fitem, IElement vacancyNameParse) => new Vacancy()
         {
-            Name = new VacancyName()
-            {
-                Name = vacancyNameParse?.TextContent,
-                Url = vacancyNameParse?.GetAttribute("href")
-            },
             Company = new Company()
             {
                 Name = fitem.QuerySelectorAll("a")
@@ -100,6 +95,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
                     .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-employer"))
                     ?.GetAttribute("href")
             },
+            Name = vacancyNameParse?.TextContent,
+            Url = vacancyNameParse?.GetAttribute("href"),
             VacancyAddress = fitem.QuerySelectorAll("span")
                 .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-address"))
                 ?.TextContent,
