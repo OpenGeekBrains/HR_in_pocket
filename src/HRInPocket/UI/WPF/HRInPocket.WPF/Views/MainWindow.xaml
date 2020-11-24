@@ -57,76 +57,37 @@
                 EnableRowVirtualization="True"
                 IsReadOnly="True"
                 ItemsSource="{Binding DataCollection}">
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5,0" Text="{Binding Path=PrefixCompensation}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CompensationDown}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CompensationUp}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CurrencyCode}" />
+                            </StackPanel>
+                            <TextBlock Margin="5,0" Text="{Binding VacancyAddress}" />
+                            <TextBlock Margin="5,0" Text="{Binding ShortDescription}" TextWrapping="Wrap" MaxWidth="600" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="5,0" Text="{Binding Path=Name.Url}" />
+                            <TextBlock Margin="5,0" Text="{Binding Path=Company.Url}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="200" Binding="{Binding Path=Name.Name}">
+                    <DataGridTextColumn Width="Auto" MaxWidth="250" Binding="{Binding Path=Name.Name}">
                         <DataGridTextColumn.Header>
                             <TextBlock Foreground="Black" Text="Название" />
                         </DataGridTextColumn.Header>
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip" Value="{Binding Path=Name.Name}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Width="250" Binding="{Binding Path=Company.Name}">
+                    <DataGridTextColumn Width="Auto" MaxWidth="250" Binding="{Binding Path=Company.Name}">
                         <DataGridTextColumn.Header>
                             <TextBlock Foreground="Black" Text="Работодатель" />
                         </DataGridTextColumn.Header>
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip" Value="{Binding Path=Company.Name}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Width="50" Binding="{Binding Path=PrefixCompensation}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="от/до" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="70" Binding="{Binding Path=CompensationDown}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Минимум" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="70" Binding="{Binding Path=CompensationUp}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Максимум" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="60" Binding="{Binding Path=CurrencyCode}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Валюта" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="70" Binding="{Binding Path=Date}">
+                    <DataGridTextColumn Width="Auto" Binding="{Binding Path=Date}">
                         <DataGridTextColumn.Header>
                             <TextBlock Foreground="Black" Text="Дата" />
                         </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="150" Binding="{Binding Path=VacancyAddress}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Расположение" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridHyperlinkColumn Width="200" Binding="{Binding Path=Name.Url}">
-                        <DataGridHyperlinkColumn.Header>
-                            <TextBlock Foreground="Black" Text="Страница вакансии" />
-                        </DataGridHyperlinkColumn.Header>
-                    </DataGridHyperlinkColumn>
-                    <DataGridHyperlinkColumn Width="200" Binding="{Binding Path=Company.Url}">
-                        <DataGridHyperlinkColumn.Header>
-                            <TextBlock Foreground="Black" Text="Страница работодателя" />
-                        </DataGridHyperlinkColumn.Header>
-                    </DataGridHyperlinkColumn>
-                    <DataGridTextColumn Width="300" Binding="{Binding Path=ShortDescription}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Краткое описание" />
-                        </DataGridTextColumn.Header>
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip" Value="{Binding Path=ShortDescription}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
