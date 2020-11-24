@@ -1,15 +1,14 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
+
 using HRInPocket.DAL.Data;
-using HRInPocket.Domain.Entities.Users;
 using HRInPocket.Infrastructure.Profiles;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace HRInPocket
 {
@@ -29,6 +28,13 @@ namespace HRInPocket
 
             services.AddServices(Configuration);
 
+            services.AddSwaggerGen(setup => setup
+                .SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "HR in Pocket API",
+                Version = "v1"
+            }));
+
             services.AddControllersWithViews();
         }
 
@@ -39,6 +45,11 @@ namespace HRInPocket
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(setup => setup
+                        .SwaggerEndpoint("swagger/v1/swagger.json", "HR in Pocket API v1")
+                    );
             }
             else
             {
