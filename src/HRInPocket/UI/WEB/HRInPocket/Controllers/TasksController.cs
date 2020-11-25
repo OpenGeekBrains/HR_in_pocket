@@ -28,7 +28,9 @@ namespace HRInPocket.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() => View(new CreateTaskViewModel());
+        public IActionResult Create(ShortFormCreateTaskViewModel model = null) => View(model is null 
+            ? new CreateTaskViewModel() 
+            : new CreateTaskViewModel{ Position = model.Position, ResumeUrl = model.ResumeUrl });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateTaskViewModel model)

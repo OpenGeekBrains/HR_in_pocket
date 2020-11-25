@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using HRInPocket.ViewModels;
+using HRInPocket.ViewModels.MakeTask;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +21,7 @@ namespace HRInPocket.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new ShortFormCreateTaskViewModel());
         }
 
         public IActionResult Privacy()
