@@ -1,0 +1,82 @@
+﻿@model CreateTaskViewModel
+
+@{
+    ViewData["Title"] = "Создать задание";
+    Layout = "~/Views/Shared/_LayoutMakeTask.cshtml";
+}
+
+    <div class="maketask-page">
+        <div class="header-maketask">
+            <ul>
+                <li><img src="~/img/svg/Logo%201.svg" alt="HR"></li>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/img/svg/left-vector.svg" alt="">
+                        Продолжить позднее
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="body-maketask">
+            <p>Создать задание</p>
+            <form class="name-position" asp-action="Create">
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <label for="exampleFormControlInput1">Город</label>
+                <div class="row">
+                    <select class="form-control select-form-maketask ">
+                        <option>Страна, регион, город</option>
+                    </select>
+                    <div class="form-check mb-2 mr-sm-2 remote-checkbox">
+                        <input class="form-check-input" type="checkbox" id="inlineFormCheck" asp-for="RemoteWork">
+                        <label class="form-check-label" for="inlineFormCheck"> Удаленная работа </label>
+                    </div>
+                </div>
+                <div class="form-group form-group-maketask">
+                    <label for="exampleFormControlInput1">Должность</label>
+                    <input asp-for="Position" class="form-control" id="exampleFormControlInput1" placeholder="HR менеджер">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1 ">Профобласть</label>
+                    <select class="form-control select-form-maketask-1">
+                        <option>Менеджемент</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-salary">
+                        <label for="exampleFormControlInput1">Зарплата от:</label>
+                        <input asp-for="Salary" class="form-control" id="exampleFormControlInput1" placeholder="10 000 ₽">
+                    </div>
+                    <div class="form-check mb-2 mr-sm-2 remote-checkbox checkbox-salary">
+                        <input asp-for="SalaryByAgreement" class="form-check-input" type="checkbox" id="inlineFormCheck">
+                        <label class="form-check-label" for="inlineFormCheck"> По договоренности</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Теги</label>
+                    <input asp-for="Tags" class="form-control" id="exampleFormControlInput1" placeholder="Основные слова через запятую">
+
+                </div>
+                <div class="form-group form-group-maketask">
+                    <label for="exampleFormControlInput1">Сопроводительное письмо</label>
+                    <button type="button"><a href="#">Заказать</a></button>
+                    <input type="email" class="form-control letter" id="exampleFormControlInput1 " placeholder="Вставьте сюда свое сопроводительное письмо">
+                </div>
+                <div class="form-group form-group-maketask">
+                    <label for="exampleFormControlInput1">Резюме</label>
+                    <button type="button"><a href="#">Заказать</a></button>
+                    <input asp-for="ResumeUrl" class="form-control" id="exampleFormControlInput1" placeholder="Ссылка на резюме">
+                </div>
+
+                <div class="custom-control custom-checkbox make-task-check">
+                    <input type="checkbox" class="custom-control-input " id="customCheck1">
+                    <label asp-for="PermissionToProcessPersonalData" class="custom-control-label checkbox-registration" for="customCheck1">
+                        Даю разрешение на хранение и обработку своих персональных данных.
+                    </label>
+                    <span asp-validation-for="PermissionToProcessPersonalData" class="text-danger"></span>
+                </div>
+                <button type="submit" class="continue">Далее</button>
+            </form>
+        </div>
+    </div>

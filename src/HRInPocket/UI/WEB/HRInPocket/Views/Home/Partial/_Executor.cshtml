@@ -1,23 +1,34 @@
-﻿<div class="executor">
+﻿@*Пока нет сервиса поставщика данных*@
+@model ShortFormCreateTaskViewModel
+@using HRInPocket.DAL.Data
+@{
+    var tarifs = TestData.Tarifs;
+    var price = TestData.Price;
+}
+
+@*Пока нет сервиса поставщика данных*@
+
+<div class="executor">
     <div class="media">
         <div class="media-body">
             <div class="media-text">
                 <h5 class="mt-0 mb-1 title">Устройся на работу мечты</h5> <span class="color-text">HR в кармане</span> - это веб-платформа, которая позволяет соискателю создавать задания на поиск работы с оплатой за приглашения. Вам останется лишь ходить на интервью.
             </div>
-            <form class="make-task">
+            <form class="make-task" method="get" asp-controller="Tasks" asp-action="Create" asp-antiforgery="true">
                 <div class="row no-gutters">
-                    <input type="text" class="form_control  form_control-1" placeholder="Желаемая специальность">
-                    <input type="text" class="form_control form_control-2" placeholder="Ссылка на резюме">
+                    <input asp-for="Position" type="text" class="form_control  form_control-1" placeholder="Желаемая специальность">
+                    <input asp-for="ResumeUrl" type="text" class="form_control form_control-2" placeholder="Ссылка на резюме">
                 </div>
-                <button type="button" class="send"><a asp-controller="MakeTask" asp-action="Index">Создать задание</a></button>
+                <div asp-validation-summary="ModelOnly"></div>
+                <button type="submit" class="send">Создать задание</button>
             </form>
         </div> <img class="d-flex ml-0 main-photo" src="img/plashka-photo.png" alt="img">
     </div>
 
     <partial name="Partial/_HowWorks" />
-    <partial name="Partial/_Tarifs" />
-    <partial name="Partial/_Price" />
+    <partial name="Partial/_Tarifs" model="tarifs" />
+    <partial name="Partial/_Price" model="price"/>
     <partial name="Partial/_Callback" />
     <partial name="Partial/_GetDreamJob" />
-  
+
 </div>

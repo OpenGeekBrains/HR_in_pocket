@@ -1,0 +1,57 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+
+    <div class="media registration">
+        <div class="media-body info-registration">
+            <p class="make-account">Создать учетную запись</p>
+            <div class="registration-options">
+
+                <ul>
+                    <li class="reg-options-p">Регистрация через</li>
+                    <li>
+                        <a href="#"><img src="~/img/svg/vk.svg" alt="Вконтакте"></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="~/img/svg/google.svg" alt="Google"></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="~/img/svg/fb.svg" alt="Facebook"></a>
+                    </li>
+                </ul>
+                <p>или зарегистрируйтесь с помощью электронной почты</p>
+            </div>
+            <div class="registration_form">
+                <form class="registration-form" method="post" asp-controller="Account" asp-action="Register" asp-antiforgery="true">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-row no-gutters">
+                        <input type="text" class="form-group registration-data" asp-for="Name" placeholder="Имя">
+                        @*<p class="input-p">Имя</p>*@
+                    </div>
+                    <div class="form-row no-gutters ">
+                        <input class="form-group  registration-data" asp-for="Email" placeholder="Адрес электронной почты">
+                        @*<p class="input-p">Адрес электронной почты</p>*@
+                    </div>
+                    <div class="form-row no-gutters">
+                        <input type="password" class="form-group  registration-data" asp-for="Password" placeholder="Пароль">
+                        @*<p class="input-p">Пароль</p>*@
+                    </div>
+                    <div class="form-row no-gutters">
+                        <input type="password" class="form-group  registration-data" asp-for="PasswordConfirm" placeholder="Подтверждение пароля">
+                       @* <p class="input-p">Подтверждение пароля</p>*@
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check" id="customCheck1" asp-for="StorageAndProcessingPersonalData">
+                        <label class="custom-control-label checkbox-registration" for="customCheck1">Даю разрешение на хранение и обработку своих персональных данных.</label>
+                    </div>
+                    <button type="submit" class="make-acc-btn">Создать учетную запись</button>
+                </form>
+            </div>
+        </div>
+        <img src="~/img/svg/linkedin-sales-navigator-wS73LE0GnKs-unsplash.svg" class=" ml-3">
+        <a class="close-registration-btn" asp-controller="Home" asp-action="Index"><img src="~/img/svg/close.svg" alt="Закрыть"></a>
+    </div>

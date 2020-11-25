@@ -6,11 +6,25 @@
 </nav>
 <nav>
     <ul class=" menu sc">
-        <li class="btn-request">
-            <a href="#" class="btn-enter-link"><img src="~/img/svg/Button.svg" alt="Оставить заявку"></a>
-        </li>
-        <li class="btn-enter">
-            <a asp-controller="Registration" asp-action="Index" class="btn-enter-link"><img src="~/img/svg/Button%20(1).svg" alt="Войти"></a>
-        </li>
+        @if (User.Identity?.IsAuthenticated != true)
+        {
+            <li class="btn-request">
+                <a asp-controller="Account" asp-action="Register" accesskey="" class="btn-enter-link"><img src="~/img/svg/Button.svg" alt="Регистрация"></a>
+            </li>
+            <li class="btn-enter">
+                <a asp-controller="Account" asp-action="Login" class="btn-enter-link"><img src="~/img/svg/Button%20(1).svg" alt="Войти"></a>
+            </li>
+        }
+        else
+        {
+            <li class="btn-request">
+                <a asp-controller="Account" asp-action="Profile" accesskey="" class="btn-enter-link">
+                    @User.Identity.Name
+                </a>
+            </li>
+            <li class="btn-enter">
+                <a asp-controller="Account" asp-action="Logout" class="btn-enter-link">Выход</a>
+            </li>
+        }
     </ul>
 </nav>

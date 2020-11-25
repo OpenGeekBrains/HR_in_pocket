@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace System
+namespace HRInPocket.DAL.Service
 {
     internal static class IDisposableExtensions
     {
