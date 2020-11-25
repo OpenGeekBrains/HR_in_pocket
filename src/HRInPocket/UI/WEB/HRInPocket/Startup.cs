@@ -41,24 +41,10 @@ namespace HRInPocket
                 );
 
             services.AddSwaggerGen(setup => setup
-                .SwaggerDoc("v1", new OpenApiInfo
-            {
-                #if DEBUG
-                opt.Password.RequiredLength = 3;
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequireUppercase = false;
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequiredUniqueChars = 3;
-                #endif
-
-                opt.User.RequireUniqueEmail = false;
-                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-                opt.Lockout.AllowedForNewUsers = true;
-                opt.Lockout.MaxFailedAccessAttempts = 10;
-                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-            });
+                .SwaggerDoc("v1", new OpenApiInfo{
+                Title = "HR in Pocket API",
+                Version = "v1"
+            }));
 
             #region Services
 
@@ -73,11 +59,6 @@ namespace HRInPocket
             services.AddScoped<IVacancyService, VacancyService>();
 
             #endregion
-
-            services.AddControllersWithViews();
-                Title = "HR in Pocket API",
-                Version = "v1"
-            }));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
