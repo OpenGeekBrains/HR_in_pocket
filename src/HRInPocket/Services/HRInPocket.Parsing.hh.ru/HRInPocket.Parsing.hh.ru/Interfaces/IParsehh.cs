@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
+using HRInPocket.Parsing.hh.ru.Models.Entites;
 using HRInPocket.Parsing.hh.ru.Service;
 
 namespace HRInPocket.Parsing.hh.ru.Interfaces
@@ -17,6 +20,8 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
         /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
         /// в формате "?param1=value&param2=value&...&paramN=value"
         /// </param>
-        Task ParseAsync(CancellationToken token, string GetParameters = null);
+        Task ParseAsync(CancellationToken token, string page, string GetParameters);
+
+        IAsyncEnumerable<Vacancy> ParseEnumerableAsync(CancellationToken token, string page, string GetParameters);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,11 +28,65 @@ namespace HRInPocket.Parsing.hh.ru.Service
             Result?.Invoke(this, e);
         }
 
-        ///<inheritdoc/>
-        public async Task ParseAsync(CancellationToken token, string GetParameters = null)
+        public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();
-            var path = GetParameters != null ? _HHUrl + "?text=" + GetParameters : _HHUrl;
+            var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
+            IDocument document;
+            IEnumerable<IElement> items;
+
+            do
+            {
+                try
+                {
+                    var config = Configuration.Default.WithDefaultLoader();
+
+                    document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
+
+                    items = document.QuerySelectorAll("div")
+                        .Where(item => item.ClassName != null &&
+                                       (item.ClassName.Equals("vacancy-serp-item") ||
+                                       item.ClassName.Contains("vacancy-serp-item ")));
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    throw e;
+                }
+
+                foreach (var fitem in items)
+                {
+
+                    var vacancyNameParse = fitem.QuerySelectorAll("a")
+                        .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
+
+                    if (vacancyNameParse != null)
+                    {
+                        var vacancy = VacancyCreate(fitem, vacancyNameParse);
+                        CompenstionParse(vacancy, fitem);
+                        yield return vacancy;
+                    }
+
+                }
+
+                var NextPage = document.QuerySelectorAll("a")
+                    .FirstOrDefault(item => DataQA(item, "pager-next"));
+
+                if (NextPage is null) yield return null;
+                path = "https://hh.ru" + NextPage.GetAttribute("href");
+
+                var taskDelay = Task.Delay(random.Next(300, 2000));
+                await taskDelay;
+
+            } while (!token.IsCancellationRequested);
+            
+        }
+
+        ///<inheritdoc/>
+        public async Task ParseAsync(CancellationToken token, string page, string GetParameters)
+        {
+            var random = new Random();
+            var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
 
             try
             {
@@ -83,9 +139,9 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <param name="fitem">Объект коллекции, из которой получают данные о вакансии</param>
         /// <param name="vacancyNameParse">Объект из fitem, содержащий данные о названии и адресе вакансии</param>
         /// <returns>Созданная вакансия</returns>
-        private static Vacancy VacancyCreate(IElement fitem, IElement vacancyNameParse) => new Vacancy()
+        private static Vacancy VacancyCreate(IElement fitem, IElement vacancyNameParse) => new Vacancy
         {
-            Company = new Company()
+            Company = new Company
             {
                 Name = fitem.QuerySelectorAll("a")
                     .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-employer"))
@@ -123,8 +179,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
             if (compensationParse == null) return;
 
             var spaceIndex = compensationParse.TextContent.LastIndexOf(' ');
-            vacancy.CurrencyCode = compensationParse.TextContent.Substring(spaceIndex + 1);
-            var compensationString = compensationParse.TextContent.Substring(0, spaceIndex).Replace((char)160, (char)32).Replace((char)8239, (char)32).Replace(" ", "");
+            vacancy.CurrencyCode = compensationParse.TextContent[(spaceIndex + 1)..];
+            var compensationString = compensationParse.TextContent[..spaceIndex].Replace((char)160, (char)32).Replace((char)8239, (char)32).Replace(" ", "");
 
 
             if (compensationString.Contains("от")) CompensationWithPrefix("от");

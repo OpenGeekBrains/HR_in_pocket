@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
@@ -149,6 +150,19 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
+        #region Page : string - Адрес hh.ru
+
+        /// <summary>Адрес hh.ru</summary>
+        private string _Page = "https://hh.ru/search/vacancy";
+
+        /// <summary>Адрес hh.ru</summary>
+        public string Page
+        {
+            get => _Page;
+            set => Set(ref _Page, value);
+        }
+
+        #endregion
         /// <summary>Источник токена отмены асинхронной операции</summary>
         private static CancellationTokenSource s_cts;
 
@@ -174,8 +188,11 @@ namespace HRInPocket.WPF.ViewModels
             {
                 DataCollection = new ObservableCollection<Vacancy>();
                 s_cts = new CancellationTokenSource();
-                if(string.IsNullOrEmpty(KeyWords)) _Parsehh.ParseAsync(s_cts.Token);
-                else _Parsehh.ParseAsync(s_cts.Token, KeyWords);
+
+                //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
+
+                _ = GetDataCollectionAsync(s_cts.Token);
+
                 StopParse = true;
                 ButtonContent = "Остановить";
                 Status = "Парсер запущен";
@@ -211,5 +228,14 @@ namespace HRInPocket.WPF.ViewModels
         }
         #endregion
 
+        private async Task GetDataCollectionAsync(CancellationToken token)
+        {
+            var data = _Parsehh.ParseEnumerableAsync(token, Page, KeyWords);
+            await foreach (var item in data)
+            {
+                if (item == null) return;
+                DataCollection.Add(item);
+            }
+        }
     }
 }
