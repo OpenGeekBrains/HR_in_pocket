@@ -5,7 +5,7 @@ using HRInPocket.Parsing.hh.ru.Models.Base;
 namespace HRInPocket.Parsing.hh.ru.Models
 {
     /// <summary>Вакансия</summary>
-    public class Vacancy : BaseUnit
+    public class Vacancy : BaseUnit, IEquatable<Vacancy>
     {
         /// <summary>Компания, разместившая вакансию</summary>
         public Company Company { get; set; }
@@ -34,5 +34,13 @@ namespace HRInPocket.Parsing.hh.ru.Models
         /// <summary>Дата размещения вакансии</summary>
         public DateTime Date { get; set; }
 
+        public bool Equals(Vacancy other) => throw new NotImplementedException();
+
+        public override bool Equals(object obj) => base.Equals(obj);
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        public static bool operator ==(Vacancy a, Vacancy b) => throw new NotImplementedException();
+        public static bool operator !=(Vacancy a, Vacancy b) => throw new NotImplementedException();
     }
 }

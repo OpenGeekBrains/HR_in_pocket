@@ -3,6 +3,6 @@
     /// <summary> Реализует получение экземпляра парсера </summary>
     public interface IParsehhService
     {
-        IParsehh GetPasrse();
+        IParsehh GetParse();
     }
 }

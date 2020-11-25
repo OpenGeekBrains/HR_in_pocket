@@ -21,7 +21,7 @@ namespace HRInPocket.WPF.ViewModels
                                     IParsehhService ParsehhService)
         {
             _SaveDataToJSON = SaveDataToJSON;
-            _Parsehh = ParsehhService.GetPasrse();
+            _Parsehh = ParsehhService.GetParse();
             _Parsehh.Result += GetDataCollection;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
