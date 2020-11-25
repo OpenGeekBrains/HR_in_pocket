@@ -8,7 +8,7 @@ namespace AngleSharp_Console_Test
     class Program
     {
         static readonly CancellationTokenSource s_cts = new CancellationTokenSource();
-        static void Main()
+        static async Task Main()
         {
             ParseUseDLL();
             Console.ReadKey();
