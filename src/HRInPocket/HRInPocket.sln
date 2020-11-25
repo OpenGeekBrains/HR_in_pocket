@@ -37,9 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.WPF", "UI\WPF\HR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocketTests", "HRInPocketTests\HRInPocketTests.csproj", "{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocket.Parsing.hh.ru", "Services\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru.csproj", "{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.Parsing.hh.ru", "Services\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru.csproj", "{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocket.Extensions", "Services\HRInPocket.Extensions\HRInPocket.Extensions.csproj", "{F8FD857A-1B5D-49CF-9049-F0BA09C54255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{2C6087D6-C0D8-405D-ADC2-7BDB33867F1E} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
 		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
+		{F8FD857A-1B5D-49CF-9049-F0BA09C54255} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AACFA313-15B6-4805-8B8F-4077F8582B52}
