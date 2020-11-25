@@ -7,6 +7,12 @@ namespace HRInPocket.Domain.Entities.Users
 {
     public class User : IdentityUser
     {
+        public const string Administrator = "Admin";
+
+        public const string DefaultAdminPassword = "legFmg";
+
+        public const string AdministratorRole = "Admins";
+
         /// <summary>
         /// Профиль пользователя
         /// </summary>
