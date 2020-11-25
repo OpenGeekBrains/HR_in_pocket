@@ -28,6 +28,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
             Result?.Invoke(this, e);
         }
 
+        ///<inheritdoc/>
         public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();

@@ -189,8 +189,10 @@ namespace HRInPocket.WPF.ViewModels
                 DataCollection = new ObservableCollection<Vacancy>();
                 s_cts = new CancellationTokenSource();
 
-                //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
+                // Метод парсера, который возвращает вакансии через событие:
+                // _Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
 
+                // Метод парсера, который возвращает вакансии через IAsyncEnumerable
                 _ = GetDataCollectionAsync(s_cts.Token);
 
                 StopParse = true;

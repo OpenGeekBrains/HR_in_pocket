@@ -15,13 +15,18 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
         /// <summary> Событие передающее полученную вакансию </summary>
         event EventHandler<VacancyEventArgs> Result;
 
-        /// <summary> Парсит https://hh.ru/search/vacancy и возвращает значения по готовности через событие Result </summary>
-        /// <param name="GetParameters">
-        /// Если нужно задать точные параметры поиска, передайте их в свойстве GetParameters
-        /// в формате "?param1=value&param2=value&...&paramN=value"
-        /// </param>
+        /// <summary> Парсит страницу hh.ru и возвращает вакансию через событие VacancyEventArgs </summary>
+        /// <param name="token"> Токен остановки парсера </param>
+        /// <param name="page"> Страницу, которую необходимо парсить </param>
+        /// <param name="GetParameters"> Ключевые слова для поиска конкретных вакансий</param>
+        /// <returns></returns>
         Task ParseAsync(CancellationToken token, string page, string GetParameters);
 
+        /// <summary> Парсит страницу hh.ru и возвращает вакансию в IAsyncEnumerable </summary>
+        /// <param name="token"> Токен остановки парсера </param>
+        /// <param name="page"> Страницу, которую необходимо парсить </param>
+        /// <param name="GetParameters"> Ключевые слова для поиска конкретных вакансий</param>
+        /// <returns> Вакансии в IAsyncEnumerable </returns>
         IAsyncEnumerable<Vacancy> ParseEnumerableAsync(CancellationToken token, string page, string GetParameters);
     }
 }
