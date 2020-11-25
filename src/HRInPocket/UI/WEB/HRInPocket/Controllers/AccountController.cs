@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Extensions;
 using HRInPocket.ViewModels.Account;
 
 using Microsoft.AspNetCore.Identity;
@@ -77,7 +79,7 @@ namespace HRInPocket.Controllers
             ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
 
             return View(model);
-        } 
+        }
 
         #endregion
 
@@ -87,14 +89,11 @@ namespace HRInPocket.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Profile() => View(new UserProfileViewModel
+        
+        public IActionResult Profile()
         {
-            FirstName = "Somebody",
-            Surname = "Something",
-            Patronymic = "From Somebody",
-            Age = 47,
-            Birthday = DateTime.Now.AddYears(-47),
-            //Sex = Sex.Other
-        });
+            var profile = _UserManager.GetUserAsync(User).Result.Profile ?? new Profile();
+            return View(profile.ToViewModel());
+        }
     }
 }
