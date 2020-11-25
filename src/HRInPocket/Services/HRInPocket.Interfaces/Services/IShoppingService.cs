@@ -57,32 +57,32 @@ namespace HRInPocket.Interfaces.Services
         /// <summary>
         /// Заказать услугу
         /// </summary>
-        Task<bool> OrderServiceAsync(Guid serviceId, Guid userId);
+        Task<bool> OrderPriceItemAsync(Guid serviceId, Guid userId);
 
         /// <summary>
         /// Посмотреть все услуги
         /// </summary>
-        Task<PageServiceDTO> GetAllServicesAsync(ServiceFilter filter);
+        Task<PagePriceItemDTO> GetAllPriceItemsAsync(PriceItemFilter filter);
 
         /// <summary>
         /// Посмотреть все услуги пользователя по идентификатору
         /// </summary>
-        Task<IEnumerable<ServiceDTO>> GetAllServicesAsync(Guid userId);
+        Task<IEnumerable<PriceItemDTO>> GetAllPriceItemsAsync(Guid userId);
 
         /// <summary>
         /// Посмотреть все текущие заказанные услуги, статусы по услугам 
         /// </summary>
-        Task<IEnumerable<ServiceDTO>> GetOpenServicesAsync(Guid userId);
+        Task<IEnumerable<PriceItemDTO>> GetOpenPriceItemsAsync(Guid userId);
 
         /// <summary>
         /// Посмотреть всю историю заказов услуг
         /// </summary>
-        Task<IEnumerable<ServiceDTO>> GetServiceHistoryAsync(Guid userId);
+        Task<IEnumerable<PriceItemDTO>> GetPriceItemsHistoryAsync(Guid userId);
 
         /// <summary>
         /// Посмотреть информацию об услуге
         /// </summary>
         /// <param name="id">Идентификатор услуги</param>
-        Task<ServiceDTO> GetServiceById(Guid id);
+        Task<PriceItemDTO> GetPriceItemById(Guid id);
     }
 }

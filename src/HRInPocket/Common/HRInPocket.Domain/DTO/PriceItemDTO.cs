@@ -2,7 +2,7 @@
 
 namespace HRInPocket.Domain.DTO
 {
-    public class ServiceDTO : NamedDTO
+    public class PriceItemDTO : NamedDTO
     {
 
     }

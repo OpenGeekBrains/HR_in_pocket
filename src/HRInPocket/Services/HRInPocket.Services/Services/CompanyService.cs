@@ -56,24 +56,28 @@ namespace HRInPocket.Services.Services
         /// Посмотреть информацию о компании по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор компании</param>
-        public async Task<CompanyDTO> GetCompanyById(Guid id) => _Mapper.Map<CompanyDTO>((await _DataProvider.GetByIdAsync(id)));
+        public async Task<CompanyDTO> GetCompanyById(Guid id) => 
+            _Mapper.Map<CompanyDTO>((await _DataProvider.GetByIdAsync(id)));
 
         /// <summary>
         /// Создать компанию
         /// </summary>
         /// <param name="company">Модель компании</param>
-        public async Task<Guid> CreateCompanyAsync(CompanyDTO company) => await _DataProvider.CreateAsync(_Mapper.Map<Company>(company));
+        public async Task<Guid> CreateCompanyAsync(CompanyDTO company) => 
+            await _DataProvider.CreateAsync(_Mapper.Map<Company>(company));
 
         /// <summary>
         /// Редактирвание информации о компании
         /// </summary>
         /// <param name="company">Модель компании</param>
-        public async Task<bool> EditCompanyAsync(CompanyDTO company) => await _DataProvider.EditAsync(_Mapper.Map<Company>(company));
+        public async Task<bool> EditCompanyAsync(CompanyDTO company) =>
+            await _DataProvider.EditAsync(_Mapper.Map<Company>(company));
 
         /// <summary>
         /// Удаление компании по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор компании</param>
-        public async Task<bool> RemoveCompanyAsync(Guid id) => await _DataProvider.RemoveAsync(id);
+        public async Task<bool> RemoveCompanyAsync(Guid id) => 
+            await _DataProvider.RemoveAsync(id);
     }
 }

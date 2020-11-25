@@ -2,9 +2,9 @@
 
 namespace HRInPocket.Domain.DTO
 {
-    public class PageServiceDTO
+    public class PagePriceItemDTO
     {
-        public IEnumerable<ServiceDTO> Companies { get; set; } = new List<ServiceDTO>();
+        public IEnumerable<PriceItemDTO> Companies { get; set; } = new List<PriceItemDTO>();
         public int TotalCount { get; set; }
     }
 }
