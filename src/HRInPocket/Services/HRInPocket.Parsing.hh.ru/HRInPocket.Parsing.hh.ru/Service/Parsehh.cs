@@ -18,6 +18,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
     public class Parsehh : IParsehh
     {
         private const string _HHUrl = "https://hh.ru/search/vacancy";
+        private const int _MinWaitTime = 300;
+        private const int _MaxWaitTime = 2000;
 
         ///<inheritdoc/>
         public event EventHandler<VacancyEventArgs> Result;
@@ -76,7 +78,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                 if (NextPage is null) yield return null;
                 path = "https://hh.ru" + NextPage.GetAttribute("href");
 
-                var taskDelay = Task.Delay(random.Next(300, 2000));
+                var taskDelay = Task.Delay(random.Next(_MinWaitTime, _MaxWaitTime));
                 await taskDelay;
 
             } while (!token.IsCancellationRequested);
@@ -122,7 +124,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                     if (NextPage is null) return;
                     path = "https://hh.ru" + NextPage.GetAttribute("href");
 
-                    var taskDelay = Task.Delay(random.Next(300, 2000));
+                    var taskDelay = Task.Delay(random.Next(_MinWaitTime, _MaxWaitTime));
                     await taskDelay;
 
                 } while (!token.IsCancellationRequested);
