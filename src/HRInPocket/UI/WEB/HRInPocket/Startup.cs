@@ -1,8 +1,17 @@
 using System;
+using System.Collections.Generic;
+
 using AutoMapper;
+
 using HRInPocket.DAL.Data;
 using HRInPocket.Domain.Entities.Users;
 using HRInPocket.Infrastructure.Profiles;
+using HRInPocket.Interfaces;
+using HRInPocket.Interfaces.Services;
+using HRInPocket.Services.Mapper;
+using HRInPocket.Services.Repositories;
+using HRInPocket.Services.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +37,8 @@ namespace HRInPocket
             services.AddTransient<TestDbInitializer>();
 
             services.AddAutoMapper(
-                typeof(AccountsProfile)
+                typeof(AccountsProfile),
+                typeof(MappingProfile)
                 );
 
             services.AddIdentity<User, IdentityRole>()
@@ -37,15 +47,15 @@ namespace HRInPocket
 
             services.Configure<IdentityOptions>(opt =>
             {
-#if DEBUG
+                #if DEBUG
                 opt.Password.RequiredLength = 3;
                 opt.Password.RequireDigit = false;
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequiredUniqueChars = 3;
+                #endif
 
-#endif
                 opt.User.RequireUniqueEmail = false;
                 opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
@@ -53,6 +63,21 @@ namespace HRInPocket
                 opt.Lockout.MaxFailedAccessAttempts = 10;
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
+
+            #region Services
+
+            //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
+
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IMailSenderService, MailSenderService>();
+            services.AddScoped<IPageParserService, PageParserService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IResumeService, ResumeService>();
+            services.AddScoped<IShoppingService, ShoppingService>();
+            services.AddScoped<ITargetTaskService, TargetTaskService>();
+            services.AddScoped<IVacancyService, VacancyService>();
+
+            #endregion
 
             services.AddControllersWithViews();
         }
@@ -85,4 +110,6 @@ namespace HRInPocket
             });
         }
     }
+
+    
 }
