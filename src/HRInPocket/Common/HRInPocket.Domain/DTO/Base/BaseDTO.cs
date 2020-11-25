@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRInPocket.Domain.DTO.Base
 {
@@ -11,6 +12,6 @@ namespace HRInPocket.Domain.DTO.Base
         /// Идентификатор ID
         /// </summary>
         [Required]
-        public long Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
