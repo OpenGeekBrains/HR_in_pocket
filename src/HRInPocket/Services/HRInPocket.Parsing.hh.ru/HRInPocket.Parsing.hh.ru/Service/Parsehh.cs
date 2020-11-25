@@ -297,7 +297,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <summary> Получение коллекции объектов вакансий из указанной страницы hh.ru </summary>
         /// <param name="path"> Страницы, из которой получается коллекция объектов вакансий </param>
         /// <returns>Кортеж, где IEnumerable<IElement> items - коллекция объектов вакансий, IElement NextPage - объект, содержащий следующую страницу</returns>
-        private async Task<(IEnumerable<IElement>, IElement)> GetPage(string path)
+        private static async Task<(IEnumerable<IElement>, IElement)> GetPage(string path)
         {
             var config = Configuration.Default.WithDefaultLoader();
 
