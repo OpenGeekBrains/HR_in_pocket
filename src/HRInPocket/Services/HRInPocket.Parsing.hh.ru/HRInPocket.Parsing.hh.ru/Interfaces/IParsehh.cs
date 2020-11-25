@@ -22,6 +22,12 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
         /// <returns></returns>
         Task ParseAsync(CancellationToken token, string page, string GetParameters);
 
+        /// <summary> Парсит определенную страницу hh.ru на наличие вакансий </summary>
+        /// <param name="token">Токен отмены парсинга</param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        Task<(Vacancy[], string)> ParseAsync(CancellationToken token, string page);
+
         /// <summary> Парсит страницу hh.ru и возвращает вакансию в IAsyncEnumerable </summary>
         /// <param name="token"> Токен остановки парсера </param>
         /// <param name="page"> Страницу, которую необходимо парсить </param>

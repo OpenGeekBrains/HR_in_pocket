@@ -17,9 +17,47 @@ namespace HRInPocket.Parsing.hh.ru.Service
     ///<inheritdoc cref="IParsehh"/>
     public class Parsehh : IParsehh
     {
-        private const string _HHUrl = "https://hh.ru/search/vacancy";
-        private const int _MinWaitTime = 300;
-        private const int _MaxWaitTime = 2000;
+        #region HHUrl : string - Страница hh.ru с вакансиями
+
+        /// <summary>Страница hh.ru с вакансиями</summary>
+        private string _HHUrl = "https://hh.ru/search/vacancy";
+
+        /// <summary>Страница hh.ru с вакансиями</summary>
+        public string HHUrl
+        {
+            get => _HHUrl;
+            set => _HHUrl = value;
+        }
+
+        #endregion
+
+        #region MinWaitTime : int - Минимальное время задержки парсера в милисекундах
+
+        /// <summary>Минимальное время задержки парсера в милисекундах</summary>
+        private int _MinWaitTime = 300;
+
+        /// <summary>Минимальное время задержки парсера в милисекундах</summary>
+        public int MinWaitTime
+        {
+            get => _MinWaitTime;
+            set => _MinWaitTime = value;
+        }
+
+        #endregion
+
+        #region MaxWaitTime : int - Максимальное время задержки парсера в милисекундах
+
+        /// <summary>Максимальное время задержки парсера в милисекундах</summary>
+        private int _MaxWaitTime = 2000;
+
+        /// <summary>Максимальное время задержки парсера в милисекундах</summary>
+        public int MaxWaitTime
+        {
+            get => _MaxWaitTime;
+            set => _MaxWaitTime = value;
+        }
+
+        #endregion
 
         ///<inheritdoc/>
         public event EventHandler<VacancyEventArgs> Result;
@@ -34,22 +72,17 @@ namespace HRInPocket.Parsing.hh.ru.Service
         public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();
-            var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
-            IDocument document;
+            IElement NextPage;
             IEnumerable<IElement> items;
+
+            if (string.IsNullOrEmpty(page)) page = HHUrl;
+            var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
 
             do
             {
                 try
                 {
-                    var config = Configuration.Default.WithDefaultLoader();
-
-                    document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-
-                    items = document.QuerySelectorAll("div")
-                        .Where(item => item.ClassName != null &&
-                                       (item.ClassName.Equals("vacancy-serp-item") ||
-                                       item.ClassName.Contains("vacancy-serp-item ")));
+                    (items, NextPage) = await GetPage(path);
                 }
                 catch (Exception e)
                 {
@@ -69,40 +102,75 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         CompenstionParse(vacancy, fitem);
                         yield return vacancy;
                     }
-
                 }
-
-                var NextPage = document.QuerySelectorAll("a")
-                    .FirstOrDefault(item => DataQA(item, "pager-next"));
 
                 if (NextPage is null) yield return null;
                 path = "https://hh.ru" + NextPage.GetAttribute("href");
 
-                var taskDelay = Task.Delay(random.Next(_MinWaitTime, _MaxWaitTime));
-                await taskDelay;
+                //var taskDelay = Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
+                //await taskDelay;
+                await Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
 
             } while (!token.IsCancellationRequested);
-            
+        }
+
+        ///<inheritdoc/>
+        public async Task<(Vacancy[], string)> ParseAsync(CancellationToken token, string page)
+        {
+            var random = new Random();
+            var result = new List<Vacancy>();
+            IElement NextPage;
+            IEnumerable<IElement> items;
+
+            if (string.IsNullOrEmpty(page)) page = HHUrl;
+
+            try
+            {
+                (items, NextPage) = await GetPage(page);
+
+                foreach (var fitem in items)
+                {
+                    var vacancyNameParse = fitem.QuerySelectorAll("a")
+                        .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
+
+                    if (vacancyNameParse != null)
+                    {
+                        var vacancy = VacancyCreate(fitem, vacancyNameParse);
+                        CompenstionParse(vacancy, fitem);
+                        result.Add(vacancy);
+                    }
+
+                }
+
+                if (NextPage is null) return (result.ToArray(), null);
+                var NextPagePath = "https://hh.ru" + NextPage.GetAttribute("href");
+
+                await Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
+
+                return (result.ToArray(), NextPagePath);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                throw e;
+            }
         }
 
         ///<inheritdoc/>
         public async Task ParseAsync(CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();
+            IElement NextPage;
+            IEnumerable<IElement> items;
+
+            if (string.IsNullOrEmpty(page)) page = HHUrl;
             var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
 
             try
             {
                 do
                 {
-                    var config = Configuration.Default.WithDefaultLoader();
-
-                    var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
-
-                    var items = document.QuerySelectorAll("div")
-                        .Where(item => item.ClassName != null &&
-                                       (item.ClassName.Equals("vacancy-serp-item") ||
-                                       item.ClassName.Contains("vacancy-serp-item ")));
+                    (items, NextPage) = await GetPage(path);
 
                     foreach (var fitem in items)
                     {
@@ -118,13 +186,11 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         }
 
                     }
-                    var NextPage = document.QuerySelectorAll("a")
-                        .FirstOrDefault(item => DataQA(item, "pager-next"));
 
                     if (NextPage is null) return;
                     path = "https://hh.ru" + NextPage.GetAttribute("href");
 
-                    var taskDelay = Task.Delay(random.Next(_MinWaitTime, _MaxWaitTime));
+                    var taskDelay = Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
                     await taskDelay;
 
                 } while (!token.IsCancellationRequested);
@@ -227,5 +293,25 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <param name="searchline">Строка, которую необходимо найти в объекте</param>
         /// <returns>true если строка найдена в переданном объекте</returns>
         private static bool DataQA(IElement item, string searchline) => item.HasAttribute("data-qa") && item.GetAttribute("data-qa").Equals(searchline);
+
+        /// <summary> Получение коллекции объектов вакансий из указанной страницы hh.ru </summary>
+        /// <param name="path"> Страницы, из которой получается коллекция объектов вакансий </param>
+        /// <returns>Кортеж, где IEnumerable<IElement> items - коллекция объектов вакансий, IElement NextPage - объект, содержащий следующую страницу</returns>
+        private async Task<(IEnumerable<IElement>, IElement)> GetPage(string path)
+        {
+            var config = Configuration.Default.WithDefaultLoader();
+
+            var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
+
+            var items = document.QuerySelectorAll("div")
+                .Where(item => item.ClassName != null &&
+                               (item.ClassName.Equals("vacancy-serp-item") ||
+                               item.ClassName.Contains("vacancy-serp-item ")));
+
+            var NextPage = document.QuerySelectorAll("a")
+                .FirstOrDefault(item => DataQA(item, "pager-next"));
+
+            return (items, NextPage);
+        }
     }
 }
