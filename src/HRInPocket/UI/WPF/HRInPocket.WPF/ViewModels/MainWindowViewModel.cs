@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
 using HRInPocket.WPF.Data;
 using HRInPocket.WPF.Infrastructure.Commands;
@@ -190,10 +190,10 @@ namespace HRInPocket.WPF.ViewModels
                 s_cts = new CancellationTokenSource();
 
                 // Метод парсера, который возвращает вакансии через событие:
-                _Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
+                //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
 
                 // Метод парсера, который возвращает вакансии через IAsyncEnumerable
-                //_ = GetDataCollectionAsync(s_cts.Token);
+                _ = GetDataCollectionAsync(s_cts.Token);
 
                 StopParse = true;
                 ButtonContent = "Остановить";

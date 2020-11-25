@@ -2,7 +2,7 @@
 
 using HRInPocket.Parsing.hh.ru.Models.Base;
 
-namespace HRInPocket.Parsing.hh.ru.Models.Entites
+namespace HRInPocket.Parsing.hh.ru.Models
 {
     /// <summary>Вакансия</summary>
     public class Vacancy : BaseUnit

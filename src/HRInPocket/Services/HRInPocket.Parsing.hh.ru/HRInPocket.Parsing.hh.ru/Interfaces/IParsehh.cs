@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
 
 namespace HRInPocket.Parsing.hh.ru.Interfaces

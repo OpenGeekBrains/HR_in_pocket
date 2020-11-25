@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 
 namespace HRInPocket.WPF.Data
 {

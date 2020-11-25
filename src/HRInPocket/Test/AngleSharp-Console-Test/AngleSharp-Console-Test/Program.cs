@@ -17,7 +17,7 @@ namespace AngleSharp_Console_Test
         {
             var parse = new Parsehh();
             parse.Result += GetResult;
-            _ = parse.ParseAsync(s_cts.Token);
+            _ = parse.ParseAsync(s_cts.Token, "https://hh.ru/search/vacancy");
         }
 
         private static void GetResult(object sender, VacancyEventArgs e)

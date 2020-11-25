@@ -1,6 +1,6 @@
 ﻿using System;
 
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 
 namespace HRInPocket.Parsing.hh.ru.Service
 {

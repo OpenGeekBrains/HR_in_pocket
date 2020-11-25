@@ -10,7 +10,7 @@ using AngleSharp;
 using AngleSharp.Dom;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 
 namespace HRInPocket.Parsing.hh.ru.Service
 {

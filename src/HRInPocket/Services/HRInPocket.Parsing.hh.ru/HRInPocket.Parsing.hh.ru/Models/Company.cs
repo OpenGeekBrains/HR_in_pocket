@@ -1,6 +1,6 @@
 ﻿using HRInPocket.Parsing.hh.ru.Models.Base;
 
-namespace HRInPocket.Parsing.hh.ru.Models.Entites
+namespace HRInPocket.Parsing.hh.ru.Models
 {
     /// <summary>Компания, размещающая вакансии</summary>
     public class Company:BaseUnit
