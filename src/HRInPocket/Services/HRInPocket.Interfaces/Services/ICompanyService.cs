@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Filters;
@@ -16,13 +17,13 @@ namespace HRInPocket.Interfaces.Services
         /// Посмотреть информацию о компании по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор компании</param>
-        Task<CompanyDTO> GetCompanyById(long id);
+        Task<CompanyDTO> GetCompanyById(Guid id);
 
         /// <summary>
         /// Создать компанию
         /// </summary>
         /// <param name="company">Модель компании</param>
-        Task<long> CreateCompanyAsync(CompanyDTO company);
+        Task<Guid> CreateCompanyAsync(CompanyDTO company);
 
         /// <summary>
         /// Редактирвание информации о компании
@@ -34,6 +35,6 @@ namespace HRInPocket.Interfaces.Services
         /// Удаление компании по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор компании</param>
-        Task<bool> RemoveCompanyAsync(long id);
+        Task<bool> RemoveCompanyAsync(Guid id);
     }
 }

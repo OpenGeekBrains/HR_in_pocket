@@ -1,9 +1,9 @@
-﻿using HRInPocket.Domain.ViewModels;
+﻿using HRInPocket.Domain.Models;
 
 namespace HRInPocket.Domain.Filters
 {
     public class TargetTaskFilter
     {
-        public PageViewModel Pages { get; set; }
+        public PageModel Pages { get; set; }
     }
 }

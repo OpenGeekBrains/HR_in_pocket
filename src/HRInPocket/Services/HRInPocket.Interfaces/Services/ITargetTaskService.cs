@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Filters;
-using HRInPocket.Domain.ViewModels;
 
 namespace HRInPocket.Interfaces.Services
 {
@@ -28,13 +27,13 @@ namespace HRInPocket.Interfaces.Services
         /// Посмотреть информацию задания по его идентификатору
         /// </summary>
         /// <param name="id">Идентифкатор задания</param>
-        Task<TargetTaskDTO> GetTargetTaskByIdAsync(long id);
+        Task<TargetTaskDTO> GetTargetTaskByIdAsync(Guid id);
 
         /// <summary>
         /// Создать задание
         /// </summary>
         /// <param name="task">Модель представления задания</param>
-        Task<long> CreateTargetTaskAsync(TargetTaskDTO task);
+        Task<Guid> CreateTargetTaskAsync(TargetTaskDTO task);
 
         /// <summary>
         /// Редактировать задание
@@ -46,18 +45,18 @@ namespace HRInPocket.Interfaces.Services
         /// Выполнить задание по идентификатору
         /// </summary>
         /// <param name="id">Идентифкатор задания</param>
-        Task<bool> ExecuteTargetTaskAsync(long id);
+        Task<bool> ExecuteTargetTaskAsync(Guid id);
 
         /// <summary>
         /// Отменить задание
         /// </summary>
         /// <param name="id">Идентификатор задания</param>
-        Task<bool> AbortTargetTaskAsync(long id);
+        Task<bool> AbortTargetTaskAsync(Guid id);
 
         /// <summary>
         /// Удалить задание
         /// </summary>
         /// <param name="id">Идентифкатор задания</param>
-        Task<bool> RemoveTargetTaskAsync(long id);
+        Task<bool> RemoveTargetTaskAsync(Guid id);
     }
 }

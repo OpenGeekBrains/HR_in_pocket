@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using HRInPocket.DAL.Models.Entities;
+using AutoMapper;
+
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
@@ -16,10 +18,10 @@ namespace HRInPocket.Services.Services
     {
         /// <summary>
         /// Провайдер данных </summary>
-        private readonly IDataRepository _DataProvider;
-        private readonly IMapper<Vacancy, VacancyDTO> _Mapper;
+        private readonly IDataRepository<Vacancy> _DataProvider;
+        private readonly IMapper _Mapper;
 
-        public VacancyService(IDataRepository dataProvider, IMapper<Vacancy, VacancyDTO> mapper)
+        public VacancyService(IDataRepository<Vacancy> dataProvider, IMapper mapper)
         {
             _DataProvider = dataProvider;
             _Mapper = mapper;
@@ -30,7 +32,7 @@ namespace HRInPocket.Services.Services
         /// </summary>
         public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter)
         {
-            var query = _DataProvider.GetQueryable<Vacancy>();
+            var query = _DataProvider.GetQueryable();
 
             if (filter != null)
             {
@@ -45,7 +47,7 @@ namespace HRInPocket.Services.Services
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map(q)),
+                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count
             };
         }
@@ -54,16 +56,16 @@ namespace HRInPocket.Services.Services
         /// Посмотреть вакансии компании по ее идентификатору
         /// </summary>
         /// <param name="id">Иденификатор компании</param>
-        public async Task<PageVacancyDTO> GetCompanyVacanciesAsync(long id)
+        public async Task<PageVacancyDTO> GetCompanyVacanciesAsync(Guid id)
         {
-            var query = _DataProvider.GetQueryable<Vacancy>()
+            var query = _DataProvider.GetQueryable()
                 .Where(v => v.Company.Id == id);
 
             var count = await query.CountAsync();
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map(q)),
+                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count,
             };
         }
@@ -72,19 +74,19 @@ namespace HRInPocket.Services.Services
         /// Создать вакансию
         /// </summary>
         /// <param name="vacancy">Модель представления вакансии</param>
-        public async Task<long> CreateVacancyAsync(VacancyDTO vacancy) => await _DataProvider.CreateAsync(_Mapper.Map(vacancy));
+        public async Task<Guid> CreateVacancyAsync(VacancyDTO vacancy) => await _DataProvider.CreateAsync(_Mapper.Map<Vacancy>(vacancy));
 
         /// <summary>
         /// Редактировать информацию в вакансии
         /// </summary>
         /// <param name="vacancy">Модель представления вакансии</param>
-        public async Task<bool> EditVacancyAsync(VacancyDTO vacancy) => await _DataProvider.EditAsync(_Mapper.Map(vacancy));
+        public async Task<bool> EditVacancyAsync(VacancyDTO vacancy) => await _DataProvider.EditAsync(_Mapper.Map<Vacancy>(vacancy));
 
         /// <summary>
         /// Удалить вакансию по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор вакансии</param>
-        public async Task<bool> RemoveVacancyAsync(long id) => await _DataProvider.RemoveAsync<Vacancy>(id);
+        public async Task<bool> RemoveVacancyAsync(Guid id) => await _DataProvider.RemoveAsync(id);
 
         // Методы поиска вакансий (через API, из тех которые были сформированы по результатам парсинга сайтов)
 

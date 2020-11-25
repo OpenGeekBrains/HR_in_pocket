@@ -28,13 +28,13 @@ namespace HRInPocket.Interfaces.Services
         /// Посомтреть информацию о резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
-        Task<ResumeDTO> GetResumeByIdAsync(long id);
+        Task<ResumeDTO> GetResumeByIdAsync(Guid id);
 
         /// <summary>
         /// Создать резюме
         /// </summary>
         /// <param name="resume">Модель представления резюме</param>
-        Task<long> CreateResumeAsync(ResumeDTO resume);
+        Task<Guid> CreateResumeAsync(ResumeDTO resume);
 
         /// <summary>
         /// Редактировать информацию в резюме
@@ -46,7 +46,7 @@ namespace HRInPocket.Interfaces.Services
         /// Удалить резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
-        Task<bool> RemoveResumeAsync(long id);
+        Task<bool> RemoveResumeAsync(Guid id);
 
         /// <summary>
         /// Загрузить файл резюме

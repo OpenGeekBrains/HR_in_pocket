@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using HRInPocket.DAL.Models.Base;
-using HRInPocket.DAL.Models.Entities;
+using AutoMapper;
+
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
@@ -15,33 +16,29 @@ namespace HRInPocket.Services.Services
     {
         /// <summary>
         /// Провайдер данных </summary>
-        private readonly IDataRepository _DataProvider;
-
-        private readonly IMapper<Tarif, TarifDTO> _TarifMapper;
-        //private readonly IMapper<Service, ServiceDTO> _ServiceMapper;
+        private readonly IDataRepository<Tarif> _DataProvider;
+        private readonly IMapper _Mapper;
 
         public ShoppingService(
-            IDataRepository dataProvider,
-            IMapper<Tarif, TarifDTO> tarifMapper
-            //,IMapper<Service, ServiceDTO> serviceMapper
+            IDataRepository<Tarif> dataProvider,
+            IMapper mapper
             )
         {
             _DataProvider = dataProvider;
-            _TarifMapper = tarifMapper;
-            //_ServiceMapper = serviceMapper;
+            _Mapper = mapper;
         }
 
-        public Task<bool> ArchivingTariffPlanAsync(long id)
+        public Task<bool> ArchivingTariffPlanAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TarifDTO> ChoiceTariffPlanAsync(long id, Guid userId)
+        public Task<TarifDTO> ChoiceTariffPlanAsync(Guid id, Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<long> CreateTariffPlanAsync(TarifDTO tarif)
+        public Task<Guid> CreateTariffPlanAsync(TarifDTO tarif)
         {
             throw new NotImplementedException();
         }
@@ -66,7 +63,7 @@ namespace HRInPocket.Services.Services
             throw new NotImplementedException();
         }
 
-        public Task<ServiceDTO> GetServiceById(long id)
+        public Task<ServiceDTO> GetServiceById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +73,7 @@ namespace HRInPocket.Services.Services
             throw new NotImplementedException();
         }
 
-        public Task<TarifDTO> GetTariffPlanByIdAsync(long id)
+        public Task<TarifDTO> GetTariffPlanByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -86,12 +83,12 @@ namespace HRInPocket.Services.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> OrderServiceAsync(long serviceId, Guid userId)
+        public Task<bool> OrderServiceAsync(Guid serviceId, Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveTariffPlanAsync(long id)
+        public Task<bool> RemoveTariffPlanAsync(Guid id)
         {
             throw new NotImplementedException();
         }

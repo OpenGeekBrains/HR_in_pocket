@@ -20,19 +20,19 @@ namespace HRInPocket.Interfaces.Services
         /// <param name="id"></param>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
-        Task<TarifDTO> ChoiceTariffPlanAsync(long id, Guid userId);
+        Task<TarifDTO> ChoiceTariffPlanAsync(Guid id, Guid userId);
 
         /// <summary>
         /// Посмотреть тарифный план по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        Task<TarifDTO> GetTariffPlanByIdAsync(long id);
+        Task<TarifDTO> GetTariffPlanByIdAsync(Guid id);
         
         /// <summary>
         /// Создать новый тарифный план
         /// </summary>
         /// <param name="tarif">Модель тарифного плана</param>
-        Task<long> CreateTariffPlanAsync(TarifDTO tarif);
+        Task<Guid> CreateTariffPlanAsync(TarifDTO tarif);
 
         /// <summary>
         /// Редактировать тарифный план
@@ -44,20 +44,20 @@ namespace HRInPocket.Interfaces.Services
         /// Удалить тарифный план
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        Task<bool> RemoveTariffPlanAsync(long id);
+        Task<bool> RemoveTariffPlanAsync(Guid id);
 
         /// <summary>
         /// Архивирование тарифного плана
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        Task<bool> ArchivingTariffPlanAsync(long id);
+        Task<bool> ArchivingTariffPlanAsync(Guid id);
 
         // Работа с услугами
 
         /// <summary>
         /// Заказать услугу
         /// </summary>
-        Task<bool> OrderServiceAsync(long serviceId, Guid userId);
+        Task<bool> OrderServiceAsync(Guid serviceId, Guid userId);
 
         /// <summary>
         /// Посмотреть все услуги
@@ -83,6 +83,6 @@ namespace HRInPocket.Interfaces.Services
         /// Посмотреть информацию об услуге
         /// </summary>
         /// <param name="id">Идентификатор услуги</param>
-        Task<ServiceDTO> GetServiceById(long id);
+        Task<ServiceDTO> GetServiceById(Guid id);
     }
 }

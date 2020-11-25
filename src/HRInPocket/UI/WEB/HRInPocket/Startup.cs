@@ -37,8 +37,8 @@ namespace HRInPocket
             services.AddTransient<TestDbInitializer>();
 
             services.AddAutoMapper(
-                typeof(AccountsProfile),
-                typeof(MappingProfile)
+                typeof(MappingProfile),
+                typeof(AccountsProfile)
                 );
 
             services.AddIdentity<User, IdentityRole>()
@@ -70,7 +70,6 @@ namespace HRInPocket
 
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IMailSenderService, MailSenderService>();
-            services.AddScoped<IPageParserService, PageParserService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IResumeService, ResumeService>();
             services.AddScoped<IShoppingService, ShoppingService>();

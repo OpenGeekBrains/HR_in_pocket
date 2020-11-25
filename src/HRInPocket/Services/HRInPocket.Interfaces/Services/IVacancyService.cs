@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Filters;
-using HRInPocket.Domain.ViewModels;
 
 namespace HRInPocket.Interfaces.Services
 {
@@ -17,13 +17,13 @@ namespace HRInPocket.Interfaces.Services
         /// Посмотреть вакансии компании по ее идентификатору
         /// </summary>
         /// <param name="id">Иденификатор компании</param>
-        Task<PageVacancyDTO> GetCompanyVacanciesAsync(long id);
+        Task<PageVacancyDTO> GetCompanyVacanciesAsync(Guid id);
 
         /// <summary>
         /// Создать вакансию
         /// </summary>
         /// <param name="vacancy">Модель представления вакансии</param>
-        Task<long> CreateVacancyAsync(VacancyDTO vacancy);
+        Task<Guid> CreateVacancyAsync(VacancyDTO vacancy);
 
         /// <summary>
         /// Редактировать информацию в вакансии
@@ -35,7 +35,7 @@ namespace HRInPocket.Interfaces.Services
         /// Удалить вакансию по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор вакансии</param>
-        Task<bool> RemoveVacancyAsync(long id);
+        Task<bool> RemoveVacancyAsync(Guid id);
 
 
         // Методы поиска вакансий (через API, из тех которые были сформированы по результатам парсинга сайтов)
