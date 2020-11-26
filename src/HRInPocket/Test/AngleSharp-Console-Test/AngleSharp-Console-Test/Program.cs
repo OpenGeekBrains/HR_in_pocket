@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 using HRInPocket.Parsing.hh.ru.Service;
 
@@ -10,14 +11,15 @@ namespace AngleSharp_Console_Test
         static readonly CancellationTokenSource s_cts = new CancellationTokenSource();
         static async Task Main()
         {
-            ParseUseDLL();
+            await ParseUseDLL();
             Console.ReadKey();
         }
-        static void ParseUseDLL()
+        static async Task ParseUseDLL()
         {
             var parse = new Parsehh();
-            parse.Result += GetResult;
-            await parse.ParseAsync(s_cts.Token, "https://hh.ru/search/vacancy");
+            parse.SendVacancy += GetResult;
+            string vacancyName = "java";
+            await parse.ParseAsync(s_cts.Token, "https://hh.ru/search/vacancy", vacancyName);
         }
 
         private static void GetResult(object sender, VacancyEventArgs e)

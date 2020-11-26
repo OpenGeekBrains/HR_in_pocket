@@ -60,12 +60,12 @@ namespace HRInPocket.Parsing.hh.ru.Service
         #endregion
 
         ///<inheritdoc/>
-        public event EventHandler<VacancyEventArgs> Result;
+        public event EventHandler<VacancyEventArgs> SendVacancy;
         
         protected virtual void OnVacancyEventArgs(Vacancy vacancy)
         {
             var e = new VacancyEventArgs { Vacancy = vacancy };
-            Result?.Invoke(this, e);
+            SendVacancy?.Invoke(this, e);
         }
 
         ///<inheritdoc/>

@@ -22,7 +22,7 @@ namespace HRInPocket.WPF.ViewModels
         {
             _SaveDataToJSON = SaveDataToJSON;
             _Parsehh = ParsehhService.GetParse();
-            _Parsehh.Result += GetDataCollection;
+            _Parsehh.SendVacancy += GetDataCollection;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);

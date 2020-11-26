@@ -12,7 +12,7 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
     public interface IParsehh
     {
         /// <summary> Событие передающее полученную вакансию </summary>
-        event EventHandler<VacancyEventArgs> Result;
+        event EventHandler<VacancyEventArgs> SendVacancy;
 
         /// <summary> Парсит страницу hh.ru и возвращает вакансию через событие VacancyEventArgs </summary>
         /// <param name="token"> Токен остановки парсера </param>
