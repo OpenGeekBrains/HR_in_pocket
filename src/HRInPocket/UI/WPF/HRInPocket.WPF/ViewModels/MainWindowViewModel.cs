@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -193,7 +194,10 @@ namespace HRInPocket.WPF.ViewModels
                 //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
 
                 // Метод парсера, который возвращает вакансии через IAsyncEnumerable
-                _ = GetDataCollectionAsync(s_cts.Token);
+                //_ = GetDataCollectionAsync(s_cts.Token);
+
+                /// Метод парсера, который возвращает вакансии через Task<(Vacancy[], string)>
+                _ = GetDataArrayAsync(s_cts.Token);
 
                 StopParse = true;
                 ButtonContent = "Остановить";
@@ -230,6 +234,9 @@ namespace HRInPocket.WPF.ViewModels
         }
         #endregion
 
+        /// <summary> Метод получения вакансий из IAsyncEnumerable<Vacancy> </summary>
+        /// <param name="token">Токен отмены парсера</param>
+        /// <returns></returns>
         private async Task GetDataCollectionAsync(CancellationToken token)
         {
             var data = _Parsehh.ParseEnumerableAsync(token, Page, KeyWords);
@@ -238,6 +245,16 @@ namespace HRInPocket.WPF.ViewModels
                 if (item == null) return;
                 DataCollection.Add(item);
             }
+        }
+
+        private async Task GetDataArrayAsync(CancellationToken token)
+        {
+            do
+            {
+                var (Vacancies, NextPage) = await _Parsehh.ParseAsync(token, Page);
+                foreach (var item in Vacancies) DataCollection.Add(item);
+                Page = NextPage;
+            } while (!string.IsNullOrEmpty(Page));
         }
     }
 }
