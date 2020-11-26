@@ -255,6 +255,7 @@ namespace HRInPocket.WPF.ViewModels
                 foreach (var item in Vacancies) DataCollection.Add(item);
                 Page = NextPage;
             } while (!string.IsNullOrEmpty(Page));
+            //} while (!string.IsNullOrEmpty(Page) && !token.IsCancellationRequested);
         }
     }
 }

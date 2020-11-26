@@ -137,8 +137,8 @@ namespace HRInPocket.Parsing.hh.ru.Service
                         var vacancy = VacancyCreate(fitem, vacancyNameParse);
                         CompenstionParse(vacancy, fitem);
                         result.Add(vacancy);
+                        if (token.IsCancellationRequested) return (result.ToArray(), null);
                     }
-
                 }
 
                 if (NextPage is null) return (result.ToArray(), null);
