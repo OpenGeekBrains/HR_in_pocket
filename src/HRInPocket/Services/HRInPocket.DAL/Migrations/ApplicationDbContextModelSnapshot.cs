@@ -17,29 +17,13 @@ namespace HRInPocket.DAL.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("EmployerSystemManager", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ActivityCategory", b =>
                 {
-                    b.Property<Guid>("EmployersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SystemManagersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("EmployersId", "SystemManagersId");
-
-                    b.HasIndex("SystemManagersId");
-
-                    b.ToTable("EmployerSystemManager");
-                });
-
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ActivityCategory", b =>
-                {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -50,12 +34,11 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("ActivityCategories");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Address", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Address", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Building")
                         .HasColumnType("nvarchar(max)");
@@ -77,25 +60,21 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<Guid?>("EmployerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("FactAddressId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("FactAddressId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Inn")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("LegalAddressId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("LegalAddressId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -103,48 +82,146 @@ namespace HRInPocket.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployerId");
-
                     b.HasIndex("FactAddressId");
-
-                    b.HasIndex("Inn")
-                        .IsUnique();
 
                     b.HasIndex("LegalAddressId");
 
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ApplicantId")
+                    b.Property<string>("ApplicantId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicantId");
 
-                    b.ToTable("Resumes");
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("CoverLetters");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ResumeValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetterValue", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CoverLetterId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ResumeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoverLetterId");
+
+                    b.ToTable("CoverLetterValue");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.PriceItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Price");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicantId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Resumes");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ResumeValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ResumeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -156,38 +233,86 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("ResumeValue");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Speciality", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Speciality", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("ActivityCategoryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("ApplicantId")
+                    b.Property<Guid?>("ActivityCategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ActivityCategoryId");
 
-                    b.HasIndex("ApplicantId");
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("Specialties");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Tarif", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.TargetTask", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CoverLetterLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CreateCoverLetter")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CreateResume")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProfileId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ProfileId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("RemoteWork")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResumeLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("SpecialityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ProfileId1");
+
+                    b.HasIndex("SpecialityId");
+
+                    b.ToTable("TargetTasks");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Tarif", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -207,15 +332,14 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Tarifs");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Vacancy", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<long?>("CompanyId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("MaxSalary")
                         .HasColumnType("int");
@@ -223,8 +347,8 @@ namespace HRInPocket.DAL.Migrations
                     b.Property<int>("MinSalary")
                         .HasColumnType("int");
 
-                    b.Property<long?>("SpecialtyId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("SpecialtyId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -235,209 +359,356 @@ namespace HRInPocket.DAL.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Applicant", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long?>("AddressId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Birthday")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmailAddress")
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Patronymic")
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("SystemManagerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProfileId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.Applicant", b =>
+                {
+                    b.HasBaseType("HRInPocket.Domain.Entities.Users.User");
+
+                    b.Property<string>("SystemManagerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TargetTaskId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TargetTaskId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TarifId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("SystemManagerId");
 
-                    b.ToTable("Applicants");
+                    b.HasIndex("TargetTaskId1");
+
+                    b.HasIndex("TarifId");
+
+                    b.HasDiscriminator().HasValue("Applicant");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.CompanyManager", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.SystemManager", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasBaseType("HRInPocket.Domain.Entities.Users.User");
 
-                    b.Property<long?>("CompanyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("EmployerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Patronymic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("EmployerId");
-
-                    b.ToTable("CompanyManagers");
+                    b.HasDiscriminator().HasValue("SystemManager");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Employer", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Patronymic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employers");
-                });
-
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.SystemManager", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Patronymic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SystemManagers");
-                });
-
-            modelBuilder.Entity("EmployerSystemManager", b =>
-                {
-                    b.HasOne("HRInPocket.DAL.Models.Users.Employer", null)
-                        .WithMany()
-                        .HasForeignKey("EmployersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HRInPocket.DAL.Models.Users.SystemManager", null)
-                        .WithMany()
-                        .HasForeignKey("SystemManagersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
-                {
-                    b.HasOne("HRInPocket.DAL.Models.Users.Employer", "Employer")
-                        .WithMany("Companies")
-                        .HasForeignKey("EmployerId");
-
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "FactAddress")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "FactAddress")
                         .WithMany()
                         .HasForeignKey("FactAddressId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "LegalAddress")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "LegalAddress")
                         .WithMany()
                         .HasForeignKey("LegalAddressId");
-
-                    b.Navigation("Employer");
 
                     b.Navigation("FactAddress");
 
                     b.Navigation("LegalAddress");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Users.Applicant", "Applicant")
-                        .WithMany("Resumes")
+                    b.HasOne("HRInPocket.Domain.Entities.Users.Applicant", "Applicant")
+                        .WithMany()
                         .HasForeignKey("ApplicantId");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
+                        .WithMany("CoverLetters")
+                        .HasForeignKey("ProfileId");
 
                     b.Navigation("Applicant");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ResumeValue", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetterValue", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Resume", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.CoverLetter", null)
+                        .WithMany("Values")
+                        .HasForeignKey("CoverLetterId");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("HRInPocket.Domain.Entities.Data.Profile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Users.Applicant", "Applicant")
+                        .WithMany()
+                        .HasForeignKey("ApplicantId");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
+                        .WithMany("Resumes")
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Applicant");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ResumeValue", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Resume", null)
                         .WithMany("Values")
                         .HasForeignKey("ResumeId");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Speciality", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Speciality", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.ActivityCategory", "ActivityCategory")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.ActivityCategory", "ActivityCategory")
                         .WithMany("Specialties")
                         .HasForeignKey("ActivityCategoryId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Users.Applicant", null)
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", null)
                         .WithMany("Speciality")
-                        .HasForeignKey("ApplicantId");
+                        .HasForeignKey("ProfileId");
 
                     b.Navigation("ActivityCategory");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Vacancy", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.TargetTask", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Company", "Company")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId1");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Speciality", "Speciality")
+                        .WithMany()
+                        .HasForeignKey("SpecialityId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Profile");
+
+                    b.Navigation("Speciality");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Vacancy", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Company", "Company")
                         .WithMany("Vacancies")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Speciality", "Specialty")
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Speciality", "Specialty")
                         .WithMany()
                         .HasForeignKey("SpecialtyId");
 
@@ -446,64 +717,119 @@ namespace HRInPocket.DAL.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Applicant", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Address", "Address")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasOne("HRInPocket.DAL.Models.Users.SystemManager", "SystemManager")
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.Applicant", b =>
+                {
+                    b.HasOne("HRInPocket.Domain.Entities.Users.SystemManager", "SystemManager")
                         .WithMany("Applicants")
                         .HasForeignKey("SystemManagerId");
 
-                    b.Navigation("Address");
+                    b.HasOne("HRInPocket.Domain.Entities.Data.TargetTask", "TargetTask")
+                        .WithMany()
+                        .HasForeignKey("TargetTaskId1");
+
+                    b.HasOne("HRInPocket.Domain.Entities.Data.Tarif", "Tarif")
+                        .WithMany("Applicants")
+                        .HasForeignKey("TarifId");
 
                     b.Navigation("SystemManager");
+
+                    b.Navigation("TargetTask");
+
+                    b.Navigation("Tarif");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.CompanyManager", b =>
-                {
-                    b.HasOne("HRInPocket.DAL.Models.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.HasOne("HRInPocket.DAL.Models.Users.Employer", null)
-                        .WithMany("CompanyManagers")
-                        .HasForeignKey("EmployerId");
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.ActivityCategory", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.ActivityCategory", b =>
                 {
                     b.Navigation("Specialties");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Company", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Company", b =>
                 {
                     b.Navigation("Vacancies");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Entities.Resume", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.CoverLetter", b =>
                 {
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Applicant", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Profile", b =>
                 {
+                    b.Navigation("CoverLetters");
+
                     b.Navigation("Resumes");
 
                     b.Navigation("Speciality");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.Employer", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Resume", b =>
                 {
-                    b.Navigation("Companies");
-
-                    b.Navigation("CompanyManagers");
+                    b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("HRInPocket.DAL.Models.Users.SystemManager", b =>
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Data.Tarif", b =>
+                {
+                    b.Navigation("Applicants");
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.User", b =>
+                {
+                    b.Navigation("Profile")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HRInPocket.Domain.Entities.Users.SystemManager", b =>
                 {
                     b.Navigation("Applicants");
                 });

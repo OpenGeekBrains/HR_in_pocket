@@ -1,8 +1,15 @@
-﻿<div class="tarifs">
+﻿@model List<HRInPocket.Domain.Entities.Data.Tarif>
+
+    <div class="tarifs">
 <p class="maintitle-tarifs">Тарифы</p>
 <section id="tarifs">
     <div class="row no-gutters tarifs-block">
-        <div class="col tarifs-block-each tarifs-w ">
+        
+        @foreach (var card in Model)
+        {
+            <vc:tarif-card tarif="card"></vc:tarif-card>
+        }
+        @*<div class="col tarifs-block-each tarifs-w ">
             <p class="title-tarifs">Базовый</p>
             <p class="desc-tarifs">Хороший повод начать</p>
             <p class="numb-visits">1 приглашение</p>
@@ -29,7 +36,7 @@
             <p class="numb-visits-">10 приглашений</p>
             <p class="price-tarifs">10000 руб.</p>
             <button type="button" class="buy"><a href="">Купить</a></button>
-        </div>
+        </div>*@
     </div>
 </section>
 </div>

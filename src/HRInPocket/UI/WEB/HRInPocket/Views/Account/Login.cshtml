@@ -1,0 +1,50 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Вход в систему";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+ <div class="media registration">
+    <div class="media-body info-registration">
+        @*<p class="make-account">Создать учетную запись</p>
+        <div class="registration-options">
+            <ul>
+                <li class="reg-options-p">Регистрация через</li>
+                <li>
+                    <a href="#"><img src="~/img/svg/vk.svg" alt="Вконтакте"></a>
+                </li>
+                <li>
+                    <a href="#"><img src="~/img/svg/google.svg" alt="Google"></a>
+                </li>
+                <li>
+                    <a href="#"><img src="~/img/svg/fb.svg" alt="Facebook"></a>
+                </li>
+            </ul>
+            <p>или зарегистрируйтесь с помощью электронной почты</p>
+        </div>*@
+        <div class="registration_form">
+            <form class="registration-form" method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
+                <div asp-validation-summary="ModelOnly"></div>
+
+                @Html.HiddenFor(m => m.ReturnUrl)
+
+                <div class="form-row no-gutters">
+                    <input asp-for="UserName" class="form-group registration-data" placeholder="Имя пользвоателя">
+                    @*<p class="input-p">Имя</p>*@
+                </div>
+                <div class="form-row no-gutters">
+                    <input asp-for="Password" class="form-group  registration-data" placeholder="Пароль">
+                    @*<p class="input-p">Пароль</p>*@
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input asp-for="RememberMe" class="custom-control-input check" id="customCheck1">
+                    <label class="custom-control-label checkbox-registration" for="customCheck1">Запомнить меня</label>
+                </div>
+                <button type="submit" class="make-acc-btn">Войти в систему</button>
+            </form>
+        </div>
+    </div>
+    <img src="~/img/svg/linkedin-sales-navigator-wS73LE0GnKs-unsplash.svg" class=" ml-3">
+    <a class="close-registration-btn" asp-controller="Home" asp-action="Index"><img src="~/img/svg/close.svg" alt="Закрыть"></a>
+</div>

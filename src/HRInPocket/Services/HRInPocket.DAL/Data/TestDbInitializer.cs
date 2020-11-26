@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,215 +7,51 @@ namespace HRInPocket.DAL.Data
 {
     public class TestDbInitializer
     {
-        private readonly ApplicationDbContext _DbContext;
-        private readonly ILogger<TestDbInitializer> _Logger;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly ILogger<TestDbInitializer> _logger;
 
-        public TestDbInitializer(ApplicationDbContext DbContext, ILogger<TestDbInitializer> Logger)
+        public TestDbInitializer(ApplicationDbContext dbContext, ILogger<TestDbInitializer> logger)
         {
-            _DbContext = DbContext;
-            _Logger = Logger;
+            _dbContext = dbContext;
+            _logger = logger;
         }
 
         public void Initialize()
         {
-            var db = _DbContext.Database;
+            var db = _dbContext.Database;
 
             try
             {
                 db.Migrate();
 
-                InitializeAddress();
-                InitializeSpecialities();
-                InitializeActivityCategory();
-                InitializeApplicant();
-                InitializeResume();
-                InitializeCompany();
-                InitializeVacancies();
-                InitializeCompanyManager();
-                InitializeEmployer(); 
-                InitializeSystemManager();
-                InitializeTarifs();
+                _dbContext
+                    .InitTable(TestData.Addresses)
+                    .InitTable(TestData.Specialties)
+                    .InitTable(TestData.ActivityCategories)
+                    .InitTable(TestData.TargetTasks)
+
+                    .InitTable(TestData.Tarifs)
+                    .InitTable(TestData.Price)
+
+
+
+                ////.InitTable(TestData.Vacancies)           // Not Filled
+                ////.InitTable(TestData.CoverLetters)        // Not Filled
+                ////.InitTable(TestData.Companies)           // Not Filled
+                ////.InitTable(TestData.Profiles)            // Not Filled
+
+                ////.InitTable(TestData.Users)                // Rework for Identity integration
+                ////.InitTable(TestData.Applicants)           // Rework for Identity integration
+                ////.InitTable(TestData.SystemManagers)       // Rework for Identity integration
+
+                ////.InitTable(TestData.Resumes)              // Behave on Identity Entities
+                ;
 
             }
             catch (Exception e)
             {
-                _Logger.LogError(e, "Ошибка инициализации БД");
+                _logger.LogError(e.Message, "Ошибка инициализации БД");
                 throw;
-            }
-        }
-
-        private void InitializeTarifs()
-        {
-            if(_DbContext.Tarifs.Any()) return;
-
-            _DbContext.Database.BeginTransaction().DisposeAfter(
-                transaction =>
-                {
-                    _DbContext.Tarifs.AddRange(TestData.Tarifs);
-                    _DbContext.SaveChanges();
-                    transaction.Commit();
-                });
-        }
-
-        private void InitializeAddress()
-        {
-            //var test = new StreamReader("testfile.txt").DisposeAfter(file => file.ReadToEnd());
-
-            if (_DbContext.Addresses.Any()) return;
-
-            _DbContext.Database.BeginTransaction().DisposeAfter(
-                transaction =>
-                {
-                    _DbContext.Addresses.AddRange(TestData.Addresses);
-
-                    _DbContext.SaveChanges();
-
-                    transaction.Commit();
-                });
-
-            //var db = _DbContext.Database;
-            //using (db.BeginTransaction())
-            //{
-            //    _DbContext.Addresses.AddRange(TestData.Addresses);
-
-            //    _DbContext.SaveChanges();
-
-            //    db.CommitTransaction();
-            //}
-        }
-
-        private void InitializeSpecialities()
-        {
-            if (_DbContext.Specialties.Any()) return;
-            
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Specialties.AddRange(TestData.Specialties);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeActivityCategory()
-        {
-            if (_DbContext.ActivityCategories.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.ActivityCategories.AddRange(TestData.ActivityCategories);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeVacancies()
-        {
-            if (_DbContext.Vacancies.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Vacancies.AddRange(TestData.Vacancies);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeResume()
-        {
-            if (_DbContext.Resumes.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Resumes.AddRange(TestData.Resumes);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeCompany()
-        {
-            if (_DbContext.Companies.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Companies.AddRange(TestData.Companies);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeApplicant()
-        {
-            if (_DbContext.Applicants.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Applicants.AddRange(TestData.Applicants);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeCompanyManager()
-        {
-            if (_DbContext.CompanyManagers.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.CompanyManagers.AddRange(TestData.CompanyManagers);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeEmployer()
-        {
-            if (_DbContext.Employers.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.Employers.AddRange(TestData.Employers);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
-            }
-        }
-
-        private void InitializeSystemManager()
-        {
-            if (_DbContext.SystemManagers.Any()) return;
-
-            var db = _DbContext.Database;
-            using (db.BeginTransaction())
-            {
-                _DbContext.SystemManagers.AddRange(TestData.SystemManagers);
-
-                _DbContext.SaveChanges();
-
-                db.CommitTransaction();
             }
         }
     }
