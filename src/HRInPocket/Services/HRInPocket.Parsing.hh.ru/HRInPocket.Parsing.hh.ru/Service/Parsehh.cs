@@ -86,8 +86,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
                 }
                 catch (Exception e)
                 {
-                    Trace.TraceError(e.ToString());
-                    throw e;
+                    throw new ParseHHVacancyException($"Невозможно получить данные из страницы {path}", e);
                 }
 
                 foreach (var fitem in items)
@@ -151,8 +150,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
             }
             catch (Exception e)
             {
-                Trace.TraceError(e.ToString());
-                throw e;
+                throw new ParseHHVacancyException($"Невозможно получить данные из страницы {page}", e);
             }
         }
 
@@ -197,8 +195,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
             }
             catch (Exception e)
             {
-                Trace.TraceError(e.ToString());
-                throw e;
+                throw new ParseHHVacancyException($"Невозможно получить данные из страницы {path}", e);
             }
         }
 
