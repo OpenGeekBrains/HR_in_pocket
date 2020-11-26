@@ -29,7 +29,7 @@ namespace HRInPocket.WPF.ViewModels
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
         }
 
-        
+
 
         /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
@@ -197,7 +197,7 @@ namespace HRInPocket.WPF.ViewModels
                 //_ = GetDataCollectionAsync(s_cts.Token);
 
                 /// Метод парсера, который возвращает вакансии через Task<(Vacancy[], string)>
-                _ = GetDataArrayAsync(s_cts.Token);
+                _ = GetDataArrayAsync(s_cts.Token, KeyWords);
 
                 StopParse = true;
                 ButtonContent = "Остановить";
@@ -232,10 +232,9 @@ namespace HRInPocket.WPF.ViewModels
 
             DataCollection.Add(e.Vacancy);
         }
-        #endregion
 
         /// <summary> Метод получения вакансий из IAsyncEnumerable<Vacancy> </summary>
-        /// <param name="token">Токен отмены парсера</param>
+        /// <param name="token">Токен остановки парсера</param>
         /// <returns></returns>
         private async Task GetDataCollectionAsync(CancellationToken token)
         {
@@ -247,15 +246,23 @@ namespace HRInPocket.WPF.ViewModels
             }
         }
 
-        private async Task GetDataArrayAsync(CancellationToken token)
+        /// <summary> Метод получения вакансий через Task<(Vacancy[], string)> с автоматическим переходом на следующую страницу </summary>
+        /// <param name="token"> Токен остановки парсера </param>
+        /// <param name="keywords"> Ключевые слова для поиска. Если Null, то парсер получает все имеющиеся в доступе вакансии </param>
+        /// <returns></returns>
+        private async Task GetDataArrayAsync(CancellationToken token, string keywords = null)
         {
+            Page = string.IsNullOrEmpty(keywords) ? Page : Page + "?text=" + keywords;
+
             do
             {
                 var (Vacancies, NextPage) = await _Parsehh.ParseAsync(token, Page);
                 foreach (var item in Vacancies) DataCollection.Add(item);
                 Page = NextPage;
-            } while (!string.IsNullOrEmpty(Page));
-            //} while (!string.IsNullOrEmpty(Page) && !token.IsCancellationRequested);
+            } while (!string.IsNullOrEmpty(Page) && !token.IsCancellationRequested);
         }
+
+        #endregion
+
     }
 }
