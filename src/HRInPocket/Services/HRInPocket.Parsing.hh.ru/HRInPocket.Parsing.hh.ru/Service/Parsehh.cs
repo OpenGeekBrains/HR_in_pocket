@@ -17,34 +17,6 @@ namespace HRInPocket.Parsing.hh.ru.Service
     ///<inheritdoc cref="IParsehh"/>
     public class Parsehh : IParsehh
     {
-        #region MinWaitTime : int - Минимальное время задержки парсера в милисекундах
-
-        /// <summary>Минимальное время задержки парсера в милисекундах</summary>
-        private static int _MinWaitTime = 300;
-
-        /// <summary>Минимальное время задержки парсера в милисекундах</summary>
-        public static int MinWaitTime
-        {
-            get => _MinWaitTime;
-            set => _MinWaitTime = value;
-        }
-
-        #endregion
-
-        #region MaxWaitTime : int - Максимальное время задержки парсера в милисекундах
-
-        /// <summary>Максимальное время задержки парсера в милисекундах</summary>
-        private static int _MaxWaitTime = 2000;
-
-        /// <summary>Максимальное время задержки парсера в милисекундах</summary>
-        public static int MaxWaitTime
-        {
-            get => _MaxWaitTime;
-            set => _MaxWaitTime = value;
-        }
-
-        #endregion
-
         /// <summary> Рандом, использующийся для определения случайной задержки между отправкой запроса на получение следующей страницы для парсера </summary>
         private readonly static Random _Random = new Random();
         /// <summary> Объект, содержащий ссылку на следующую страницу</summary>
@@ -62,11 +34,11 @@ namespace HRInPocket.Parsing.hh.ru.Service
         }
 
         ///<inheritdoc/>
-        public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page)
+        public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page, int MinWaitTime = 300, int MaxWaitTime = 2000)
         {
             do
             {
-                await GetPage(page);
+                await GetPage(page, MinWaitTime, MaxWaitTime);
 
                 foreach (var fitem in _Items)
                 {
@@ -91,11 +63,11 @@ namespace HRInPocket.Parsing.hh.ru.Service
         }
 
         ///<inheritdoc/>
-        public async Task<(Vacancy[], string)> ParseAsync(CancellationToken token, string page)
+        public async Task<(Vacancy[], string)> ParseAsync(CancellationToken token, string page, int MinWaitTime = 300, int MaxWaitTime = 2000)
         {
             var result = new List<Vacancy>();
 
-            await GetPage(page);
+            await GetPage(page, MinWaitTime, MaxWaitTime);
 
             foreach (var fitem in _Items)
             {
@@ -122,14 +94,15 @@ namespace HRInPocket.Parsing.hh.ru.Service
         public async Task ParseAsync(CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();
-
+            var MaxWaitTime = 2000;
+            var MinWaitTime = 300;
             var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
 
             try
             {
                 do
                 {
-                    await GetPage(path);
+                    await GetPage(path, MinWaitTime, MaxWaitTime);
 
                     foreach (var fitem in _Items)
                     {
@@ -249,10 +222,12 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <returns>true если строка найдена в переданном объекте</returns>
         private static bool DataQA(IElement item, string searchline) => item.HasAttribute("data-qa") && item.GetAttribute("data-qa").Equals(searchline);
 
-        /// <summary> Получение коллекции объектов вакансий из указанной страницы hh.ru </summary>
+        /// <summary> Получение коллекции объектов вакансий из указанной страницы </summary>
         /// <param name="path"> Страницы, из которой получается коллекция объектов вакансий </param>
+        /// <param name="MinWaitTime"> Минимальное время ожидания до получения страницы </param>
+        /// <param name="MaxWaitTime"> Максимальное время ожидания до получения страницы </param>
         /// <returns>Кортеж, где IEnumerable<IElement> items - коллекция объектов вакансий, IElement NextPage - объект, содержащий следующую страницу</returns>
-        private static async Task GetPage(string path)
+        private static async Task GetPage(string path, int MinWaitTime, int MaxWaitTime)
         {
             try
             {

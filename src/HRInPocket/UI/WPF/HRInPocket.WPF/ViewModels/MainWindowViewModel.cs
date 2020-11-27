@@ -235,6 +235,7 @@ namespace HRInPocket.WPF.ViewModels
 
         /// <summary> Метод получения вакансий из IAsyncEnumerable<Vacancy> </summary>
         /// <param name="token">Токен остановки парсера</param>
+        /// <param name="keywords"> Ключевые слова для поиска. Если Null, то парсер получает все имеющиеся в доступе вакансии </param>
         /// <returns></returns>
         private async Task GetDataCollectionAsync(CancellationToken token, string keywords = null)
         {
