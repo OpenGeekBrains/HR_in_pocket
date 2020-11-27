@@ -17,27 +17,13 @@ namespace HRInPocket.Parsing.hh.ru.Service
     ///<inheritdoc cref="IParsehh"/>
     public class Parsehh : IParsehh
     {
-        #region HHUrl : string - Страница hh.ru с вакансиями
-
-        /// <summary>Страница hh.ru с вакансиями</summary>
-        private string _HHUrl = "https://hh.ru/search/vacancy";
-
-        /// <summary>Страница hh.ru с вакансиями</summary>
-        public string HHUrl
-        {
-            get => _HHUrl;
-            set => _HHUrl = value;
-        }
-
-        #endregion
-
         #region MinWaitTime : int - Минимальное время задержки парсера в милисекундах
 
         /// <summary>Минимальное время задержки парсера в милисекундах</summary>
-        private int _MinWaitTime = 300;
+        private static int _MinWaitTime = 300;
 
         /// <summary>Минимальное время задержки парсера в милисекундах</summary>
-        public int MinWaitTime
+        public static int MinWaitTime
         {
             get => _MinWaitTime;
             set => _MinWaitTime = value;
@@ -48,16 +34,23 @@ namespace HRInPocket.Parsing.hh.ru.Service
         #region MaxWaitTime : int - Максимальное время задержки парсера в милисекундах
 
         /// <summary>Максимальное время задержки парсера в милисекундах</summary>
-        private int _MaxWaitTime = 2000;
+        private static int _MaxWaitTime = 2000;
 
         /// <summary>Максимальное время задержки парсера в милисекундах</summary>
-        public int MaxWaitTime
+        public static int MaxWaitTime
         {
             get => _MaxWaitTime;
             set => _MaxWaitTime = value;
         }
 
         #endregion
+
+        /// <summary> Рандом, использующийся для определения случайной задержки между отправкой запроса на получение следующей страницы для парсера </summary>
+        private readonly static Random _Random = new Random();
+        /// <summary> Объект, содержащий ссылку на следующую страницу</summary>
+        private static IElement _NextPage;
+        /// <summary> Коллекция, содержащая объекты, которые содержат вакансии </summary>
+        private static IEnumerable<IElement> _Items;
 
         ///<inheritdoc/>
         public event EventHandler<VacancyEventArgs> SendVacancy;
@@ -69,46 +62,30 @@ namespace HRInPocket.Parsing.hh.ru.Service
         }
 
         ///<inheritdoc/>
-        public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page, string GetParameters)
+        public async IAsyncEnumerable<Vacancy> ParseEnumerableAsync([EnumeratorCancellation] CancellationToken token, string page)
         {
-            var random = new Random();
-            IElement NextPage;
-            IEnumerable<IElement> items;
-
-            if (string.IsNullOrEmpty(page)) page = HHUrl;
-            var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
-
             do
             {
-                try
-                {
-                    (items, NextPage) = await GetPage(path);
-                }
-                catch (Exception e)
-                {
-                    throw new ParseHHVacancyException($"Невозможно получить данные из страницы {path}", e);
-                }
+                await GetPage(page);
 
-                foreach (var fitem in items)
+                foreach (var fitem in _Items)
                 {
-
                     var vacancyNameParse = fitem.QuerySelectorAll("a")
                         .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
 
                     if (vacancyNameParse != null)
                     {
                         var vacancy = VacancyCreate(fitem, vacancyNameParse);
-                        CompenstionParse(vacancy, fitem);
+                        CompensationParse(vacancy, fitem);
                         yield return vacancy;
                     }
                 }
 
-                if (NextPage is null) yield return null;
-                path = "https://hh.ru" + NextPage.GetAttribute("href");
-
-                //var taskDelay = Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
-                //await taskDelay;
-                await Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
+                if (_NextPage is null)
+                {
+                    yield return null;
+                }
+                page = "https://hh.ru" + _NextPage.GetAttribute("href");
 
             } while (!token.IsCancellationRequested);
         }
@@ -116,77 +93,59 @@ namespace HRInPocket.Parsing.hh.ru.Service
         ///<inheritdoc/>
         public async Task<(Vacancy[], string)> ParseAsync(CancellationToken token, string page)
         {
-            var random = new Random();
             var result = new List<Vacancy>();
-            IElement NextPage;
-            IEnumerable<IElement> items;
 
-            if (string.IsNullOrEmpty(page)) page = HHUrl;
+            await GetPage(page);
 
-            try
+            foreach (var fitem in _Items)
             {
-                (items, NextPage) = await GetPage(page);
+                var vacancyNameParse = fitem.QuerySelectorAll("a")
+                    .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
 
-                foreach (var fitem in items)
+                if (vacancyNameParse != null)
                 {
-                    var vacancyNameParse = fitem.QuerySelectorAll("a")
-                        .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
-
-                    if (vacancyNameParse != null)
-                    {
-                        var vacancy = VacancyCreate(fitem, vacancyNameParse);
-                        CompenstionParse(vacancy, fitem);
-                        result.Add(vacancy);
-                        if (token.IsCancellationRequested) return (result.ToArray(), null);
-                    }
+                    var vacancy = VacancyCreate(fitem, vacancyNameParse);
+                    CompensationParse(vacancy, fitem);
+                    result.Add(vacancy);
+                    if (token.IsCancellationRequested) return (result.ToArray(), null);
                 }
-
-                if (NextPage is null) return (result.ToArray(), null);
-                var NextPagePath = "https://hh.ru" + NextPage.GetAttribute("href");
-
-                await Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
-
-                return (result.ToArray(), NextPagePath);
             }
-            catch (Exception e)
-            {
-                throw new ParseHHVacancyException($"Невозможно получить данные из страницы {page}", e);
-            }
+
+            if (_NextPage is null) return (result.ToArray(), null);
+            page = "https://hh.ru" + _NextPage.GetAttribute("href");
+
+            return (result.ToArray(), page);
         }
 
         ///<inheritdoc/>
+        [ObsoleteAttribute("Данный метод парсинга устарел. Используйте новый ParseAsync или ParseEnumerableAsync.", false)]
         public async Task ParseAsync(CancellationToken token, string page, string GetParameters)
         {
             var random = new Random();
-            IElement NextPage;
-            IEnumerable<IElement> items;
 
-            if (string.IsNullOrEmpty(page)) page = HHUrl;
             var path = string.IsNullOrEmpty(GetParameters) ? page : page + "?text=" + GetParameters;
 
             try
             {
                 do
                 {
-                    (items, NextPage) = await GetPage(path);
+                    await GetPage(path);
 
-                    foreach (var fitem in items)
+                    foreach (var fitem in _Items)
                     {
-
                         var vacancyNameParse = fitem.QuerySelectorAll("a")
                             .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-title"));
 
                         if (vacancyNameParse != null)
                         {
                             var vacancy = VacancyCreate(fitem, vacancyNameParse);
-                            CompenstionParse(vacancy, fitem);
+                            CompensationParse(vacancy, fitem);
                             OnVacancyEventArgs(vacancy);
                         }
-
                     }
 
-                    if (NextPage is null) return;
-                    path = "https://hh.ru" + NextPage.GetAttribute("href");
+                    if (_NextPage is null) return;
+                    path = "https://hh.ru" + _NextPage.GetAttribute("href");
 
                     var taskDelay = Task.Delay(random.Next(MinWaitTime, MaxWaitTime));
                     await taskDelay;
@@ -237,7 +196,7 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// </summary>
         /// <param name="vacancy">Вакансия, в которую будут внесены данные о зарплате</param>
         /// <param name="fitem">Объект, из которого будет получена строка зарплаты</param>
-        private static void CompenstionParse(Vacancy vacancy, IElement fitem)
+        private static void CompensationParse(Vacancy vacancy, IElement fitem)
         {
             var compensationParse = fitem.QuerySelectorAll("span")
                 .FirstOrDefault(item => DataQA(item, "vacancy-serp__vacancy-compensation"));
@@ -247,7 +206,6 @@ namespace HRInPocket.Parsing.hh.ru.Service
             var spaceIndex = compensationParse.TextContent.LastIndexOf(' ');
             vacancy.CurrencyCode = compensationParse.TextContent[(spaceIndex + 1)..];
             var compensationString = compensationParse.TextContent[..spaceIndex].Replace((char)160, (char)32).Replace((char)8239, (char)32).Replace(" ", "");
-
 
             if (compensationString.Contains("от")) CompensationWithPrefix("от");
             else if (compensationString.Contains("до")) CompensationWithPrefix("до");
@@ -294,21 +252,28 @@ namespace HRInPocket.Parsing.hh.ru.Service
         /// <summary> Получение коллекции объектов вакансий из указанной страницы hh.ru </summary>
         /// <param name="path"> Страницы, из которой получается коллекция объектов вакансий </param>
         /// <returns>Кортеж, где IEnumerable<IElement> items - коллекция объектов вакансий, IElement NextPage - объект, содержащий следующую страницу</returns>
-        private static async Task<(IEnumerable<IElement>, IElement)> GetPage(string path)
+        private static async Task GetPage(string path)
         {
-            var config = Configuration.Default.WithDefaultLoader();
+            try
+            {
+                await Task.Delay(_Random.Next(MinWaitTime, MaxWaitTime));
 
-            var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
+                var config = Configuration.Default.WithDefaultLoader();
 
-            var items = document.QuerySelectorAll("div")
-                .Where(item => item.ClassName != null &&
-                               (item.ClassName.Equals("vacancy-serp-item") ||
-                               item.ClassName.Contains("vacancy-serp-item ")));
+                var document = await BrowsingContext.New(config).OpenAsync(Url.Create(path));
 
-            var NextPage = document.QuerySelectorAll("a")
-                .FirstOrDefault(item => DataQA(item, "pager-next"));
+                _Items = document.QuerySelectorAll("div")
+                    .Where(item => item.ClassName != null &&
+                                   (item.ClassName.Equals("vacancy-serp-item") ||
+                                   item.ClassName.Contains("vacancy-serp-item ")));
 
-            return (items, NextPage);
+                _NextPage = document.QuerySelectorAll("a")
+                    .FirstOrDefault(item => DataQA(item, "pager-next"));
+            }
+            catch (Exception e)
+            {
+                throw new ParseHHVacancyException($"Невозможно получить данные из страницы {path}", e);
+            }
         }
     }
 }

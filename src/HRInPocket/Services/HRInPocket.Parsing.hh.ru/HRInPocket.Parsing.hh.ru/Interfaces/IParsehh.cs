@@ -32,6 +32,6 @@ namespace HRInPocket.Parsing.hh.ru.Interfaces
         /// <param name="page"> Страница, которую необходимо парсить </param>
         /// <param name="GetParameters"> Ключевые слова для поиска конкретных вакансий</param>
         /// <returns> Вакансии в IAsyncEnumerable </returns>
-        IAsyncEnumerable<Vacancy> ParseEnumerableAsync(CancellationToken token, string page, string GetParameters);
+        IAsyncEnumerable<Vacancy> ParseEnumerableAsync(CancellationToken token, string page);
     }
 }

@@ -194,10 +194,10 @@ namespace HRInPocket.WPF.ViewModels
                 //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
 
                 // Метод парсера, который возвращает вакансии через IAsyncEnumerable
-                //_ = GetDataCollectionAsync(s_cts.Token);
+                _ = GetDataCollectionAsync(s_cts.Token, KeyWords);
 
-                /// Метод парсера, который возвращает вакансии через Task<(Vacancy[], string)>
-                _ = GetDataArrayAsync(s_cts.Token, KeyWords);
+                // Метод парсера, который возвращает вакансии через Task<(Vacancy[], string)>
+                //_ = GetDataArrayAsync(s_cts.Token, KeyWords);
 
                 StopParse = true;
                 ButtonContent = "Остановить";
@@ -236,12 +236,21 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary> Метод получения вакансий из IAsyncEnumerable<Vacancy> </summary>
         /// <param name="token">Токен остановки парсера</param>
         /// <returns></returns>
-        private async Task GetDataCollectionAsync(CancellationToken token)
+        private async Task GetDataCollectionAsync(CancellationToken token, string keywords = null)
         {
-            var data = _Parsehh.ParseEnumerableAsync(token, Page, KeyWords);
+            Page = string.IsNullOrEmpty(keywords) ? Page : Page + "?text=" + keywords;
+
+            var data = _Parsehh.ParseEnumerableAsync(token, Page);
             await foreach (var item in data)
             {
-                if (item == null) return;
+                if (item == null)
+                {
+                    StopParse = false;
+                    Status = $"Достигнута последняя страница. Получено {DataCollection.Count} вакансий";
+                    ButtonContent = "Запустить";
+                    s_cts.Dispose();
+                    return;
+                }
                 DataCollection.Add(item);
             }
         }
@@ -260,6 +269,8 @@ namespace HRInPocket.WPF.ViewModels
                 foreach (var item in Vacancies) DataCollection.Add(item);
                 Page = NextPage;
             } while (!string.IsNullOrEmpty(Page) && !token.IsCancellationRequested);
+
+            Page = "https://hh.ru/search/vacancy";
         }
 
         #endregion
