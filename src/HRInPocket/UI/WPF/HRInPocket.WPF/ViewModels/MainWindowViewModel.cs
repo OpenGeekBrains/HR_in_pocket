@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
@@ -27,9 +28,8 @@ namespace HRInPocket.WPF.ViewModels
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
+            SendDataCommand = new LambdaCommand(OnSendDataCommandExecuted, CanSendDataCommandExecute);
         }
-
-
 
         /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
@@ -37,6 +37,9 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Сервис парсинга hh.ru</summary>
         private readonly IParsehh _Parsehh;
 
+        /// <summary>Источник токена отмены асинхронной операции</summary>
+        private static CancellationTokenSource s_cts;
+        
         #region Свойства
 
         #region Title : string - Заголовок окна
@@ -53,20 +56,6 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
-        #region Sites : List<string> - Сайты поиска работы
-
-        /// <summary>Сайты поиска работы</summary>
-        private readonly List<string> _Sites = new List<string>()
-        {
-            "hh.ru",
-            "superjob.ru"
-        };
-
-        /// <summary>Сайты поиска работы</summary>
-        public List<string> Sites => _Sites;
-
-        #endregion
-
         #region KeyWords : string - Ключевые слова для поиска
 
         /// <summary>Ключевые слова для поиска</summary>
@@ -77,20 +66,6 @@ namespace HRInPocket.WPF.ViewModels
         {
             get => _KeyWords;
             set => Set(ref _KeyWords, value);
-        }
-
-        #endregion
-
-        #region SelectedSite : string - Выбранный в комбобоксе сайт
-
-        /// <summary>Выбранный в комбобоксе сайт</summary>
-        private string _SelectedSite;
-
-        /// <summary>Выбранный в комбобоксе сайт</summary>
-        public string SelectedSite
-        {
-            get => _SelectedSite;
-            set => Set(ref _SelectedSite, value);
         }
 
         #endregion
@@ -164,8 +139,20 @@ namespace HRInPocket.WPF.ViewModels
         }
 
         #endregion
-        /// <summary>Источник токена отмены асинхронной операции</summary>
-        private static CancellationTokenSource s_cts;
+
+        #region ServerAddress : string - Адрес сервера, на который будет производиться отправка данных
+
+        /// <summary>Адрес сервера, на который будет производиться отправка данных</summary>
+        private string _ServerAddress;
+
+        /// <summary>Адрес сервера, на который будет производиться отправка данных</summary>
+        public string ServerAddress
+        {
+            get => _ServerAddress;
+            set => Set(ref _ServerAddress, value);
+        }
+
+        #endregion
 
         #endregion
 
@@ -213,9 +200,22 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Сохранение данных в json</summary>
         public ICommand SaveDataToJSONCommand { get; }
         /// <summary>Сохранение данных в json</summary>
-        private void OnSaveDataToJSONCommandExecuted(object parameter) => _SaveDataToJSON.SaveDataToFile(DataCollection, SelectedSite);
+        private void OnSaveDataToJSONCommandExecuted(object parameter) => _SaveDataToJSON.SaveDataToFile(DataCollection, Page);
 
         private bool CanSaveDataToJSONCommandExecute(object parameter) => true;
+
+        #endregion
+
+        #region Отправка данных на сервер
+        /// <summary>Отправка данных на сервер</summary>
+        public ICommand SendDataCommand { get; }
+        /// <summary>Отправка данных на сервер</summary>
+        private void OnSendDataCommandExecuted(object parameter)
+        {
+            MessageBox.Show("Отправка данных будет реализована скоро :)");
+        }
+
+        private bool CanSendDataCommandExecute(object parameter) => true;
 
         #endregion
 

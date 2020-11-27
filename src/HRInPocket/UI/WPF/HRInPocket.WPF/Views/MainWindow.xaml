@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel
@@ -30,22 +31,39 @@
                 Command="{Binding SearchCommand}"
                 Content="{Binding ButtonContent}"
                 DockPanel.Dock="Right" />
-            <ComboBox
-                Width="100"
+            <TextBlock
                 Margin="5"
-                VerticalContentAlignment="Center"
-                DockPanel.Dock="Right"
-                IsEnabled="False"
-                ItemsSource="{Binding Sites}"
-                SelectedIndex="0"
-                SelectedItem="{Binding SelectedSite}" />
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Text="Ключевые слова:" />
             <TextBox
                 Margin="5"
                 Padding="5,0,0,0"
                 VerticalContentAlignment="Center"
                 Text="{Binding KeyWords}" />
         </DockPanel>
-        <DockPanel Grid.Row="1" Margin="2">
+        <DockPanel
+            Grid.Row="1"
+            Margin="5"
+            LastChildFill="True">
+            <Button
+                Width="130"
+                Margin="5"
+                Command="{Binding SendDataCommand}"
+                Content="Отправить данные"
+                DockPanel.Dock="Right" />
+            <TextBlock
+                Margin="5"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Text="Адрес сервера:" />
+            <TextBox
+                Margin="5"
+                Padding="5,0,0,0"
+                VerticalContentAlignment="Center"
+                Text="{Binding ServerAddress}" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" Margin="2">
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBarItem>
                     <TextBlock Text="{Binding Status}" />
@@ -67,16 +85,32 @@
                                 <TextBlock Margin="5,0" Text="{Binding Path=CurrencyCode}" />
                             </StackPanel>
                             <TextBlock Margin="5,0" Text="{Binding VacancyAddress}" />
-                            <TextBlock Margin="5,0" Text="{Binding ShortDescription}" TextWrapping="Wrap" MaxWidth="600" HorizontalAlignment="Left"/>
+                            <TextBlock
+                                MaxWidth="600"
+                                Margin="5,0"
+                                HorizontalAlignment="Left"
+                                Text="{Binding ShortDescription}"
+                                TextWrapping="Wrap" />
                             <TextBlock Margin="5,0" Text="{Binding Path=Url}" />
                             <TextBlock Margin="5,0" Text="{Binding Path=Company.Url}" />
                         </StackPanel>
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Width="Auto" MaxWidth="250" Binding="{Binding Path=Name}" />
-                    <DataGridTextColumn Header="Работодатель" Width="Auto" MaxWidth="250" Binding="{Binding Path=Company.Name}" />
-                    <DataGridTextColumn Header="Дата" Width="Auto" Binding="{Binding Path=Date}" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        MaxWidth="250"
+                        Binding="{Binding Path=Name}"
+                        Header="Название" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        MaxWidth="250"
+                        Binding="{Binding Path=Company.Name}"
+                        Header="Работодатель" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Path=Date}"
+                        Header="Дата" />
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
