@@ -1,27 +1,52 @@
 ﻿using System;
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
 
 namespace AngleSharp_Console_Test
 {
     class Program
     {
-        static void Main()
+        static readonly CancellationTokenSource s_cts = new CancellationTokenSource();
+        static async Task Main()
         {
-            ParseUseDLL();
+            Console.WriteLine("Press any key to start parsing");
             Console.ReadKey();
+            
+            await ParseUseDLL(s_cts.Token);
+
+            Console.WriteLine("\nParsing stopped.");
+            Console.ReadKey();
+
         }
-        static void ParseUseDLL()
+        static async Task<Vacancy[]> ParseUseDLL(CancellationToken token)
         {
+            Vacancy[] collection;
+            var NextPage = "https://hh.ru/search/vacancy";
             var parse = new Parsehh();
-            parse.Result += GetResult;
-            parse.Parse();
+            do
+            {
+                (collection, NextPage) = await parse.ParseAsync(token, NextPage);
+                foreach (var vacancy in collection) ShowResult(vacancy);
+
+                Console.WriteLine("Press Enter to continue parsing. Press Escape to stop.");
+                Console.WriteLine("-----------");
+                var key = Console.ReadKey();
+                if (Equals(key.Key, ConsoleKey.Escape))
+                {
+                    s_cts.Cancel();
+                }
+            } while (!string.IsNullOrEmpty(NextPage) && !token.IsCancellationRequested);
+            s_cts.Dispose();
+            return collection;
         }
 
-        private static void GetResult(object sender, VacancyEventArgs e)
+        private static void ShowResult(Vacancy vacancy)
         {
-            var vacancy = e.Vacancy;
-            Console.WriteLine("{0} - {1}", vacancy.Name.Name, vacancy.Name.Url);
+            Console.WriteLine("{0} - {1}", vacancy.Name, vacancy.Url);
             Console.WriteLine(vacancy.VacancyAddress);
             if (vacancy.CompensationUp == 0 && vacancy.CompensationDown > 0)
             {
