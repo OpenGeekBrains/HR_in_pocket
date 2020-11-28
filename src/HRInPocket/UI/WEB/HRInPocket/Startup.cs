@@ -50,13 +50,13 @@ namespace HRInPocket
 
             //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
 
-            services.AddScoped<ICompanyService, CompanyService>();
+            //services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IMailSenderService, MailSenderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IResumeService, ResumeService>();
-            services.AddScoped<IShoppingService, ShoppingService>();
-            services.AddScoped<ITargetTaskService, TargetTaskService>();
-            services.AddScoped<IVacancyService, VacancyService>();
+            //services.AddScoped<IResumeService, ResumeService>();
+            //services.AddScoped<IShoppingService, ShoppingService>();
+            //services.AddScoped<ITargetTaskService, TargetTaskService>();
+            //services.AddScoped<IVacancyService, VacancyService>();
 
             #endregion
         }
