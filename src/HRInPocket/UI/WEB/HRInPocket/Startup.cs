@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-
 using AutoMapper;
 
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Repositories;
-using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,19 +39,6 @@ namespace HRInPocket
                 Version = "v1"
             }));
 
-            #region Services
-
-            //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
-
-            services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IMailSenderService, MailSenderService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IResumeService, ResumeService>();
-            services.AddScoped<IShoppingService, ShoppingService>();
-            services.AddScoped<ITargetTaskService, TargetTaskService>();
-            services.AddScoped<IVacancyService, VacancyService>();
-
-            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)

@@ -1,6 +1,13 @@
 ﻿using System;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Interfaces;
+using HRInPocket.Interfaces.Services;
+using HRInPocket.Services.Repositories;
+using HRInPocket.Services.Services;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,11 +57,27 @@ namespace HRInPocket
             return services;
         }
 
+        public static IServiceCollection AddRepositories(this IServiceCollection services) =>
+            services
+                //.AddScoped<IDataRepository<Resume>, DataRepository<Resume>>()
+                //.AddScoped<ICompanyService, CompanyService>()
+                //.AddScoped<IResumeService, ResumeService>()
+                //.AddScoped<ITargetTaskService, TargetTaskService>()
+                //.AddScoped<IVacancyService, VacancyService>()
+
+                //.AddScoped<IShoppingService, ShoppingService>()
+                ;
+
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddRepositories();
 
+            services.AddScoped<IMailSenderService, MailSenderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
         }
+
+        
     }
 }
