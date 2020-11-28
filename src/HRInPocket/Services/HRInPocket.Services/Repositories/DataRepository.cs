@@ -15,10 +15,13 @@ namespace HRInPocket.Services.Repositories
     public class DataRepository<TEntity> : IDataRepository<TEntity> where TEntity : BaseEntity
     {
         /// <summary>
-        /// Контекст базы данных </summary>
+        /// Контекст базы данных
+        /// </summary>
         private readonly ApplicationDbContext _DbContext;
 
         public DataRepository(ApplicationDbContext db) => _DbContext = db;
+
+        #region Get All
 
         /// <summary>
         /// Запросить все данные из таблицы
@@ -31,6 +34,10 @@ namespace HRInPocket.Services.Repositories
         /// </summary>
         public async Task<ICollection<TEntity>> GetAllAsync() =>
             await _DbContext.Set<TEntity>().ToArrayAsync();
+
+        #endregion
+
+        #region Get By ID
 
         /// <summary>
         /// Запросить объект по его идентификатору
@@ -46,6 +53,10 @@ namespace HRInPocket.Services.Repositories
         public async Task<TEntity> GetByIdAsync(Guid id) =>
             await _DbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
+        #endregion
+
+        #region Get Queryable
+
         /// <summary>
         /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
         /// </summary>
@@ -54,8 +65,16 @@ namespace HRInPocket.Services.Repositories
         /// <summary>
         /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
         /// </summary>
-        public async Task<IQueryable<TEntity>> GetQueryableAsync() => 
+        public async Task<IQueryable<TEntity>> GetQueryableAsync() =>
             await _DbContext.Set<TEntity>().AsQueryableAsync();
+
+        #endregion
+
+
+
+        #region CRUD
+
+        #region Create
 
         /// <summary>
         /// Создать объект в базе данных
@@ -63,7 +82,7 @@ namespace HRInPocket.Services.Repositories
         /// <param name="item">Объект</param>
         public Guid Create(TEntity item)
         {
-            if (item is null) 
+            if (item is null)
                 throw new ArgumentNullException(nameof(item));
 
             var table = _DbContext.Set<TEntity>();
@@ -81,7 +100,7 @@ namespace HRInPocket.Services.Repositories
         /// <param name="item">Объект</param>
         public async Task<Guid> CreateAsync(TEntity item)
         {
-            if (item is null) 
+            if (item is null)
                 throw new ArgumentNullException(nameof(item));
 
             var table = _DbContext.Set<TEntity>();
@@ -93,33 +112,9 @@ namespace HRInPocket.Services.Repositories
             return item.Id;
         }
 
-        /// <summary>
-        /// Создать диапазон объектов в базе данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public void CreateRange(ICollection<TEntity> items)
-        {
-            if (items is null) 
-                throw new ArgumentNullException(nameof(items));
+        #endregion
 
-            var table = _DbContext.Set<TEntity>();
-            table.AddRange(items);
-            _DbContext.SaveChanges();
-        }
-
-        /// <summary>
-        /// Создать диапазон объектов в базе данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public async Task CreateRangeAsync(ICollection<TEntity> items)
-        {
-            if (items is null) 
-                throw new ArgumentNullException(nameof(items));
-
-            var table = _DbContext.Set<TEntity>();
-            await table.AddRangeAsync(items);
-            await _DbContext.SaveChangesAsync();
-        }
+        #region Edit
 
         /// <summary>
         /// Редактировать объект в базе данных 
@@ -142,7 +137,7 @@ namespace HRInPocket.Services.Repositories
         /// <param name="item">Объект</param>
         public async Task<bool> EditAsync(TEntity item)
         {
-            if (item is null) 
+            if (item is null)
                 throw new ArgumentNullException(nameof(item));
 
             _DbContext.Attach(item);
@@ -150,6 +145,10 @@ namespace HRInPocket.Services.Repositories
             await _DbContext.SaveChangesAsync();
             return true;
         }
+
+        #endregion
+
+        #region Remove
 
         /// <summary>
         /// Удалить объект из базы данных
@@ -177,13 +176,50 @@ namespace HRInPocket.Services.Repositories
             var table = _DbContext.Set<TEntity>();
 
             var item = await table.FirstOrDefaultAsync(s => s.Id == id);
-            if (item is null) 
+            if (item is null)
                 throw new ArgumentNullException(nameof(item));
 
             table.Remove(item);
             await _DbContext.SaveChangesAsync();
             return true;
         }
+
+        #endregion
+
+
+        #region Create Range
+
+        /// <summary>
+        /// Создать диапазон объектов в базе данных
+        /// </summary>
+        /// <param name="items">Диапазон объектов</param>
+        public void CreateRange(ICollection<TEntity> items)
+        {
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            var table = _DbContext.Set<TEntity>();
+            table.AddRange(items);
+            _DbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Создать диапазон объектов в базе данных
+        /// </summary>
+        /// <param name="items">Диапазон объектов</param>
+        public async Task CreateRangeAsync(ICollection<TEntity> items)
+        {
+            if (items is null)
+                throw new ArgumentNullException(nameof(items));
+
+            var table = _DbContext.Set<TEntity>();
+            await table.AddRangeAsync(items);
+            await _DbContext.SaveChangesAsync();
+        }
+
+        #endregion
+
+        #region Remove Range
 
         /// <summary>
         /// Удалить диапазон объектов из базы данных
@@ -208,5 +244,9 @@ namespace HRInPocket.Services.Repositories
             await _DbContext.SaveChangesAsync();
             return true;
         }
+
+        #endregion 
+
+        #endregion
     }
 }

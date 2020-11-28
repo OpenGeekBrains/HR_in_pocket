@@ -2,9 +2,8 @@
 
 namespace HRInPocket.Domain.Filters
 {
-    public class CompanyFilter
+    public class Filter
     {
-
         public PageModel Pages { get; set; }
     }
 }
