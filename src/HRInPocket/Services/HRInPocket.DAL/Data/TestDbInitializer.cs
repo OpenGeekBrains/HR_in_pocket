@@ -14,6 +14,7 @@ namespace HRInPocket.DAL.Data
         {
             _dbContext = dbContext;
             _logger = logger;
+            logger.LogError("Ошибка в конструкторе БД");
         }
 
         public void Initialize()
