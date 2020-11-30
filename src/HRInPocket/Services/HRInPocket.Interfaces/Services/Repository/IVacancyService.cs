@@ -6,7 +6,7 @@ using HRInPocket.Domain.DTO.Pages;
 
 namespace HRInPocket.Interfaces.Services.Repository
 {
-    public interface IVacancyService : IRepository<VacancyDTO>
+    public interface IVacancyService : IDtoRepository<VacancyDTO>
     {
         /// <summary>
         /// Посмотреть вакансии компании по ее идентификатору

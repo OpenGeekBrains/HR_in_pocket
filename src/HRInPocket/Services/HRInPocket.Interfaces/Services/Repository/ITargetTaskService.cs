@@ -9,7 +9,7 @@ namespace HRInPocket.Interfaces.Services.Repository
     /// <summary>
     /// Сервис упраавления заданиями
     /// </summary>
-    public interface ITargetTaskService : IRepository<TargetTaskDTO>
+    public interface ITargetTaskService : IDtoRepository<TargetTaskDTO>
     {
         /// <summary>
         /// Посомтреть все задания пользователя по идентификатору

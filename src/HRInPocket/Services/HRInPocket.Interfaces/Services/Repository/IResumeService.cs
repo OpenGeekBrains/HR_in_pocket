@@ -10,7 +10,7 @@ namespace HRInPocket.Interfaces.Services.Repository
     /// <summary>
     /// Сервис управления резюме
     /// </summary>
-    public interface IResumeService : IRepository<ResumeDTO>
+    public interface IResumeService : IDtoRepository<ResumeDTO>
     {
         /// <summary>
         /// Посмотреть список резюме пользователя по его идентификатору

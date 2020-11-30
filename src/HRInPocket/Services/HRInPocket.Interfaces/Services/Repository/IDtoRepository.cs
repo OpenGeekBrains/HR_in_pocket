@@ -7,7 +7,7 @@ using HRInPocket.Domain.Filters;
 
 namespace HRInPocket.Interfaces.Services.Repository
 {
-    public interface IRepository<TDto> where TDto: BaseDTO
+    public interface IDtoRepository<TDto> where TDto: BaseDTO
     {
         /// <summary>
         /// Получить страницу записей по <paramref name="filter"/>, если он указан

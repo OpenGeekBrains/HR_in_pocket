@@ -2,7 +2,7 @@
 
 namespace HRInPocket.Interfaces.Services.Repository
 {
-    public interface ICompanyService : IRepository<CompanyDTO>
+    public interface ICompanyService : IDtoRepository<CompanyDTO>
     {
         
     }
