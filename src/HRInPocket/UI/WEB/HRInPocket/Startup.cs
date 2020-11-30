@@ -23,8 +23,11 @@ namespace HRInPocket
         {
             services.AddControllersWithViews();
 
-            services.AddDB(Configuration);
-            services.AddServices(Configuration);
+            services
+                .AddDB(Configuration)
+                .AddIdentity()
+                .AddServices(Configuration)
+                .AddRepositories();
 
 
 

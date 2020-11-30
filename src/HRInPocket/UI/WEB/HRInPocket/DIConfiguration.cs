@@ -1,11 +1,7 @@
 ﻿using System;
 using HRInPocket.DAL.Data;
-using HRInPocket.Domain.DTO;
-using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
-using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
-using HRInPocket.Services.Repositories;
 using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +20,6 @@ namespace HRInPocket
 
             services.AddTransient<TestDbInitializer>();
 
-            services.AddIdentity();
 
             return services;
         }
@@ -68,16 +63,10 @@ namespace HRInPocket
                 //.AddScoped<IShoppingService, ShoppingService>()
                 ;
 
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddRepositories();
-
-            services.AddScoped<IMailSenderService, MailSenderService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-
-            return services;
-        }
-
-        
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration) =>
+            services
+                .AddScoped<IMailSenderService, MailSenderService>()
+                .AddScoped<IPaymentService, PaymentService>()
+            ;
     }
 }
