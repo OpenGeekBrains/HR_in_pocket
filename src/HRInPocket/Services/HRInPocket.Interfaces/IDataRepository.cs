@@ -14,24 +14,24 @@ namespace HRInPocket.Interfaces
         /// <summary>
         /// Запросить все данные из таблицы
         /// </summary>
-        ICollection<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
 
         /// <summary>
         /// Запросить все данные из таблицы
         /// </summary>
-        Task<ICollection<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         #endregion
 
         #region Get Queryable
 
         /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
+        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable&lt;TEntity&gt;
         /// </summary>
         IQueryable<TEntity> GetQueryable();
 
         /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
+        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable&lt;TEntity&gt;
         /// </summary>
         Task<IQueryable<TEntity>> GetQueryableAsync();
 
@@ -110,13 +110,13 @@ namespace HRInPocket.Interfaces
         /// Создать диапазон объектов в базе данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        void CreateRange(ICollection<TEntity> items);
+        void CreateRange(IEnumerable<TEntity> items);
 
         /// <summary>
         /// Создать диапазон объектов в базе данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        Task CreateRangeAsync(ICollection<TEntity> items);
+        Task CreateRangeAsync(IEnumerable<TEntity> items);
 
         #endregion
 
@@ -126,13 +126,13 @@ namespace HRInPocket.Interfaces
         /// Удалить диапазон объектов из базы данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        bool RemoveRange(ICollection<TEntity> items);
+        bool RemoveRange(IEnumerable<TEntity> items);
 
         /// <summary>
         /// Удалить диапазон объектов из базы данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        Task<bool> RemoveRangeAsync(ICollection<TEntity> items);
+        Task<bool> RemoveRangeAsync(IEnumerable<TEntity> items);
 
         #endregion 
 

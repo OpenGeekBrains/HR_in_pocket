@@ -23,48 +23,30 @@ namespace HRInPocket.Services.Repositories
 
         #region Get All
 
-        /// <summary>
-        /// Запросить все данные из таблицы
-        /// </summary>
-        public ICollection<TEntity> GetAll() =>
-            _DbContext.Set<TEntity>().ToArray();
+        /// <inheritdoc/>
+        public IEnumerable<TEntity> GetAll() => _DbContext.Set<TEntity>().ToArray();
 
-        /// <summary>
-        /// Запросить все данные из таблицы
-        /// </summary>
-        public async Task<ICollection<TEntity>> GetAllAsync() =>
-            await _DbContext.Set<TEntity>().ToArrayAsync();
+        /// <inheritdoc/>
+        public async Task<IEnumerable<TEntity>> GetAllAsync() => await _DbContext.Set<TEntity>().ToArrayAsync();
 
         #endregion
 
         #region Get By ID
 
-        /// <summary>
-        /// Запросить объект по его идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор объекта</param>
-        public TEntity GetById(Guid id) =>
-            _DbContext.Set<TEntity>().FirstOrDefault(x => x.Id == id);
+        /// <inheritdoc/>
+        public TEntity GetById(Guid id) => _DbContext.Set<TEntity>().FirstOrDefault(x => x.Id == id);
 
-        /// <summary>
-        /// Запросить объект по его идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор объекта</param>
-        public async Task<TEntity> GetByIdAsync(Guid id) =>
-            await _DbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+        /// <inheritdoc/>
+        public async Task<TEntity> GetByIdAsync(Guid id) => await _DbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
         #endregion
 
         #region Get Queryable
 
-        /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
-        /// </summary>
+        /// <inheritdoc/>
         public IQueryable<TEntity> GetQueryable() => _DbContext.Set<TEntity>();
 
-        /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<IQueryable<TEntity>> GetQueryableAsync() =>
             await _DbContext.Set<TEntity>().AsQueryableAsync();
 
@@ -76,10 +58,7 @@ namespace HRInPocket.Services.Repositories
 
         #region Create
 
-        /// <summary>
-        /// Создать объект в базе данных
-        /// </summary>
-        /// <param name="item">Объект</param>
+        /// <inheritdoc/>
         public Guid Create(TEntity item)
         {
             if (item is null)
@@ -94,10 +73,7 @@ namespace HRInPocket.Services.Repositories
             return item.Id;
         }
 
-        /// <summary>
-        /// Создать объект в базе данных
-        /// </summary>
-        /// <param name="item">Объект</param>
+        /// <inheritdoc/>
         public async Task<Guid> CreateAsync(TEntity item)
         {
             if (item is null)
@@ -116,10 +92,7 @@ namespace HRInPocket.Services.Repositories
 
         #region Edit
 
-        /// <summary>
-        /// Редактировать объект в базе данных 
-        /// </summary>
-        /// <param name="item">Объект</param>
+        /// <inheritdoc/>
         public bool Edit(TEntity item)
         {
             if (item is null)
@@ -131,10 +104,7 @@ namespace HRInPocket.Services.Repositories
             return true;
         }
 
-        /// <summary>
-        /// Редактировать объект в базе данных 
-        /// </summary>
-        /// <param name="item">Объект</param>
+        /// <inheritdoc/>
         public async Task<bool> EditAsync(TEntity item)
         {
             if (item is null)
@@ -150,10 +120,7 @@ namespace HRInPocket.Services.Repositories
 
         #region Remove
 
-        /// <summary>
-        /// Удалить объект из базы данных
-        /// </summary>
-        /// <param name="id">Идентификатор объекта</param>
+        /// <inheritdoc/>
         public bool Remove(Guid id)
         {
             var table = _DbContext.Set<TEntity>();
@@ -167,10 +134,7 @@ namespace HRInPocket.Services.Repositories
             return true;
         }
 
-        /// <summary>
-        /// Удалить объект из базы данных
-        /// </summary>
-        /// <param name="id">Идентификатор объекта</param>
+        /// <inheritdoc/>
         public async Task<bool> RemoveAsync(Guid id)
         {
             var table = _DbContext.Set<TEntity>();
@@ -189,11 +153,8 @@ namespace HRInPocket.Services.Repositories
 
         #region Create Range
 
-        /// <summary>
-        /// Создать диапазон объектов в базе данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public void CreateRange(ICollection<TEntity> items)
+        /// <inheritdoc/>
+        public void CreateRange(IEnumerable<TEntity> items)
         {
             if (items is null)
                 throw new ArgumentNullException(nameof(items));
@@ -203,11 +164,8 @@ namespace HRInPocket.Services.Repositories
             _DbContext.SaveChanges();
         }
 
-        /// <summary>
-        /// Создать диапазон объектов в базе данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public async Task CreateRangeAsync(ICollection<TEntity> items)
+        /// <inheritdoc/>
+        public async Task CreateRangeAsync(IEnumerable<TEntity> items)
         {
             if (items is null)
                 throw new ArgumentNullException(nameof(items));
@@ -221,11 +179,8 @@ namespace HRInPocket.Services.Repositories
 
         #region Remove Range
 
-        /// <summary>
-        /// Удалить диапазон объектов из базы данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public bool RemoveRange(ICollection<TEntity> items)
+        /// <inheritdoc/>
+        public bool RemoveRange(IEnumerable<TEntity> items)
         {
             var table = _DbContext.Set<TEntity>();
             table.RemoveRange(items);
@@ -233,11 +188,8 @@ namespace HRInPocket.Services.Repositories
             return true;
         }
 
-        /// <summary>
-        /// Удалить диапазон объектов из базы данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        public async Task<bool> RemoveRangeAsync(ICollection<TEntity> items)
+        /// <inheritdoc/>
+        public async Task<bool> RemoveRangeAsync(IEnumerable<TEntity> items)
         {
             var table = _DbContext.Set<TEntity>();
             table.RemoveRange(items);
