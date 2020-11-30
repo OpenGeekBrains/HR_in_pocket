@@ -1,22 +1,16 @@
-using System;
-using System.Collections.Generic;
-
 using AutoMapper;
-
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Repositories;
 using HRInPocket.Services.Services;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace HRInPocket
 {
@@ -33,8 +27,6 @@ namespace HRInPocket
             services.AddDB(Configuration);
             services.AddServices(Configuration);
 
-
-
             services.AddAutoMapper(
                 typeof(MappingProfile),
                 typeof(AccountsProfile)
@@ -50,13 +42,13 @@ namespace HRInPocket
 
             //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
 
-            services.AddScoped<ICompanyService, CompanyService>();
+            //services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IMailSenderService, MailSenderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IResumeService, ResumeService>();
-            services.AddScoped<IShoppingService, ShoppingService>();
-            services.AddScoped<ITargetTaskService, TargetTaskService>();
-            services.AddScoped<IVacancyService, VacancyService>();
+            //services.AddScoped<IResumeService, ResumeService>();
+            //services.AddScoped<IShoppingService, ShoppingService>();
+            //services.AddScoped<ITargetTaskService, TargetTaskService>();
+            //services.AddScoped<IVacancyService, VacancyService>();
 
             #endregion
         }
@@ -81,6 +73,8 @@ namespace HRInPocket
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
