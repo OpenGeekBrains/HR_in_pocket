@@ -47,11 +47,7 @@ namespace HRInPocket.Services.Repositories.Base
                 /*Логика фильтрации после понимания структуры фильтров*/
 
 
-
-
-                query = query
-                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                    .Take(filter.Pages.PageSize);
+                query = filter.Paging(query);
             }
 
             var count = await query.CountAsync();
