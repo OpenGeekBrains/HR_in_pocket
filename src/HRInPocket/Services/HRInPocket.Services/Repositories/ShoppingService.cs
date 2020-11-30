@@ -9,7 +9,8 @@ using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services.Repository;
+using HRInPocket.Interfaces.Repository;
+using HRInPocket.Interfaces.Repository.Base;
 
 namespace HRInPocket.Services.Repositories
 {

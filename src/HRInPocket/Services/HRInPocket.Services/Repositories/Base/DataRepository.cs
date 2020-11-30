@@ -7,10 +7,11 @@ using HRInPocket.DAL.Data;
 using HRInPocket.Domain.Entities.Base;
 using HRInPocket.Extensions.Linq;
 using HRInPocket.Interfaces;
+using HRInPocket.Interfaces.Repository.Base;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace HRInPocket.Services.Repositories
+namespace HRInPocket.Services.Repositories.Base
 {
     public class DataRepository<TEntity> : IDataRepository<TEntity> where TEntity : BaseEntity
     {

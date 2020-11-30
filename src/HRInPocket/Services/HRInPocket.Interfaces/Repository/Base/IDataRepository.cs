@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.Entities.Base;
 
-namespace HRInPocket.Interfaces
+namespace HRInPocket.Interfaces.Repository.Base
 {
     public interface IDataRepository<TEntity> where TEntity : BaseEntity
     {

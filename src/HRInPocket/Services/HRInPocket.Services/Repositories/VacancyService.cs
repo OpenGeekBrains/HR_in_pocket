@@ -8,7 +8,9 @@ using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services.Repository;
+using HRInPocket.Interfaces.Repository;
+using HRInPocket.Interfaces.Repository.Base;
+using HRInPocket.Services.Repositories.Base;
 
 using Microsoft.EntityFrameworkCore;
 

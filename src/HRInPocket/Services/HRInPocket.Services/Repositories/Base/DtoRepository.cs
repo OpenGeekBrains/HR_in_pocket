@@ -9,11 +9,11 @@ using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Entities.Base;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services.Repository;
+using HRInPocket.Interfaces.Repository.Base;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace HRInPocket.Services.Repositories
+namespace HRInPocket.Services.Repositories.Base
 {
     public abstract class DtoRepository<TEntity,TDto> : IDtoRepository<TDto> 
         where TDto : BaseDTO 

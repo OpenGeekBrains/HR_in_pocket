@@ -5,7 +5,7 @@ using HRInPocket.Domain.DTO.Base;
 using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Filters;
 
-namespace HRInPocket.Interfaces.Services.Repository
+namespace HRInPocket.Interfaces.Repository.Base
 {
     public interface IDtoRepository<TDto> where TDto: BaseDTO
     {

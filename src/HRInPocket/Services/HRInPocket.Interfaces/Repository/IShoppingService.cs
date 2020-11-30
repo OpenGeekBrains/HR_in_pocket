@@ -6,7 +6,7 @@ using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Filters;
 
-namespace HRInPocket.Interfaces.Services.Repository
+namespace HRInPocket.Interfaces.Repository
 {
     public interface IShoppingService
     {
