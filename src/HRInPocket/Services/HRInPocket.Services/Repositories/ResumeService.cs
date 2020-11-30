@@ -39,22 +39,22 @@ namespace HRInPocket.Services.Repositories
         /// </summary>
         public async Task<PageDTOs<ResumeDTO>> GetAllAsync(Filter filter)
         {
-            var query = _DataProvider.GetQueryable();
+            var query = await _DataProvider.GetQueryableAsync();
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+
+                query = query
+                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                    .Take(filter.Pages.PageSize);
             }
 
             var count = await query.CountAsync();
 
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
-
             return new PageDTOs<ResumeDTO>
             {
-                Entities = query.Select(q => _Mapper.Map<ResumeDTO>(q)),
+                Entities = query.AsEnumerable().Select(_Mapper.Map<ResumeDTO>),
                 TotalCount = count
             };
         }
@@ -63,47 +63,38 @@ namespace HRInPocket.Services.Repositories
         /// Посомтреть информацию о резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
-        public async Task<ResumeDTO> GetByIdAsync(Guid id) =>
-            _Mapper.Map<ResumeDTO>((await _DataProvider.GetByIdAsync(id)));
+        public async Task<ResumeDTO> GetByIdAsync(Guid id) => _Mapper.Map<ResumeDTO>(await _DataProvider.GetByIdAsync(id));
 
         /// <summary>
         /// Создать резюме
         /// </summary>
         /// <param name="resume">Модель представления резюме</param>
-        public async Task<Guid> CreateAsync(ResumeDTO resume) =>
-            await _DataProvider.CreateAsync(_Mapper.Map<Resume>(resume));
+        public async Task<Guid> CreateAsync(ResumeDTO resume) => await _DataProvider.CreateAsync(_Mapper.Map<Resume>(resume));
 
         /// <summary>
         /// Редактировать информацию в резюме
         /// </summary>
         /// <param name="resume">Модель представления резюме</param>
-        public async Task<bool> EditAsync(ResumeDTO resume) =>
-            await _DataProvider.EditAsync(_Mapper.Map<Resume>(resume));
+        public async Task<bool> EditAsync(ResumeDTO resume) => await _DataProvider.EditAsync(_Mapper.Map<Resume>(resume));
 
         /// <summary>
         /// Удалить резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
-        public async Task<bool> RemoveAsync(Guid id) =>
-            await _DataProvider.RemoveAsync(id); 
+        public async Task<bool> RemoveAsync(Guid id) => await _DataProvider.RemoveAsync(id); 
 
         #endregion
 
 
-        /// <summary>
-        /// Посмотреть список резюме пользователя по его идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
+        /// <inheritdoc/>
         public async Task<IEnumerable<ResumeDTO>> GetUserResumesAsync(Guid id) =>
             (await _DataProvider.GetQueryableAsync())
             .Where(r => r.Applicant.ProfileId == id.ToString())
-            .Select(r => _Mapper.Map<ResumeDTO>(r));
+            .AsEnumerable()
+            .Select(_Mapper.Map<ResumeDTO>);
 
 
-        /// <summary>
-        /// Загрузить файл резюме
-        /// </summary>
-        /// <param name="resumeFile">Модель файла резюме</param>
+        /// <inheritdoc/>
         public async Task<bool> UploadResumeFileAsync(ResumeFile resumeFile)
         {
             throw new NotImplementedException();

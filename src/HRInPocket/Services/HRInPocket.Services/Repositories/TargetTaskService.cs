@@ -36,22 +36,22 @@ namespace HRInPocket.Services.Repositories
         /// </summary>
         public async Task<PageDTOs<TargetTaskDTO>> GetAllAsync(Filter filter)
         {
-            var query = _DataProvider.GetQueryable();
+            var query = await _DataProvider.GetQueryableAsync();
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+
+                query = query
+                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                    .Take(filter.Pages.PageSize);
             }
 
             var count = await query.CountAsync();
 
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
-
             return new PageDTOs<TargetTaskDTO>
             {
-                Entities = query.Select(q => _Mapper.Map<TargetTaskDTO>(q)),
+                Entities = query.AsEnumerable().Select(_Mapper.Map<TargetTaskDTO>),
                 TotalCount = count
             };
         }
@@ -60,7 +60,7 @@ namespace HRInPocket.Services.Repositories
         /// Посмотреть информацию задания по его идентификатору
         /// </summary>
         /// <param name="id">Идентифкатор задания</param>
-        public async Task<TargetTaskDTO> GetByIdAsync(Guid id) => _Mapper.Map<TargetTaskDTO>((await _DataProvider.GetByIdAsync(id)));
+        public async Task<TargetTaskDTO> GetByIdAsync(Guid id) => _Mapper.Map<TargetTaskDTO>(await _DataProvider.GetByIdAsync(id));
 
         /// <summary>
         /// Создать задание
@@ -83,19 +83,14 @@ namespace HRInPocket.Services.Repositories
 
 
 
-        /// <summary>
-        /// Посомтреть все задания пользователя по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
+        /// <inheritdoc/>
         public async Task<IEnumerable<TargetTaskDTO>> GetTargetTasksByUserAsync(Guid id) => 
             (await _DataProvider.GetQueryableAsync())
             .Where(q => q.ProfileId == id.ToString())
-            .Select(q => _Mapper.Map<TargetTaskDTO>(q));
+            .AsEnumerable()
+            .Select(_Mapper.Map<TargetTaskDTO>);
 
-        /// <summary>
-        /// Выполнить задание по идентификатору
-        /// </summary>
-        /// <param name="id">Идентифкатор задания</param>
+        /// <inheritdoc/>
         public async Task<bool> ExecuteTargetTaskAsync(Guid id)
         {
             var task = await _DataProvider.GetByIdAsync(id);
@@ -105,10 +100,7 @@ namespace HRInPocket.Services.Repositories
             return await _DataProvider.EditAsync(task);
         }
 
-        /// <summary>
-        /// Отменить задание
-        /// </summary>
-        /// <param name="id">Идентификатор задания</param>
+        /// <inheritdoc/>
         public async Task<bool> AbortTargetTaskAsync(Guid id)
         {
             var task = await _DataProvider.GetByIdAsync(id);

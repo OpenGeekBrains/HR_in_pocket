@@ -36,22 +36,24 @@ namespace HRInPocket.Services.Repositories
         /// </summary>
         public async Task<PageDTOs<VacancyDTO>> GetAllAsync(Filter filter)
         {
-            var query = _DataProvider.GetQueryable();
+            var query = await _DataProvider.GetQueryableAsync();
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+
+                query = query
+                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                    .Take(filter.Pages.PageSize);
             }
 
             var count = await query.CountAsync();
 
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
+            
 
             return new PageDTOs<VacancyDTO>
             {
-                Entities = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Entities = query.AsEnumerable().Select(_Mapper.Map<VacancyDTO>),
                 TotalCount = count
             };
         }
@@ -81,29 +83,24 @@ namespace HRInPocket.Services.Repositories
 
 
 
-        /// <summary>
-        /// Посмотреть вакансии компании по ее идентификатору
-        /// </summary>
-        /// <param name="id">Иденификатор компании</param>
+        /// <inheritdoc/>
         public async Task<PageDTOs<VacancyDTO>> GetCompanyVacanciesAsync(Guid id)
         {
-            var query = _DataProvider.GetQueryable()
+            var query = (await _DataProvider.GetQueryableAsync())
                 .Where(v => v.Company.Id == id);
 
             var count = await query.CountAsync();
 
             return new PageDTOs<VacancyDTO>
             {
-                Entities = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Entities = query.AsEnumerable().Select(_Mapper.Map<VacancyDTO>),
                 TotalCount = count,
             };
         }
 
         // Методы поиска вакансий (через API, из тех которые были сформированы по результатам парсинга сайтов)
 
-        /// <summary>
-        /// Поиск вакансий
-        /// </summary>
+        /// <inheritdoc/>
         public Task SearchVacanciesAsync()
         {
             throw new NotImplementedException();
