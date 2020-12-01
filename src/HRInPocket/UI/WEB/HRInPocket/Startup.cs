@@ -6,6 +6,7 @@ using HRInPocket.Services.Mapper;
 using HRInPocket.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +34,13 @@ namespace HRInPocket
                 );
 
             services.AddSwaggerGen(setup => setup
-                .SwaggerDoc("v1", new OpenApiInfo{
-                Title = "HR in Pocket API",
-                Version = "v1"
-            }));
+                .SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "HR in Pocket API",
+                    Version = "v1"
+                }));
+            var connection = @"Server=db;Database=master;User=sa;Password=e01uiw23Tw;";
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             #region Services
 
@@ -90,5 +94,5 @@ namespace HRInPocket
         }
     }
 
-    
+
 }
