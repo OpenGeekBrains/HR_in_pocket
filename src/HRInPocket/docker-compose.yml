@@ -6,12 +6,15 @@ services:
     build:
       context: .
       dockerfile: UI/WEB/HRInPocket/Dockerfile
+    ports:
+     - 5001:80
+     - 5000:5000
     depends_on:
      - db
   db:
     image: "mcr.microsoft.com/mssql/server"
     environment:
-        SA_PASSWORD: "e01uiw23Tw"
+        SA_PASSWORD: "e01uiw23T!w"
         ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
