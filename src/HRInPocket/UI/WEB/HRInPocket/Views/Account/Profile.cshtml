@@ -14,5 +14,32 @@
     <p>Birthday:                @{
                                     var model_birthday = Model.Birthday == null ? string.Empty : Convert.ToDateTime(Model.Birthday).ToShortDateString();
                                 }</p>
+    
+    <div>
+        <h4>Задания</h4>
+        
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Должность</th>
+                <th>Зарплата</th>
+                <th>Дата создания</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Id</td>
+                        <td>@task.Speciality?.Name</td>
+                        <td>@task.Salary</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
     <a asp-controller="Home" asp-action="Index">Back</a>
 </div>

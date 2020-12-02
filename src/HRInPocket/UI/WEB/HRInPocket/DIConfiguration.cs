@@ -19,7 +19,7 @@ namespace HRInPocket
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<TestDbInitializer>();
-
+            services.AddTransient<ITasksService, TasksService>();
 
             return services;
         }
