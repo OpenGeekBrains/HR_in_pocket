@@ -39,8 +39,7 @@ namespace HRInPocket
                     Title = "HR in Pocket API",
                     Version = "v1"
                 }));
-            var connection = @"Server=db;Database=master;User=sa;Password=e01uiw23Tw;";
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+            
 
             #region Services
 
