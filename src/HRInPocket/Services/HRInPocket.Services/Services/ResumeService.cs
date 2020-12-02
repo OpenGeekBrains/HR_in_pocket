@@ -93,17 +93,11 @@ namespace HRInPocket.Services.Services
         /// Загрузить файл резюме
         /// </summary>
         /// <param name="resumeFile">Модель файла резюме</param>
-        public async Task<bool> UploadResumeFileAsync(ResumeFile resumeFile)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> UploadResumeFileAsync(ResumeFile resumeFile) => throw new NotImplementedException();
 
         // Методы поиска резюме
 
-        public async Task SearchResumesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public Task SearchResumesAsync() => throw new NotImplementedException();
 
     }
 }

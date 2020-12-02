@@ -1,9 +1,14 @@
 using AutoMapper;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Infrastructure.Profiles;
+using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
+using HRInPocket.Services.Repositories;
 using HRInPocket.Services.Services;
+
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,19 +43,30 @@ namespace HRInPocket
                 Version = "v1"
             }));
 
+            #region Repositories
+
+            services.AddScoped<IDataRepository<Company>, DataRepository<Company>>();
+            services.AddScoped<IDataRepository<Resume>, DataRepository<Resume>>();
+            services.AddScoped<IDataRepository<TargetTask>, DataRepository<TargetTask>>();
+            services.AddScoped<IDataRepository<Vacancy>, DataRepository<Vacancy>>();
+            services.AddScoped<IDataRepository<Tarif>, DataRepository<Tarif>>();
+            services.AddScoped<IDataRepository<PriceItem>, DataRepository<PriceItem>>();
+            
+            #endregion
+
             #region Services
 
-            //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
-
-            //services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IMailSenderService, MailSenderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            //services.AddScoped<IResumeService, ResumeService>();
-            //services.AddScoped<IShoppingService, ShoppingService>();
-            //services.AddScoped<ITargetTaskService, TargetTaskService>();
-            //services.AddScoped<IVacancyService, VacancyService>();
+            services.AddScoped<IResumeService, ResumeService>();
+            services.AddScoped<IShoppingService, ShoppingService>();
+            services.AddScoped<ITargetTaskService, TargetTaskService>();
+            services.AddScoped<IVacancyService, VacancyService>();
 
             #endregion
+
+            services.AddOData();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
@@ -83,6 +99,8 @@ namespace HRInPocket
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.EnableDependencyInjection();
+                endpoints.Expand().Select().Count().OrderBy().Filter();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
