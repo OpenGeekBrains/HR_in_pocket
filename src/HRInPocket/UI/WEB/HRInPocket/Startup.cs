@@ -1,7 +1,9 @@
 using AutoMapper;
 
+using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
+using HRInPocket.Services;
 using HRInPocket.Services.Mapper;
 
 using Microsoft.AspNetCore.Builder;
@@ -21,15 +23,14 @@ namespace HRInPocket
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services
+               .AddControllersWithViews()
+               .AddRazorRuntimeCompilation();
 
             services
-                .AddDB(Configuration)
+                .AddDatabase(Configuration)
                 .AddIdentity()
-                .AddServices(Configuration)
-                .AddRepositories();
-
-
+                .AddServices();
 
             services.AddAutoMapper(
                 typeof(MappingProfile),

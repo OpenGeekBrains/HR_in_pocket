@@ -1,29 +1,14 @@
 ﻿using System;
 using HRInPocket.DAL.Data;
 using HRInPocket.Domain.Entities.Users;
-using HRInPocket.Interfaces.Services;
-using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HRInPocket
 {
     public static class DIConfiguration
     {
-        public static IServiceCollection AddDB(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddTransient<TestDbInitializer>();
-            services.AddTransient<ITasksService, TasksService>();
-
-            return services;
-        }
-
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole>()
@@ -51,22 +36,5 @@ namespace HRInPocket
 
             return services;
         }
-
-        public static IServiceCollection AddRepositories(this IServiceCollection services) =>
-            services
-                //.AddScoped<IDataRepository<Resume>, DataRepository<Resume>>()
-                //.AddScoped<ICompanyService, CompanyService>()
-                //.AddScoped<IResumeService, ResumeService>()
-                //.AddScoped<ITargetTaskService, TargetTaskService>()
-                //.AddScoped<IVacancyService, VacancyService>()
-
-                //.AddScoped<IShoppingService, ShoppingService>()
-                ;
-
-        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration) =>
-            services
-                .AddScoped<IMailSenderService, MailSenderService>()
-                .AddScoped<IPaymentService, PaymentService>()
-            ;
     }
 }
