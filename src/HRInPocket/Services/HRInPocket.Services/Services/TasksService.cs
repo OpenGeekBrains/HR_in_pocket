@@ -48,17 +48,26 @@ namespace HRInPocket.Services.Services
             return task;
         }
 
-        public async Task<IEnumerable<TargetTask>> GetUserTasks(string UserId)
+        public async Task<IEnumerable<TargetTask>> GetUserTasks(string UserId, int Index, int Count)
         {
-            if (UserId is null)
+            if (UserId is null || Count < 0)
                 return Enumerable.Empty<TargetTask>();
 
-            return await _db.TargetTasks
+            var query = _db.TargetTasks
                .Include(task => task.Profile)
                .Include(task => task.Speciality)
                .Include(task => task.Address)
-               .Where(task => task.Profile.UserId == UserId)
-               .ToArrayAsync();
+               .Where(task => task.Profile.UserId == UserId);
+
+            if (Index > 0)
+                query = query.Skip(Index);
+
+            if (Count > 0)
+                query = query.Take(Count);
+
+            return await query.ToArrayAsync();
         }
+
+        public async Task<int> GetUserTasksCount(string UserId) => await _db.TargetTasks.CountAsync(task => task.Profile.UserId == UserId);
     }
 }

@@ -102,5 +102,7 @@ namespace HRInPocket.Controllers
 
             return View(view_model);
         }
+
+        public string UserId() => _UserManager.GetUserId(User);
     }
 }
