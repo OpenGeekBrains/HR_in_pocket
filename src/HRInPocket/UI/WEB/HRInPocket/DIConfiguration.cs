@@ -1,6 +1,12 @@
 ﻿using System;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Interfaces;
+using HRInPocket.Interfaces.Services;
+using HRInPocket.Services.Repositories;
+using HRInPocket.Services.Services;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +36,7 @@ namespace HRInPocket
 
             services.Configure<IdentityOptions>(opt =>
             {
-#if DEBUG
+                #if DEBUG
                 opt.Password.RequiredLength = 3;
                 opt.Password.RequireDigit = false;
                 opt.Password.RequireLowercase = false;
@@ -38,7 +44,7 @@ namespace HRInPocket
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequiredUniqueChars = 3;
 
-#endif
+                #endif
                 opt.User.RequireUniqueEmail = false;
                 opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
@@ -53,6 +59,28 @@ namespace HRInPocket
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
 
+            #region Repositories
+
+            services.AddScoped<IDataRepository<Company>, DataRepository<Company>>();
+            services.AddScoped<IDataRepository<Resume>, DataRepository<Resume>>();
+            services.AddScoped<IDataRepository<TargetTask>, DataRepository<TargetTask>>();
+            services.AddScoped<IDataRepository<Vacancy>, DataRepository<Vacancy>>();
+            services.AddScoped<IDataRepository<Tarif>, DataRepository<Tarif>>();
+            services.AddScoped<IDataRepository<PriceItem>, DataRepository<PriceItem>>();
+
+            #endregion
+
+            #region Services
+
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IMailSenderService, MailSenderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IResumeService, ResumeService>();
+            services.AddScoped<IShoppingService, ShoppingService>();
+            services.AddScoped<ITargetTaskService, TargetTaskService>();
+            services.AddScoped<IVacancyService, VacancyService>();
+
+            #endregion
 
             return services;
         }
