@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using HRInPocket.WPF.Services.Interfaces;
 
@@ -19,10 +20,10 @@ namespace HRInPocket.WPF.Services
         /// <returns>True, если сохранение прошло успешно</returns>
         public bool SaveDataToFile<T>(IEnumerable<T> data, string filename)
         {
-            if (data == null)
-            {
-                return false;
-            }
+            if (data == null) return false;
+
+            var forbiddenSymbols = Path.GetInvalidFileNameChars();
+            foreach (char c in forbiddenSymbols) filename = filename.Replace(c.ToString(), "-");
 
             using (StreamWriter file = File.CreateText($"{filename}--{DateTime.Now:yyyy-MM-dd--HH-mm}.json"))
             {

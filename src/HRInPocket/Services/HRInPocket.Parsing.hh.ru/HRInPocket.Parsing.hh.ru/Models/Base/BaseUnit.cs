@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HRInPocket.Parsing.hh.ru.Models.Base
+﻿namespace HRInPocket.Parsing.hh.ru.Models.Base
 {
-    /// <summary>
-    /// Базовая сущность
-    /// </summary>
+    /// <summary>Базовая сущность</summary>
     public class BaseUnit
     {
-        /// <summary>
-        /// Имя
-        /// </summary>
+        /// <summary>Имя</summary>
         public string Name { get; set; }
-        /// <summary>
-        /// Ссылка
-        /// </summary>
+        
+        /// <summary>Ссылка</summary>
         public string Url { get; set; }
     }
 }

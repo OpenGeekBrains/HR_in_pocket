@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using AutoMapper;
-
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.Services.Services

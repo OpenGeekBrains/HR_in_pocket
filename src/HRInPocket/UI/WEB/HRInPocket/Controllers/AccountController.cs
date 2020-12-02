@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Extensions;
 using HRInPocket.ViewModels.Account;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace HRInPocket.Controllers
 {
@@ -11,53 +16,84 @@ namespace HRInPocket.Controllers
     {
         private readonly UserManager<User> _UserManager;
         private readonly SignInManager<User> _SignInManager;
+        private readonly ILogger<AccountController> _Logger;
 
-        public AccountController(UserManager<User> user_manager, SignInManager<User> sign_in_manager)
+        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager, ILogger<AccountController> Logger)
         {
-            _UserManager = user_manager;
-            _SignInManager = sign_in_manager;
+            _UserManager = UserManager;
+            _SignInManager = SignInManager;
+            _Logger = Logger;
         }
+
+        #region Register
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            var user = new User { Email = model.Email, UserName = model.Name };
+            // добавляем пользователя
+            var result = await _UserManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
             {
-                User user = new User { Email = model.Email, UserName = model.Name };
-                // добавляем пользователя
-                var result = await _UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // установка куки
-                    await _SignInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                // установка куки
+                await _SignInManager.SignInAsync(user, false);
+                return RedirectToAction("Index", "Home");
             }
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
             return View(model);
         }
 
-        // GET
-        public IActionResult Profile() => View(new UserProfileViewModel
+        #endregion
+
+        #region Login
+
+        [HttpGet]
+        public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            FirstName = "Somebody",
-            Surname = "Something",
-            Patronymic = "From Somebody",
-            Age = 47,
-            Birthday = DateTime.Now.AddYears(-47),
-            //Sex = Sex.Other
-        });
+            if (!ModelState.IsValid) return View(model);
+
+            var login_result = await _SignInManager.PasswordSignInAsync(
+                model.UserName,
+                model.Password,
+                model.RememberMe,
+                lockoutOnFailure: false);
+
+            if (login_result.Succeeded)
+            {
+                if (Url.IsLocalUrl(model.ReturnUrl))
+                    return Redirect(model.ReturnUrl);
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
+
+            return View(model);
+        }
+
+        #endregion
+
+        public async Task<IActionResult> Logout()
+        {
+            await _SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        
+        public IActionResult Profile()
+        {
+            var profile = _UserManager.GetUserAsync(User).Result.Profile ?? new Profile();
+            return View(profile.ToViewModel());
+        }
     }
 }

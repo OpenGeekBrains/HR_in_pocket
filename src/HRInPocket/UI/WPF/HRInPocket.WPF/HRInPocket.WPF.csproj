@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+    <Page Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\HRInPocket.Domain\HRInPocket.Domain.csproj" />
     <ProjectReference Include="..\..\..\Services\HRInPocket.DAL\HRInPocket.DAL.csproj" />
     <ProjectReference Include="..\..\..\Services\HRInPocket.Interfaces\HRInPocket.Interfaces.csproj" />
@@ -21,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

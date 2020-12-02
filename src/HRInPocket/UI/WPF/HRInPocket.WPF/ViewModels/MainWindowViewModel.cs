@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 using HRInPocket.Parsing.hh.ru.Interfaces;
-using HRInPocket.Parsing.hh.ru.Models.Entites;
+using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
+using HRInPocket.WPF.Data;
 using HRInPocket.WPF.Infrastructure.Commands;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels.Core;
@@ -18,14 +23,13 @@ namespace HRInPocket.WPF.ViewModels
                                     IParsehhService ParsehhService)
         {
             _SaveDataToJSON = SaveDataToJSON;
-            _Parsehh = ParsehhService.GetPasrse();
-            _Parsehh.Result += GetDataCollection;
+            _Parsehh = ParsehhService.GetParse();
+            _Parsehh.SendVacancy += GetDataCollection;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
+            SendDataCommand = new LambdaCommand(OnSendDataCommandExecuted, CanSendDataCommandExecute);
         }
-
-        
 
         /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
@@ -33,6 +37,9 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Сервис парсинга hh.ru</summary>
         private readonly IParsehh _Parsehh;
 
+        /// <summary>Источник токена отмены асинхронной операции</summary>
+        private static CancellationTokenSource s_cts;
+        
         #region Свойства
 
         #region Title : string - Заголовок окна
@@ -46,20 +53,6 @@ namespace HRInPocket.WPF.ViewModels
             get => _Title;
             set => Set(ref _Title, value);
         }
-
-        #endregion
-
-        #region Sites : List<string> - Сайты поиска работы
-
-        /// <summary>Сайты поиска работы</summary>
-        private List<string> _Sites = new List<string>()
-        {
-            "hh.ru",
-            "superjob.ru"
-        };
-
-        /// <summary>Сайты поиска работы</summary>
-        public List<string> Sites => _Sites;
 
         #endregion
 
@@ -77,24 +70,10 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
-        #region SelectedSite : string - Выбранный в комбобоксе сайт
-
-        /// <summary>Выбранный в комбобоксе сайт</summary>
-        private string _SelectedSite;
-
-        /// <summary>Выбранный в комбобоксе сайт</summary>
-        public string SelectedSite
-        {
-            get => _SelectedSite;
-            set => Set(ref _SelectedSite, value);
-        }
-
-        #endregion
-
         #region DataCollection : ObservableCollection<Vacancy> - Список данных
 
         /// <summary>Список данных</summary>
-        private ObservableCollection<Vacancy> _DataCollection;
+        private ObservableCollection<Vacancy> _DataCollection = TestData.GetTestData();
 
         /// <summary>Список данных</summary>
         public ObservableCollection<Vacancy> DataCollection
@@ -119,16 +98,58 @@ namespace HRInPocket.WPF.ViewModels
 
         #endregion
 
-        #region SearchSwitcher : bool - Переключатель состояния кнопки поиска
+        #region ButtonContent : string - Текст кнопки
 
-        /// <summary>Переключатель состояния кнопки поиска</summary>
-        private bool _SearchSwitcher = true;
+        /// <summary>Текст кнопки</summary>
+        private string _ButtonContent = "Запустить";
 
-        /// <summary>Переключатель состояния кнопки поиска</summary>
-        public bool SearchSwitcher
+        /// <summary>Текст кнопки</summary>
+        public string ButtonContent
         {
-            get => _SearchSwitcher;
-            set => Set(ref _SearchSwitcher, value);
+            get => _ButtonContent;
+            set => Set(ref _ButtonContent, value);
+        }
+
+        #endregion
+
+        #region StopParse : bool - Остановка парсера
+
+        /// <summary>Остановка парсера</summary>
+        private bool _StopParse = false;
+
+        /// <summary>Остановка парсера</summary>
+        public bool StopParse
+        {
+            get => _StopParse;
+            set => Set(ref _StopParse, value);
+        }
+
+        #endregion
+
+        #region Page : string - Адрес hh.ru
+
+        /// <summary>Адрес hh.ru</summary>
+        private string _Page = "https://hh.ru/search/vacancy";
+
+        /// <summary>Адрес hh.ru</summary>
+        public string Page
+        {
+            get => _Page;
+            set => Set(ref _Page, value);
+        }
+
+        #endregion
+
+        #region ServerAddress : string - Адрес сервера, на который будет производиться отправка данных
+
+        /// <summary>Адрес сервера, на который будет производиться отправка данных</summary>
+        private string _ServerAddress;
+
+        /// <summary>Адрес сервера, на который будет производиться отправка данных</summary>
+        public string ServerAddress
+        {
+            get => _ServerAddress;
+            set => Set(ref _ServerAddress, value);
         }
 
         #endregion
@@ -143,11 +164,35 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Поиск на выбранном сайте по ключевому слову</summary>
         private void OnSearchCommandExecuted(object parameter)
         {
-            _Parsehh.Parse();
-            SearchSwitcher = false;
+            if (StopParse)
+            {
+                s_cts.Cancel();
+                StopParse = false;
+                Status = $"Парсер остановлен. Получено {DataCollection.Count} вакансий";
+                ButtonContent = "Запустить";
+                s_cts.Dispose();
+            }
+            else
+            {
+                DataCollection = new ObservableCollection<Vacancy>();
+                s_cts = new CancellationTokenSource();
+
+                // Метод парсера, который возвращает вакансии через событие:
+                //_Parsehh.ParseAsync(s_cts.Token, Page, KeyWords);
+
+                // Метод парсера, который возвращает вакансии через IAsyncEnumerable
+                _ = GetDataCollectionAsync(s_cts.Token, KeyWords);
+
+                // Метод парсера, который возвращает вакансии через Task<(Vacancy[], string)>
+                //_ = GetDataArrayAsync(s_cts.Token, KeyWords);
+
+                StopParse = true;
+                ButtonContent = "Остановить";
+                Status = "Парсер запущен";
+            }
         }
 
-        private bool CanSearchCommandExecute(object parameter) => SearchSwitcher;
+        private bool CanSearchCommandExecute(object parameter) => true;
 
         #endregion
 
@@ -155,12 +200,22 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Сохранение данных в json</summary>
         public ICommand SaveDataToJSONCommand { get; }
         /// <summary>Сохранение данных в json</summary>
-        private void OnSaveDataToJSONCommandExecuted(object parameter)
-        {
-            _SaveDataToJSON.SaveDataToFile(DataCollection, SelectedSite);
-        }
+        private void OnSaveDataToJSONCommandExecuted(object parameter) => _SaveDataToJSON.SaveDataToFile(DataCollection, Page);
 
         private bool CanSaveDataToJSONCommandExecute(object parameter) => true;
+
+        #endregion
+
+        #region Отправка данных на сервер
+        /// <summary>Отправка данных на сервер</summary>
+        public ICommand SendDataCommand { get; }
+        /// <summary>Отправка данных на сервер</summary>
+        private void OnSendDataCommandExecuted(object parameter)
+        {
+            MessageBox.Show("Отправка данных будет реализована скоро :)");
+        }
+
+        private bool CanSendDataCommandExecute(object parameter) => true;
 
         #endregion
 
@@ -178,6 +233,48 @@ namespace HRInPocket.WPF.ViewModels
             DataCollection.Add(e.Vacancy);
         }
 
+        /// <summary> Метод получения вакансий из IAsyncEnumerable<Vacancy> </summary>
+        /// <param name="token">Токен остановки парсера</param>
+        /// <param name="keywords"> Ключевые слова для поиска. Если Null, то парсер получает все имеющиеся в доступе вакансии </param>
+        /// <returns></returns>
+        private async Task GetDataCollectionAsync(CancellationToken token, string keywords = null)
+        {
+            Page = string.IsNullOrEmpty(keywords) ? Page : Page + "?text=" + keywords;
+
+            var data = _Parsehh.ParseEnumerableAsync(token, Page);
+            await foreach (var item in data)
+            {
+                if (item == null)
+                {
+                    StopParse = false;
+                    Status = $"Достигнута последняя страница. Получено {DataCollection.Count} вакансий";
+                    ButtonContent = "Запустить";
+                    s_cts.Dispose();
+                    return;
+                }
+                DataCollection.Add(item);
+            }
+        }
+
+        /// <summary> Метод получения вакансий через Task<(Vacancy[], string)> с автоматическим переходом на следующую страницу </summary>
+        /// <param name="token"> Токен остановки парсера </param>
+        /// <param name="keywords"> Ключевые слова для поиска. Если Null, то парсер получает все имеющиеся в доступе вакансии </param>
+        /// <returns></returns>
+        private async Task GetDataArrayAsync(CancellationToken token, string keywords = null)
+        {
+            Page = string.IsNullOrEmpty(keywords) ? Page : Page + "?text=" + keywords;
+
+            do
+            {
+                var (Vacancies, NextPage) = await _Parsehh.ParseAsync(token, Page);
+                foreach (var item in Vacancies) DataCollection.Add(item);
+                Page = NextPage;
+            } while (!string.IsNullOrEmpty(Page) && !token.IsCancellationRequested);
+
+            Page = "https://hh.ru/search/vacancy";
+        }
+
         #endregion
+
     }
 }

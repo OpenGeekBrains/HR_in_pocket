@@ -1,24 +1,16 @@
-using System;
-using System.Collections.Generic;
-
 using AutoMapper;
-
 using HRInPocket.DAL.Data;
-using HRInPocket.Domain.Entities.Users;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Repositories;
 using HRInPocket.Services.Services;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace HRInPocket
 {
@@ -28,60 +20,39 @@ namespace HRInPocket
 
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllersWithViews();
 
-            services.AddTransient<TestDbInitializer>();
+            services.AddDB(Configuration);
+            services.AddServices(Configuration);
 
             services.AddAutoMapper(
                 typeof(MappingProfile),
                 typeof(AccountsProfile)
                 );
 
-            services.AddIdentity<User, IdentityRole>()
-               .AddEntityFrameworkStores<ApplicationDbContext>()
-               .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(opt =>
-            {
-                #if DEBUG
-                opt.Password.RequiredLength = 3;
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequireUppercase = false;
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequiredUniqueChars = 3;
-                #endif
-
-                opt.User.RequireUniqueEmail = false;
-                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-                opt.Lockout.AllowedForNewUsers = true;
-                opt.Lockout.MaxFailedAccessAttempts = 10;
-                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-            });
+            services.AddSwaggerGen(setup => setup
+                .SwaggerDoc("v1", new OpenApiInfo{
+                Title = "HR in Pocket API",
+                Version = "v1"
+            }));
 
             #region Services
 
             //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
 
-            services.AddScoped<ICompanyService, CompanyService>();
+            //services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IMailSenderService, MailSenderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IResumeService, ResumeService>();
-            services.AddScoped<IShoppingService, ShoppingService>();
-            services.AddScoped<ITargetTaskService, TargetTaskService>();
-            services.AddScoped<IVacancyService, VacancyService>();
+            //services.AddScoped<IResumeService, ResumeService>();
+            //services.AddScoped<IShoppingService, ShoppingService>();
+            //services.AddScoped<ITargetTaskService, TargetTaskService>();
+            //services.AddScoped<IVacancyService, VacancyService>();
 
             #endregion
-
-            services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
         {
             db.Initialize();
@@ -89,12 +60,21 @@ namespace HRInPocket
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(setup =>
+                    {
+                        setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1");
+                    }
+                );
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

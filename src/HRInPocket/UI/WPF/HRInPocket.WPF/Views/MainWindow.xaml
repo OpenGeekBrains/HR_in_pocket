@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel
@@ -28,85 +29,88 @@
                 Width="70"
                 Margin="5"
                 Command="{Binding SearchCommand}"
-                Content="Поиск"
+                Content="{Binding ButtonContent}"
                 DockPanel.Dock="Right" />
-            <ComboBox
-                Width="100"
+            <TextBlock
                 Margin="5"
-                VerticalContentAlignment="Center"
-                DockPanel.Dock="Right"
-                IsEnabled="False"
-                ItemsSource="{Binding Sites}"
-                SelectedIndex="0"
-                SelectedItem="{Binding SelectedSite}" />
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Text="Ключевые слова:" />
             <TextBox
                 Margin="5"
-                IsEnabled="False"
+                Padding="5,0,0,0"
+                VerticalContentAlignment="Center"
                 Text="{Binding KeyWords}" />
         </DockPanel>
-        <DockPanel Grid.Row="1" Margin="2">
+        <DockPanel
+            Grid.Row="1"
+            Margin="5"
+            LastChildFill="True">
+            <Button
+                Width="130"
+                Margin="5"
+                Command="{Binding SendDataCommand}"
+                Content="Отправить данные"
+                DockPanel.Dock="Right" />
+            <TextBlock
+                Margin="5"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Text="Адрес сервера:" />
+            <TextBox
+                Margin="5"
+                Padding="5,0,0,0"
+                VerticalContentAlignment="Center"
+                Text="{Binding ServerAddress}" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" Margin="2">
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBarItem>
                     <TextBlock Text="{Binding Status}" />
                 </StatusBarItem>
             </StatusBar>
-            <DataGrid ItemsSource="{Binding DataCollection}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid
+                AutoGenerateColumns="False"
+                EnableColumnVirtualization="True"
+                EnableRowVirtualization="True"
+                IsReadOnly="True"
+                ItemsSource="{Binding DataCollection}">
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5,0" Text="{Binding Path=PrefixCompensation}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CompensationDown}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CompensationUp}" />
+                                <TextBlock Margin="5,0" Text="{Binding Path=CurrencyCode}" />
+                            </StackPanel>
+                            <TextBlock Margin="5,0" Text="{Binding VacancyAddress}" />
+                            <TextBlock
+                                MaxWidth="600"
+                                Margin="5,0"
+                                HorizontalAlignment="Left"
+                                Text="{Binding ShortDescription}"
+                                TextWrapping="Wrap" />
+                            <TextBlock Margin="5,0" Text="{Binding Path=Url}" />
+                            <TextBlock Margin="5,0" Text="{Binding Path=Company.Url}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Name.Name}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Название" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=Company.Name}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Работодатель" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=PrefixCompensation}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="от/до" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=CompensationDown}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Минимум" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=CompensationUp}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Максимум" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=CurrencyCode}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Валюта" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=Date}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Дата" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=ShortDescription}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Краткое описание" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Path=VacancyAddress}" Width="Auto">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Foreground="Black" Text="Расположение" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridHyperlinkColumn Binding="{Binding Path=Name.Url}" Width="Auto">
-                        <DataGridHyperlinkColumn.Header>
-                            <TextBlock Foreground="Black" Text="Страница вакансии" />
-                        </DataGridHyperlinkColumn.Header>
-                    </DataGridHyperlinkColumn>
-                    <DataGridHyperlinkColumn Binding="{Binding Path=Company.Url}" Width="Auto">
-                        <DataGridHyperlinkColumn.Header>
-                            <TextBlock Foreground="Black" Text="Страница работодателя" />
-                        </DataGridHyperlinkColumn.Header>
-                    </DataGridHyperlinkColumn>
+                    <DataGridTextColumn
+                        Width="Auto"
+                        MaxWidth="250"
+                        Binding="{Binding Path=Name}"
+                        Header="Название" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        MaxWidth="250"
+                        Binding="{Binding Path=Company.Name}"
+                        Header="Работодатель" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Path=Date}"
+                        Header="Дата" />
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
