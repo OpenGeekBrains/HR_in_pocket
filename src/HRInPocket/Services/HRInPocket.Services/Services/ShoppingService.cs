@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using AutoMapper;
@@ -9,6 +10,8 @@ using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.Services.Services
 {
@@ -34,117 +37,103 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Получить все тарифные планы
         /// </summary>
-        public async Task<IEnumerable<TarifDTO>> GetTariffPlansAsync() 
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<TarifDTO>> GetTariffPlansAsync() => 
+            (await _TarifDataProvider.GetAllAsync())
+            .Select(t => _Mapper.Map<TarifDTO>(t));
 
         /// <summary>
         /// Выбрать тарифный план по идентификатору тарифа
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Идентификатор тарифа</param>
         /// <param name="userId">Идентификатор пользователя</param>
-        /// <returns></returns>
-        public async Task<TarifDTO> ChoiceTariffPlanAsync(Guid id, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<TarifDTO> ChoiceTariffPlanAsync(Guid id, Guid userId) => throw new NotImplementedException();
 
         /// <summary>
         /// Посмотреть тарифный план по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        public async Task<TarifDTO> GetTariffPlanByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<TarifDTO> GetTariffPlanByIdAsync(Guid id) =>
+            _Mapper.Map<TarifDTO>(await _TarifDataProvider.GetByIdAsync(id));
 
         /// <summary>
         /// Создать новый тарифный план
         /// </summary>
         /// <param name="tarif">Модель тарифного плана</param>
-        public async Task<Guid> CreateTariffPlanAsync(TarifDTO tarif)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Guid> CreateTariffPlanAsync(TarifDTO tarif) =>
+            await _TarifDataProvider.CreateAsync(_Mapper.Map<Tarif>(tarif));
 
         /// <summary>
         /// Редактировать тарифный план
         /// </summary>
         /// <param name="tarif">Модель тарифного плана</param>
-        public async Task<bool> EditTariffPlanAsync(TarifDTO tarif)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> EditTariffPlanAsync(TarifDTO tarif) =>
+            await _TarifDataProvider.EditAsync(_Mapper.Map<Tarif>(tarif));
 
         /// <summary>
         /// Удалить тарифный план
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        public async Task<bool> RemoveTariffPlanAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> RemoveTariffPlanAsync(Guid id) =>
+            await _TarifDataProvider.RemoveAsync(id);
 
         /// <summary>
         /// Архивирование тарифного плана
         /// </summary>
         /// <param name="id">Идентификатор тарифного плана</param>
-        public async Task<bool> ArchivingTariffPlanAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> ArchivingTariffPlanAsync(Guid id) => throw new NotImplementedException();
 
         // Работа с услугами
 
         /// <summary>
         /// Заказать услугу
         /// </summary>
-        public async Task<bool> OrderPriceItemAsync(Guid serviceId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> OrderPriceItemAsync(Guid serviceId, Guid userId) => throw new NotImplementedException();
 
         /// <summary>
         /// Посмотреть все услуги
         /// </summary>
         public async Task<PagePriceItemDTO> GetAllPriceItemsAsync(PriceItemFilter filter)
         {
-            throw new NotImplementedException();
+            var query = _PriceItemDataProvider.GetQueryable();
+
+            if (filter != null)
+            {
+                /*Логика фильтрации после понимания структуры фильтров*/
+            }
+
+            var count = await query.CountAsync();
+
+            query = query
+                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                .Take(filter.Pages.PageSize);
+
+            return new PagePriceItemDTO
+            {
+                Companies = query.Select(q => _Mapper.Map<PriceItemDTO>(q)),
+                TotalCount = count
+            };
         }
 
         /// <summary>
         /// Посмотреть все услуги пользователя по идентификатору
         /// </summary>
-        public async Task<IEnumerable<PriceItemDTO>> GetAllPriceItemsAsync(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<IEnumerable<PriceItemDTO>> GetAllPriceItemsAsync(Guid userId) => throw new NotImplementedException();
 
         /// <summary>
         /// Посмотреть все текущие заказанные услуги, статусы по услугам 
         /// </summary>
-        public async Task<IEnumerable<PriceItemDTO>> GetOpenPriceItemsAsync(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<IEnumerable<PriceItemDTO>> GetOpenPriceItemsAsync(Guid userId) => throw new NotImplementedException();
 
         /// <summary>
         /// Посмотреть всю историю заказов услуг
         /// </summary>
-        public async Task<IEnumerable<PriceItemDTO>> GetPriceItemsHistoryAsync(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-    
+        public Task<IEnumerable<PriceItemDTO>> GetPriceItemsHistoryAsync(Guid userId) => throw new NotImplementedException();
 
         /// <summary>
         /// Посмотреть информацию об услуге
         /// </summary>
         /// <param name="id">Идентификатор услуги</param>
-        public async Task<PriceItemDTO> GetPriceItemById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<PriceItemDTO> GetPriceItemById(Guid id) =>
+            _Mapper.Map<PriceItemDTO>(await _PriceItemDataProvider.GetByIdAsync(id));
     }
 }

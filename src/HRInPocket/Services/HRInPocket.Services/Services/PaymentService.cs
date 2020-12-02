@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using HRInPocket.Interfaces.Services;
 
@@ -8,14 +9,8 @@ namespace HRInPocket.Services.Services
     {
         public PaymentService() { }
 
-        public Task CalculationDiscountsAsync()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task CalculationDiscountsAsync() => throw new NotImplementedException();
 
-        public Task PaymentAsync()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task PaymentAsync() => throw new NotImplementedException();
     }
 }

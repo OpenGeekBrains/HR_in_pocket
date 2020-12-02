@@ -93,9 +93,6 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Поиск вакансий
         /// </summary>
-        public Task SearchVacanciesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public Task SearchVacanciesAsync() => throw new NotImplementedException();
     }
 }
