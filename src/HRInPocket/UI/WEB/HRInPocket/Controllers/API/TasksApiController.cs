@@ -33,5 +33,13 @@ namespace HRInPocket.Controllers.API
             var tasks = await _TasksService.GetUserTasks(UserId);
             return new ActionResult<IEnumerable<TargetTask>>(tasks);
         }
+
+        //todo: Добавление задачи
+
+        //todo: Редактирование задачи
+
+        //todo: Включение/выключение
+
+        //todo: Удаление (удаляемая задача не должна удаляться из БД! Запись в БД должна помечаться как удалённая и исключаться из выдачи)
     }
 }
