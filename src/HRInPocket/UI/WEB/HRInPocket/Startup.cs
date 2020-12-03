@@ -1,11 +1,9 @@
 using AutoMapper;
-
 using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
 using HRInPocket.Services;
 using HRInPocket.Services.Mapper;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -44,8 +42,6 @@ namespace HRInPocket
                     Title = "HR in Pocket API",
                     Version = "v1"
                 }));
-            
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
@@ -82,6 +78,4 @@ namespace HRInPocket
             });
         }
     }
-
-
 }
