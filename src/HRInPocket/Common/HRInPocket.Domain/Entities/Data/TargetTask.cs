@@ -8,6 +8,9 @@ namespace HRInPocket.Domain.Entities.Data
     /// </summary>
     public class TargetTask : BaseEntity
     {
+        //todo: Добавить дату создания
+        //todo: Добавить флаг активно/не активно
+
         // пока добавил адрес. При работе с API - там можно будет выбирать из списка городов/районов и т.д.
         /// <summary> Адрес </summary>
         public Address Address { get; set; } 

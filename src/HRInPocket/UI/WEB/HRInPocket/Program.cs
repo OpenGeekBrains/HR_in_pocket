@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+
 using Serilog;
 
 namespace HRInPocket
@@ -27,7 +29,7 @@ namespace HRInPocket
                 Log.Information("Application starting...");
 
                 CreateHostBuilder(args).Build().Run();
-                
+
                 return 0;
             }
             catch (Exception ex)
@@ -41,13 +43,11 @@ namespace HRInPocket
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>()
-                    .ConfigureLogging(log => { log.AddSerilog(Log.Logger);});
-                })
-            .UseSerilog();
+        public static IHostBuilder CreateHostBuilder(string[] args) => Host
+                .CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => webBuilder
+                        .UseStartup<Startup>()
+                        .ConfigureLogging(log => log.AddSerilog(Log.Logger)))
+                .UseSerilog();
     }
 }

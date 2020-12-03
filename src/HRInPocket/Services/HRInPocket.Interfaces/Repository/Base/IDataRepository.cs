@@ -5,29 +5,39 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.Entities.Base;
 
-namespace HRInPocket.Interfaces
+namespace HRInPocket.Interfaces.Repository.Base
 {
     public interface IDataRepository<TEntity> where TEntity : BaseEntity
     {
-        /// <summary>
-        /// Запросить все данные из таблицы
-        /// </summary>
-        ICollection<TEntity> GetAll();
+        #region Get All
 
         /// <summary>
         /// Запросить все данные из таблицы
         /// </summary>
-        Task<ICollection<TEntity>> GetAllAsync();
+        IEnumerable<TEntity> GetAll();
 
         /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
+        /// Запросить все данные из таблицы
+        /// </summary>
+        Task<IEnumerable<TEntity>> GetAllAsync();
+
+        #endregion
+
+        #region Get Queryable
+
+        /// <summary>
+        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable&lt;TEntity&gt;
         /// </summary>
         IQueryable<TEntity> GetQueryable();
 
         /// <summary>
-        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable<TEntity>
+        /// Запросить все данные из таблицы. Возвращает коллекцию объектов в виде IQueryable&lt;TEntity&gt;
         /// </summary>
         Task<IQueryable<TEntity>> GetQueryableAsync();
+
+        #endregion
+
+        #region Get By ID
 
         /// <summary>
         /// Запросить объект по его идентификатору
@@ -41,6 +51,13 @@ namespace HRInPocket.Interfaces
         /// <param name="id">Идентификатор объекта</param>
         Task<TEntity> GetByIdAsync(Guid id);
 
+        #endregion
+
+
+        #region CRUD
+
+        #region Create
+
         /// <summary>
         /// Создать объект в базе данных
         /// </summary>
@@ -52,6 +69,10 @@ namespace HRInPocket.Interfaces
         /// </summary>
         /// <param name="item">Объект</param>
         Task<Guid> CreateAsync(TEntity item);
+
+        #endregion
+
+        #region Edit
 
         /// <summary>
         /// Редактировать объект в базе данных 
@@ -65,6 +86,10 @@ namespace HRInPocket.Interfaces
         /// <param name="item">Объект</param>
         Task<bool> EditAsync(TEntity item);
 
+        #endregion
+
+        #region Remove
+
         /// <summary>
         /// Удалить объект из базы данных
         /// </summary>
@@ -77,28 +102,40 @@ namespace HRInPocket.Interfaces
         /// <param name="id">Идентификатор объекта</param>
         Task<bool> RemoveAsync(Guid id);
 
-        /// <summary>
-        /// Создать диапазон объектов в базе данных
-        /// </summary>
-        /// <param name="items">Диапазон объектов</param>
-        void CreateRange(ICollection<TEntity> items);
+        #endregion
+
+        #region Create Range
 
         /// <summary>
         /// Создать диапазон объектов в базе данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        Task CreateRangeAsync(ICollection<TEntity> items);
+        void CreateRange(IEnumerable<TEntity> items);
+
+        /// <summary>
+        /// Создать диапазон объектов в базе данных
+        /// </summary>
+        /// <param name="items">Диапазон объектов</param>
+        Task CreateRangeAsync(IEnumerable<TEntity> items);
+
+        #endregion
+
+        #region Remove Range
 
         /// <summary>
         /// Удалить диапазон объектов из базы данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        bool RemoveRange(ICollection<TEntity> items);
+        bool RemoveRange(IEnumerable<TEntity> items);
 
         /// <summary>
         /// Удалить диапазон объектов из базы данных
         /// </summary>
         /// <param name="items">Диапазон объектов</param>
-        Task<bool> RemoveRangeAsync(ICollection<TEntity> items);
+        Task<bool> RemoveRangeAsync(IEnumerable<TEntity> items);
+
+        #endregion 
+
+        #endregion
     }
 }

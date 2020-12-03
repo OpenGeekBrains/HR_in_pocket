@@ -1,9 +1,11 @@
 using AutoMapper;
+
+using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces.Services;
+using HRInPocket.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Serilog;
 
 namespace HRInPocket
 {
@@ -23,10 +24,14 @@ namespace HRInPocket
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services
+               .AddControllersWithViews()
+               .AddRazorRuntimeCompilation();
 
-            services.AddDB(Configuration);
-            services.AddServices(Configuration);
+            services
+                .AddDatabase(Configuration)
+                .AddIdentity()
+                .AddServices();
 
             services.AddAutoMapper(
                 typeof(MappingProfile),
@@ -41,19 +46,6 @@ namespace HRInPocket
                 }));
             
 
-            #region Services
-
-            //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
-
-            //services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IMailSenderService, MailSenderService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-            //services.AddScoped<IResumeService, ResumeService>();
-            //services.AddScoped<IShoppingService, ShoppingService>();
-            //services.AddScoped<ITargetTaskService, TargetTaskService>();
-            //services.AddScoped<IVacancyService, VacancyService>();
-
-            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
@@ -76,8 +68,6 @@ namespace HRInPocket
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
-            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

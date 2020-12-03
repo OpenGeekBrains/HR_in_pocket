@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 using AutoMapper;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services;
+using HRInPocket.Interfaces.Repository;
+using HRInPocket.Interfaces.Repository.Base;
 
-namespace HRInPocket.Services.Services
+namespace HRInPocket.Services.Repositories
 {
     public class ShoppingService : IShoppingService
     {
         /// <summary>
-        /// Провайдер данных </summary>
+        /// Провайдер данных
+        /// </summary>
         private readonly IDataRepository<Tarif> _TarifDataProvider;
         private readonly IDataRepository<PriceItem> _PriceItemDataProvider;
         private readonly IMapper _Mapper;
@@ -108,7 +111,7 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Посмотреть все услуги
         /// </summary>
-        public async Task<PagePriceItemDTO> GetAllPriceItemsAsync(PriceItemFilter filter)
+        public async Task<PageDTOs<PriceItemDTO>> GetAllPriceItemsAsync(Filter filter)
         {
             throw new NotImplementedException();
         }

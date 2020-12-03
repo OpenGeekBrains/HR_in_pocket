@@ -20,5 +20,7 @@ namespace HRInPocket.ViewModels.Account
         public List<Resume> Resumes { get; set; }
         public List<CoverLetter> CoverLetters { get; set; }
         public List<Speciality> Specialities { get; set; }
+
+        public IEnumerable<TargetTask> Tasks { get; set; }
     }
 }

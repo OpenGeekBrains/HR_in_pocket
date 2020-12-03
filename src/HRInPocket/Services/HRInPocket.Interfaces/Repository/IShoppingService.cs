@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Filters;
 
-namespace HRInPocket.Interfaces.Services
+namespace HRInPocket.Interfaces.Repository
 {
     public interface IShoppingService
     {
@@ -46,6 +47,9 @@ namespace HRInPocket.Interfaces.Services
         /// <param name="id">Идентификатор тарифного плана</param>
         Task<bool> RemoveTariffPlanAsync(Guid id);
 
+
+
+
         /// <summary>
         /// Архивирование тарифного плана
         /// </summary>
@@ -62,7 +66,7 @@ namespace HRInPocket.Interfaces.Services
         /// <summary>
         /// Посмотреть все услуги
         /// </summary>
-        Task<PagePriceItemDTO> GetAllPriceItemsAsync(PriceItemFilter filter);
+        Task<PageDTOs<PriceItemDTO>> GetAllPriceItemsAsync(Filter filter);
 
         /// <summary>
         /// Посмотреть все услуги пользователя по идентификатору
