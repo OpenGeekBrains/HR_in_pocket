@@ -30,7 +30,7 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Посмотреть все вакансии
         /// </summary>
-        public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter)
+        public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter = null)
         {
             var query = _DataProvider.GetQueryable();
 

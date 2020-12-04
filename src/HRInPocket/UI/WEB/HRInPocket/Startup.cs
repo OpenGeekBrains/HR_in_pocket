@@ -1,12 +1,8 @@
 using AutoMapper;
+
 using HRInPocket.DAL.Data;
-using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces;
-using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Repositories;
-using HRInPocket.Services.Services;
 
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
 using Serilog;
 
 namespace HRInPocket
