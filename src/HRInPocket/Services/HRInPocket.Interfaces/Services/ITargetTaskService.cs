@@ -15,7 +15,7 @@ namespace HRInPocket.Interfaces.Services
         /// <summary>
         /// Посомтреть все задания
         /// </summary>
-        Task<PageTargetTaskDTO> GetAllTargetTasksAsync(TargetTaskFilter filter);
+        Task<PageTargetTaskDTO> GetAllTargetTasksAsync(TargetTaskFilter filter= null);
 
         /// <summary>
         /// Посомтреть все задания пользователя по идентификатору
