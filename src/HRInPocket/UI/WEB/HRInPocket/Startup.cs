@@ -1,6 +1,7 @@
 using AutoMapper;
 
 using HRInPocket.DAL.Data;
+using HRInPocket.Infrastructure;
 using HRInPocket.Infrastructure.Profiles;
 using HRInPocket.Services.Mapper;
 
@@ -40,7 +41,6 @@ namespace HRInPocket
                 Version = "v1"
             }));
 
-            services.AddOData();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
@@ -52,11 +52,7 @@ namespace HRInPocket
                 app.UseBrowserLink();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(setup =>
-                    {
-                        setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1");
-                    }
-                );
+                app.UseSwaggerUI(setup => setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1"));
             }
             else
             {
@@ -71,16 +67,13 @@ namespace HRInPocket
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandkingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.EnableDependencyInjection();
-                endpoints.Expand().Select().Count().OrderBy().Filter();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
-
-    
 }

@@ -16,28 +16,48 @@ namespace HRInPocket.Controllers.Api
     [Route("api/vacancy")]
     public class VacancyController : Controller
     {
-        private readonly IVacancyService _VacanceyService;
+        private readonly IVacancyService _VacancyService;
 
-        public VacancyController(IVacancyService vacanceyService)
+        public VacancyController(IVacancyService vacancyService)
         {
-            _VacanceyService = vacanceyService;
+            _VacancyService = vacancyService;
         }
 
+        //lh/api/vacancy
+        /// <summary>
+        /// Получения списка вакансий
+        /// </summary>
         [HttpGet]
-        [EnableQuery()]
-        public async Task<ActionResult<IEnumerable<VacancyDTO>>> Get() =>
-            (await _VacanceyService.GetVacanciesAsync()).Vacancies.ToList();
+        //[EnableQuery()]
+        public async Task<ActionResult<IEnumerable<VacancyDTO>>> Get() => (await _VacancyService.GetVacanciesAsync()).Vacancies.ToList();
 
+        /// <summary>
+        /// Просмотр вакансий компании
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("ByCompany/{id}")]
-        public async Task<PageVacancyDTO> GetCompanyVacancies(Guid id) => await _VacanceyService.GetCompanyVacanciesAsync(id);
+        public async Task<PageVacancyDTO> GetCompanyVacancies(Guid id) => await _VacancyService.GetCompanyVacanciesAsync(id);
 
+        /// <summary>
+        /// Создать вакансию
+        /// </summary>
+        /// <param name="vacancy"></param>
         [HttpPost]
-        public async Task<Guid> Create([FromBody] VacancyDTO vacancy) => await _VacanceyService.CreateVacancyAsync(vacancy);
+        public async Task<Guid> Create([FromBody] VacancyDTO vacancy) => await _VacancyService.CreateVacancyAsync(vacancy);
+
+        //lh/api/vacancy
+        /// <summary>
+        /// Редактировать вакансию
+        /// </summary>
+        /// <param name="vacancy"></param>
+        [HttpPut]
+        public async Task<bool> Edit([FromBody] VacancyDTO vacancy) => await _VacancyService.EditVacancyAsync(vacancy);
         
-        [HttpPut("{id}")]
-        public async Task<bool> Edit([FromBody] VacancyDTO vacancy) => await _VacanceyService.EditVacancyAsync(vacancy);
-        
+        /// <summary>
+        /// Удалить вакансию
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public async Task<bool> Remove(Guid id) => await _VacanceyService.RemoveVacancyAsync(id);
+        public async Task<bool> Remove(Guid id) => await _VacancyService.RemoveVacancyAsync(id);
     }
 }

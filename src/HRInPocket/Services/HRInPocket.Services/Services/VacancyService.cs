@@ -33,17 +33,18 @@ namespace HRInPocket.Services.Services
         public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter = null)
         {
             var query = _DataProvider.GetQueryable();
+            int count = 0;
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+
+                count = await query.CountAsync();
+
+                query = query
+                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                    .Take(filter.Pages.PageSize);
             }
-
-            var count = await query.CountAsync();
-
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
 
             return new PageVacancyDTO
             {
