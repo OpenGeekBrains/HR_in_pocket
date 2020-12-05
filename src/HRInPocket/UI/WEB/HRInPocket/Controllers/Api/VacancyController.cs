@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
-using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces.Services;
 
-using Microsoft.AspNet.OData;
+//using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRInPocket.Controllers.Api
@@ -18,17 +17,13 @@ namespace HRInPocket.Controllers.Api
     {
         private readonly IVacancyService _VacancyService;
 
-        public VacancyController(IVacancyService vacancyService)
-        {
-            _VacancyService = vacancyService;
-        }
+        public VacancyController(IVacancyService vacancyService) => _VacancyService = vacancyService;
 
-        //lh/api/vacancy
         /// <summary>
         /// Получения списка вакансий
         /// </summary>
-        [HttpGet]
         //[EnableQuery()]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<VacancyDTO>>> Get() => (await _VacancyService.GetVacanciesAsync()).Vacancies.ToList();
 
         /// <summary>
@@ -45,7 +40,6 @@ namespace HRInPocket.Controllers.Api
         [HttpPost]
         public async Task<Guid> Create([FromBody] VacancyDTO vacancy) => await _VacancyService.CreateVacancyAsync(vacancy);
 
-        //lh/api/vacancy
         /// <summary>
         /// Редактировать вакансию
         /// </summary>

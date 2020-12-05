@@ -40,7 +40,6 @@ namespace HRInPocket
                 Title = "HR in Pocket API",
                 Version = "v1"
             }));
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
