@@ -9,6 +9,7 @@ using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Interfaces;
+using HRInPocket.Extensions.Linq;
 using HRInPocket.Interfaces.Services;
 
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Получить все тарифные планы
         /// </summary>
-        public async Task<IEnumerable<TarifDTO>> GetTariffPlansAsync() => 
+        public async Task<IEnumerable<TarifDTO>> GetTariffPlansAsync() =>
             (await _TarifDataProvider.GetAllAsync())
             .Select(_Mapper.Map<TarifDTO>);
 
@@ -95,22 +96,19 @@ namespace HRInPocket.Services.Services
         public async Task<PagePriceItemDTO> GetAllPriceItemsAsync(PriceItemFilter filter)
         {
             var query = _PriceItemDataProvider.GetQueryable();
+            var (Query, TotalCount) = await query.Page();
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+                if(filter.Pages != null)
+                    (Query, TotalCount) = await query.Page(filter.Pages.PageNumber, filter.Pages.PageSize);
             }
-
-            var count = await query.CountAsync();
-
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
 
             return new PagePriceItemDTO
             {
-                Items = query.Select(q => _Mapper.Map<PriceItemDTO>(q)),
-                TotalCount = count
+                Items = Query.Select(q => _Mapper.Map<PriceItemDTO>(q)),
+                TotalCount = TotalCount,
             };
         }
 
