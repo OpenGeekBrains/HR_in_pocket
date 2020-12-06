@@ -28,7 +28,7 @@ namespace HRInPocket.Services.Services
         }
 
         /// <summary>
-        /// Посомтреть весь список резюме
+        /// Посомотреть весь список резюме
         /// </summary>
         public async Task<PageResumeDTO> GetResumesAsync(ResumeFilter filter)
         {
@@ -62,7 +62,7 @@ namespace HRInPocket.Services.Services
             .Select(r => _Mapper.Map<ResumeDTO>(r));
 
         /// <summary>
-        /// Посомтреть информацию о резюме по идентификатору
+        /// Посмотреть информацию о резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
         public async Task<ResumeDTO> GetResumeByIdAsync(Guid id) => 

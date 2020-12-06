@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Filters;
+using HRInPocket.Domain.Models.Resume;
 using HRInPocket.Interfaces.Services;
 
 //using Microsoft.AspNet.OData;
@@ -98,7 +99,7 @@ namespace HRInPocket.Controllers.Api
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PageCompanyDTO> Get() => await _CompanyService.GetCompanies();
+        public async Task<IEnumerable<CompanyDTO>> Get() => (await _CompanyService.GetCompanies()).Companies.ToList();
 
         /// <summary>
         /// Посмотреть информацию о компании по идентификатору
@@ -114,14 +115,14 @@ namespace HRInPocket.Controllers.Api
         /// <param name="company"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Guid> CreateCompanyAsync(CompanyDTO company) => await _CompanyService.CreateCompanyAsync(company);
+        public async Task<Guid> CreateCompanyAsync([FromBody] CompanyDTO company) => await _CompanyService.CreateCompanyAsync(company);
         /// <summary>
         /// Редактирвание информации о компании
         /// </summary>
         /// <param name="company"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<bool> EditCompanyAsync(CompanyDTO company) => await _CompanyService.EditCompanyAsync(company);
+        public async Task<bool> EditCompanyAsync([FromBody] CompanyDTO company) => await _CompanyService.EditCompanyAsync(company);
 
         /// <summary>
         /// Удаление компании по идентификатору
@@ -130,5 +131,69 @@ namespace HRInPocket.Controllers.Api
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<bool> RemoveCompanyAsync(Guid id) => await _CompanyService.RemoveCompanyAsync(id);
+    }
+
+    [ApiController]
+    [Route("api/Resume")]
+    public class ResumeController : Controller
+    {
+        private readonly IResumeService _ResumeService;
+
+        public ResumeController(IResumeService resumeService) => _ResumeService = resumeService;
+
+        /// <summary>
+        /// Посмотреть весь список резюме
+        /// </summary>
+        /// <param name="filter"></param>
+        [HttpGet]
+        public async Task<IEnumerable<ResumeDTO>> Get() => (await _ResumeService.GetResumesAsync()).Companies.ToList();
+
+        /// <summary>
+        ///  Посмотреть список резюме пользователя по его идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
+        [HttpGet("User/{id}")]
+        public async Task<IEnumerable<ResumeDTO>> GetUser(Guid id) => (await _ResumeService.GetUserResumesAsync(id)).ToList();
+
+        /// <summary>
+        /// Посомотреть информацию о резюме по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор резюме</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ResumeDTO> GetResumeByIdAsync(Guid id) =>await _ResumeService.GetResumeByIdAsync(id);
+
+        /// <summary>
+        /// Создать резюме
+        /// </summary>
+        /// <param name="resume">Модель представления резюме</param>
+        [HttpPost]
+        public async Task<Guid> CreateResumeAsync([FromBody]  ResumeDTO resume) => await _ResumeService.CreateResumeAsync(resume);
+
+        /// <summary>
+        /// Редактировать информацию в резюме
+        /// </summary>
+        /// <param name="resume">Модель представления резюме</param>
+        [HttpPut]
+        public async Task<bool> EditResumeAsync([FromBody] ResumeDTO resume) => await _ResumeService.EditResumeAsync(resume);
+
+        /// <summary>
+        /// Удалить резюме по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор резюме</param>
+        [HttpDelete("{id}")]
+        public async  Task<bool> RemoveResumeAsync(Guid id) => await _ResumeService.RemoveResumeAsync(id);
+/*
+        /// <summary>
+        /// Поиск резюме
+        /// </summary>
+        public  Task SearchResumesAsync() => throw new NotImplementedException();
+
+        /// <summary>
+        /// Загрузка файла резюме
+        /// </summary>
+        /// <param name="resumeFile">Модель файла резюме</param>
+        /// <returns></returns>
+        public Task<bool> UploadResumeFileAsync(ResumeFile resumeFile) => throw new NotImplementedException();*/
     }
 }
