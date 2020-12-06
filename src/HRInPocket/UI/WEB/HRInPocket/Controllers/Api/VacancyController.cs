@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Filters;
 using HRInPocket.Domain.Models.Resume;
+using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 
 //using Microsoft.AspNet.OData;
@@ -14,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRInPocket.Controllers.Api
 {
     [ApiController]
-    [Route("api/Vacancy")]
+    [Route(ApiRoutes.Vacancy)]
     public class VacancyController : Controller
     {
         private readonly IVacancyService _VacancyService;

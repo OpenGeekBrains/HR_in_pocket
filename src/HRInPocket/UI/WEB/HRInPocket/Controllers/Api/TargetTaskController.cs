@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 
 //using Microsoft.AspNet.OData;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRInPocket.Controllers.Api
 {
     [ApiController]
-    [Route("api/TargetTask")]
+    [Route(ApiRoutes.TargetTask)]
     public class TargetTaskController : Controller
     {
         private readonly ITargetTaskService _TargetTaskService;

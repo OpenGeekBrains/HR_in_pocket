@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 
 //using Microsoft.AspNet.OData;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRInPocket.Controllers.Api
 {
     [ApiController]
-    [Route("api/Company")]
+    [Route(ApiRoutes.Company)]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _CompanyService;
@@ -60,4 +61,5 @@ namespace HRInPocket.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<bool> RemoveCompanyAsync(Guid id) => await _CompanyService.RemoveCompanyAsync(id);
     }
+   
 }
