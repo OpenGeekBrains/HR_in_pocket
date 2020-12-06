@@ -21,7 +21,7 @@ namespace HRInPocket.Controllers.Api
 
         //[EnableQuery()]
         [HttpGet]
-        public async Task<IEnumerable<TargetTaskDTO>> Get() => (await _TargetTaskService.GetAllTargetTasksAsync()).TargetTasks.ToList();
+        public async Task<IEnumerable<TargetTaskDTO>> Get() => (await _TargetTaskService.GetAllTargetTasksAsync()).Items.ToList();
         [HttpGet("{id}")]
         public async Task<TargetTaskDTO> GetTargetTaskByIdAsync(Guid id) => await _TargetTaskService.GetTargetTaskByIdAsync(id);
         [HttpGet("ByUser/{id}")]

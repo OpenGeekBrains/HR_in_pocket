@@ -47,7 +47,7 @@ namespace HRInPocket.Services.Services
 
             return new PageResumeDTO
             {
-                Companies = query.Select(q => _Mapper.Map<ResumeDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<ResumeDTO>(q)),
                 TotalCount = count
             };
         }

@@ -26,7 +26,7 @@ namespace HRInPocket.Controllers.Api
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<CompanyDTO>> Get() => (await _CompanyService.GetCompanies()).Companies.ToList();
+        public async Task<IEnumerable<CompanyDTO>> Get() => (await _CompanyService.GetCompanies()).Items.ToList();
 
         /// <summary>
         /// Посмотреть информацию о компании по идентификатору
@@ -42,7 +42,8 @@ namespace HRInPocket.Controllers.Api
         /// <param name="company"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Guid> CreateCompanyAsync([FromBody] CompanyDTO company) => await _CompanyService.CreateCompanyAsync(company);
+        public async Task<IActionResult> CreateCompanyAsync([FromBody] CompanyDTO company) =>
+            CreatedAtAction("Get", await _CompanyService.CreateCompanyAsync(company));
         /// <summary>
         /// Редактирвание информации о компании
         /// </summary>

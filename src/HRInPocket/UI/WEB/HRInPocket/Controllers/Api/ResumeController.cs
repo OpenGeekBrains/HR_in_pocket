@@ -24,7 +24,7 @@ namespace HRInPocket.Controllers.Api
         /// </summary>
         /// <param name="filter"></param>
         [HttpGet]
-        public async Task<IEnumerable<ResumeDTO>> Get() => (await _ResumeService.GetResumesAsync()).Companies.ToList();
+        public async Task<IEnumerable<ResumeDTO>> Get() => (await _ResumeService.GetResumesAsync()).Items.ToList();
 
         /// <summary>
         ///  Посмотреть список резюме пользователя по его идентификатору

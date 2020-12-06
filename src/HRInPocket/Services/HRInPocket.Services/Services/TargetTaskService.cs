@@ -48,7 +48,7 @@ namespace HRInPocket.Services.Services
 
             return new PageTargetTaskDTO
             {
-                TargetTasks = query.Select(q => _Mapper.Map<TargetTaskDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<TargetTaskDTO>(q)),
                 TotalCount = count
             };
         }

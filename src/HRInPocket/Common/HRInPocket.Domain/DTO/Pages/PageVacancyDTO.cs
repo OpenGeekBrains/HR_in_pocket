@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.DTO.Pages;
+
 namespace HRInPocket.Domain.DTO
 {
-    public class PageVacancyDTO
+    public class PageVacancyDTO:PageResult<VacancyDTO>
     {
-        public IEnumerable<VacancyDTO> Vacancies { get; set; } = new List<VacancyDTO>();
-        public int? TotalCount { get; set; }
+        
     }
 }

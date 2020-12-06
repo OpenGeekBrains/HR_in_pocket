@@ -39,7 +39,7 @@ namespace HRInPocket.Services.Services
         /// </summary>
         public async Task<IEnumerable<TarifDTO>> GetTariffPlansAsync() => 
             (await _TarifDataProvider.GetAllAsync())
-            .Select(t => _Mapper.Map<TarifDTO>(t));
+            .Select(_Mapper.Map<TarifDTO>);
 
         /// <summary>
         /// Выбрать тарифный план по идентификатору тарифа
@@ -109,7 +109,7 @@ namespace HRInPocket.Services.Services
 
             return new PagePriceItemDTO
             {
-                Companies = query.Select(q => _Mapper.Map<PriceItemDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<PriceItemDTO>(q)),
                 TotalCount = count
             };
         }

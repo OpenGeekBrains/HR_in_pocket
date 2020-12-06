@@ -84,16 +84,16 @@ namespace HRInPocket.Services.Services
 
     public static class MailInfo
     {
-        public static readonly string Name = "HRInPocket"; 
-        public static readonly string Address = "";
-        public static readonly string RecipientName = "";
-        public static readonly string Server = "";
-        public static readonly int Port = 0;
-        public static readonly string Login = "";
-        public static readonly string Pass = "";
-        public static readonly string MagicWord = "XOAUTH2";
-        public static readonly string Local = "local";
-        public static readonly string Success = "[Mailing-Success]";
-        public static readonly string Bad = "[Mailing-Bad]";
+        public const string Name = "HRInPocket"; 
+        public const string Address = "";
+        public const string RecipientName = "";
+        public const string Server = "";
+        public const int Port = 0;
+        public const string Login = "";
+        public const string Pass = "";
+        public const string MagicWord = "XOAUTH2";
+        public const string Local = "local";
+        public const string Success = "[Mailing-Success]";
+        public const string Bad = "[Mailing-Bad]";
     }
 }

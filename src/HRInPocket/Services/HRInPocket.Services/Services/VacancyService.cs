@@ -48,7 +48,7 @@ namespace HRInPocket.Services.Services
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count
             };
         }
@@ -66,7 +66,7 @@ namespace HRInPocket.Services.Services
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count,
             };
         }

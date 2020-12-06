@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.DTO.Pages;
+
 namespace HRInPocket.Domain.DTO
 {
-    public class PagePriceItemDTO
+    public class PagePriceItemDTO :PageResult<PriceItemDTO>
     {
-        public IEnumerable<PriceItemDTO> Companies { get; set; } = new List<PriceItemDTO>();
-        public int TotalCount { get; set; }
+     
     }
 }

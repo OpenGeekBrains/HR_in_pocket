@@ -26,7 +26,7 @@ namespace HRInPocket.Controllers.Api
         /// </summary>
         //[EnableQuery()]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VacancyDTO>>> Get() => (await _VacancyService.GetVacanciesAsync()).Vacancies.ToList();
+        public async Task<ActionResult<IEnumerable<VacancyDTO>>> Get() => (await _VacancyService.GetVacanciesAsync()).Items.ToList();
 
         /// <summary>
         /// Просмотр вакансий компании
