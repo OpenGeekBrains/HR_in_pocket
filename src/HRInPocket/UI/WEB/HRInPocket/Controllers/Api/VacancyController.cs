@@ -82,4 +82,53 @@ namespace HRInPocket.Controllers.Api
         [HttpGet("Abort/{id}")]
         public async Task<bool> AbortTargetTaskAsync(Guid id) => await _TargetTaskService.AbortTargetTaskAsync(id);
     }
+
+    [ApiController]
+    [Route("api/Company")]
+    public class CompanyController : Controller
+    {
+        private readonly ICompanyService _CompanyService;
+
+        public CompanyController(ICompanyService companyService) => _CompanyService = companyService;
+
+        //[EnableQuery()]
+        /// <summary>
+        /// Посмотреть информацию о всех компаниях
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<PageCompanyDTO> Get() => await _CompanyService.GetCompanies();
+
+        /// <summary>
+        /// Посмотреть информацию о компании по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<CompanyDTO> GetCompanyById(Guid id) => await _CompanyService.GetCompanyById(id);
+
+        /// <summary>
+        ///  Создать компанию
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Guid> CreateCompanyAsync(CompanyDTO company) => await _CompanyService.CreateCompanyAsync(company);
+        /// <summary>
+        /// Редактирвание информации о компании
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<bool> EditCompanyAsync(CompanyDTO company) => await _CompanyService.EditCompanyAsync(company);
+
+        /// <summary>
+        /// Удаление компании по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<bool> RemoveCompanyAsync(Guid id) => await _CompanyService.RemoveCompanyAsync(id);
+    }
 }
