@@ -3,9 +3,10 @@ using AutoMapper;
 using HRInPocket.Controllers.API;
 using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain;
+using HRInPocket.Domain.AutoMapperProfiles;
 using HRInPocket.Infrastructure.Profiles;
 using HRInPocket.Services;
-using HRInPocket.Services.Mapper;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,8 +39,7 @@ namespace HRInPocket
             //    // если в маршшруте будет указано {type:assignment_type}, то используется подставится указанное ограничение маршрута
             //    opt.ConstraintMap.Add("assignment_type", typeof(AssignmentTypeConstrain)));
 
-            services.AddAutoMapper(
-                typeof(MappingProfile),
+            services.AddAutoMapperWithProfiles(
                 typeof(AccountsProfile)
                 );
 

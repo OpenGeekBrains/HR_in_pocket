@@ -1,12 +1,11 @@
-﻿
-using HRInPocket.Domain.DTO;
+﻿using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.Entities.Data;
 
-namespace HRInPocket.Services.Mapper
+namespace HRInPocket.Domain.AutoMapperProfiles
 {
-    public class MappingProfile : AutoMapper.Profile
+    public class MappingDTOProfile : AutoMapper.Profile
     {
-        public MappingProfile()
+        public MappingDTOProfile()
         {
             CreateMap<Company, CompanyDTO>().ReverseMap();
             CreateMap<Resume, ResumeDTO>().ReverseMap();
