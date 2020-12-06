@@ -28,18 +28,18 @@ namespace HRInPocket.Controllers.API
             var applicantId2 = Guid.NewGuid();
             _assignments = new List<Assignment>
             {
-                new Invitation(Counter, "Invitation 1", applicantId1),
-                new Invitation(Counter, "Invitation 2", applicantId1) {number_of_invitations = 2, number_of_responses = 1},
-                new Invitation(Counter, "Invitation 3", applicantId2),
-                new Covering(Counter, "Covering 1", applicantId1),
-                new Covering(Counter, "Covering 2", applicantId2) {number_of_invitations = 7, number_of_responses = 2},
-                new Covering(Counter, "Covering 3", applicantId2),
-                new Covering(Counter, "Covering 4", applicantId2) {number_of_invitations = 4, number_of_responses = 1},
-                new ResumeAs(Counter, "Resume 1", applicantId1),
-                new ResumeAs(Counter, "Resume 2", applicantId1),
-                new ResumeAs(Counter, "Resume 3", applicantId2) {number_of_invitations = 3, number_of_responses = 4},
-                new ResumeAs(Counter, "Resume 4", applicantId1),
-                new ResumeAs(Counter, "Resume 5", applicantId2) {number_of_invitations = 5, number_of_responses = 2},
+                new InvitationAssignment(Counter, "Invitation 1", applicantId1),
+                new InvitationAssignment(Counter, "Invitation 2", applicantId1) {number_of_invitations = 2, number_of_responses = 1},
+                new InvitationAssignment(Counter, "Invitation 3", applicantId2),
+                new CoveringAssignment(Counter, "Covering 1", applicantId1),
+                new CoveringAssignment(Counter, "Covering 2", applicantId2) {number_of_invitations = 7, number_of_responses = 2},
+                new CoveringAssignment(Counter, "Covering 3", applicantId2),
+                new CoveringAssignment(Counter, "Covering 4", applicantId2) {number_of_invitations = 4, number_of_responses = 1},
+                new ResumeAssignment(Counter, "Resume 1", applicantId1),
+                new ResumeAssignment(Counter, "Resume 2", applicantId1),
+                new ResumeAssignment(Counter, "Resume 3", applicantId2) {number_of_invitations = 3, number_of_responses = 4},
+                new ResumeAssignment(Counter, "Resume 4", applicantId1),
+                new ResumeAssignment(Counter, "Resume 5", applicantId2) {number_of_invitations = 5, number_of_responses = 2},
             };
 
         }
@@ -87,26 +87,26 @@ namespace HRInPocket.Controllers.API
         #region Create
 
         [HttpPost("{applicantId}/Invitation")]
-        public IActionResult Create(Guid applicantId, [FromBody] Invitation invitation) => CreateAssignment(applicantId, invitation);
+        public IActionResult Create(Guid applicantId, [FromBody] InvitationAssignment invitation) => CreateAssignment(applicantId, invitation);
 
         [HttpPost("{applicantId}/Resume")]
-        public IActionResult Create(Guid applicantId, [FromBody] ResumeAs resume) => CreateAssignment(applicantId, resume);
+        public IActionResult Create(Guid applicantId, [FromBody] ResumeAssignment resume) => CreateAssignment(applicantId, resume);
 
         [HttpPost("{applicantId}/Covering")]
-        public IActionResult Create(Guid applicantId, [FromBody] Covering covering) => CreateAssignment(applicantId, covering);
+        public IActionResult Create(Guid applicantId, [FromBody] CoveringAssignment covering) => CreateAssignment(applicantId, covering);
 
         #endregion
 
         #region Update
 
         [HttpPut("{applicantId}/Invitation/{assignmentId}")]
-        public IActionResult UpdateInvitation(Guid applicantId, long assignmentId, [FromBody] Invitation invitation) => UpdateAssignment(applicantId, assignmentId, invitation);
+        public IActionResult UpdateInvitation(Guid applicantId, long assignmentId, [FromBody] InvitationAssignment invitation) => UpdateAssignment(applicantId, assignmentId, invitation);
 
         [HttpPut("{applicantId}/Resume/{assignmentId}")]
-        public IActionResult UpdateResume(Guid applicantId, long assignmentId, [FromBody] ResumeAs resume) => UpdateAssignment(applicantId, assignmentId, resume);
+        public IActionResult UpdateResume(Guid applicantId, long assignmentId, [FromBody] ResumeAssignment resume) => UpdateAssignment(applicantId, assignmentId, resume);
 
         [HttpPut("{applicantId}/Covering/{assignmentId}")]
-        public IActionResult UpdateCovering(Guid applicantId, long assignmentId, [FromBody] Covering covering) => UpdateAssignment(applicantId, assignmentId, covering);
+        public IActionResult UpdateCovering(Guid applicantId, long assignmentId, [FromBody] CoveringAssignment covering) => UpdateAssignment(applicantId, assignmentId, covering);
 
         #endregion
 
@@ -148,7 +148,7 @@ namespace HRInPocket.Controllers.API
         {
             if (!CheckApplicant(applicantId)) return BadRequest();
 
-            var covering = _assignments.Where(a => a.applicant_id == applicantId).OfType<Covering>().FirstOrDefault(a => a.id == assignmentId);
+            var covering = _assignments.Where(a => a.applicant_id == applicantId).OfType<CoveringAssignment>().FirstOrDefault(a => a.id == assignmentId);
             if (covering is null) return NotFound();
 
             var index = _assignments.IndexOf(covering);
@@ -184,9 +184,9 @@ namespace HRInPocket.Controllers.API
             if (type is not null)
                 content = type switch
                 {
-                    AssignmentType.Invitation => content.OfType<Invitation>(),
-                    AssignmentType.Resume => content.OfType<ResumeAs>(),
-                    AssignmentType.Covering => content.OfType<Covering>(),
+                    AssignmentType.Invitation => content.OfType<InvitationAssignment>(),
+                    AssignmentType.Resume => content.OfType<ResumeAssignment>(),
+                    AssignmentType.Covering => content.OfType<CoveringAssignment>(),
                     _ => null
                 };
 
@@ -202,7 +202,7 @@ namespace HRInPocket.Controllers.API
 
 
     #region Return Models
-    //public record Error(string error, bool result, string bad_parameter);
+    public record Error(string error, bool result, string bad_parameter);
 
     public record ArrayContent(IEnumerable<object> content, bool result);
     #endregion
@@ -226,17 +226,17 @@ namespace HRInPocket.Controllers.API
         public void AssignApplicant(Guid applicantId) => applicant_id = applicantId;
     }
 
-    public record Invitation(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
+    public record InvitationAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
     {
 
     }
 
-    public record ResumeAs(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
+    public record ResumeAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
     {
 
     }
 
-    public record Covering(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
+    public record CoveringAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
     {
 
     }
