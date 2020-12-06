@@ -8,5 +8,6 @@
         public const string Resume = "api/v1/resume";
         public const string Payment = "api/v1/payment";
         public const string FeedBack = "api/v1/feedback";
+        public const string Assignments = "api/v1/assignments";
     }
 }
