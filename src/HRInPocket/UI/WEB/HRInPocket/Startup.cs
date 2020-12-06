@@ -1,5 +1,6 @@
 using AutoMapper;
 
+using HRInPocket.Controllers.API;
 using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
 using HRInPocket.Infrastructure.Profiles;
@@ -8,7 +9,7 @@ using HRInPocket.Services.Mapper;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,18 +33,21 @@ namespace HRInPocket
                 .AddDatabase(Configuration)
                 .AddIdentity()
                 .AddServices();
+                
+            //services.Configure<RouteOptions>(opt=> 
+            //    // если в маршшруте будет указано {type:assignment_type}, то используется подставится указанное ограничение маршрута
+            //    opt.ConstraintMap.Add("assignment_type", typeof(AssignmentTypeConstrain)));
 
             services.AddAutoMapper(
                 typeof(MappingProfile),
                 typeof(AccountsProfile)
                 );
 
-            services.AddSwaggerGen(setup => setup
-                .SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "HR in Pocket API",
-                    Version = "v1"
-                }));
+            services.AddSwaggerGen(setup =>
+            {
+                //setup.OperationFilter<OptionalParameterFilter>(); 
+                setup.SwaggerDoc("v1", new OpenApiInfo {Title = "HR in Pocket API", Version = "v1"});
+            });
             
 
         }
