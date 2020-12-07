@@ -15,5 +15,11 @@ namespace HRInPocket.Controllers.API
         {
             _Logger = Logger;
         }
+
+        [HttpPost("/user/feedback")]
+        public IActionResult TakeFeedBack(string name, string email, string phone_number, string message)
+        {
+            return Ok();
+        }
     }
 }
