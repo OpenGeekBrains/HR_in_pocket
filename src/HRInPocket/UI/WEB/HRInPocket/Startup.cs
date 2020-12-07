@@ -66,6 +66,7 @@ namespace HRInPocket
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandkingMiddleware>();
+            app.UseMiddleware<TimeLoadMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
