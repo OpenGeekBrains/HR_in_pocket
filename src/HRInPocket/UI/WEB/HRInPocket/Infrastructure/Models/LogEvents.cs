@@ -17,5 +17,11 @@
         public const int AccountRegistration = 5000;
         public const int AccountLogin = 5001;
         public const int AccountLogout = 5002;
+        
+        public const int AccountRegistrationFailure = 5010;
+        public const int AccountLoginFailure = 5011;
+        public const int AccountLogoutFailure = 5012;
+
+        public const int MailSending = 9000;
     }
 }

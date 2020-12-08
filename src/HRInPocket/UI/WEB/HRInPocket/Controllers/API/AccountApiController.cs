@@ -2,6 +2,7 @@
 using System.Linq;
 
 using HRInPocket.Domain.Models.MailSender;
+using HRInPocket.Infrastructure.Models;
 using HRInPocket.Infrastructure.Models.Exceptions;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records;
@@ -10,6 +11,7 @@ using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace HRInPocket.Controllers.API
 {
@@ -18,26 +20,35 @@ namespace HRInPocket.Controllers.API
     public class AccountApiController : ControllerBase
     {
         private readonly IMailSenderService _mailSender;
+        private readonly ILogger<AccountApiController> _logger;
         private readonly AuthService _authService;
         
-        public AccountApiController(IMailSenderService mailSender)
+        public AccountApiController(IMailSenderService mailSender, ILogger<AccountApiController> logger)
         {
             _mailSender = mailSender;
+            _logger = logger;
             _authService = new AuthService();
         }
 
         #region Get
         
         [HttpGet("accounts")]
-        public JsonResult GetAccounts() => new(new ArrayContent(_authService.GetAccounts(), _authService.GetAccounts().Any()));
-        
+        public JsonResult GetAccounts()
+        {
+            // todo: trace about who get data
+            _logger.LogInformation(LogEvents.ListItems, "Get accounts data");
+            return new JsonResult(new ArrayContent(_authService.GetAccounts(), _authService.GetAccounts().Any()));
+        }
+
         #endregion
 
         [HttpPost("registration")]
         public IActionResult Registration([FromBody] UserData userData)
         {
+            const int logId = LogEvents.AccountRegistration;
             try
             {
+                _logger.LogInformation(logId, $"Registration of user {userData.email}");
                 var token = _authService.Register(userData);
                 // todo: on registered user must be logged in?
 
@@ -49,11 +60,14 @@ namespace HRInPocket.Controllers.API
                 //    Subject = "Confirmation email",
                 //    UnsubscribeUrl = this.Url.Action("UnsubscribeMailSend", "NotifyApi", userData.email)
                 //});
-
+                _logger.LogInformation(LogEvents.MailSending, $"Sended confirmation of email address mail to user {userData.email} on address {userData.email}");
+                
+                _logger.LogInformation(logId, $"Registration of user {userData.email} completed");
                 return Ok();
             }
             catch (Exception e)
             {
+                _logger.LogWarning(LogEvents.AccountRegistrationFailure, e, e.Message);
                 return new JsonResult(new Error(e.Message,false,"email"));
             }
         }
@@ -61,13 +75,18 @@ namespace HRInPocket.Controllers.API
         [HttpPost("auth")]
         public IActionResult Login([FromBody] UserData data)
         {
+            const int logId = LogEvents.AccountLogin;
             try
             {
+                _logger.LogInformation(logId,$"User {data.email} trying to logged in");
                 var token = _authService.Login(data);
+                
+                _logger.LogInformation(logId,$"User {data.email} logged in");
                 return Content(token);
             }
             catch (LoginException e)
             {
+                _logger.LogWarning(LogEvents.AccountLoginFailure, e, e.Message);
                 return new JsonResult(new Error(e.Message, false, e.BadParameter));
             }
         }
@@ -77,10 +96,15 @@ namespace HRInPocket.Controllers.API
         {
             try
             {
-                return _authService.Logout(data) ? Ok() : BadRequest();
+                _logger.LogInformation(LogEvents.AccountLogout,$"User {data.email} trying to logged out");
+                _authService.Logout(data);
+                    
+                _logger.LogInformation(LogEvents.AccountLogout,$"User {data.email} logged out");
+                return Ok();
             }
             catch (LoginException e)
             {
+                _logger.LogWarning(LogEvents.AccountLogoutFailure, e, e.Message);
                 return new JsonResult(new Error(e.Message, false, e.BadParameter));
             }
         }
