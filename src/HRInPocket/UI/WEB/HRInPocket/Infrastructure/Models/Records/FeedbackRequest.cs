@@ -6,7 +6,7 @@ namespace HRInPocket.Infrastructure.Models.Records
     {
         public long id { get; set; }
         public Guid AssignedApplicant { get; set; }
-        public DateTime RequestCreation { get; set; }
+        public DateTime RequestCreation { get; } = DateTime.Now;
         public DateTime ApplicantAssignedDate { get; set; }
     }
 }
