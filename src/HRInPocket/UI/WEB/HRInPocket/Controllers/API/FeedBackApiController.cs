@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
+using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
@@ -29,32 +28,6 @@ namespace HRInPocket.Controllers.API
         public IActionResult TakeFeedBack(string name, string email, string phone_number, string message)
         {
             return Ok();
-        }
-    }
-
-    public record FeedbackRequest(string name, string email, string phone_number, string message)
-    {
-        public long id { get; set; }
-        public Guid AssignedApplicant { get; set; }
-        public DateTime RequestCreation { get; set; }
-        public DateTime ApplicantAssignedDate { get; set; }
-    }
-
-    public class FeedBackService
-    {
-        public readonly List<FeedbackRequest> Requests = new();
-        private static long _counter;
-        private static long Counter => ++_counter;
-
-        public void TakeFeedback(FeedbackRequest request)
-        {
-            request.id = Counter;
-            Requests.Add(request);
-        }
-
-        public void AssignApplicant(Guid applicant_id, long request_id)
-        {
-
         }
     }
 }

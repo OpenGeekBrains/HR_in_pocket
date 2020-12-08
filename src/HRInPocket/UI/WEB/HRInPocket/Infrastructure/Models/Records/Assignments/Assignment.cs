@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HRInPocket.Infrastructure.Models.Assignments
+namespace HRInPocket.Infrastructure.Models.Records.Assignments
 {
     public abstract record Assignment(long id, string place_name, Guid applicant_id)
     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using HRInPocket.Infrastructure.Models;
-using HRInPocket.Infrastructure.Models.Assignments;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
+using HRInPocket.Infrastructure.Models.Records.Assignments;
 using HRInPocket.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
