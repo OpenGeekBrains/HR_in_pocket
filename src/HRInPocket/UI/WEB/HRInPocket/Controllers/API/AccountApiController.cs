@@ -26,13 +26,10 @@ namespace HRInPocket.Controllers.API
             _authService = new AuthService();
         }
 
-        #region Get Users
+        #region Get
         
         [HttpGet("accounts")]
         public JsonResult GetAccounts() => new(new ArrayContent(_authService.GetAccounts(), _authService.GetAccounts().Any()));
-
-        [HttpGet("notifies")]
-        public JsonResult GetNotifies() => new(new ArrayContent(_authService.GetNotifyUsers(), _authService.GetNotifyUsers().Any())); 
         
         #endregion
 
@@ -43,16 +40,16 @@ namespace HRInPocket.Controllers.API
             {
                 var token = _authService.Register(userData);
                 // todo: on registered user must be logged in?
-                
+
                 //_mailSender.SendEmailConfirmation(new Mail
                 //{
-                //    ActionUrl = $@"https://hr-in-your-pocket.ru/auth/?key={AuthService.publicKey}&token={token}&email={userData.email}",
+                //    ActionUrl = $@"https://hr-in-your-pocket.ru/auth/?key={AuthService.PublicKey}&token={token}&email={userData.email}",
                 //    Body = "Confirm email with link",
                 //    RecipientEmail = userData.email,
                 //    Subject = "Confirmation email",
-                //    UnsubscribeUrl = this.Url.Action("UnsubscribeMailSend","AccountApi",userData.email)
+                //    UnsubscribeUrl = this.Url.Action("UnsubscribeMailSend", "NotifyApi", userData.email)
                 //});
-                
+
                 return Ok();
             }
             catch (Exception e)
@@ -87,17 +84,5 @@ namespace HRInPocket.Controllers.API
                 return new JsonResult(new Error(e.Message, false, e.BadParameter));
             }
         }
-
-        
-        
-        [HttpPost("/auth")]
-        public JsonResult CheckAuthEmail([FromQuery] string key, [FromQuery] string token, [FromQuery] string email)
-        {
-            _authService.NotifyMe(new NotifyUser(email){EmailNotify = true});
-            return new JsonResult(new { key, token, email });
-        }
-
-        [HttpGet("/unsubscribe")]
-        public IActionResult UnsubscribeMailSend(string email) => _authService.UnsubscribeEmail(email) ? BadRequest() : Ok();
     }
 }

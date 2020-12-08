@@ -8,20 +8,13 @@ namespace HRInPocket.Infrastructure.Services
 {
     public class AuthService
     {
-        private static readonly List<Account> Accounts = new List<Account>();
-        public const string publicKey = "kfjie33Ff*7";
-        private static readonly List<NotifyUser> Notify = new List<NotifyUser>();
-
+        private static readonly List<Account> Accounts = new();
+        public const string PublicKey = "kfjie33Ff*7";
+        
         public IEnumerable<Account> GetAccounts()
         {
             for (var i = 0; i < Accounts.Count; i++)
                 yield return Accounts[i];
-        }
-
-        public IEnumerable<NotifyUser> GetNotifyUsers()
-        {
-            for (var i = 0; i < Notify.Count; i++)
-                yield return Notify[i];
         }
 
         public string Register(UserData user)
@@ -44,22 +37,6 @@ namespace HRInPocket.Infrastructure.Services
         {
             var user = CheckUser(data);
             user.IsLoggedIn = false;
-            return true;
-        }
-
-        public void NotifyMe(NotifyUser notify)
-        {
-            var user = Notify.Find(n => n.email == notify.email);
-            if (user is null) Notify.Add(notify);
-            var index = Notify.IndexOf(user);
-            Notify[index] = notify;
-        }
-
-        public bool UnsubscribeEmail(string email)
-        {
-            var notify = Notify.Find(n => n.email == email);
-            if (notify is null) return false;
-            notify.EmailNotify = false;
             return true;
         }
 

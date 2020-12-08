@@ -10,5 +10,6 @@
         public const string FeedBack = "api/v1/feedback";
         public const string Assignments = "api/v1/assignments";
         public const string Accounts = "api/v1/user";
+        public const string Notify = "api/v1/notify";
     }
 }
