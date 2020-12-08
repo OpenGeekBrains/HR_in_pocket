@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using HRInPocket.Domain.Models.MailSender;
+using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 
@@ -211,10 +212,7 @@ namespace HRInPocket.Controllers.API
     {
         public readonly string BadParameter;
 
-        public LoginException(string message, string badParameter) : base(message)
-        {
-            BadParameter = badParameter;
-        }
+        public LoginException(string message, string badParameter) : base(message) => BadParameter = badParameter;
     } 
     
     #endregion

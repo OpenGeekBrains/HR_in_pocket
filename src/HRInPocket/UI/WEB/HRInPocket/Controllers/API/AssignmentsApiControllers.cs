@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
+using HRInPocket.Infrastructure.Models;
+using HRInPocket.Infrastructure.Models.Assignments;
+using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Interfaces;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
 
 namespace HRInPocket.Controllers.API
 {
@@ -185,9 +183,9 @@ namespace HRInPocket.Controllers.API
                 content = type switch
                 {
                     AssignmentType.Invitation => content.OfType<InvitationAssignment>(),
-                    AssignmentType.Resume => content.OfType<ResumeAssignment>(),
-                    AssignmentType.Covering => content.OfType<CoveringAssignment>(),
-                    _ => null
+                    AssignmentType.Resume     => content.OfType<ResumeAssignment>(),
+                    AssignmentType.Covering   => content.OfType<CoveringAssignment>(),
+                    _                         => null
                 };
 
             return content;
@@ -197,111 +195,4 @@ namespace HRInPocket.Controllers.API
 
         #endregion
     }
-
-
-
-
-    #region Return Models
-    public record Error(string error, bool result, string bad_parameter);
-
-    public record ArrayContent(IEnumerable<object> content, bool result);
-    #endregion
-
-
-
-    #region Api Models
-
-    [ModelBinder(typeof(AssignmentTypeModelBinder))]
-    public enum AssignmentType { Invitation, Resume, Covering }
-
-    public abstract record Assignment(long id, string place_name, Guid applicant_id)
-    {
-        public long id { get; set; } = id;
-        public string place_name { get; init; } = place_name;
-        public Guid applicant_id { get; private set; } = applicant_id;
-        public DateTime date_added { get; } = DateTime.Now;
-        public int number_of_responses { get; set; }
-        public int number_of_invitations { get; set; }
-
-        public void AssignApplicant(Guid applicantId) => applicant_id = applicantId;
-    }
-
-    public record InvitationAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
-    {
-
-    }
-
-    public record ResumeAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
-    {
-
-    }
-
-    public record CoveringAssignment(long id, string place_name, Guid applicant_id) : Assignment(id, place_name, applicant_id)
-    {
-
-    }
-
-    #endregion
-
-    #region Кастомное ограничение маршрута и Конвертация значения
-    // тип конвертации модели, альтернатива TypeConverter, с большим контроллем на контекстом
-    public class AssignmentTypeModelBinder : IModelBinder
-    {
-        #region Implementation of IModelBinder
-
-        public Task BindModelAsync(ModelBindingContext bindingContext)
-        {
-            _ = bindingContext ?? throw new ArgumentNullException(nameof(bindingContext));
-
-            // проверка на привязку к нужному типу, для уникальности конвёртера можно вынести в конструктор
-            if (bindingContext.ModelType == typeof(AssignmentType))
-            {
-                // получаем значение по ключу
-                var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-                // проверяем найдено ли значение по ключу
-                if (value != ValueProviderResult.None && Enum.TryParse(typeof(AssignmentType), value.FirstValue, out var result))
-                {
-                    // возвращаем сконвертированное значение
-                    bindingContext.Result = ModelBindingResult.Success(result);
-                    // завершаем задачу
-                    return Task.CompletedTask;
-                }
-            }
-
-            // сообщаем о неудаче конвертации
-            bindingContext.Result = ModelBindingResult.Failed();
-            // завершаем задачу
-            return Task.CompletedTask;
-        }
-
-        #endregion
-    }
-
-    // Кастомное ограничение марщрута по типу AssignmentType, для проверки является ли значение в маршруте нужным нам значением
-    public class AssignmentTypeConstrain : IRouteConstraint
-    {
-
-        #region Implementation of IRouteConstraint
-
-#nullable enable
-        public bool Match(HttpContext? httpContext, IRouter? route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-        {
-            _ = routeKey ?? throw new ArgumentNullException(nameof(routeKey));
-            _ = values ?? throw new ArgumentNullException(nameof(values));
-
-            // получаем значение в маршруте
-            if (!values.TryGetValue(routeKey, out var value)) return false;
-
-            // парсим в строку игнорируя культуру
-            var parameter = Convert.ToString(value, CultureInfo.InvariantCulture);
-
-            // если наш тип возвращаем true, если нет 'идите лесом'
-            return Enum.TryParse(typeof(AssignmentType), parameter, out _);
-        }
-#nullable restore
-
-        #endregion
-    }
-    #endregion
 }
