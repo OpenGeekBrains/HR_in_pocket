@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HRInPocket.Infrastructure.Models.Exceptions
+namespace HRInPocket.Domain.Exceptions
 {
     public class AuthorizationException : ApplicationException
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
+using HRInPocket.Domain.Exceptions;
 using HRInPocket.Domain.Models.MailSender;
 using HRInPocket.Infrastructure.Models;
-using HRInPocket.Infrastructure.Models.Exceptions;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records;
 using HRInPocket.Interfaces;

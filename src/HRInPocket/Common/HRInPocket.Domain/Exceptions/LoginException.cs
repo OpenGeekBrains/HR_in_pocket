@@ -1,4 +1,4 @@
-﻿namespace HRInPocket.Infrastructure.Models.Exceptions
+﻿namespace HRInPocket.Domain.Exceptions
 {
     public class LoginException : AuthorizationException
     {
