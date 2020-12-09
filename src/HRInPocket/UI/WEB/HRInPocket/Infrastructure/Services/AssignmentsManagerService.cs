@@ -38,12 +38,13 @@ namespace HRInPocket.Infrastructure.Services
 
             if (type is not null)
                 content = type switch
-                          {
-                              AssignmentType.Invitation => content.OfType<InvitationAssignment>(),
-                              AssignmentType.Resume     => content.OfType<ResumeAssignment>(),
-                              AssignmentType.Covering   => content.OfType<CoveringAssignment>(),
-                              _                         => null
-                          };
+                {
+                    AssignmentType.Invitation => content.OfType<InvitationAssignment>(),
+                    AssignmentType.Resume     => content.OfType<ResumeAssignment>(),
+                    AssignmentType.Covering   => content.OfType<CoveringAssignment>(),
+                    AssignmentType.Feedback   => content.OfType<FeedbackAssignment>(),
+                    _                         => null
+                };
 
             return content;
         }
