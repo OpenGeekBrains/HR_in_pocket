@@ -4,4 +4,10 @@
     {
         Male,Female
     }
+
+
+    public enum AssignmentType
+    {
+        Invitation, Resume, Covering, Feedback
+    }
 }

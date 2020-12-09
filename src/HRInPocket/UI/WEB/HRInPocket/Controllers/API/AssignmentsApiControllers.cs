@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using HRInPocket.Domain;
 using HRInPocket.Infrastructure.Models;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records.Assignments;
