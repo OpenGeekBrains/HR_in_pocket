@@ -42,6 +42,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.Extensions", "Services\HRInPocket.Extensions\HRInPocket.Extensions.csproj", "{F8FD857A-1B5D-49CF-9049-F0BA09C54255}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +94,10 @@ Global
 		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8FD857A-1B5D-49CF-9049-F0BA09C54255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
