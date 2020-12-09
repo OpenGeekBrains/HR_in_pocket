@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+using HRInPocket.Interfaces;
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
@@ -20,9 +21,11 @@ namespace HRInPocket.WPF.ViewModels
     internal class MainWindowViewModel : ViewModelCore
     {
         public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON,
-                                    IParsehhService ParsehhService)
+                                    IParsehhService ParsehhService,
+                                    IDataRepository<Domain.Entities.Data.Vacancy> VacancyRepo)
         {
             _SaveDataToJSON = SaveDataToJSON;
+            _VacancyRepo = VacancyRepo;
             _Parsehh = ParsehhService.GetParse();
             _Parsehh.SendVacancy += GetDataCollection;
 
@@ -33,6 +36,8 @@ namespace HRInPocket.WPF.ViewModels
 
         /// <summary>Сервис сохранения данных</summary>
         private readonly ISaveDataToJSON _SaveDataToJSON;
+
+        private readonly IDataRepository<Domain.Entities.Data.Vacancy> _VacancyRepo;
 
         /// <summary>Сервис парсинга hh.ru</summary>
         private readonly IParsehh _Parsehh;
