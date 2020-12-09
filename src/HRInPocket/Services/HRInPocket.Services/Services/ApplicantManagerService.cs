@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using HRInPocket.Infrastructure.Models.Records;
-
-namespace HRInPocket.Infrastructure.Services
+namespace HRInPocket.Services.Services
 {
     public class ApplicantManagerService
     {
@@ -12,7 +10,7 @@ namespace HRInPocket.Infrastructure.Services
 
         public ApplicantManagerService(AuthService authService) => _authService = authService;
 
-        private static readonly List<Applicant> Applicants = new();
+        private static readonly List<Applicant> Applicants = new List<Applicant>();
         
         
         

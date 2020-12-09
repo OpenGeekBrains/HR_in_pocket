@@ -2,8 +2,8 @@
 
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records;
-using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
+using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

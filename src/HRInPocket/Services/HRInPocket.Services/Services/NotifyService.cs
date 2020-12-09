@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 
-using HRInPocket.Infrastructure.Models.Records;
-
-namespace HRInPocket.Infrastructure.Services
+namespace HRInPocket.Services.Services
 {
     public class NotifyService
     {
-        private static readonly List<NotifyUser> Notify = new();
+        private static readonly List<NotifyUser> Notify = new List<NotifyUser>();
         
         public IEnumerable<NotifyUser> GetNotifyUsers()
         {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
-using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
+using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,10 +15,10 @@ namespace HRInPocket.Controllers.API
         private readonly ILogger<FeedBackApiController> _Logger;
         private readonly FeedBackService _feedbackService;
 
-        public FeedBackApiController(ILogger<FeedBackApiController> Logger)
+        public FeedBackApiController(ILogger<FeedBackApiController> Logger, FeedBackService feedBackService)
         {
             _Logger = Logger;
-            _feedbackService = new FeedBackService();
+            _feedbackService = feedBackService;
         }
 
         [HttpGet]

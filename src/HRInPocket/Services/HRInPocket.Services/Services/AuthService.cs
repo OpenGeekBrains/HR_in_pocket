@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using HRInPocket.Infrastructure.Models.Exceptions;
-using HRInPocket.Infrastructure.Models.Records;
-
-namespace HRInPocket.Infrastructure.Services
+namespace HRInPocket.Services.Services
 {
     public class AuthService
     {
-        private static readonly List<Account> Accounts = new();
+        private static readonly List<Account> Accounts = new List<Account>();
         public const string PublicKey = "kfjie33Ff*7";
         
         public IEnumerable<Account> GetAccounts()
@@ -19,7 +16,7 @@ namespace HRInPocket.Infrastructure.Services
 
         public string Register(UserData user)
         {
-            if (Accounts.FirstOrDefault(a => a.Data.email == user.email) is not null) throw new RegistrationException(user);
+            if (Accounts.FirstOrDefault(a => a.Data.email == user.email) != null) throw new RegistrationException(user);
             
             var account = new Account(user);
             Accounts.Add(account);
@@ -42,9 +39,9 @@ namespace HRInPocket.Infrastructure.Services
         private static Account CheckUser(UserData data)
         {
             var user = Accounts.Find(a => a.Data == data);
-            if (user is not null) return user;
+            if (user != null) return user;
 
-            if (Accounts.SingleOrDefault(a => a.Data.email == data.email) is not null)
+            if (Accounts.SingleOrDefault(a => a.Data.email == data.email) != null)
                 throw new LoginException("Wrong password", nameof(data.password));
             throw new LoginException("Account not existed", nameof(data.email));
         }

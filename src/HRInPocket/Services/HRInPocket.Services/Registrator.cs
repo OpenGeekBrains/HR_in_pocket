@@ -16,6 +16,13 @@ namespace HRInPocket.Services
             services.AddTransient<ITasksService, TasksService>();
             services.AddTransient<ITaskManager, TaskManager>();
 
+            services
+                .AddTransient<AuthService>()
+                .AddTransient<ApplicantManagerService>()
+                .AddTransient<AssignmentsManagerService>()
+                .AddTransient<FeedBackService>()
+                .AddTransient<NotifyService>();
+            
             services.AddRepositories();
 
             return services;

@@ -4,8 +4,8 @@ using System.Linq;
 using HRInPocket.Infrastructure.Models;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records.Assignments;
-using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
+using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,12 +22,11 @@ namespace HRInPocket.Controllers.API
         private readonly ApplicantManagerService _applicantsManager;
 
 
-        public AssignmentsApiControllers(ILogger<AssignmentsApiControllers> logger)
+        public AssignmentsApiControllers(ILogger<AssignmentsApiControllers> logger, ApplicantManagerService applicantManager, AssignmentsManagerService assignmentsManager)
         {
             _logger = logger;
-            var authService = new AuthService();
-            _applicantsManager = new ApplicantManagerService(authService);
-            _assignmentsManager = new AssignmentsManagerService(_applicantsManager);
+            _applicantsManager = applicantManager;
+            _assignmentsManager = assignmentsManager;
         }
 
         #region Get All

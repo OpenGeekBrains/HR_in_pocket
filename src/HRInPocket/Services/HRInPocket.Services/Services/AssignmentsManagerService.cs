@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using HRInPocket.Infrastructure.Models;
-using HRInPocket.Infrastructure.Models.Records.Assignments;
-
-namespace HRInPocket.Infrastructure.Services
+namespace HRInPocket.Services.Services
 {
     public class AssignmentsManagerService
     {
@@ -16,7 +13,7 @@ namespace HRInPocket.Infrastructure.Services
             _applicantManager = applicantManager;
         }
         
-        private static readonly List<Assignment> Assignments = new();
+        private static readonly List<Assignment> Assignments = new List<Assignment>();
         #region Counter
         private static long _counter;
         private static long Counter => ++_counter; 

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 
-using HRInPocket.Infrastructure.Models.Records;
-
-namespace HRInPocket.Infrastructure.Services
+namespace HRInPocket.Services.Services
 {
     public class FeedBackService
     {
-        public readonly List<FeedbackRequest> Requests = new();
+        public readonly List<FeedbackRequest> Requests = new List<FeedbackRequest>();
         private static long _counter;
         private static long Counter => ++_counter;
 

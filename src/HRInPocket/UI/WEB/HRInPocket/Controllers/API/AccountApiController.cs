@@ -6,9 +6,9 @@ using HRInPocket.Infrastructure.Models;
 using HRInPocket.Infrastructure.Models.Exceptions;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records;
-using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
+using HRInPocket.Services.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,11 +23,11 @@ namespace HRInPocket.Controllers.API
         private readonly ILogger<AccountApiController> _logger;
         private readonly AuthService _authService;
         
-        public AccountApiController(IMailSenderService mailSender, ILogger<AccountApiController> logger)
+        public AccountApiController(IMailSenderService mailSender, ILogger<AccountApiController> logger, AuthService authService)
         {
             _mailSender = mailSender;
             _logger = logger;
-            _authService = new AuthService();
+            _authService = authService;
         }
 
         #region Get
