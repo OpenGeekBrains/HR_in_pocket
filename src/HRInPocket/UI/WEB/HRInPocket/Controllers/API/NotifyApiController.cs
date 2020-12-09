@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using HRInPocket.Domain.Models.JsonReturnModels;
-using HRInPocket.Infrastructure.Models.Records;
+using HRInPocket.Domain.Models.Records;
 using HRInPocket.Interfaces;
 using HRInPocket.Services.Services;
 

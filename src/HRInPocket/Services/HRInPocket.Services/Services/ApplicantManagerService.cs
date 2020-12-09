@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using HRInPocket.Domain.Models.Records;
+
 namespace HRInPocket.Services.Services
 {
     public class ApplicantManagerService
@@ -18,7 +20,7 @@ namespace HRInPocket.Services.Services
 
         public void Register(Applicant applicant)
         {
-            _authService.Register(applicant.UserData);
+            _authService.Register(applicant.Data);
             Applicants.Add(applicant);
         }
 

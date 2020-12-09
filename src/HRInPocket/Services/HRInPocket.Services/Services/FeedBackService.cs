@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.Models.Records;
+
 namespace HRInPocket.Services.Services
 {
     public class FeedBackService

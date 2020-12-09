@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using HRInPocket.Domain;
+using HRInPocket.Domain.Models.Records.Assignments;
+
 namespace HRInPocket.Services.Services
 {
     public class AssignmentsManagerService
@@ -33,7 +36,7 @@ namespace HRInPocket.Services.Services
         {
             var content = Assignments.Where(a => a.applicant_id == applicantId);
 
-            if (type is not null)
+            if (type != null)
                 content = type switch
                 {
                     AssignmentType.Invitation => content.OfType<InvitationAssignment>(),

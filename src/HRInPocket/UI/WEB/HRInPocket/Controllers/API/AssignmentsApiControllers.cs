@@ -3,8 +3,8 @@ using System.Linq;
 
 using HRInPocket.Domain;
 using HRInPocket.Domain.Models.JsonReturnModels;
+using HRInPocket.Domain.Models.Records.Assignments;
 using HRInPocket.Infrastructure.Models;
-using HRInPocket.Infrastructure.Models.Records.Assignments;
 using HRInPocket.Interfaces;
 using HRInPocket.Services.Services;
 

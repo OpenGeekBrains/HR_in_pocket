@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using HRInPocket.Domain.Exceptions;
+using HRInPocket.Domain.Models.Records;
+
 namespace HRInPocket.Services.Services
 {
     public class AuthService

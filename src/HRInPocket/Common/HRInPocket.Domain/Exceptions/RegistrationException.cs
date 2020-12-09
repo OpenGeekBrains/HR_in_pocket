@@ -1,4 +1,6 @@
-﻿namespace HRInPocket.Domain.Exceptions
+﻿using HRInPocket.Domain.Models.Records;
+
+namespace HRInPocket.Domain.Exceptions
 {
     public class RegistrationException : AuthorizationException
     {

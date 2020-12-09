@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
+using HRInPocket.Domain;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 

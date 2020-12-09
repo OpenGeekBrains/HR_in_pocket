@@ -3,9 +3,7 @@ using System.Linq;
 
 using HRInPocket.Domain.Exceptions;
 using HRInPocket.Domain.Models.JsonReturnModels;
-using HRInPocket.Domain.Models.MailSender;
-using HRInPocket.Infrastructure.Models;
-using HRInPocket.Infrastructure.Models.Records;
+using HRInPocket.Domain.Models.Records;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Services;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using HRInPocket.Domain;
+
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace HRInPocket.Infrastructure.Models.Extensions

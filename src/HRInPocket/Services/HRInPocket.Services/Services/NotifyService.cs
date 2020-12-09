@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.Models.Records;
+
 namespace HRInPocket.Services.Services
 {
     public class NotifyService
@@ -14,7 +16,7 @@ namespace HRInPocket.Services.Services
 
         public void NotifyMe(NotifyUser notify)
         {
-            var user = Notify.Find(n => n.email == notify.email);
+            var user = Notify.Find(n => n.Email == notify.Email);
             if (user is null) Notify.Add(notify);
             var index = Notify.IndexOf(user);
             Notify[index] = notify;
@@ -22,7 +24,7 @@ namespace HRInPocket.Services.Services
 
         public bool UnsubscribeEmail(string email)
         {
-            var notify = Notify.Find(n => n.email == email);
+            var notify = Notify.Find(n => n.Email == email);
             if (notify is null) return false;
             notify.EmailNotify = false;
             return true;
