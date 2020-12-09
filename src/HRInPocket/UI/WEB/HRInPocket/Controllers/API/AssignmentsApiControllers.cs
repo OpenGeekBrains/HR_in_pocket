@@ -3,7 +3,6 @@ using System.Linq;
 
 using HRInPocket.Infrastructure.Models;
 using HRInPocket.Infrastructure.Models.JsonReturnModels;
-using HRInPocket.Infrastructure.Models.Records;
 using HRInPocket.Infrastructure.Models.Records.Assignments;
 using HRInPocket.Infrastructure.Services;
 using HRInPocket.Interfaces;
@@ -29,34 +28,16 @@ namespace HRInPocket.Controllers.API
             var authService = new AuthService();
             _applicantsManager = new ApplicantManagerService(authService);
             _assignmentsManager = new AssignmentsManagerService(_applicantsManager);
-
-            logger.LogDebug(LogEvents.GenerateItems, "Generate test applicants and assignments");
-            
-            var applicant1 = new Applicant(new UserData("TestApplicant1@gmail.com", "test1"));
-            var applicant2 = new Applicant(new UserData("TestApplicant2@yahoo.net", "test2"));
-            _applicantsManager.Register(applicant1);
-            _applicantsManager.Register(applicant2);
-            _assignmentsManager.Add(new InvitationAssignment("Invitation 1"));
-            _assignmentsManager.Add(new InvitationAssignment("Invitation 2") {number_of_invitations = 2, number_of_responses = 1});
-            _assignmentsManager.Add(new InvitationAssignment("Invitation 3"));
-            _assignmentsManager.Add(new CoveringAssignment("Covering 1"));
-
-            var resume1 = new ResumeAssignment("Resume 1");
-            resume1.AssignApplicant(applicant1.Id);
-            _assignmentsManager.Add(resume1);
-            var resume2 = new ResumeAssignment("Resume 2");
-            resume2.AssignApplicant(applicant1.Id);
-            _assignmentsManager.Add(resume2);
-            var resume3 = new ResumeAssignment("Resume 3") {number_of_invitations = 3, number_of_responses = 4};
-            resume3.AssignApplicant(applicant2.Id);
-            _assignmentsManager.Add(resume3);
         }
-
 
         #region Get All
 
         [HttpGet("all")]
-        public IActionResult Get() => new JsonResult(new ArrayContent(_assignmentsManager.Get(), true));
+        public IActionResult Get()
+        {
+            _logger.LogInformation(LogEvents.ListItems,"Get all Assignments");
+            return new JsonResult(new ArrayContent(_assignmentsManager.Get(), true));
+        }
 
         [HttpGet("{applicantId}")]
         public IActionResult Get(Guid applicantId) => Get(applicantId, null);
@@ -64,13 +45,23 @@ namespace HRInPocket.Controllers.API
         [HttpGet("{applicantId}/{type}")]
         public IActionResult Get(Guid applicantId, AssignmentType? type)
         {
-            if (!_applicantsManager.IsApplicantExist(applicantId)) return BadRequest();
+            _logger.LogInformation(LogEvents.ListItems,$"Get{(type is null ? " all " : $" {type} ")}Assignments of Applicant {applicantId}");
+            if (!_applicantsManager.IsApplicantExist(applicantId))
+            {
+                _logger.LogWarning(LogEvents.ListItemsNotFound, $"Can't return Assignments, Applicant {applicantId} not found");
+                return BadRequest();
+            }
 
             var content = _assignmentsManager.GetAssignmentsOfType(applicantId, type);
 
-            return !(content ?? Array.Empty<Assignment>()).Any()
-                ? NotFound()
-                : new JsonResult(new ArrayContent(content, true));
+            if (!(content ?? Array.Empty<Assignment>()).Any())
+            {
+                _logger.LogWarning(LogEvents.ListItemsNotFound, $"Assignments{(type is null ? " " : $" of type {type} ")}not found for Applicant {applicantId}");
+                return NotFound();
+            }
+
+            _logger.LogInformation(LogEvents.ListItems,$"Successfully find assignments{(type is null ? " " : $" of type {type} ")}for Applicant {applicantId}");
+            return new JsonResult(new ArrayContent(content, true));
         }
 
         #endregion
@@ -80,47 +71,106 @@ namespace HRInPocket.Controllers.API
         [HttpGet("{applicantId}/{type}/{assignmentId}")]
         public IActionResult GetById(Guid applicantId, AssignmentType type, long assignmentId)
         {
-            if (!_applicantsManager.IsApplicantExist(applicantId)) return BadRequest();
+            _logger.LogInformation(LogEvents.GetItem, $"Get {type} Assignments of Applicant {applicantId}");
+            if (!_applicantsManager.IsApplicantExist(applicantId))
+            {
+                _logger.LogWarning(LogEvents.GetItemNotFound, $"Can't return Assignment {assignmentId}, Applicant {applicantId} not found");
+                return BadRequest();
+            }
 
             var assignments = _assignmentsManager.GetAssignmentsOfType(applicantId, type);
 
             var assignment = assignments.FirstOrDefault(a => a.id == assignmentId);
-            return assignment is null
-                ? NotFound()
-                : new JsonResult(new { content = assignment, result = true });
+            if (assignment is null)
+            {
+                _logger.LogWarning(LogEvents.ListItemsNotFound, $"Assignment {assignmentId} not found for Applicant {applicantId}");
+                return NotFound();
+            }
+
+            _logger.LogInformation(LogEvents.ListItems,$"Successfully find assignment {assignmentId} for Applicant {applicantId}");
+            return new JsonResult(new {content = assignment, result = true});
         }
 
         #endregion
 
-        #region Create
+        #region Insert
 
         [HttpPost("{applicantId}/Invitation")]
-        public IActionResult Create(Guid applicantId, [FromBody] InvitationAssignment invitation) => CreateAssignment(applicantId, invitation);
+        public IActionResult Insert(Guid applicantId, [FromBody] InvitationAssignment invitation)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Create invitation assignment for Applicant {applicantId}");
+            return InsertAssignment(applicantId, invitation);
+        }
 
         [HttpPost("{applicantId}/Resume")]
-        public IActionResult Create(Guid applicantId, [FromBody] ResumeAssignment resume) => CreateAssignment(applicantId, resume);
+        public IActionResult Insert(Guid applicantId, [FromBody] ResumeAssignment resume)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Create resume assignment for Applicant {applicantId}");
+            return InsertAssignment(applicantId, resume);
+        }
 
         [HttpPost("{applicantId}/Covering")]
-        public IActionResult Create(Guid applicantId, [FromBody] CoveringAssignment covering) => CreateAssignment(applicantId, covering);
+        public IActionResult Insert(Guid applicantId, [FromBody] CoveringAssignment covering)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Create covering assignment for Applicant {applicantId}");
+            return InsertAssignment(applicantId, covering);
+        }
 
         #endregion
 
         #region Update
 
         [HttpPut("{applicantId}/Invitation")]
-        public IActionResult UpdateInvitation(Guid applicantId, [FromBody] InvitationAssignment invitation) => UpdateAssignment(applicantId, invitation);
+        public IActionResult UpdateInvitation(Guid applicantId, [FromBody] InvitationAssignment invitation)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Update invitation assignment for Applicant {applicantId}");
+            return UpdateAssignment(applicantId, invitation);
+        }
 
         [HttpPut("{applicantId}/Resume")]
-        public IActionResult UpdateResume(Guid applicantId, [FromBody] ResumeAssignment resume) => UpdateAssignment(applicantId, resume);
+        public IActionResult UpdateResume(Guid applicantId, [FromBody] ResumeAssignment resume)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Update resume assignment for Applicant {applicantId}");
+            return UpdateAssignment(applicantId, resume);
+        }
 
         [HttpPut("{applicantId}/Covering")]
-        public IActionResult UpdateCovering(Guid applicantId, [FromBody] CoveringAssignment covering) => UpdateAssignment(applicantId, covering);
+        public IActionResult UpdateCovering(Guid applicantId, [FromBody] CoveringAssignment covering)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Update covering assignment for Applicant {applicantId}");
+            return UpdateAssignment(applicantId, covering);
+        }
+
+        #endregion
+
+        #region Assign
+
+        [HttpPut("assign/{assignmentId}/{applicantId}")]
+        public IActionResult AssignAssignment(long assignmentId, Guid applicantId)
+        {
+            _logger.LogInformation(LogEvents.UpdateItem, $"Assign assignment {assignmentId} to Applicant {applicantId}");
+            if (_applicantsManager.IsApplicantExist(applicantId))
+            {
+                _logger.LogWarning(LogEvents.InsertItemFailure, $"Cannot Assign assignment for Applicant {applicantId} that not exist");
+                return BadRequest();
+            }
+
+            var assignment = _assignmentsManager.Get(assignmentId);
+            if (assignment is null)
+            {
+                _logger.LogWarning(LogEvents.InsertItemFailure, $"Cannot Assign assignment {assignmentId} that not exist");
+                return NotFound();
+            }
+
+            _logger.LogInformation(LogEvents.UpdateItem, $"Successfully Assign assignment {assignmentId} to Applicant {applicantId}");
+            return Ok();
+        }
 
         #endregion
 
 
         #region Methods
-        
+
         /// <summary>
         /// Add record to repository
         /// </summary>
@@ -132,14 +182,20 @@ namespace HRInPocket.Controllers.API
         /// <item>Record identifier with type <see cref="long"/></item>
         /// </list>
         /// </returns>
-        private IActionResult CreateAssignment(Guid applicantId, Assignment assignment)
+        private IActionResult InsertAssignment(Guid applicantId, Assignment assignment)
         {
-            if(!_applicantsManager.IsApplicantExist(applicantId)) return  BadRequest();
-            
+            if(!_applicantsManager.IsApplicantExist(applicantId))
+            {
+                _logger.LogWarning(LogEvents.InsertItemFailure, $"Cannot Insert assignment for Applicant {applicantId} that not exist");
+                return BadRequest();
+            }
+
             var registeredAssignment = _assignmentsManager.Add(assignment);
             
+            _logger.LogInformation(LogEvents.InsertItem, $"Assign assignment {registeredAssignment.id} to Applicant {applicantId}");
             _assignmentsManager.AssignApplicant(registeredAssignment, applicantId);
             
+            _logger.LogInformation(LogEvents.InsertItem, $"Assignment {registeredAssignment.id} successfully Inserted and Assigned to Applicant {applicantId}");
             return new JsonResult(registeredAssignment.id);
         }
 
@@ -157,11 +213,19 @@ namespace HRInPocket.Controllers.API
         /// </returns>
         private IActionResult UpdateAssignment(Guid applicantId, Assignment assignment)
         {
-            if (!_applicantsManager.IsApplicantExist(applicantId)) return BadRequest();
+            if (!_applicantsManager.IsApplicantExist(applicantId))
+            {
+                _logger.LogWarning(LogEvents.InsertItemFailure, $"Cannot Update assignment for Applicant {applicantId} that not exist");
+                return BadRequest();
+            }
 
             if(!_assignmentsManager.Update(assignment))
+            {
+                _logger.LogWarning(LogEvents.InsertItemFailure, $"Cannot Update assignment that not exist");
                 return NotFound();
-            
+            }
+
+            _logger.LogInformation(LogEvents.InsertItem, $"Assignment {assignment.id} successfully Updated");
             return Ok();
         }
         

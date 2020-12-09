@@ -1,6 +1,6 @@
 ﻿namespace HRInPocket.Infrastructure.Models
 {
-    public class LogEvents
+    public static class LogEvents
     {
         public const int GenerateItems = 1000;
         public const int ListItems     = 1001;
@@ -11,8 +11,12 @@
 
         public const int TestItem      = 3000;
 
-        public const int GetItemNotFound    = 4000;
-        public const int UpdateItemNotFound = 4001;
+        public const int GenerateItemsFailure = 4000;
+        public const int ListItemsNotFound = 4001;
+        public const int GetItemNotFound    = 4002;
+        public const int InsertItemFailure    = 4003;
+        public const int UpdateItemNotFound = 4004;
+        public const int DeleteItemFailure = 4005;
 
         public const int AccountRegistration = 5000;
         public const int AccountLogin = 5001;

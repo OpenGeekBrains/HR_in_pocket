@@ -48,6 +48,7 @@ namespace HRInPocket.Infrastructure.Services
             return content;
         }
         
+        public Assignment Get(long id) => Assignments.FirstOrDefault(a=>a.id == id);
         #endregion
 
         public Assignment Add(Assignment assignment)
