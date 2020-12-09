@@ -1,4 +1,4 @@
-﻿namespace HRInPocket.Infrastructure.Models
+﻿namespace HRInPocket.Interfaces
 {
     public static class LogEvents
     {
