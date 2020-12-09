@@ -115,6 +115,13 @@ namespace HRInPocket.Controllers.API
             _logger.LogInformation(LogEvents.InsertItem,$"Create covering assignment for Applicant {applicantId}");
             return InsertAssignment(applicantId, covering);
         }
+        
+        [HttpPost("{applicantId}/Feedback")]
+        public IActionResult Insert(Guid applicantId, [FromBody] FeedbackAssignment feedback)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Create feedback assignment for Applicant {applicantId}");
+            return InsertAssignment(applicantId, feedback);
+        }
 
         #endregion
 
@@ -139,6 +146,13 @@ namespace HRInPocket.Controllers.API
         {
             _logger.LogInformation(LogEvents.InsertItem,$"Update covering assignment for Applicant {applicantId}");
             return UpdateAssignment(applicantId, covering);
+        }
+        
+        [HttpPut("{applicantId}/Feedback")]
+        public IActionResult UpdateFeedback(Guid applicantId, [FromBody] FeedbackAssignment feedback)
+        {
+            _logger.LogInformation(LogEvents.InsertItem,$"Update feedback assignment for Applicant {applicantId}");
+            return UpdateAssignment(applicantId, feedback);
         }
 
         #endregion

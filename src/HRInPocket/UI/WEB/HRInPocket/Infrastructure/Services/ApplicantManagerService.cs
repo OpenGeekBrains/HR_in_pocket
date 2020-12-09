@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using HRInPocket.Infrastructure.Models.Records;
 
@@ -26,7 +27,8 @@ namespace HRInPocket.Infrastructure.Services
         public bool IsApplicantExist(Guid id)
         {
             if (id == Guid.Empty) return false;
-            // todo: check if applicant not exist
+            if (Applicants.FirstOrDefault(a => a.Id == id) is null) return false;
+            
             return true;
         }
     }

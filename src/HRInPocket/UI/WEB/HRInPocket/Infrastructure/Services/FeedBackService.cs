@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using HRInPocket.Controllers.API;
 using HRInPocket.Infrastructure.Models.Records;
 
 namespace HRInPocket.Infrastructure.Services
@@ -16,11 +14,6 @@ namespace HRInPocket.Infrastructure.Services
         {
             request.id = Counter;
             Requests.Add(request);
-        }
-
-        public void AssignApplicant(Guid applicant_id, long request_id)
-        {
-
         }
     }
 }

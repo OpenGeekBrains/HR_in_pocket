@@ -5,5 +5,5 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRInPocket.Infrastructure.Models
 {
     [ModelBinder(typeof(AssignmentTypeModelBinder))]
-    public enum AssignmentType { Invitation, Resume, Covering }
+    public enum AssignmentType { Invitation, Resume, Covering, Feedback }
 }
