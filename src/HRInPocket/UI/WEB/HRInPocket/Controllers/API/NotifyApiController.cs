@@ -14,13 +14,13 @@ namespace HRInPocket.Controllers.API
     [ApiController]
     public class NotifyApiController : ControllerBase
     {
-        private readonly NotifyService _notifyService;
         private readonly ILogger<NotifyApiController> _logger;
+        private readonly NotifyService _notifyService;
 
-        public NotifyApiController(NotifyService notifyService, ILogger<NotifyApiController> logger)
+        public NotifyApiController(ILogger<NotifyApiController> logger)
         {
-            _notifyService = notifyService;
             _logger = logger;
+            _notifyService = new NotifyService();
         }
         
         [HttpGet]
