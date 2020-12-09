@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using HRInPocket.Infrastructure.Models.JsonReturnModels;
+using HRInPocket.Domain.Models.JsonReturnModels;
 using HRInPocket.Infrastructure.Models.Records;
 using HRInPocket.Interfaces;
 using HRInPocket.Services.Services;
