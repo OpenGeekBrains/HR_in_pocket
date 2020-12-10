@@ -1,16 +1,12 @@
-using AutoMapper;
-
-using HRInPocket.Controllers.API;
 using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
 using HRInPocket.Domain;
-using HRInPocket.Domain.AutoMapperProfiles;
+using HRInPocket.Infrastructure;
 using HRInPocket.Infrastructure.Profiles;
 using HRInPocket.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -84,6 +80,7 @@ namespace HRInPocket
 
             app.UseMiddleware<ErrorHandkingMiddleware>();
             app.UseMiddleware<TimeLoadMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
