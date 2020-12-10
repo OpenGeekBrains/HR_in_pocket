@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Interfaces;
+using HRInPocket.Interfaces.Repository;
 using HRInPocket.Interfaces.Services;
 
 //using Microsoft.AspNet.OData;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRInPocket.Controllers.Api
 {
     [ApiController]
-    [Route(ApiRoutes.Company)]
+    [Route(WebAPI.Company)]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _CompanyService;
@@ -27,7 +28,7 @@ namespace HRInPocket.Controllers.Api
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<CompanyDTO>> Get() => (await _CompanyService.GetCompanies()).Items.ToList();
+        public async Task<IEnumerable<CompanyDTO>> Get() => (await _CompanyService.GetAllAsync()).Entities.ToList();
 
         /// <summary>
         /// Посмотреть информацию о компании по идентификатору
@@ -35,7 +36,7 @@ namespace HRInPocket.Controllers.Api
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<CompanyDTO> GetCompanyById(Guid id) => await _CompanyService.GetCompanyById(id);
+        public async Task<CompanyDTO> GetCompanyById(Guid id) => await _CompanyService.GetByIdAsync(id);
 
         /// <summary>
         ///  Создать компанию
@@ -44,14 +45,14 @@ namespace HRInPocket.Controllers.Api
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateCompanyAsync([FromBody] CompanyDTO company) =>
-            CreatedAtAction("Get", await _CompanyService.CreateCompanyAsync(company));
+            CreatedAtAction("Get", await _CompanyService.CreateAsync(company));
         /// <summary>
         /// Редактирвание информации о компании
         /// </summary>
         /// <param name="company"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<bool> EditCompanyAsync([FromBody] CompanyDTO company) => await _CompanyService.EditCompanyAsync(company);
+        public async Task<bool> EditCompanyAsync([FromBody] CompanyDTO company) => await _CompanyService.EditAsync(company);
 
         /// <summary>
         /// Удаление компании по идентификатору
@@ -59,7 +60,7 @@ namespace HRInPocket.Controllers.Api
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<bool> RemoveCompanyAsync(Guid id) => await _CompanyService.RemoveCompanyAsync(id);
+        public async Task<bool> RemoveCompanyAsync(Guid id) => await _CompanyService.RemoveAsync(id);
     }
    
 }

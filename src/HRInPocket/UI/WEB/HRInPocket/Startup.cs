@@ -1,13 +1,12 @@
-using AutoMapper;
-
+using HRInPocket.DAL;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain;
 using HRInPocket.Infrastructure;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Services.Mapper;
+using HRInPocket.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,37 +24,30 @@ namespace HRInPocket
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services
+               .AddControllersWithViews()
+               .AddRazorRuntimeCompilation();
 
-            services.AddDB(Configuration);
-            services.AddServices(Configuration);
+            services
+                .AddDatabase(Configuration)
+                .AddIdentity()
+                .AddServices();
+                
+            //services.Configure<RouteOptions>(opt=> 
+            //    // если в маршшруте будет указано {type:assignment_type}, то используется подставится указанное ограничение маршрута
+            //    opt.ConstraintMap.Add("assignment_type", typeof(AssignmentTypeConstrain)));
 
-            services.AddAutoMapper(
-                typeof(MappingProfile),
+            services.AddAutoMapperWithProfiles(
                 typeof(AccountsProfile)
                 );
 
-            services.AddSwaggerGen(setup => setup
-                .SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "HR in Pocket API",
-                    Version = "v1"
-                }));
+            services.AddSwaggerGen(setup =>
+            {
+                //setup.OperationFilter<OptionalParameterFilter>(); 
+                setup.SwaggerDoc("v1", new OpenApiInfo {Title = "HR in Pocket API", Version = "v1"});
+            });
             
 
-            #region Services
-
-            //services.AddScoped<IDataRepository<T>, DataRepository<T>>();
-
-            //services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IMailSenderService, MailSenderService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-            //services.AddScoped<IResumeService, ResumeService>();
-            //services.AddScoped<IShoppingService, ShoppingService>();
-            //services.AddScoped<ITargetTaskService, TargetTaskService>();
-            //services.AddScoped<IVacancyService, VacancyService>();
-
-            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TestDbInitializer db)
@@ -67,7 +59,11 @@ namespace HRInPocket
                 app.UseBrowserLink();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(setup => setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1"));
+                app.UseSwaggerUI(setup =>
+                    {
+                        setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1");
+                    }
+                );
             }
             else
             {
@@ -84,6 +80,7 @@ namespace HRInPocket
 
             app.UseMiddleware<ErrorHandkingMiddleware>();
             app.UseMiddleware<TimeLoadMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

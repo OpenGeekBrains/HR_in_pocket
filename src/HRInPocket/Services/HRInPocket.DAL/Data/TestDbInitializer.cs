@@ -1,11 +1,13 @@
 ﻿using System;
 
+using HRInPocket.Interfaces.EF;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace HRInPocket.DAL.Data
 {
-    public class TestDbInitializer
+    public class TestDbInitializer : IDbInitializer
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<TestDbInitializer> _logger;
@@ -14,7 +16,7 @@ namespace HRInPocket.DAL.Data
         {
             _dbContext = dbContext;
             _logger = logger;
-            logger.LogError("Ошибка в конструкторе БД");
+            //logger.LogError("Ошибка в конструкторе БД");
         }
 
         public void Initialize()
@@ -25,14 +27,14 @@ namespace HRInPocket.DAL.Data
             {
                 db.Migrate();
 
-                _dbContext
-                    .InitTable(TestData.Addresses)
-                    .InitTable(TestData.Specialties)
-                    .InitTable(TestData.ActivityCategories)
-                    .InitTable(TestData.TargetTasks)
+                IDbInitializer.Initializer.StartInit(_dbContext, _logger)
+                .InitTable(TestData.Addresses)
+                .InitTable(TestData.Specialties)
+                .InitTable(TestData.ActivityCategories)
+                .InitTable(TestData.TargetTasks)
 
-                    .InitTable(TestData.Tarifs)
-                    .InitTable(TestData.Price)
+                .InitTable(TestData.Tarifs)
+                .InitTable(TestData.Price)
 
 
 
