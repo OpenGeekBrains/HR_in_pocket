@@ -1,9 +1,10 @@
 using AutoMapper;
+
 using HRInPocket.DAL.Data;
+using HRInPocket.Infrastructure;
 using HRInPocket.Infrastructure.Profiles;
-using HRInPocket.Interfaces.Services;
 using HRInPocket.Services.Mapper;
-using HRInPocket.Services.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
 using Serilog;
 
 namespace HRInPocket
@@ -65,11 +67,7 @@ namespace HRInPocket
                 app.UseBrowserLink();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(setup =>
-                    {
-                        setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1");
-                    }
-                );
+                app.UseSwaggerUI(setup => setup.SwaggerEndpoint("/swagger/v1/swagger.json", "HR in Pocket API v1"));
             }
             else
             {
@@ -84,6 +82,8 @@ namespace HRInPocket
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandkingMiddleware>();
+            app.UseMiddleware<TimeLoadMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -92,6 +92,4 @@ namespace HRInPocket
             });
         }
     }
-
-
 }

@@ -30,24 +30,25 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Посмотреть все вакансии
         /// </summary>
-        public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter)
+        public async Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter = null)
         {
             var query = _DataProvider.GetQueryable();
+            int count = 0;
 
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
+
+                count = await query.CountAsync();
+
+                query = query
+                    .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
+                    .Take(filter.Pages.PageSize);
             }
-
-            var count = await query.CountAsync();
-
-            query = query
-                .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
-                .Take(filter.Pages.PageSize);
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count
             };
         }
@@ -65,7 +66,7 @@ namespace HRInPocket.Services.Services
 
             return new PageVacancyDTO
             {
-                Vacancies = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<VacancyDTO>(q)),
                 TotalCount = count,
             };
         }
@@ -93,9 +94,6 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Поиск вакансий
         /// </summary>
-        public Task SearchVacanciesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public Task SearchVacanciesAsync() => throw new NotImplementedException();
     }
 }

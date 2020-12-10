@@ -11,7 +11,7 @@ namespace HRInPocket.Interfaces.Services
         /// <summary>
         /// Посмотреть все вакансии
         /// </summary>
-        Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter);
+        Task<PageVacancyDTO> GetVacanciesAsync(VacancyFilter filter = null);
         
         /// <summary>
         /// Посмотреть вакансии компании по ее идентификатору

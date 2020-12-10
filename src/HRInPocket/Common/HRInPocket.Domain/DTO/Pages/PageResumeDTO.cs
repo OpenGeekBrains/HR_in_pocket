@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.DTO.Pages;
+
 namespace HRInPocket.Domain.DTO
 {
-    public class PageResumeDTO
+    public class PageResumeDTO:PageResult<ResumeDTO>
     {
-        public IEnumerable<ResumeDTO> Companies { get; set; } = new List<ResumeDTO>();
-        public int TotalCount { get; set; }
+       
     }
 
 }

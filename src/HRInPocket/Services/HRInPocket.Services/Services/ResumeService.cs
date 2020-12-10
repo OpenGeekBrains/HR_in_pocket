@@ -28,7 +28,7 @@ namespace HRInPocket.Services.Services
         }
 
         /// <summary>
-        /// Посомтреть весь список резюме
+        /// Посомотреть весь список резюме
         /// </summary>
         public async Task<PageResumeDTO> GetResumesAsync(ResumeFilter filter)
         {
@@ -47,7 +47,7 @@ namespace HRInPocket.Services.Services
 
             return new PageResumeDTO
             {
-                Companies = query.Select(q => _Mapper.Map<ResumeDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<ResumeDTO>(q)),
                 TotalCount = count
             };
         }
@@ -62,7 +62,7 @@ namespace HRInPocket.Services.Services
             .Select(r => _Mapper.Map<ResumeDTO>(r));
 
         /// <summary>
-        /// Посомтреть информацию о резюме по идентификатору
+        /// Посмотреть информацию о резюме по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор резюме</param>
         public async Task<ResumeDTO> GetResumeByIdAsync(Guid id) => 
@@ -93,17 +93,11 @@ namespace HRInPocket.Services.Services
         /// Загрузить файл резюме
         /// </summary>
         /// <param name="resumeFile">Модель файла резюме</param>
-        public async Task<bool> UploadResumeFileAsync(ResumeFile resumeFile)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> UploadResumeFileAsync(ResumeFile resumeFile) => throw new NotImplementedException();
 
         // Методы поиска резюме
 
-        public async Task SearchResumesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public Task SearchResumesAsync() => throw new NotImplementedException();
 
     }
 }

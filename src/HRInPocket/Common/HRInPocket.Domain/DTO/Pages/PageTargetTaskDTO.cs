@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
+using HRInPocket.Domain.DTO.Pages;
+
 namespace HRInPocket.Domain.DTO
 {
-    public class PageTargetTaskDTO
+    public class PageTargetTaskDTO:PageResult<TargetTaskDTO>
     {
-        public IEnumerable<TargetTaskDTO> TargetTasks { get; set; } = new List<TargetTaskDTO>();
-        public int TotalCount { get; set; }
+        
     }
 
 }

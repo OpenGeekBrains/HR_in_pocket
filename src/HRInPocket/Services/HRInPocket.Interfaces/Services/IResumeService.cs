@@ -16,7 +16,7 @@ namespace HRInPocket.Interfaces.Services
         /// <summary>
         /// Посомтреть весь список резюме
         /// </summary>
-        Task<PageResumeDTO> GetResumesAsync(ResumeFilter filter);
+        Task<PageResumeDTO> GetResumesAsync(ResumeFilter filter= null);
 
         /// <summary>
         /// Посмотреть список резюме пользователя по его идентификатору

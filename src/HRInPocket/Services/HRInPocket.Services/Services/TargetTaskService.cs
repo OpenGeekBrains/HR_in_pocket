@@ -31,24 +31,24 @@ namespace HRInPocket.Services.Services
         /// <summary>
         /// Посомтреть все задания
         /// </summary>
-        public async Task<PageTargetTaskDTO> GetAllTargetTasksAsync(TargetTaskFilter filter)
+        public async Task<PageTargetTaskDTO> GetAllTargetTasksAsync(TargetTaskFilter filter = null)
         {
             var query = _DataProvider.GetQueryable();
-
+            int count = 0;
             if (filter != null)
             {
                 /*Логика фильтрации после понимания структуры фильтров*/
-            }
 
-            var count = await query.CountAsync();
+               count = await query.CountAsync();
 
             query = query
                 .Skip((filter.Pages.PageNumber - 1) * filter.Pages.PageSize)
                 .Take(filter.Pages.PageSize);
+            }
 
             return new PageTargetTaskDTO
             {
-                TargetTasks = query.Select(q => _Mapper.Map<TargetTaskDTO>(q)),
+                Items = query.Select(q => _Mapper.Map<TargetTaskDTO>(q)),
                 TotalCount = count
             };
         }
