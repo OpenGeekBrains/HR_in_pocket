@@ -11,9 +11,9 @@ namespace HRInPocket.Domain.Models.Records
             Data = data;
         }
         
-        public readonly UserData Data;
+        public UserData Data { get; set; }
         
-        public readonly Guid Token = Guid.NewGuid();
+        public Guid Token { get; } = Guid.NewGuid();
 
         public bool IsLoggedIn { get; set; }
     }

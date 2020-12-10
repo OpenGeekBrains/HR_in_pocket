@@ -4,9 +4,9 @@
     {
         public FeedbackAssignment(string place_name, FeedbackRequest request) : base(place_name)
         {
-            this.request = request;
+            Request = request;
         }
-        
-        public readonly FeedbackRequest request;
+
+        public FeedbackRequest Request { get; }
     }
 }

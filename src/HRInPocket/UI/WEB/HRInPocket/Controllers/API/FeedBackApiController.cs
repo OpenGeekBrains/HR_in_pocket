@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using HRInPocket.Domain.Models.JsonReturnModels;
 using HRInPocket.Interfaces;
 using HRInPocket.Services.Services;
 
@@ -22,8 +23,12 @@ namespace HRInPocket.Controllers.API
         }
 
         [HttpGet]
-        public JsonResult Get() => new JsonResult(_feedbackService.Requests.GroupBy(f=>f.email));
-        
+        public JsonResult Get()
+        {
+            var content = _feedbackService.Requests.GroupBy(f => f.email).ToArray();
+            return new JsonResult(new ArrayContent(content, content.Any()));
+        }
+
         [HttpPost("/user/feedback")]
         public IActionResult TakeFeedBack(string name, string email, string phone_number, string message)
         {

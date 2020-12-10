@@ -11,8 +11,8 @@ namespace HRInPocket.Domain.Models.Records.Assignments
             place_name = placeName;
         }
         
-        public readonly string place_name;
-        public readonly DateTime date_added = DateTime.Now;
+        public string place_name { get; }
+        public DateTime date_added { get; } = DateTime.Now;
         
         public Guid applicant_id { get; private set; }
         public int number_of_responses { get; set; }

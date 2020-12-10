@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace HRInPocket.Domain.Models.JsonReturnModels
 {
-    public readonly struct ArrayContent
+    public struct ArrayContent
     {
         public ArrayContent(IEnumerable<object> content, bool result)
         {
@@ -11,7 +11,7 @@ namespace HRInPocket.Domain.Models.JsonReturnModels
             Result = result;
         }
 
-        public readonly object[] Content;
-        public readonly bool Result;
+        public object[] Content { get; set; }
+        public bool Result { get; set; }
     }
 }
