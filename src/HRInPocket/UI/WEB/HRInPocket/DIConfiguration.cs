@@ -1,5 +1,6 @@
 ﻿using System;
 using HRInPocket.DAL.Data;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
 
 using Microsoft.AspNetCore.Identity;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace HRInPocket.Extensions.Linq
 {
     public static class LinqExtensions
@@ -55,6 +57,16 @@ namespace HRInPocket.Extensions.Linq
 
             await Task.Delay(1);
             return source is IQueryable<TEntity> entities ? entities : new EnumerableQuery<TEntity>(source);
+        }
+
+        public static async Task<(IQueryable<T> Query, int TotalCount)> Page<T>(this IQueryable<T> query, int Page = 0, int PageSize = 0)
+        {
+            var total_count = await query.CountAsync().ConfigureAwait(false);
+            if (Page > 0 && PageSize > 0)
+                query = query.Skip(Page * PageSize);
+            if (PageSize > 0)
+                query = query.Take(PageSize);
+            return (query, total_count);
         }
     }
 }

@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+using Serilog;
+
 namespace HRInPocket
 {
     public class Startup
@@ -73,11 +75,15 @@ namespace HRInPocket
             }
             app.UseStaticFiles();
 
+            app.UseSerilogRequestLogging();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandkingMiddleware>();
+            app.UseMiddleware<TimeLoadMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -86,6 +92,4 @@ namespace HRInPocket
             });
         }
     }
-
-
 }
