@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3D321C62-C1D0-4A92-BE01-9C1878F1097D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servcies", "Servcies", "{2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{91978649-192E-4619-AF9E-B6DB86A93B6B}"
 EndProject
@@ -42,7 +42,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.Extensions", "Services\HRInPocket.Extensions\HRInPocket.Extensions.csproj", "{F8FD857A-1B5D-49CF-9049-F0BA09C54255}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}"
 EndProject
 Global
