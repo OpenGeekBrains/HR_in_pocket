@@ -31,17 +31,17 @@ namespace HRInPocket
                .AddRazorRuntimeCompilation();
 
             services
-                .AddDatabase(Configuration)
-                .AddIdentity()
-                .AddServices();
-                
+               .AddDatabase(Configuration);
+            //    .AddIdentity()
+            //    .AddServices();
+
             //services.Configure<RouteOptions>(opt=> 
             //    // ���� � ��������� ����� ������� {type:assignment_type}, �� ������������ ����������� ��������� ����������� ��������
             //    opt.ConstraintMap.Add("assignment_type", typeof(AssignmentTypeConstrain)));
 
-            services.AddAutoMapperWithProfiles(
-                typeof(AccountsProfile)
-                );
+            //services.AddAutoMapperWithProfiles(
+            //    typeof(AccountsProfile)
+            //    );
             services.AddSwaggerGen(setup =>
             {
                 //setup.OperationFilter<OptionalParameterFilter>(); 

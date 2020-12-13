@@ -1,6 +1,5 @@
 ﻿using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Profiles;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.DAL.Data

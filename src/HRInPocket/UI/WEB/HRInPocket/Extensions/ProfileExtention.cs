@@ -9,20 +9,20 @@ namespace HRInPocket.Extensions
 {
     public static class ProfileExtention
     {
-        public static UserProfileViewModel ToViewModel(this Profile profile) =>
-            new UserProfileViewModel
-            {
-                Surname = profile.Surname,
-                FirstName = profile.FirstName,
-                Patronymic = profile.Patronymic,
-                Age = profile.Birthday == default ? (int?) null : GetFullYears(profile.Birthday, DateTime.Now),
-                Birthday = profile.Birthday,
-                Sex = profile.Sex,
-                Address = profile.Address,
-                Specialities = profile.Speciality.ToList(),
-                Resumes = profile.Resumes.ToList(),
-                CoverLetters = profile.CoverLetters.ToList()
-            };
+        //public static UserProfileViewModel ToViewModel(this Profile profile) =>
+        //    new UserProfileViewModel
+        //    {
+        //        Surname = profile.Surname,
+        //        FirstName = profile.FirstName,
+        //        Patronymic = profile.Patronymic,
+        //        Age = profile.Birthday == default ? (int?) null : GetFullYears(profile.Birthday, DateTime.Now),
+        //        Birthday = profile.Birthday,
+        //        Sex = profile.Sex,
+        //        Address = profile.Address,
+        //        Specialities = profile.Speciality.ToList(),
+        //        Resumes = profile.Resumes.ToList(),
+        //        CoverLetters = profile.CoverLetters.ToList()
+        //    };
 
 
         private static int GetFullYears(DateTime dt1, DateTime dt2)

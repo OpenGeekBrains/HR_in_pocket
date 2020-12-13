@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HRInPocket.Domain.Entities.Base;
 
@@ -34,6 +35,23 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Метаданные
         /// </summary>
-        public ICollection<string> Metadata { get; set; }
+        public ICollection<Metadata> Metadatas { get; set; } = new List<Metadata>();
+    }
+
+    /// <summary>
+    /// Класс метаданных
+    /// </summary>
+    public class Metadata : NamedEntity
+    {
+        /// <summary>
+        /// Объект метаданных
+        /// </summary>
+        public object Value { get; set; }
+
+        /// <summary>
+        /// Сслка на базовую сущность
+        /// </summary>
+        public Guid CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }
