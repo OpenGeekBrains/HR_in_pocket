@@ -9,93 +9,89 @@ namespace HRInPocket.Controllers
 {
     public class AccountController : Controller
     {
-        //private readonly UserManager<User> _UserManager;
-        //private readonly SignInManager<User> _SignInManager;
-        //private readonly ILogger<AccountController> _Logger;
+        private readonly ILogger<AccountController> _Logger;
 
-        //public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager, ILogger<AccountController> Logger)
-        //{
-        //    _UserManager = UserManager;
-        //    _SignInManager = SignInManager;
-        //    _Logger = Logger;
-        //}
+        public AccountController(ILogger<AccountController> Logger)
+        {
+            _Logger = Logger;
+        }
 
-        //#region Register
+        #region Register
 
-        //[HttpGet]
-        //public IActionResult Register() => View();
+        [HttpGet]
+        public IActionResult Register() => View();
 
-        //[HttpPost, ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (!ModelState.IsValid) return View(model);
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
 
-        //    var user = new User { Email = model.Email, UserName = model.Name };
-        //    // добавляем пользователя
-        //    var result = await _UserManager.CreateAsync(user, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        // установка куки
-        //        await _SignInManager.SignInAsync(user, false);
-        //        return RedirectToAction("Index", "Home");
-        //    }
+            //var user = new User { Email = model.Email, UserName = model.Name };
+            //// добавляем пользователя
+            //var result = await _UserManager.CreateAsync(user, model.Password);
+            //if (result.Succeeded)
+            //{
+            //    // установка куки
+            //    await _SignInManager.SignInAsync(user, false);
+            //    return RedirectToAction("Index", "Home");
+            //}
 
-        //    foreach (var error in result.Errors)
-        //        ModelState.AddModelError(string.Empty, error.Description);
+            //foreach (var error in result.Errors)
+            //    ModelState.AddModelError(string.Empty, error.Description);
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //#endregion
+        #endregion
 
-        //#region Login
+        #region Login
 
-        //[HttpGet]
-        //public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+        [HttpGet]
+        public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
-        //[HttpPost]
-        //public async Task<IActionResult> Login(LoginViewModel model)
-        //{
-        //    if (!ModelState.IsValid) return View(model);
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
 
-        //    var login_result = await _SignInManager.PasswordSignInAsync(
-        //        model.UserName,
-        //        model.Password,
-        //        model.RememberMe,
-        //        lockoutOnFailure: false);
+            //var login_result = await _SignInManager.PasswordSignInAsync(
+            //    model.UserName,
+            //    model.Password,
+            //    model.RememberMe,
+            //    lockoutOnFailure: false);
 
-        //    if (login_result.Succeeded)
-        //    {
-        //        if (Url.IsLocalUrl(model.ReturnUrl))
-        //            return Redirect(model.ReturnUrl);
-        //        return RedirectToAction("Index", "Home");
-        //    }
+            //if (login_result.Succeeded)
+            //{
+            //    if (Url.IsLocalUrl(model.ReturnUrl))
+            //        return Redirect(model.ReturnUrl);
+            //    return RedirectToAction("Index", "Home");
+            //}
 
-        //    ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
+            ModelState.AddModelError("", "Неверное имя пользователя, или пароль");
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //#endregion
+        #endregion
 
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await _SignInManager.SignOutAsync();
-        //    return RedirectToAction("Index", "Home");
-        //}
+        public async Task<IActionResult> Logout()
+        {
+            //await _SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
 
-        
-        //public async Task<IActionResult> Profile([FromServices] ITasksService TasksService)
-        //{
-        //    var profile = _UserManager.GetUserAsync(User).Result.Profile ?? new Profile();
-        //    var view_model = profile.ToViewModel();
 
-        //    var user_id = _UserManager.GetUserId(User);
+        public async Task<IActionResult> Profile([FromServices] ITasksService TasksService)
+        {
+            //var profile = _UserManager.GetUserAsync(User).Result.Profile ?? new Profile();
+            //var view_model = profile.ToViewModel();
 
-        //    view_model.Tasks = await TasksService.GetUserTasks(user_id);
+            //var user_id = _UserManager.GetUserId(User);
 
-        //    return View(view_model);
-        //}
+            //view_model.Tasks = await TasksService.GetUserTasks(user_id);
+
+            return View(/*view_model*/);
+        }
 
         //public string UserId() => _UserManager.GetUserId(User);
     }

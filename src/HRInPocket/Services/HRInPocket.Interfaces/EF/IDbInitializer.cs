@@ -11,12 +11,12 @@ namespace HRInPocket.Interfaces.EF
     {
         void Initialize();
 
-        readonly ref struct Initializer
+        protected readonly ref struct Initializer
         {
             public readonly DbContext Context;
             private readonly ILogger<IDbInitializer> _logger;
 
-            private Initializer(DbContext context, ILogger<IDbInitializer> logger)
+            internal Initializer(DbContext context, ILogger<IDbInitializer> logger)
             {
                 Context = context;
                 _logger = logger;

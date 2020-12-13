@@ -8,7 +8,7 @@ namespace HRInPocket.Domain.Entities.Profiles
     /// <summary>
     /// Профиль пользователя
     /// </summary>
-    public class ApplicantProfile : BaseUser
+    public class ApplicantProfile : BaseProfile
     {
         /// <summary>
         /// Адрес
@@ -34,5 +34,10 @@ namespace HRInPocket.Domain.Entities.Profiles
         /// Список интересующих специальностей
         /// </summary>
         public ICollection<Speciality> Speciality { get; set; } = new List<Speciality>();
+
+        /// <summary>
+        /// Список задач
+        /// </summary>
+        public ICollection<TargetTask> TargetTasks { get; set; } = new List<TargetTask>();
     }
 }

@@ -26,10 +26,9 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary> Должность/специальность/профессия </summary>
         public Speciality Speciality { get; set; }
 
-        // todo: Сделать свойство опциональным
         /// <summary> Желаемый оклад </summary>
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Salary { get; set; }
+        public decimal? Salary { get; set; }
 
         /// <summary> Теги </summary>
         public string Tags { get; set; }
@@ -49,7 +48,7 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Закрепленный менеджер
         /// </summary>
-        public ManagerProfile MeManagerProfile { get; set; }
+        public ManagerProfile ManagerProfile { get; set; }
 
         /// <summary>
         /// Журнал истории задания

@@ -1,50 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="HRInPocket.DAL.Models.Users.Employer">
-    <Position X="0.5" Y="6.75" Width="3.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAgAAAAACAAAAAAAAA=</HashCode>
-      <FileName>Models\Users\Employer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HRInPocket.DAL.Models.Users.Profile">
-    <Position X="11.5" Y="0.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AABBAGAAACAABAAAAEAAAAAABAAIAAAAAAAAIAAAAAA=</HashCode>
-      <FileName>Models\Users\Profile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HRInPocket.DAL.Models.Base.BaseEntity">
-    <Position X="1.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Base\BaseEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HRInPocket.DAL.Models.Base.NamedEntity">
-    <Position X="1.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Base\NamedEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HRInPocket.DAL.Models.Users.User">
-    <Position X="6.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
-      <FileName>Models\Users\User.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser" Collapsed="true">
-    <Position X="6.5" Y="1.75" Width="1.5" />
+  <Class Name="HRInPocket.Domain.Entities.Data.ActivityCategory">
+    <Position X="19.75" Y="11.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="HRInPocket.DAL.Models.Users.Applicant">
-    <Position X="4.75" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAAAAAIAAAAAAAAIAAACAAAEAAACgAA=</HashCode>
-      <FileName>Models\Users\Applicant.cs</FileName>
-    </TypeIdentifier>
+  <Class Name="HRInPocket.Domain.Entities.Data.Address">
+    <Position X="17.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Company">
+    <Position X="27.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.CoverLetter">
+    <Position X="17.75" Y="4" Width="1.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.CoverLetterValue">
+    <Position X="10.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Metadata">
+    <Position X="22.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.PriceItem">
+    <Position X="16.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Resume">
+    <Position X="12.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.ResumeValue">
+    <Position X="6.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Speciality">
+    <Position X="13.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TargetTask">
+    <Position X="7" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Tarif">
+    <Position X="26.75" Y="9" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TaskHistory">
+    <Position X="16.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TaskHistoryRecord">
+    <Position X="14.75" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Telephone">
+    <Position X="22.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Vacancy">
+    <Position X="14.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.BaseEntity">
+    <Position X="20" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.BaseProfile">
+    <Position X="9.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.NamedEntity">
+    <Position X="25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Profiles.ApplicantProfile">
+    <Position X="12" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Profiles.ManagerProfile">
+    <Position X="9.5" Y="8" Width="1.5" />
+    <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

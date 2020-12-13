@@ -28,13 +28,13 @@ namespace HRInPocket.DAL.Data
                 db.Migrate();
 
                 IDbInitializer.Initializer.StartInit(_dbContext, _logger)
-                .InitTable(TestData.Addresses)
-                .InitTable(TestData.Specialties)
-                .InitTable(TestData.ActivityCategories)
-                .InitTable(TestData.TargetTasks)
+                //.InitTable(TestData.Addresses)
+                //.InitTable(TestData.Specialties)
+                //.InitTable(TestData.ActivityCategories)
+                //.InitTable(TestData.TargetTasks)
 
-                .InitTable(TestData.Tarifs)
-                .InitTable(TestData.Price)
+                //.InitTable(TestData.Tarifs)
+                //.InitTable(TestData.Price)
 
 
 

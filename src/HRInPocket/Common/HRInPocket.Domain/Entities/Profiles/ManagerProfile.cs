@@ -7,7 +7,7 @@ namespace HRInPocket.Domain.Entities.Profiles
     /// <summary>
     /// Профиль менеджера
     /// </summary>
-    public class ManagerProfile : BaseUser
+    public class ManagerProfile : BaseProfile
     {
         /// <summary>
         /// Список закрепленных заданий

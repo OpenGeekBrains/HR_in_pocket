@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using HRInPocket.Domain.Entities.Data;
 
 namespace HRInPocket.Domain.Entities.Base
 {
-    public abstract class BaseUser : BaseEntity
+    public abstract class BaseProfile : BaseEntity
     {
         /// <summary>
         /// Фамилия
@@ -23,7 +24,7 @@ namespace HRInPocket.Domain.Entities.Base
         /// <summary>
         /// Список телефонных номеров
         /// </summary>
-        public ICollection<string> TelNumbers { get; set; } = new List<string>();
+        public ICollection<Telephone> TelNumbers { get; set; } = new List<Telephone>();
 
         /// <summary>
         /// Адрес электронной почты
