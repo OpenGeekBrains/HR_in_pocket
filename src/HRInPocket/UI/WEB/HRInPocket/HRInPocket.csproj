@@ -33,6 +33,7 @@
     <ProjectReference Include="..\..\..\Services\HRInPocket.Clients\HRInPocket.Clients.csproj" />
     <ProjectReference Include="..\..\..\Services\HRInPocket.DAL\HRInPocket.DAL.csproj" />
     <ProjectReference Include="..\..\..\Services\HRInPocket.Interfaces\HRInPocket.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Services\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru\HRInPocket.Parsing.hh.ru.csproj" />
     <ProjectReference Include="..\..\..\Services\HRInPocket.Services\HRInPocket.Services.csproj" />
   </ItemGroup>
 

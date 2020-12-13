@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-
+using HRInPocket.Interfaces.Repository.Base;
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
@@ -20,7 +20,8 @@ namespace HRInPocket.WPF.ViewModels
     internal class MainWindowViewModel : ViewModelCore
     {
         public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON,
-                                    IParsehhService ParsehhService)
+                                    IParsehhService ParsehhService,
+                                    IDataRepository<Domain.Entities.Data.Vacancy> VacancyRepository)
         {
             _SaveDataToJSON = SaveDataToJSON;
             _Parsehh = ParsehhService.GetParse();
