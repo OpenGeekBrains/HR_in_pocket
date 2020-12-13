@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.Services.Repositories.Base
 {
-    public abstract class DtoRepository<TEntity,TDto> : IDtoRepository<TDto> 
+    public abstract class DtoRepository<TEntity,TDto> : IDtoRepository<TEntity,TDto> 
         where TDto : BaseDTO 
         where TEntity : BaseEntity
     {
@@ -70,7 +71,11 @@ namespace HRInPocket.Services.Repositories.Base
 
         /// <inheritdoc/>
         public virtual async Task<bool> RemoveAsync(Guid id) => await _DataProvider.RemoveAsync(id);
+        public virtual async Task CreateRangeAsync(IEnumerable<TEntity> items) =>
+            await _DataProvider.CreateRangeAsync(items);
 
+        public virtual async Task<bool> RemoveRangeAsync(IEnumerable<TEntity> items) =>
+            await _DataProvider.RemoveRangeAsync(items);
         #endregion
     }
 }

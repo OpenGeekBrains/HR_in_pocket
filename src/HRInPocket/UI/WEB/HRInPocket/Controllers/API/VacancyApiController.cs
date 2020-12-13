@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.DTO.Pages;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Repository;
-
+using HRInPocket.Services.Repositories.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -51,6 +52,13 @@ namespace HRInPocket.Controllers.API
         public async Task<Guid> Create([FromBody] VacancyDTO vacancy) => await _VacancyService.CreateAsync(vacancy);
 
         /// <summary>
+        /// создать диапозон объектов
+        /// </summary>
+        /// <param name="items"></param>
+        [HttpPost("CreateRange/{items}")]
+        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
+            await _VacancyService.CreateRangeAsync(items);
+        /// <summary>
         /// Редактировать вакансию
         /// </summary>
         /// <param name="vacancy"></param>
@@ -63,5 +71,9 @@ namespace HRInPocket.Controllers.API
         /// <param name="id"></param>
         [HttpDelete("{id}")]
         public async Task<bool> Remove(Guid id) => await _VacancyService.RemoveAsync(id);
+
+        [HttpDelete("DeleteRange/{items}")]
+        public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
+            await _VacancyService.RemoveRangeAsync(items);
     }
 }

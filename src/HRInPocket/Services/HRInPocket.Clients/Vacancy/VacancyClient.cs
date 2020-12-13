@@ -72,17 +72,13 @@ namespace HRInPocket.Clients.Vacancy
         /// Создать диапозон объектов
         /// </summary>
         /// <param name="items"></param>
-        public void CreateRange(IEnumerable<Domain.Entities.Data.Vacancy> items)
-        {
- 
+        public void CreateRange(IEnumerable<Domain.Entities.Data.Vacancy> items)=> 
+            Client
+            .PostAsJsonAsync($"{ServiceAddress}/CreateRange/{items}", items).Wait();
 
-        }
 
-        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items)
-        {
-           
-          
-        }
+        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
+            await Client.PostAsJsonAsync($"{ServiceAddress}/CreateRange/{items}", items);
 
         /// <summary>
         /// редактировать объект в базе данных
@@ -121,14 +117,14 @@ namespace HRInPocket.Clients.Vacancy
         /// <returns></returns>
         public bool RemoveRange(IEnumerable<Domain.Entities.Data.Vacancy> items)
         {
-            var response = Client.DeleteAsync($"{ServiceAddress}/{items}").Result;
+            var response = Client.DeleteAsync($"{ServiceAddress}/DeleteRange/{items}").Result;
 
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items)
         {
-            var response = await Client.DeleteAsync($"{ServiceAddress}/{items}");
+            var response = await Client.DeleteAsync($"{ServiceAddress}/DeleteRange/{items}");
             return await response.Content.ReadAsAsync<bool>();
         }
     }

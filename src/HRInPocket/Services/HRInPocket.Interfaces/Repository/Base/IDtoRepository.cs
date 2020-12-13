@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO.Base;
 using HRInPocket.Domain.DTO.Pages;
+using HRInPocket.Domain.Entities.Base;
 using HRInPocket.Domain.Filters;
 
 namespace HRInPocket.Interfaces.Repository.Base
 {
-    public interface IDtoRepository<TDto> where TDto: BaseDTO
+    public interface IDtoRepository<TEntity,TDto> where TDto: BaseDTO where TEntity : BaseEntity
     {
         /// <summary>
         /// Получить страницу записей по <paramref name="filter"/>, если он указан
@@ -38,5 +40,19 @@ namespace HRInPocket.Interfaces.Repository.Base
         /// </summary>
         /// <param name="id">Идентификатор</param>
         Task<bool> RemoveAsync(Guid id);
+
+        /// <summary>
+        /// создать диапозон объектов
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        Task CreateRangeAsync(IEnumerable<TEntity> items);
+
+        /// <summary>
+        /// удалить диапозон объектов
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        Task<bool> RemoveRangeAsync(IEnumerable<TEntity> items);
     }
 }
