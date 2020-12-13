@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.Domain.Entities.Base;
-using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Domain.Entities.Profiles;
 
 namespace HRInPocket.Domain.Entities.Data
 {
@@ -32,6 +32,6 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary>
         /// Коллекция соискателей с указанным тариформ
         /// </summary>
-        public ICollection<Applicant> Applicants { get; set; }
+        public ICollection<ApplicantProfile> ApplicntApplicantProfiles { get; set; }
     }
 }

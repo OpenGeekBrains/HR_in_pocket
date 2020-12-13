@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HRInPocket.DAL.Data;
 using HRInPocket.Domain.Entities.Data;
+using HRInPocket.Domain.Entities.Profiles;
 using HRInPocket.Interfaces.Services;
 
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace HRInPocket.Services.Services
                 Salary = Salary ?? 0,
                 Tags = Tags,
                 RemoteWork = RemoteWork,
-                Profile = new Profile { UserId = UserId }
+                Profile = new ApplicantProfile { UserId = UserId }
             };
 
             if (Position != null)

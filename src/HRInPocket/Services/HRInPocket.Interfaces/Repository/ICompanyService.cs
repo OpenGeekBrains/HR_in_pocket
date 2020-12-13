@@ -7,4 +7,6 @@ namespace HRInPocket.Interfaces.Repository
     {
         
     }
+
+     
 }

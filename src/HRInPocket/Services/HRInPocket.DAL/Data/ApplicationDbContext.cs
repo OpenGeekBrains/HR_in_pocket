@@ -1,12 +1,11 @@
 ﻿using HRInPocket.Domain.Entities.Data;
-using HRInPocket.Domain.Entities.Users;
-
+using HRInPocket.Domain.Entities.Profiles;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRInPocket.DAL.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : DbContext
     {
         #region Properties
         public DbSet<Address> Addresses { get; set; }
@@ -15,12 +14,12 @@ namespace HRInPocket.DAL.Data
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Applicant> Applicants { get; set; }
-        public DbSet<SystemManager> SystemManagers { get; set; }
+        public DbSet<ApplicantProfile> ApplicantProfiles { get; set; }
+        public DbSet<ManagerProfile> ManagerProfiles { get; set; }
         public DbSet<Tarif> Tarifs { get; set; }
         public DbSet<TargetTask> TargetTasks { get; set; }
         public DbSet<CoverLetter> CoverLetters { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ApplicantProfile> Profiles { get; set; }
         public DbSet<PriceItem> Price { get; set; }
         #endregion
 

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HRInPocket.Domain.Entities.Data.ActivityCategory">
+    <Position X="20.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Data\ActivityCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Address">
+    <Position X="17.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAIAAAAAAAAAAIAAAABAAIAAAAAAAA=</HashCode>
+      <FileName>Entities\Data\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Company">
+    <Position X="26" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAEECA=</HashCode>
+      <FileName>Entities\Data\Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.CoverLetter">
+    <Position X="22.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Entities\Data\CoverLetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.CoverLetterValue">
+    <Position X="25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Entities\Data\CoverLetterValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.PriceItem">
+    <Position X="22.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Data\PriceItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Resume">
+    <Position X="20.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Entities\Data\Resume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.ResumeValue">
+    <Position X="27.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Entities\Data\ResumeValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Speciality">
+    <Position X="26" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\Data\Speciality.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TargetTask">
+    <Position X="18.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAAAADAAAAAAAAgAAEAAAAAAEACgAAIBEACAAA=</HashCode>
+      <FileName>Entities\Data\TargetTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Tarif">
+    <Position X="26" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAgAAQAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Entities\Data\Tarif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TaskHistory">
+    <Position X="23.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Entities\Data\TaskHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.TaskHistoryRecord">
+    <Position X="19.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABEAAAAAAAABAAAABAAAAAA=</HashCode>
+      <FileName>Entities\Data\TaskHistoryRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Data.Vacancy">
+    <Position X="21.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAgAAAAAAAAAAAACAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Entities\Data\Vacancy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.BaseEntity">
+    <Position X="24.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Base\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.BaseUser">
+    <Position X="18.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGAAACAABCAAAAAAQAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Base\BaseUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Base.NamedEntity">
+    <Position X="28" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Base\NamedEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Profiles.ApplicantProfile">
+    <Position X="16" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIIAAACAAAEAAACAAA=</HashCode>
+      <FileName>Entities\Profiles\ApplicantProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HRInPocket.Domain.Entities.Profiles.ManagerProfile">
+    <Position X="18.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Profiles\ManagerProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

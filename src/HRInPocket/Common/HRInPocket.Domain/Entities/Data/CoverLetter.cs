@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HRInPocket.Domain.Entities.Base;
-using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Domain.Entities.Profiles;
 
 namespace HRInPocket.Domain.Entities.Data
 {
@@ -10,13 +11,14 @@ namespace HRInPocket.Domain.Entities.Data
     public class CoverLetter : BaseEntity
     {
         /// <summary>
-        /// Соискатель-владелец сопроводительного письма
-        /// </summary>
-        public Applicant Applicant { get; set; }
-        
-        /// <summary>
         /// Поля сопроводительных писем
         /// </summary>
         public ICollection<CoverLetterValue> Values { get; set; } = new HashSet<CoverLetterValue>();
+
+        /// <summary>
+        /// Соискатель-владелец сопроводительного письма
+        /// </summary>
+        public ApplicantProfile ApplicantProfile { get; set; }
+        public Guid ApplicantProfileId { get; set; }
     }
 }

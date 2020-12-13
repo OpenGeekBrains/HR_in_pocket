@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using HRInPocket.Domain.Entities.Data;
-using HRInPocket.Domain.Entities.Users;
-
 using static System.DateTime;
 
 namespace HRInPocket.DAL.Data

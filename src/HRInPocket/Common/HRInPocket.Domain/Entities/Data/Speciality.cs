@@ -1,4 +1,6 @@
-﻿using HRInPocket.Domain.Entities.Base;
+﻿using System.Collections.Generic;
+using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Profiles;
 
 namespace HRInPocket.Domain.Entities.Data
 {
@@ -11,5 +13,10 @@ namespace HRInPocket.Domain.Entities.Data
         /// Категория / род деятельности
         /// </summary>
         public ActivityCategory ActivityCategory { get; set; }
+
+        /// <summary>
+        /// Список соискателей интересующихся данной специальностью
+        /// </summary>
+        public ICollection<ApplicantProfile> Applicants { get; set; } = new List<ApplicantProfile>();
     }
 }

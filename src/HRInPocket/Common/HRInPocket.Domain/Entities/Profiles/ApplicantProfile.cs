@@ -1,36 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using HRInPocket.Domain.Entities.Base;
-using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Domain.Entities.Data;
 
-namespace HRInPocket.Domain.Entities.Data
+namespace HRInPocket.Domain.Entities.Profiles
 {
     /// <summary>
     /// Профиль пользователя
     /// </summary>
-    public class Profile : BaseEntity
+    public class ApplicantProfile : BaseUser
     {
-        /// <summary>
-        /// Фамилия
-        /// </summary>
-        public string Surname { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Имя пользователя
-        /// </summary>
-        public string FirstName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Отчество
-        /// </summary>
-        public string Patronymic { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public Sex Sex { get; set; }
-
         /// <summary>
         /// Адрес
         /// </summary>
@@ -55,12 +34,5 @@ namespace HRInPocket.Domain.Entities.Data
         /// Список интересующих специальностей
         /// </summary>
         public ICollection<Speciality> Speciality { get; set; } = new List<Speciality>();
-
-        /// <summary>
-        /// Связанный пользователь
-        /// </summary>
-        [Required]
-        public User User { get; set; }
-        public string UserId { get; set; }
     }
 }
