@@ -55,7 +55,7 @@ namespace HRInPocket.Controllers.API
         /// создать диапозон объектов
         /// </summary>
         /// <param name="items"></param>
-        [HttpPost("CreateRange/{items}")]
+        [HttpPost("{items}")]
         public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
             await _VacancyService.CreateRangeAsync(items);
         /// <summary>
@@ -72,7 +72,7 @@ namespace HRInPocket.Controllers.API
         [HttpDelete("{id}")]
         public async Task<bool> Remove(Guid id) => await _VacancyService.RemoveAsync(id);
 
-        [HttpDelete("DeleteRange/{items}")]
+        [HttpDelete("{items}")]
         public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
             await _VacancyService.RemoveRangeAsync(items);
     }

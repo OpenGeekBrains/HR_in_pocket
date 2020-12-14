@@ -58,74 +58,55 @@ namespace HRInPocket.Clients.Vacancy
         public async Task<Guid> CreateAsync(Domain.Entities.Data.Vacancy item)
         {
 
-            var response = await PostAsync(ServiceAddress, item);
+            var response = await Client.PostAsJsonAsync(ServiceAddress, item);
             return await response.Content.ReadAsAsync<Guid>();
         }
+
         public Guid Create(Domain.Entities.Data.Vacancy item)
         {
-            var response = PostAsync(ServiceAddress, item).Result;
+            var response = Client.PostAsJsonAsync(ServiceAddress, item).Result;
             return response.Content.ReadAsAsync<Guid>().Result;
         }
+
 
 
         /// <summary>
         /// Создать диапозон объектов
         /// </summary>
         /// <param name="items"></param>
-        public void CreateRange(IEnumerable<Domain.Entities.Data.Vacancy> items)=> 
-            Client
-            .PostAsJsonAsync($"{ServiceAddress}/CreateRange/{items}", items).Wait();
+        public void CreateRange(IEnumerable<Domain.Entities.Data.Vacancy> items)=>
+            PostAsync(ServiceAddress, items).Wait();
 
 
         public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
-            await Client.PostAsJsonAsync($"{ServiceAddress}/CreateRange/{items}", items);
+            await PostAsync(ServiceAddress, items);
 
         /// <summary>
         /// редактировать объект в базе данных
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Edit(Domain.Entities.Data.Vacancy item) => Put(ServiceAddress, item).IsSuccessStatusCode;
+        public bool Edit(Domain.Entities.Data.Vacancy item) => Put(ServiceAddress, item);
 
-        public async Task<bool> EditAsync(Domain.Entities.Data.Vacancy item)
-        {
-            var response = await Client.PutAsJsonAsync(ServiceAddress, item);
-            return await response.Content.ReadAsAsync<bool>();
-        }
+        public async Task<bool> EditAsync(Domain.Entities.Data.Vacancy item) => await PutAsync(ServiceAddress, item);
 
         /// <summary>
         /// Удаление объекта из базы данных
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool Remove(Guid id)
-        {
-            var response = Client.DeleteAsync($"{ServiceAddress}/{id}").Result;
-            return response.IsSuccessStatusCode;
-        }
+        public bool Remove(Guid id) => Delete(ServiceAddress, id);
 
-        public async Task<bool> RemoveAsync(Guid id)
-        {
-            var response =await Client.DeleteAsync($"{ServiceAddress}/{id}");
-            return await response.Content.ReadAsAsync<bool>();
-        }
+        public async Task<bool> RemoveAsync(Guid id) => await DeleteAsync(ServiceAddress,id);
 
         /// <summary>
         /// Удаление диапозона объектов
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public bool RemoveRange(IEnumerable<Domain.Entities.Data.Vacancy> items)
-        {
-            var response = Client.DeleteAsync($"{ServiceAddress}/DeleteRange/{items}").Result;
+        public bool RemoveRange(IEnumerable<Domain.Entities.Data.Vacancy> items) => Delete(ServiceAddress, items);
 
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items)
-        {
-            var response = await Client.DeleteAsync($"{ServiceAddress}/DeleteRange/{items}");
-            return await response.Content.ReadAsAsync<bool>();
-        }
+        public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items)=> 
+            await DeleteAsync(ServiceAddress,items);
     }
 }
