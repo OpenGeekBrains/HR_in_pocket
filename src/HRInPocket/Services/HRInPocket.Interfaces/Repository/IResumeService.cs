@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Models.Resume;
 using HRInPocket.Interfaces.Repository.Base;
 
@@ -11,7 +12,7 @@ namespace HRInPocket.Interfaces.Repository
     /// <summary>
     /// Сервис управления резюме
     /// </summary>
-    public interface IResumeService : IDtoRepository<ResumeDTO>
+    public interface IResumeService : IDtoRepository<Resume, ResumeDTO>
     {
         /// <summary>
         /// Посмотреть список резюме пользователя по его идентификатору

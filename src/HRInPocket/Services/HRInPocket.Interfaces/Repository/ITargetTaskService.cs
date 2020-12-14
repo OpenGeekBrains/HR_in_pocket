@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HRInPocket.Domain.DTO;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Interfaces.Repository.Base;
 
 namespace HRInPocket.Interfaces.Repository
@@ -10,7 +11,7 @@ namespace HRInPocket.Interfaces.Repository
     /// <summary>
     /// Сервис упраавления заданиями
     /// </summary>
-    public interface ITargetTaskService : IDtoRepository<TargetTaskDTO>
+    public interface ITargetTaskService : IDtoRepository<TargetTask, TargetTaskDTO>
     {
         /// <summary>
         /// Посомтреть все задания пользователя по идентификатору

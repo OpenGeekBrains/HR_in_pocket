@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using HRInPocket.Domain.DTO;
 using HRInPocket.Domain.DTO.Pages;
 using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Interfaces.Repository.Base;
 
 namespace HRInPocket.Interfaces.Repository
 {
-    public interface IVacancyService : IDtoRepository<BaseEntity,VacancyDTO>
+    public interface IVacancyService : IDtoRepository<Vacancy,VacancyDTO>
     {
         /// <summary>
         /// Посмотреть вакансии компании по ее идентификатору
