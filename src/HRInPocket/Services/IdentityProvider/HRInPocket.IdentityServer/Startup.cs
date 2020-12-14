@@ -1,7 +1,10 @@
+using System;
 using HRInPocket.IdentityServer.Data;
 using HRInPocket.IdentityServer.InMemoryConfig;
+using HRInPocket.IdentityServer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +20,18 @@ namespace HRInPocket.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UsersDbContext>(config => 
-                config.UseSqlServer(_Configuration.GetConnectionString("UsersDbConnectionString")));
+            services.AddDbContext<UsersDbContext>(
+                config => config.UseSqlServer(_Configuration.GetConnectionString("UsersDbConnectionString")))
+               .AddIdentity<ApplicationUser, IdentityRole<Guid>>(
+                options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 6;
+                })
+               .AddEntityFrameworkStores<UsersDbContext>();
 
             #region InMemoryConfig
             services.AddIdentityServer() // добавляем в систему IdentityServer
