@@ -36,5 +36,12 @@ namespace HRInPocket.WPF.Data
 
             return testData;
         }
+        public class MappingProfile : AutoMapper.Profile
+        {
+            public MappingProfile()
+            {
+                CreateMap<Domain.Entities.Data.Vacancy, Vacancy>().ReverseMap();
+            }
+        }
     }
 }

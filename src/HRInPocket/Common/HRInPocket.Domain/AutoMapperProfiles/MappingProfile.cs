@@ -12,6 +12,7 @@ namespace HRInPocket.Domain.AutoMapperProfiles
             CreateMap<TargetTask, TargetTaskDTO>().ReverseMap();
             CreateMap<Tarif, TarifDTO>().ReverseMap();
             CreateMap<Vacancy, VacancyDTO>().ReverseMap();
+            CreateMap<Vacancy, Vacancy>().ReverseMap();
         }
     }
 }

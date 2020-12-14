@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Windows;
-
+using AutoMapper;
+using HRInPocket.Domain;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Interfaces.Repository.Base;
 using HRInPocket.Parsing.hh.ru.Interfaces;
@@ -13,6 +14,7 @@ using  HRInPocket.Clients.Vacancy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using static HRInPocket.WPF.Data.TestData;
 
 namespace HRInPocket.WPF
 {
@@ -25,6 +27,9 @@ namespace HRInPocket.WPF
             services.AddSingleton<IParsehhService, ParsehhService>();
             services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["WebAPI"]) });
             services.AddHttpClient<IDataRepository<Vacancy>, VacancyClient>();
+            services.AddAutoMapperWithProfiles(
+                typeof(MappingProfile)
+            );
         }
 
         private static IHost _Host;
