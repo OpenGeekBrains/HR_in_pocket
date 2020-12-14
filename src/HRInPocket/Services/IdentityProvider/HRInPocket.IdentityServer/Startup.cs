@@ -24,8 +24,9 @@ namespace HRInPocket.IdentityServer
             var migration_assembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             #region IdentityUsers
-            services.AddDbContext<UsersDbContext>(
-                   config => config.UseSqlServer(_Configuration.GetConnectionString("UsersDbConnectionString")))
+            services.AddDbContext<UsersDbContext>(config => config.UseSqlServer(
+                    _Configuration.GetConnectionString("UsersDbConnectionString"),
+                    sql => sql.MigrationsAssembly(migration_assembly)))
                   .AddIdentity<ApplicationUser, IdentityRole<Guid>>(
                    options =>
                    {

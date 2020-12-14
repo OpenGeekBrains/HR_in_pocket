@@ -8,6 +8,6 @@ namespace HRInPocket.IdentityServer.Data
 {
     public class UsersDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public UsersDbContext(DbContextOptions options) : base(options) { }
+        public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options) { }
     }
 }

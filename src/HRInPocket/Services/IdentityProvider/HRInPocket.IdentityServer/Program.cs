@@ -13,6 +13,7 @@ namespace HRInPocket.IdentityServer
             using (var scope = host.Services.CreateScope())
             {
                 ServerDbInitializer.Init(scope.ServiceProvider);
+                UsersDbInitializer.Init(scope.ServiceProvider);
             }
             host.Run();
         }
