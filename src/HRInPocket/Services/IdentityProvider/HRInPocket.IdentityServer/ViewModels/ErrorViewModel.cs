@@ -1,6 +1,4 @@
-using System;
-
-namespace HRInPocket.IdentityServer.Models
+namespace HRInPocket.IdentityServer.ViewModels
 {
     public class ErrorViewModel
     {

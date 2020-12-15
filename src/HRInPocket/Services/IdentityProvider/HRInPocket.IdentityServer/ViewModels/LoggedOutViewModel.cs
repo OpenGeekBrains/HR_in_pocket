@@ -6,7 +6,7 @@
         public string ClientName { get; set; }
         public string SignOutIframeUrl { get; set; }
 
-        public bool AutomaticRedirectAfterSignOut { get; set; } = false;
+        public bool AutomaticRedirectAfterSignOut { get; set; }
 
         public string LogoutId { get; set; }
         public bool TriggerExternalSignout => ExternalAuthenticationScheme != null;

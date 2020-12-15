@@ -247,8 +247,8 @@ namespace HRInPocket.IdentityServer.Controllers
                 {
                     EnableLocalLogin = false,
                     ReturnUrl = ReturnUrl,
-                    Username = context?.LoginHint,
-                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
+                    Username = context.LoginHint,
+                    ExternalProviders = new[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
                 };
             }
 
@@ -330,7 +330,7 @@ namespace HRInPocket.IdentityServer.Controllers
             {
                 AutomaticRedirectAfterSignOut = AccountOptions.AutomaticRedirectAfterSignOut,
                 PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
-                ClientName = string.IsNullOrEmpty(logout?.ClientName) ? logout?.ClientId : logout?.ClientName,
+                ClientName = string.IsNullOrEmpty(logout?.ClientName) ? logout?.ClientId : logout.ClientName,
                 SignOutIframeUrl = logout?.SignOutIFrameUrl,
                 LogoutId = LogoutId
             };

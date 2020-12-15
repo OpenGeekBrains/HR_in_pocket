@@ -77,44 +77,7 @@ namespace HRInPocket.IdentityServer
                 {
                     opt.AccessDeniedPath = "/Account/AccessDenied"; // указать, если действие в другом контроллере
                 })
-
-            //Стандартный протокол oidc, с индивидуальной настройкой
-            #region OpenId Connect
-            //.AddOpenIdConnect("oidc", opt =>
-            //       {
-            //           opt.SignInScheme = "Cookies";
-            //           opt.Authority = "https://localhost:10001";
-            //           opt.ClientId = "mvc-client";
-            //           opt.ResponseType = "code id_token";
-            //           opt.SaveTokens = true;
-            //           opt.ClientSecret = "MVCSecret";
-            //           opt.GetClaimsFromUserInfoEndpoint = true; //добавлять IdentityClaim в AccessToken
-
-            //           //удаление клаймов
-            //           opt.ClaimActions.DeleteClaim("sid");
-            //           opt.ClaimActions.DeleteClaim("idp");
-
-            //           //добавление клаймов
-            //           opt.ClaimActions.MapUniqueJsonKey("role", "role"); // старые добрые роли IdentityRole
-            //           opt.ClaimActions.MapUniqueJsonKey("position", "position"); // Можно контролировать доступ юзеров по конкретным городам
-            //           opt.ClaimActions.MapUniqueJsonKey("country", "country"); // ... или странам
-
-            //           //добавление скопов 
-            //           opt.Scope.Add("email");
-            //           opt.Scope.Add("address");
-            //           opt.Scope.Add("roles");
-            //           opt.Scope.Add("weatherApi");  // тот самый API для примера, которого нет
-            //           opt.Scope.Add("position");   // город
-            //           opt.Scope.Add("country");    // страна
-            //                                        //... и т.д.
-
-            //           opt.TokenValidationParameters = new TokenValidationParameters
-            //           {
-            //               RoleClaimType = "role" //параматр для валидации по клаймам ролей
-            //           };
-            //       })
-            #endregion
-
+               
             #region Аутентификация через соцсети
            //ВКонтакте
            .AddVkontakte(config =>

@@ -2,7 +2,7 @@
   "profiles": {
    "HRInPocket.IdentityServer": {
       "commandName": "Project",
-      "launchBrowser": false, // отключаем т.к. к серверу не подключен UI
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
         //"ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
