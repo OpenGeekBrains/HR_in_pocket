@@ -60,8 +60,10 @@ namespace HRInPocket.IdentityServer
                     {
                         options.ConfigureDbContext = o => o.UseSqlServer(_Configuration.GetConnectionString("ServerConfigDbConnectionString"),
                             sql => sql.MigrationsAssembly(migration_assembly));
-                    }); 
+                    });
             #endregion
+
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -71,7 +73,15 @@ namespace HRInPocket.IdentityServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            app.UseRouting();
+
             app.UseIdentityServer(); // подключаем IdentityServer
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });
         }
     }
 }

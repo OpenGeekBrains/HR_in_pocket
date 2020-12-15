@@ -47,10 +47,8 @@ namespace HRInPocket.IdentityServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -81,15 +79,15 @@ namespace HRInPocket.IdentityServer.Controllers
         /// Entry point into the login workflow
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Login(string returnUrl)
+        public async Task<IActionResult> Login(string ReturnUrl)
         {
             // build a model so we know what to show on the login page
-            var vm = await BuildLoginViewModelAsync(returnUrl);
+            var vm = await BuildLoginViewModelAsync(ReturnUrl);
 
             if (vm.IsExternalLoginOnly)
             {
                 // we only have one option for logging in and it's an external provider
-                return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
+                //return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
             }
 
             return View(vm);
@@ -137,7 +135,7 @@ namespace HRInPocket.IdentityServer.Controllers
                 var result = await _SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    ApplicationUser user = await _UserManager.FindByNameAsync(model.Username);
+                    var user = await _UserManager.FindByNameAsync(model.Username);
                     await _Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
 
                     if (context != null)
@@ -183,10 +181,10 @@ namespace HRInPocket.IdentityServer.Controllers
         /// Show logout page
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Logout(string logoutId)
+        public async Task<IActionResult> Logout(string LogoutId)
         {
             // build a model so the logout page knows what to display
-            var vm = await BuildLogoutViewModelAsync(logoutId);
+            var vm = await BuildLogoutViewModelAsync(LogoutId);
 
             if (!vm.ShowLogoutPrompt)
             {
@@ -233,25 +231,22 @@ namespace HRInPocket.IdentityServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        public IActionResult AccessDenied() => View();
 
 
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
-        private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
+        private async Task<LoginViewModel> BuildLoginViewModelAsync(string ReturnUrl)
         {
-            var context = await _Interaction.GetAuthorizationContextAsync(returnUrl);
+            var context = await _Interaction.GetAuthorizationContextAsync(ReturnUrl);
             if (context?.IdP != null)
             {
                 // this is meant to short circuit the UI and only trigger the one external IdP
                 return new LoginViewModel
                 {
                     EnableLocalLogin = false,
-                    ReturnUrl = returnUrl,
+                    ReturnUrl = ReturnUrl,
                     Username = context?.LoginHint,
                     ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
                 };
@@ -269,13 +264,13 @@ namespace HRInPocket.IdentityServer.Controllers
                     AuthenticationScheme = x.Name
                 }).ToList();
 
-            var allowLocal = true;
+            var allow_local = true;
             if (context?.Client.ClientId != null)
             {
                 var client = await _ClientStore.FindEnabledClientByIdAsync(context.Client.ClientId);
                 if (client != null)
                 {
-                    allowLocal = client.EnableLocalLogin;
+                    allow_local = client.EnableLocalLogin;
 
                     if (client.IdentityProviderRestrictions != null && client.IdentityProviderRestrictions.Any())
                     {
@@ -287,8 +282,8 @@ namespace HRInPocket.IdentityServer.Controllers
             return new LoginViewModel
             {
                 AllowRememberLogin = AccountOptions.AllowRememberLogin,
-                EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
-                ReturnUrl = returnUrl,
+                EnableLocalLogin = allow_local && AccountOptions.AllowLocalLogin,
+                ReturnUrl = ReturnUrl,
                 Username = context?.LoginHint,
                 ExternalProviders = providers.ToArray()
             };
@@ -302,9 +297,9 @@ namespace HRInPocket.IdentityServer.Controllers
             return vm;
         }
 
-        private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
+        private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string LogoutId)
         {
-            var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
+            var vm = new LogoutViewModel { LogoutId = LogoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
 
             if (User?.Identity.IsAuthenticated != true)
             {
@@ -313,7 +308,7 @@ namespace HRInPocket.IdentityServer.Controllers
                 return vm;
             }
 
-            var context = await _Interaction.GetLogoutContextAsync(logoutId);
+            var context = await _Interaction.GetLogoutContextAsync(LogoutId);
             if (context?.ShowSignoutPrompt == false)
             {
                 // it's safe to automatically sign-out
@@ -326,10 +321,10 @@ namespace HRInPocket.IdentityServer.Controllers
             return vm;
         }
 
-        private async Task<LoggedOutViewModel> BuildLoggedOutViewModelAsync(string logoutId)
+        private async Task<LoggedOutViewModel> BuildLoggedOutViewModelAsync(string LogoutId)
         {
             // get context information (client name, post logout redirect URI and iframe for federated signout)
-            var logout = await _Interaction.GetLogoutContextAsync(logoutId);
+            var logout = await _Interaction.GetLogoutContextAsync(LogoutId);
 
             var vm = new LoggedOutViewModel
             {
@@ -337,7 +332,7 @@ namespace HRInPocket.IdentityServer.Controllers
                 PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
                 ClientName = string.IsNullOrEmpty(logout?.ClientName) ? logout?.ClientId : logout?.ClientName,
                 SignOutIframeUrl = logout?.SignOutIFrameUrl,
-                LogoutId = logoutId
+                LogoutId = LogoutId
             };
 
             if (User?.Identity.IsAuthenticated == true)
@@ -345,8 +340,8 @@ namespace HRInPocket.IdentityServer.Controllers
                 var idp = User.FindFirst(JwtClaimTypes.IdentityProvider)?.Value;
                 if (idp != null && idp != IdentityServer4.IdentityServerConstants.LocalIdentityProvider)
                 {
-                    var providerSupportsSignout = await HttpContext.GetSchemeSupportsSignOutAsync(idp);
-                    if (providerSupportsSignout)
+                    var provider_supports_signout = await HttpContext.GetSchemeSupportsSignOutAsync(idp);
+                    if (provider_supports_signout)
                     {
                         if (vm.LogoutId == null)
                         {
