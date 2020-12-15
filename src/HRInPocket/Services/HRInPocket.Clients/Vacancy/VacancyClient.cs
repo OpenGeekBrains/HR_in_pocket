@@ -78,8 +78,8 @@ namespace HRInPocket.Clients.Vacancy
             PostAsync(ServiceAddress, items).Wait();
 
 
-        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
-            await PostAsync(ServiceAddress, items);
+        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) => 
+            await PostAsync($"{ServiceAddress}/add", items);
 
         /// <summary>
         /// редактировать объект в базе данных

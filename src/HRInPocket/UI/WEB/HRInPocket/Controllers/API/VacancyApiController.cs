@@ -55,16 +55,21 @@ namespace HRInPocket.Controllers.API
         /// создать диапозон объектов
         /// </summary>
         /// <param name="items"></param>
-        [HttpPost("{items}")]
-        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
+        [HttpPost("add")]
+        public async Task CreateRangeAsync(IEnumerable<Vacancy> items)
+        {
+            _Logger.LogInformation("Vacancy.CreateRange");
+
             await _VacancyService.CreateRangeAsync(items);
+        }
+
         /// <summary>
         /// Редактировать вакансию
         /// </summary>
         /// <param name="vacancy"></param>
         [HttpPut]
         public async Task<bool> Edit([FromBody] VacancyDTO vacancy) => await _VacancyService.EditAsync(vacancy);
-        
+
         /// <summary>
         /// Удалить вакансию
         /// </summary>
@@ -73,7 +78,6 @@ namespace HRInPocket.Controllers.API
         public async Task<bool> Remove(Guid id) => await _VacancyService.RemoveAsync(id);
 
         [HttpDelete("{items}")]
-        public async Task<bool> RemoveRangeAsync(IEnumerable<Domain.Entities.Data.Vacancy> items) =>
-            await _VacancyService.RemoveRangeAsync(items);
+        public async Task<bool> RemoveRangeAsync(IEnumerable<Vacancy> items) => await _VacancyService.RemoveRangeAsync(items);
     }
 }

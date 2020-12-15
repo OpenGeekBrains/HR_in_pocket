@@ -26,7 +26,7 @@ namespace HRInPocket.WPF
             services.AddTransient<ISaveDataToJSON, SaveDataToJSON>();
             services.AddSingleton<IParsehhService, ParsehhService>();
             services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["WebAPI"]) });
-            services.AddHttpClient<IDataRepository<Vacancy>, VacancyClient>();
+            services.AddScoped<IDataRepository<Vacancy>, VacancyClient>();
             services.AddAutoMapperWithProfiles(
                 typeof(MappingProfile)
             );
