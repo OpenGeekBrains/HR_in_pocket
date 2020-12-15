@@ -10,12 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace HRInPocket.IdentityServer
 {
     public class Startup
     {
         private readonly IConfiguration _Configuration;
+        readonly ILogger _Logger = Log.Logger;
 
         public Startup(IConfiguration configuration) => _Configuration = configuration;
 
@@ -30,6 +32,7 @@ namespace HRInPocket.IdentityServer
                   .AddIdentity<ApplicationUser, IdentityRole<Guid>>(
                    options =>
                    {
+                       _Logger.Debug($"Configure password settings");
                        options.Password.RequireDigit = false;
                        options.Password.RequireLowercase = false;
                        options.Password.RequireNonAlphanumeric = false;
