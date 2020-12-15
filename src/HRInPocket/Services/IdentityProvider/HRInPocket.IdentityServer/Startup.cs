@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using Serilog;
 
 namespace HRInPocket.IdentityServer
@@ -25,6 +26,7 @@ namespace HRInPocket.IdentityServer
         {
             var migration_assembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
+            //Конфигурация пользователей
             #region IdentityUsers
             services.AddDbContext<UsersDbContext>(config => config.UseSqlServer(
                     _Configuration.GetConnectionString("UsersDbConnectionString"),
@@ -42,6 +44,7 @@ namespace HRInPocket.IdentityServer
                   .AddEntityFrameworkStores<UsersDbContext>();
             #endregion
 
+            //Конфигурация IdentityServer4
             #region IdentityServer
             services.AddIdentityServer() // добавляем в систему IdentityServer
                    .AddInMemoryIdentityResources(DefaultConfig.GetIdentityResources()) // настройки доступных ресурсов пользователей
@@ -63,6 +66,96 @@ namespace HRInPocket.IdentityServer
                     });
             #endregion
 
+            //Конфигирация для подключения клиентов к серверу
+            #region OpenId Connect
+            services.AddAuthentication(opt =>
+                {
+                    opt.DefaultScheme = "Cookies"; // все храним в куках
+                    opt.DefaultChallengeScheme = "oidc"; // протокол аутентификации - OpenId Connect
+                })
+               .AddCookie("Cookies", opt =>
+                {
+                    opt.AccessDeniedPath = "/Account/AccessDenied"; // указать, если действие в другом контроллере
+                })
+
+            //Стандартный протокол oidc, с индивидуальной настройкой
+            #region OpenId Connect
+            //.AddOpenIdConnect("oidc", opt =>
+            //       {
+            //           opt.SignInScheme = "Cookies";
+            //           opt.Authority = "https://localhost:10001";
+            //           opt.ClientId = "mvc-client";
+            //           opt.ResponseType = "code id_token";
+            //           opt.SaveTokens = true;
+            //           opt.ClientSecret = "MVCSecret";
+            //           opt.GetClaimsFromUserInfoEndpoint = true; //добавлять IdentityClaim в AccessToken
+
+            //           //удаление клаймов
+            //           opt.ClaimActions.DeleteClaim("sid");
+            //           opt.ClaimActions.DeleteClaim("idp");
+
+            //           //добавление клаймов
+            //           opt.ClaimActions.MapUniqueJsonKey("role", "role"); // старые добрые роли IdentityRole
+            //           opt.ClaimActions.MapUniqueJsonKey("position", "position"); // Можно контролировать доступ юзеров по конкретным городам
+            //           opt.ClaimActions.MapUniqueJsonKey("country", "country"); // ... или странам
+
+            //           //добавление скопов 
+            //           opt.Scope.Add("email");
+            //           opt.Scope.Add("address");
+            //           opt.Scope.Add("roles");
+            //           opt.Scope.Add("weatherApi");  // тот самый API для примера, которого нет
+            //           opt.Scope.Add("position");   // город
+            //           opt.Scope.Add("country");    // страна
+            //                                        //... и т.д.
+
+            //           opt.TokenValidationParameters = new TokenValidationParameters
+            //           {
+            //               RoleClaimType = "role" //параматр для валидации по клаймам ролей
+            //           };
+            //       })
+            #endregion
+
+            #region Аутентификация через соцсети
+           //ВКонтакте
+           .AddVkontakte(config =>
+            {
+                //это идентификатор нашего сервера, зарегистрированный в VK
+                config.ClientId = _Configuration["Authentication:VKontakte:ServiceApiKey"];
+                //это секретный ключ, предоставленный сервером аутентификации VK для нашего сервера
+                config.ClientSecret = _Configuration["Authentication:VKontakte:ServiceApiSecret"];
+            })
+
+            //Facebook
+           .AddFacebook(config =>
+            {
+                config.AppId = _Configuration["Authentication:Facebook:ServiceApiKey"];
+                config.AppSecret = _Configuration["Authentication:Facebook:ServiceApiSecret"];
+                config.Scope.Add("email");
+            })
+
+            //Google
+           .AddGoogle(config =>
+            {
+                config.ClientId = _Configuration["Authentication:Google:ServiceApiKey"];
+                config.ClientSecret = _Configuration["Authentication:Google:ServiceApiSecret"];
+                config.Scope.Add("email");
+            });
+            //... и т.д.
+            #endregion
+
+            //Конфигурация авторизации
+            services.AddAuthorization(AuthOpt =>
+            {
+                AuthOpt.AddPolicy("CanCreateAndModifyData", PolicyBuilder => // добавляем политику безопасности на чтение и запись данных
+                {
+                    //чтобы получить этот доступ юзер должен:
+                    PolicyBuilder.RequireAuthenticatedUser(); // быть аутентифицированным
+                    PolicyBuilder.RequireClaim("position", "Administrator"); // иметь роль Администратора
+                    PolicyBuilder.RequireClaim("country", "Russia"); // иметь клайм страны - Россия
+                });
+            });
+            #endregion
+
             services.AddControllersWithViews();
         }
 
@@ -76,7 +169,7 @@ namespace HRInPocket.IdentityServer
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseIdentityServer(); // подключаем IdentityServer
+            app.UseIdentityServer(); // подключаем IdentityServer Authentication и Authorization не нужны!
 
             app.UseEndpoints(endpoints =>
             {
