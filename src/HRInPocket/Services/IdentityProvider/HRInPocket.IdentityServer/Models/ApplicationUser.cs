@@ -5,3 +5,5 @@ namespace HRInPocket.IdentityServer.Models
 {
     public class ApplicationUser : IdentityUser<Guid> { }
 }
+
+
