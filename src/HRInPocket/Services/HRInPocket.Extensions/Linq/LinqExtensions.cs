@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace HRInPocket.Extensions.Linq
 {
     public static class LinqExtensions
@@ -15,16 +17,13 @@ namespace HRInPocket.Extensions.Linq
         /// <param name="source">Коллекция</param>
         /// <param name="condition">Условие, может быть Nullable типа</param>
         /// <param name="predicate">Предикат выбора данных</param>
-        public static IQueryable<TSource> WhereIf<TSource>(this IQueryable<TSource> source, bool? condition, Expression<Func<TSource, bool>> predicate)
-        {
-            if (condition is null)
-                return source;
-
-            if ((bool)condition)
-                return source.Where(predicate);
-
-            return source;
-        }
+        public static IQueryable<TSource> WhereIf<TSource>(this IQueryable<TSource> source, bool? condition, Expression<Func<TSource, bool>> predicate) =>
+            condition switch
+            {
+                null => source,
+                true => source.Where(predicate),
+                _    => source
+            };
 
         /// <summary>
         /// Осуществляет выбор данных из коллекции в случае если выполняется условие 
@@ -33,13 +32,7 @@ namespace HRInPocket.Extensions.Linq
         /// <param name="source">Коллекция</param>
         /// <param name="condition">Условие</param>
         /// <param name="predicate">Предикат выбора данных</param>
-        public static IQueryable<TSource> WhereIf<TSource>(this IQueryable<TSource> source, bool condition, Expression<Func<TSource, int, bool>> predicate)
-        {
-            if (condition)
-                return source.Where(predicate);
-            else
-                return source;
-        }
+        public static IQueryable<TSource> WhereIf<TSource>(this IQueryable<TSource> source, bool condition, Expression<Func<TSource, int, bool>> predicate) => condition ? source.Where(predicate) : source;
 
         /// <summary>
         /// Объединить несколько коллекций с одним типом. Возвращает объединенную перечисляемую коллекцию
@@ -49,11 +42,7 @@ namespace HRInPocket.Extensions.Linq
         public static IEnumerable<T> Concat<T>(this IEnumerable<IEnumerable<T>> collections)
         {
             IEnumerable<T> concatCollection = new List<T>();
-            foreach (var collection in collections)
-            {
-                concatCollection = concatCollection.Concat(collection);
-            }
-            return concatCollection;
+            return collections.Aggregate(concatCollection, (current, collection) => current.Concat(collection));
         }
 
         /// <summary>
@@ -67,10 +56,17 @@ namespace HRInPocket.Extensions.Linq
                 throw new ArgumentNullException();
 
             await Task.Delay(1);
-            if (source is IQueryable<TEntity>)
-                return (IQueryable<TEntity>)source;
+            return source is IQueryable<TEntity> entities ? entities : new EnumerableQuery<TEntity>(source);
+        }
 
-            return new EnumerableQuery<TEntity>(source);
+        public static async Task<(IQueryable<T> Query, int TotalCount)> Page<T>(this IQueryable<T> query, int Page = 0, int PageSize = 0)
+        {
+            var total_count = await query.CountAsync().ConfigureAwait(false);
+            if (Page > 0 && PageSize > 0)
+                query = query.Skip(Page * PageSize);
+            if (PageSize > 0)
+                query = query.Take(PageSize);
+            return (query, total_count);
         }
     }
 }

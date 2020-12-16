@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using HRInPocket.Domain.Entities.Data;
 using HRInPocket.Domain.Entities.Users;
 using HRInPocket.Extensions;
+using HRInPocket.Interfaces.Services;
 using HRInPocket.ViewModels.Account;
 
 using Microsoft.AspNetCore.Identity;
@@ -90,10 +91,18 @@ namespace HRInPocket.Controllers
         }
 
         
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile([FromServices] ITasksService TasksService)
         {
             var profile = _UserManager.GetUserAsync(User).Result.Profile ?? new Profile();
-            return View(profile.ToViewModel());
+            var view_model = profile.ToViewModel();
+
+            var user_id = _UserManager.GetUserId(User);
+
+            view_model.Tasks = await TasksService.GetUserTasks(user_id);
+
+            return View(view_model);
         }
+
+        public string UserId() => _UserManager.GetUserId(User);
     }
 }
