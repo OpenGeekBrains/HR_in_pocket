@@ -3,11 +3,16 @@ using System.Security.Claims;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using Microsoft.Extensions.Configuration;
 
 namespace HRInPocket.IdentityServer.InMemoryConfig
 {
-    public static class DefaultConfig
+    public class DefaultConfig
     {
+        private readonly IConfiguration _Configuration;
+
+        public DefaultConfig(IConfiguration configuration) => _Configuration = configuration;
+
         /// <summary>
         /// Ресурсы пользователей
         /// </summary>
@@ -85,16 +90,19 @@ namespace HRInPocket.IdentityServer.InMemoryConfig
         /// Создает и возвращает коллекцию зарегистрированных клиентов сервера
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Client> GetClients() =>
+        public IEnumerable<Client> GetClients() =>
             new List<Client>
             {
                 //Основной клиент - MVC-приложение
                 new Client
                 {
-                    ClientName = "MVC Client",
-                    ClientId = "mvc-client",
+                    ClientName = "HRInPocket WebClient MVC",
+                    ClientId = "HRInPocket-WebClient-MVC",
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     RedirectUris = new List<string>{ "https://localhost:5001/signin-oidc" }, //адрес клиента + /signin-oidc 
+                    ClientSecrets = { new Secret(_Configuration["OpenIdConnect:HRInPocket-WebClient-MVC-Secret"].Sha512()) },
+                    PostLogoutRedirectUris = new List<string> { "https://localhost:5001/signout-callback-oidc" }, //адрес клиента + /signout-callback-oidc 
+                    RequireConsent = false, //не показывать страницу согласия на передачу данных между сервером и клиентом
                     RequirePkce = false,
                     AllowedScopes = 
                     { 
@@ -105,13 +113,10 @@ namespace HRInPocket.IdentityServer.InMemoryConfig
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        "weatherApi", // это скоп указан для примера.
+                        //"weatherApi", // это скоп указан для примера.
                         "position",
                         "country"
-                    },
-                    ClientSecrets = { new Secret("MVCSecret".Sha512()) },
-                    PostLogoutRedirectUris = new List<string> { "https://localhost:5001/signout-callback-oidc" }, //адрес клиента + /signout-callback-oidc 
-                    RequireConsent = false //не показывать страницу согласия на передачу данных между сервером и клиентом
+                    }
                 }
             };
 

@@ -4,6 +4,7 @@ using HRInPocket.IdentityServer.InMemoryConfig;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -14,7 +15,9 @@ namespace HRInPocket.IdentityServer.Data
         public static void Init(IServiceProvider ScopeServiceProvider)
         {
             ScopeServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+            var Configuration = ScopeServiceProvider.GetRequiredService<IConfiguration>();
             var context = ScopeServiceProvider.GetRequiredService<ConfigurationDbContext>();
+            var clients = new DefaultConfig(Configuration).GetClients();
             var logger = Log.Logger;
             var flag = false;
             context.Database.Migrate();
@@ -23,7 +26,7 @@ namespace HRInPocket.IdentityServer.Data
             if (!context.Clients.Any())
             {
                 if (!flag) flag = true;
-                foreach (var client in DefaultConfig.GetClients())
+                foreach (var client in clients)
                 {
                     context.Clients.Add(client.ToEntity());
                     logger.Debug($"Added client => Client name: \"{client.ClientName}\", Client Id: {client.ClientId}, Uri: {client.ClientUri}");

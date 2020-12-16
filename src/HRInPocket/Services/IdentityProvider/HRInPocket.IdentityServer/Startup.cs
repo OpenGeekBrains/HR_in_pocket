@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using HRInPocket.IdentityServer.Data;
-using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,38 +46,23 @@ namespace HRInPocket.IdentityServer
             //Конфигурация IdentityServer4
             #region IdentityServer
             services.AddIdentityServer() // добавляем в систему IdentityServer
-                   .AddInMemoryIdentityResources(DefaultConfig.GetIdentityResources()) // настройки доступных ресурсов пользователей
-                   .AddAspNetIdentity<ApplicationUser>() // пользователи системы Microsoft Identity User
-                   .AddInMemoryClients(DefaultConfig.GetClients()) // настройки подключаемых клиентов
-                   .AddInMemoryApiResources(DefaultConfig.GetApiResources()) // настройки API ресурсов
-                   .AddInMemoryApiScopes(DefaultConfig.GetApiScopes()) // настройки скопов (то, доступ к чему будет контролироваться)
-                   .AddDeveloperSigningCredential() // только на время разработки. При развертывании необходим реальный сертификат
-                   .AddConfigurationStore(options =>
+               .AddDeveloperSigningCredential() // только на время разработки. При развертывании необходим реальный сертификат
+               .AddAspNetIdentity<ApplicationUser>()
+               .AddConfigurationStore(options =>
                     {
                         options.ConfigureDbContext = c => c.UseSqlServer(
                             _Configuration.GetConnectionString("ServerConfigDbConnectionString"),
                             sql => sql.MigrationsAssembly(migration_assembly));
                     })
-                   .AddOperationalStore(options =>
+               .AddOperationalStore(options =>
                     {
                         options.ConfigureDbContext = o => o.UseSqlServer(_Configuration.GetConnectionString("ServerConfigDbConnectionString"),
                             sql => sql.MigrationsAssembly(migration_assembly));
                     });
             #endregion
 
-            //Конфигирация для подключения клиентов к серверу
-            #region OpenId Connect
-            services.AddAuthentication(opt =>
-                {
-                    opt.DefaultScheme = "Cookies"; // все храним в куках
-                    opt.DefaultChallengeScheme = "oidc"; // протокол аутентификации - OpenId Connect
-                })
-               .AddCookie("Cookies", opt =>
-                {
-                    opt.AccessDeniedPath = "/Account/AccessDenied"; // указать, если действие в другом контроллере
-                })
-               
             #region Аутентификация через соцсети
+            services.AddAuthentication()
            //ВКонтакте
            .AddVkontakte(config =>
             {
@@ -88,7 +72,7 @@ namespace HRInPocket.IdentityServer
                 config.ClientSecret = _Configuration["Authentication:VKontakte:ServiceApiSecret"];
             })
 
-            //Facebook
+           //Facebook
            .AddFacebook(config =>
             {
                 config.AppId = _Configuration["Authentication:Facebook:ServiceApiKey"];
@@ -104,19 +88,6 @@ namespace HRInPocket.IdentityServer
                 config.Scope.Add("email");
             });
             //... и т.д.
-            #endregion
-
-            //Конфигурация авторизации
-            services.AddAuthorization(AuthOpt =>
-            {
-                AuthOpt.AddPolicy("CanCreateAndModifyData", PolicyBuilder => // добавляем политику безопасности на чтение и запись данных
-                {
-                    //чтобы получить этот доступ юзер должен:
-                    PolicyBuilder.RequireAuthenticatedUser(); // быть аутентифицированным
-                    PolicyBuilder.RequireClaim("position", "Administrator"); // иметь роль Администратора
-                    PolicyBuilder.RequireClaim("country", "Russia"); // иметь клайм страны - Россия
-                });
-            });
             #endregion
 
             services.AddControllersWithViews();

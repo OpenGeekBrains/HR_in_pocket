@@ -9,6 +9,7 @@ namespace HRInPocket.IdentityServer.Models
         [Required]
         public string Password { get; set; }
         public bool RememberLogin { get; set; }
+        [Required]
         public string ReturnUrl { get; set; }
     }
 }

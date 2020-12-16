@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
 using HRInPocket.IdentityServer.Controllers.Helpers;
 using HRInPocket.IdentityServer.Extensions;
 using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
 using HRInPocket.IdentityServer.ViewModels;
+
 using IdentityModel;
+
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -45,35 +49,6 @@ namespace HRInPocket.IdentityServer.Controllers
             _SchemeProvider = SchemeProvider;
             _Events = events;
         }
-
-        [HttpGet]
-        public IActionResult Register() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
-                // добавляем пользователя
-                var result = await _UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // установка куки
-                    await _SignInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(model);
-        }
-
 
         /// <summary>
         /// Entry point into the login workflow
