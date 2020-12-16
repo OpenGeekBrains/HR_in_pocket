@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+using AutoMapper;
+
+using HRInPocket.Clients.Vacancy;
+using HRInPocket.Interfaces.Repository.Base;
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models;
 using HRInPocket.Parsing.hh.ru.Service;
@@ -19,12 +23,19 @@ namespace HRInPocket.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModelCore
     {
+        private readonly IDataRepository<Domain.Entities.Data.Vacancy> _VacancyRepository;
+        private readonly IMapper _Mapper;
+
         public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON,
-                                    IParsehhService ParsehhService)
+                                    IParsehhService ParsehhService,
+                                    IDataRepository<Domain.Entities.Data.Vacancy> VacancyRepository, 
+                                    IMapper mapper)
         {
             _SaveDataToJSON = SaveDataToJSON;
             _Parsehh = ParsehhService.GetParse();
             _Parsehh.SendVacancy += GetDataCollection;
+            _VacancyRepository = VacancyRepository;
+            _Mapper = mapper;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
@@ -39,7 +50,7 @@ namespace HRInPocket.WPF.ViewModels
 
         /// <summary>Источник токена отмены асинхронной операции</summary>
         private static CancellationTokenSource s_cts;
-        
+
         #region Свойства
 
         #region Title : string - Заголовок окна
@@ -69,6 +80,7 @@ namespace HRInPocket.WPF.ViewModels
         }
 
         #endregion
+
 
         #region DataCollection : ObservableCollection<Vacancy> - Список данных
 
@@ -209,11 +221,10 @@ namespace HRInPocket.WPF.ViewModels
         #region Отправка данных на сервер
         /// <summary>Отправка данных на сервер</summary>
         public ICommand SendDataCommand { get; }
+
         /// <summary>Отправка данных на сервер</summary>
-        private void OnSendDataCommandExecuted(object parameter)
-        {
-            MessageBox.Show("Отправка данных будет реализована скоро :)");
-        }
+        private async void OnSendDataCommandExecuted(object parameter) => 
+            await _VacancyRepository.CreateRangeAsync(DataCollection.Select(v => _Mapper.Map<Domain.Entities.Data.Vacancy>(v)));
 
         private bool CanSendDataCommandExecute(object parameter) => true;
 

@@ -26,6 +26,7 @@ namespace HRInPocket
         {
             services
                .AddControllersWithViews()
+                .AddNewtonsoftJson()
                .AddRazorRuntimeCompilation();
 
             services
@@ -79,7 +80,7 @@ namespace HRInPocket
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandkingMiddleware>();
-            app.UseMiddleware<TimeLoadMiddleware>();
+            //app.UseMiddleware<TimeLoadMiddleware>();
             
             app.UseEndpoints(endpoints =>
             {

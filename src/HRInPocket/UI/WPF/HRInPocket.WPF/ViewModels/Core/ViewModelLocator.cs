@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using HRInPocket.Clients.Vacancy;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HRInPocket.WPF.ViewModels.Core
