@@ -10,6 +10,8 @@ using System.Windows.Input;
 using AutoMapper;
 
 using HRInPocket.Clients.Vacancy;
+using HRInPocket.Domain.DTO;
+using HRInPocket.Interfaces.Clients;
 using HRInPocket.Interfaces.Repository.Base;
 using HRInPocket.Parsing.hh.ru.Interfaces;
 using HRInPocket.Parsing.hh.ru.Models;
@@ -23,18 +25,18 @@ namespace HRInPocket.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModelCore
     {
-        private readonly IDataRepository<Domain.Entities.Data.Vacancy> _VacancyRepository;
+        private readonly IVacancyClient _VacancyClient;
         private readonly IMapper _Mapper;
 
         public MainWindowViewModel(ISaveDataToJSON SaveDataToJSON,
                                     IParsehhService ParsehhService,
-                                    IDataRepository<Domain.Entities.Data.Vacancy> VacancyRepository, 
+                                    IVacancyClient vacancyClient, 
                                     IMapper mapper)
         {
             _SaveDataToJSON = SaveDataToJSON;
             _Parsehh = ParsehhService.GetParse();
             _Parsehh.SendVacancy += GetDataCollection;
-            _VacancyRepository = VacancyRepository;
+            _VacancyClient = vacancyClient;
             _Mapper = mapper;
 
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
@@ -223,8 +225,13 @@ namespace HRInPocket.WPF.ViewModels
         public ICommand SendDataCommand { get; }
 
         /// <summary>Отправка данных на сервер</summary>
-        private async void OnSendDataCommandExecuted(object parameter) => 
-            await _VacancyRepository.CreateRangeAsync(DataCollection.Select(v => _Mapper.Map<Domain.Entities.Data.Vacancy>(v)));
+        private async void OnSendDataCommandExecuted(object parameter)
+        {
+            //var collection = await _VacancyClient.GetAllAsync();
+            ServerAddress = "127.0.0.1";
+            var result = await _VacancyClient.CreateRangeAsync(new VacancyCollection(){ Vacancies = DataCollection.Select(v => _Mapper.Map<Domain.Entities.Data.Vacancy>(v)).ToList() });
+        }
+            
 
         private bool CanSendDataCommandExecute(object parameter) => true;
 

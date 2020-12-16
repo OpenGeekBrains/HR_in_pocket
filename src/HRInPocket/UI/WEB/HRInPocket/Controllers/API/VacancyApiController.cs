@@ -16,6 +16,8 @@ namespace HRInPocket.Controllers.API
 {
     [Route(WebAPI.Vacancy)]
     [ApiController]
+    [Produces("application/json")]
+
     //[Authorize(Roles = "VacancyManager,Administrator")]
     public class VacancyApiController : ControllerBase
     {
@@ -55,12 +57,13 @@ namespace HRInPocket.Controllers.API
         /// создать диапозон объектов
         /// </summary>
         /// <param name="items"></param>
-        [HttpPost("add")]
-        public async Task CreateRangeAsync(IEnumerable<Vacancy> items)
+        [HttpPost("CreateRange")]
+        public async Task<bool> CreateRangeAsync([FromBody] VacancyCollection items)
         {
             _Logger.LogInformation("Vacancy.CreateRange");
 
-            await _VacancyService.CreateRangeAsync(items);
+            await _VacancyService.CreateRangeAsync(items.Vacancies);
+            return true;
         }
 
         /// <summary>

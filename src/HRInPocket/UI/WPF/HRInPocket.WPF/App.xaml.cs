@@ -11,6 +11,7 @@ using HRInPocket.WPF.Services;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels;
 using  HRInPocket.Clients.Vacancy;
+using HRInPocket.Interfaces.Clients;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,7 @@ namespace HRInPocket.WPF
             services.AddTransient<ISaveDataToJSON, SaveDataToJSON>();
             services.AddSingleton<IParsehhService, ParsehhService>();
             services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["WebAPI"]) });
-            services.AddScoped<IDataRepository<Vacancy>, VacancyClient>();
+            services.AddScoped<IVacancyClient, VacancyClient>();
             services.AddAutoMapperWithProfiles(
                 typeof(MappingProfile)
             );

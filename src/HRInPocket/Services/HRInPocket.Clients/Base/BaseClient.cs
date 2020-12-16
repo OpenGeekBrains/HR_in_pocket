@@ -32,7 +32,11 @@ namespace HRInPocket.Clients.Base
 
         protected void Post<T>(string url, T item) => PostAsync(url, item).Wait();
         
-        protected async Task PostAsync<T>(string url, T item)=> await Client.PostAsJsonAsync($"{url}/{item}", item);
+        protected async Task<HttpResponseMessage> PostAsync<T>(string url, T item)
+        {
+            var response = await Client.PostAsJsonAsync(url, item);
+            return response.EnsureSuccessStatusCode();
+        }
 
         protected bool  Put<T>(string url, T item) => PutAsync(url, item).IsCompletedSuccessfully;
 

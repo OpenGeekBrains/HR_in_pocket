@@ -1,5 +1,7 @@
 ﻿
+using System.Collections.Generic;
 using HRInPocket.Domain.DTO.Base;
+using HRInPocket.Domain.Entities.Data;
 
 namespace HRInPocket.Domain.DTO
 {
@@ -14,5 +16,10 @@ namespace HRInPocket.Domain.DTO
         /// Максимальная зарплата
         /// </summary>
         public int MaxSalary { get; set; }
+    }
+
+    public class VacancyCollection
+    {
+        public List<Vacancy> Vacancies { get; set; }
     }
 }
