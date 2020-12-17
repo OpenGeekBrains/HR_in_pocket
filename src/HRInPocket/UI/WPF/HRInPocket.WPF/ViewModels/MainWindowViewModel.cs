@@ -29,6 +29,7 @@ namespace HRInPocket.WPF.ViewModels
             SearchCommand = new LambdaCommand(OnSearchCommandExecuted, CanSearchCommandExecute);
             SaveDataToJSONCommand = new LambdaCommand(OnSaveDataToJSONCommandExecuted, CanSaveDataToJSONCommandExecute);
             SendDataCommand = new LambdaCommand(OnSendDataCommandExecuted, CanSendDataCommandExecute);
+            LoginCommand = new LambdaCommand(OnLoginCommandExecuted, CanLoginCommandExecute);
         }
 
         /// <summary>Сервис сохранения данных</summary>
@@ -216,6 +217,19 @@ namespace HRInPocket.WPF.ViewModels
         }
 
         private bool CanSendDataCommandExecute(object parameter) => true;
+
+        #endregion
+
+        #region Авторизация
+        /// <summary>Авторизация</summary>
+        public ICommand LoginCommand { get; }
+        /// <summary>Авторизация</summary>
+        private void OnLoginCommandExecuted(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanLoginCommandExecute(object parameter) => true;
 
         #endregion
 
