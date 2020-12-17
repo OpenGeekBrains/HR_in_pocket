@@ -31,6 +31,9 @@ namespace HRInPocket.Domain.Entities.Data
         /// </summary>
         public ICollection<Vacancy> Vacancies { get; set; }
         
-        //todo: добавить возможность добавления любых метаданных
+        /// <summary>
+        /// Метаданные
+        /// </summary>
+        public ICollection<Metadata> Metadatas { get; set; } = new List<Metadata>();
     }
 }

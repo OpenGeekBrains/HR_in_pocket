@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using HRInPocket.Domain.Entities.Base;
+using HRInPocket.Domain.Entities.Profiles;
 
 namespace HRInPocket.Domain.Entities.Data
 {
@@ -8,12 +10,14 @@ namespace HRInPocket.Domain.Entities.Data
     /// </summary>
     public class TargetTask : BaseEntity
     {
-        //todo: Добавить дату создания
-        //todo: Добавить флаг активно/не активно
+        /// <summary>
+        /// Статус задания
+        /// </summary>
+        public TaskState State { get; set; }
 
         // пока добавил адрес. При работе с API - там можно будет выбирать из списка городов/районов и т.д.
         /// <summary> Адрес </summary>
-        public Address Address { get; set; } 
+        public Address Address { get; set; }
         //----------------------------------------------
 
         /// <summary> Удаленная работа </summary>
@@ -22,10 +26,9 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary> Должность/специальность/профессия </summary>
         public Speciality Speciality { get; set; }
 
-        // todo: Сделать свойство опциональным
         /// <summary> Желаемый оклад </summary>
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Salary { get; set; }
+        public decimal? Salary { get; set; }
 
         /// <summary> Теги </summary>
         public string Tags { get; set; }
@@ -42,9 +45,18 @@ namespace HRInPocket.Domain.Entities.Data
         /// <summary> Ссылка на сопроводительное письмо </summary>
         public string CoverLetterLink { get; set; }
 
-        // todo: внешний ключ не нужон
-        /// <summary> Внешний ключ </summary>
-        public string ProfileId { get; set; }
-        public Profile Profile { get; set; }
+        /// <summary>
+        /// Закрепленный менеджер
+        /// </summary>
+        public ManagerProfile ManagerProfile { get; set; }
+
+        /// <summary>
+        /// Журнал истории задания
+        /// </summary>
+        public TaskHistory TaskHistory { get; set; }
+
+        /// <summary> Внешний ключ на профиль </summary>
+        public Guid ApplicantProfileId { get; set; }
+        public ApplicantProfile ApplicantProfile { get; set; }
     }
 }

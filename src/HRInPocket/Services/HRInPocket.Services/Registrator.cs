@@ -18,7 +18,7 @@ namespace HRInPocket.Services
                .AddScoped<IMailSenderService, MailSenderService>()
                .AddScoped<IPaymentService, PaymentService>();
 
-            services.AddTransient<ITasksService, TasksService>();
+            //services.AddTransient<ITasksService, TasksService>();
             services.AddTransient<ITaskManager, TaskManager>();
 
             services
@@ -43,13 +43,13 @@ namespace HRInPocket.Services
                 .AddScoped<IDataRepository<Tarif>, DataRepository<Tarif>>()
                 .AddScoped<IDataRepository<PriceItem>, DataRepository<PriceItem>>()
 
-                .AddScoped<ICompanyService, CompanyService>()
-                .AddScoped<IResumeService, ResumeService>()
+                //.AddScoped<ICompanyService, CompanyService>()
+                //.AddScoped<IResumeService, ResumeService>()
                 .AddScoped<IPaymentService, PaymentService>()
-                .AddScoped<ITargetTaskService, TargetTaskService>()
-                .AddScoped<IVacancyService, VacancyService>()
+                //.AddScoped<ITargetTaskService, TargetTaskService>()
+                //.AddScoped<IVacancyService, VacancyService>()
 
-                .AddScoped<IShoppingService, ShoppingService>()
+                //.AddScoped<IShoppingService, ShoppingService>()
         ;
     }
 }

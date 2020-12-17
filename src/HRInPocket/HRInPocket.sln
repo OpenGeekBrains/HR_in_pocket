@@ -8,8 +8,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{91978649-192E-4619-AF9E-B6DB86A93B6B}"
+	ProjectSection(SolutionItems) = preProject
+		Readme!!!.txt = Readme!!!.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{A4EAC257-3788-4A30-842B-5F44EC938A5D}"
+	ProjectSection(SolutionItems) = preProject
+		Readme!!!.txt = Readme!!!.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket", "UI\WEB\HRInPocket\HRInPocket.csproj", "{E8A5680D-DC97-48A6-9454-D45B5E4ADDA6}"
 EndProject
@@ -42,7 +48,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngleSharp-Console-Test", "Test\AngleSharp-Console-Test\AngleSharp-Console-Test\AngleSharp-Console-Test.csproj", "{45E7FE81-C786-4010-8AF7-38EABAE8D337}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.Extensions", "Services\HRInPocket.Extensions\HRInPocket.Extensions.csproj", "{F8FD857A-1B5D-49CF-9049-F0BA09C54255}"
+EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.IdentityServer", "Services\IdentityProvider\HRInPocket.IdentityServer\HRInPocket.IdentityServer.csproj", "{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C1F88014-758E-4148-8360-16E27AA63264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +109,10 @@ Global
 		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D8394C2-BDBE-4F3A-8C9A-08FE92B39659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +131,7 @@ Global
 		{AF57445C-DADF-4BE2-821A-F20AB6F1AE5B} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
 		{F8FD857A-1B5D-49CF-9049-F0BA09C54255} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
+		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AACFA313-15B6-4805-8B8F-4077F8582B52}

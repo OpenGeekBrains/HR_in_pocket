@@ -21,6 +21,20 @@ namespace HRInPocket.Controllers
 
         public IActionResult Index()
         {
+            //var context = HttpContext;
+            //string str = string.Empty;
+            //foreach (var user_claim in context.User.Claims)
+            //{
+            //    str += user_claim.Type + " => " + user_claim.Value + ";\n";
+            //}
+            //ViewBag.All = str;
+
+            //string name = context.User.FindFirst(c => c.Type.Equals("name")).Value;
+            //string email = context.User.FindFirst(c => c.Type.Equals("email")).Value;
+
+            //ViewBag.Name = name;
+            //ViewBag.Email = email;
+
             return View(new ShortFormCreateTaskViewModel());
         }
 

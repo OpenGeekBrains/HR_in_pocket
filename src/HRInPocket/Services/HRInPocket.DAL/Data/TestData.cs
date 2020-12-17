@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using HRInPocket.Domain.Entities.Data;
-using HRInPocket.Domain.Entities.Users;
-
 using static System.DateTime;
 
 namespace HRInPocket.DAL.Data
@@ -93,33 +91,39 @@ namespace HRInPocket.DAL.Data
                         }).ToList();
             #endregion
 
-            #region Specialties
-            Specialties = Enumerable.Range(0, 100).Select(source => new Speciality { Name = $"Специальность_{source}" }).ToList();
-            #endregion
-
             #region ActivityCategories
             ActivityCategories = Enumerable.Range(0, 20)
                 .Select(source => new ActivityCategory
                 {
                     Name = $"Категория_{source}", 
-                    Specialties = Specialties.GetRange(source * 4, 5)
                 }).ToList();
             #endregion
 
+            #region Specialties
+            Specialties = Enumerable.Range(0, 100).Select(source => new Speciality
+            {
+                Name = $"Специальность_{source}",
+                ActivityCategory = ActivityCategories[__Random.Next(0, ActivityCategories.Count-1)]
+                
+            }).ToList();
+            #endregion
+
+
             #region TargetTasks
-            TargetTasks = Enumerable.Range(0, 50).Select(
-                    source => new TargetTask
-                    {
-                        Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
-                        Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
-                        CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
-                        ResumeLink = $"Ссылка на резюме {source}",
-                        Salary = __Random.Next(30, 301) * 1000,
-                        CreateCoverLetter = true,
-                        CreateResume = true,
-                        Tags = string.Empty,
-                        RemoteWork = __Random.Next(0, 100) % 2 == 0
-                    }).ToList();
+            //TargetTasks = Enumerable.Range(0, 50).Select(
+            //        source => new TargetTask
+            //        {
+            //            Address = Addresses[__Random.Next(0, Addresses.Count - 1)],
+            //            Speciality = Specialties[__Random.Next(0, Specialties.Count - 1)],
+            //            CoverLetterLink = $"Ссылка на сопроводительное письмо {source}",
+            //            ResumeLink = $"Ссылка на резюме {source}",
+            //            Salary = __Random.Next(30, 301) * 1000,
+            //            CreateCoverLetter = true,
+            //            CreateResume = true,
+            //            Tags = string.Empty,
+            //            RemoteWork = __Random.Next(0, 100) % 2 == 0,
+                        
+            //        }).ToList();
             #endregion
 
             #endregion

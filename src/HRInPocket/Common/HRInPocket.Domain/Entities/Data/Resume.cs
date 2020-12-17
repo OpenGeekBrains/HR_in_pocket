@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HRInPocket.Domain.Entities.Base;
-using HRInPocket.Domain.Entities.Users;
+using HRInPocket.Domain.Entities.Profiles;
 
 namespace HRInPocket.Domain.Entities.Data
 {
@@ -10,13 +11,15 @@ namespace HRInPocket.Domain.Entities.Data
     public class Resume : BaseEntity
     {
         /// <summary>
-        /// Соискатель-владелец резюме
-        /// </summary>
-        public Applicant Applicant { get; set; }
-
-        /// <summary>
         /// Поля резюме
         /// </summary>
         public ICollection<ResumeValue> Values { get; set; }
+
+        /// <summary>
+        /// Соискатель-владелец резюме
+        /// </summary>
+        public ApplicantProfile ApplicantProfile { get; set; }
+        public Guid ApplicantProfileId { get; set; }
+
     }
 }
