@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" IsMainMenu="True" VerticalAlignment="Stretch" Background="White">
             <MenuItem Header="Меню" VerticalAlignment="Center">
-                <MenuItem Header="Вход" Command="{Binding LoginCommand}"/>
+                <MenuItem Header="Вход" Command="{Binding OpenLoginWindowCommand}"/>
             </MenuItem>
         </Menu>
         <DockPanel
