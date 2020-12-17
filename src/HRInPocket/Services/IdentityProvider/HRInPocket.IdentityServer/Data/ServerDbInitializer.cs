@@ -61,7 +61,7 @@ namespace HRInPocket.IdentityServer.Data
                 }
                 context.SaveChanges();
             }
-            else logger.Debug("Identity API checked");
+            else logger.Debug("API resources is checked");
 
             var str = flag ? "updated" : "checked";
             logger.Debug($"The server settings database has been {str}");
