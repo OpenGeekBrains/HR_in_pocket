@@ -52,13 +52,13 @@ namespace HRInPocket.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string ReturnUrl)
         {
-            // build a model so we know what to show on the login page
+            // построение вью-модели входа
             var vm = await BuildLoginViewModelAsync(ReturnUrl);
 
             if (vm.IsExternalLoginOnly)
             {
-                // we only have one option for logging in and it's an external provider
-                //return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
+                // если разрешена только авторизация через внешних поставщиков
+                return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, ReturnUrl });
             }
 
             return View(vm);
@@ -71,10 +71,10 @@ namespace HRInPocket.IdentityServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
-            // check if we are in the context of an authorization request
+            // Формируем контекст запроса авторизации
             var context = await _Interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 
-            // the user clicked the "cancel" button
+            // пользователь нажал кнопку "login"
             if (button == "login")
             {
                 if (ModelState.IsValid)
@@ -89,72 +89,70 @@ namespace HRInPocket.IdentityServer.Controllers
                         {
                             if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
                             {
-                                // if the client is PKCE then we assume it's native, so this change in how to
-                                // return the response is for better UX for the end user.
+                                //для поддержки PKCE
                                 return View("Redirect", new RedirectViewModel {RedirectUrl = model.ReturnUrl});
                             }
 
-                            // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                            //возвращаемся туда откуда был запрос авторизации
                             return Redirect(model.ReturnUrl);
                         }
 
-                        // request for a local page
+                        // если запрос локальный
                         if (Url.IsLocalUrl(model.ReturnUrl))
                         {
+                            //возвращаемся по ссылке откуда пришли
                             return Redirect(model.ReturnUrl);
                         }
-                        else if (string.IsNullOrEmpty(model.ReturnUrl))
+                        // если нет ссылкы для редиректа
+                        if (string.IsNullOrEmpty(model.ReturnUrl))
                         {
+                            //возвращаемся на дмашнюю страницу сервера
                             return Redirect("~/");
                         }
-                        else
-                        {
-                            // user might have clicked on a malicious link - should be logged
-                            throw new Exception("invalid return URL");
-                        }
+
+                        // во всех остальных случаях - ссылка для редиректа не корректна (или подделана / скомпрометирована и т.д.)
+                        throw new Exception("invalid return URL");
                     }
 
+                    // формируем список ошибок входа
                     await _Events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials"));
+                    // добавляем ошибки валидации в состояние модели
                     ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
                 }
 
-                // something went wrong, show form with error
+                // показываем форму с ошибками
                 var vm = await BuildLoginViewModelAsync(model);
                 return View(vm);
             }
 
+            // нажали на кнопку "register"
             if (button == "register")
             {
+                // получаем текующу ссылку для редиректа
                 var ReturnUrl = model.ReturnUrl;
-                //var register_model = new RegisterViewModel
-                //{
-                //    ReturnUrl = model.ReturnUrl
-                //};
+                
+                // переходим в контроллер регистрации с передачей ссылки редиректа
                 return RedirectToAction("Register", "Register", new { ReturnUrl });
             }
 
+            // нажали "cansel"
             if (context != null)
             {
-                // if the user cancels, send a result back into IdentityServer as if they 
-                // denied the consent (even if this client does not require consent).
-                // this will send back an access denied OIDC error response to the client.
+                // отказываем в доступе
                 await _Interaction.GrantConsentAsync(context, new ConsentResponse { Error = AuthorizationError.AccessDenied });
 
-                // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                // для поддержки PKCE
                 if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
                 {
-                    // if the client is PKCE then we assume it's native, so this change in how to
-                    // return the response is for better UX for the end user.
                     return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
                 }
 
+                // возвращаемся по ссылке редиректа (с ошибкой 401 т.к. был вызов Interaction.GrantConsent c передачей ошибки авторизации )
                 return Redirect(model.ReturnUrl);
             }
-            else
-            {
-                // since we don't have a valid context, then we just go back to the home page
-                return Redirect("~/");
-            }
+
+            // Возврат на домашнюю страницу сервера (поддержка автономной работы сервера и входа без внешнего запроса)
+            return Redirect("~/");
         }
 
 
@@ -164,17 +162,15 @@ namespace HRInPocket.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout(string LogoutId)
         {
-            // build a model so the logout page knows what to display
+            // построение модели
             var vm = await BuildLogoutViewModelAsync(LogoutId);
 
-            if (!vm.ShowLogoutPrompt)
-            {
-                // if the request for logout was properly authenticated from IdentityServer, then
-                // we don't need to show the prompt and can just log the user out directly.
-                return await Logout(vm);
-            }
+            // если включен переход на страницу предупреждения о выходе
+            if (vm.ShowLogoutPrompt) return View(vm);
+            
+            // просто выходим
+            return await Logout(vm);
 
-            return View(vm);
         }
 
         /// <summary>
@@ -184,31 +180,27 @@ namespace HRInPocket.IdentityServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout(LogoutInputModel model)
         {
-            // build a model so the logged out page knows what to display
+            // построение вью-модели
             var vm = await BuildLoggedOutViewModelAsync(model.LogoutId);
 
+            // если пользователь авторизован
             if (User?.Identity.IsAuthenticated == true)
             {
-                // delete local authentication cookie
+                // удаляем локальные куки
                 await _SignInManager.SignOutAsync();
 
-                // raise the logout event
+                // вызов выхода на сервере
                 await _Events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
             }
 
-            // check if we need to trigger sign-out at an upstream identity provider
-            if (vm.TriggerExternalSignout)
-            {
-                // build a return URL so the upstream provider will redirect back
-                // to us after the user has logged out. this allows us to then
-                // complete our single sign-out processing.
-                string url = Url.Action("Logout", new { logoutId = vm.LogoutId });
+            // если через наш сервер никуда не входили - показываем окно с предупреждением о выходе
+            if (!vm.TriggerExternalSignout) return View("LoggedOut", vm);
+            
+            //создаем ссылку на возврат после выхода из других серверов
+            var url = Url.Action("Logout", new { logoutId = vm.LogoutId });
 
-                // this triggers a redirect to the external provider for sign-out
-                return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);
-            }
-
-            return View("LoggedOut", vm);
+            // выходим из других мест
+            return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);
         }
 
         [HttpGet]
