@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using HRInPocket.IdentityServer.Controllers.Helpers;
 using HRInPocket.IdentityServer.Extensions;
 using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
 using HRInPocket.IdentityServer.ViewModels;
-
 using IdentityModel;
-
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -79,76 +75,86 @@ namespace HRInPocket.IdentityServer.Controllers
             var context = await _Interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 
             // the user clicked the "cancel" button
-            if (button != "login")
+            if (button == "login")
             {
-                if (context != null)
+                if (ModelState.IsValid)
                 {
-                    // if the user cancels, send a result back into IdentityServer as if they 
-                    // denied the consent (even if this client does not require consent).
-                    // this will send back an access denied OIDC error response to the client.
-                    await _Interaction.GrantConsentAsync(context, new ConsentResponse { Error = AuthorizationError.AccessDenied });
-
-                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                    if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
+                    var result = await _SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: true);
+                    if (result.Succeeded)
                     {
-                        // if the client is PKCE then we assume it's native, so this change in how to
-                        // return the response is for better UX for the end user.
-                        return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
-                    }
+                        var user = await _UserManager.FindByNameAsync(model.Username);
+                        await _Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
 
-                    return Redirect(model.ReturnUrl);
-                }
-                else
-                {
-                    // since we don't have a valid context, then we just go back to the home page
-                    return Redirect("~/");
-                }
-            }
-
-            if (ModelState.IsValid)
-            {
-                var result = await _SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: true);
-                if (result.Succeeded)
-                {
-                    var user = await _UserManager.FindByNameAsync(model.Username);
-                    await _Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
-
-                    if (context != null)
-                    {
-                        if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
+                        if (context != null)
                         {
-                            // if the client is PKCE then we assume it's native, so this change in how to
-                            // return the response is for better UX for the end user.
-                            return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                            if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
+                            {
+                                // if the client is PKCE then we assume it's native, so this change in how to
+                                // return the response is for better UX for the end user.
+                                return View("Redirect", new RedirectViewModel {RedirectUrl = model.ReturnUrl});
+                            }
+
+                            // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                            return Redirect(model.ReturnUrl);
                         }
 
-                        // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                        return Redirect(model.ReturnUrl);
+                        // request for a local page
+                        if (Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else if (string.IsNullOrEmpty(model.ReturnUrl))
+                        {
+                            return Redirect("~/");
+                        }
+                        else
+                        {
+                            // user might have clicked on a malicious link - should be logged
+                            throw new Exception("invalid return URL");
+                        }
                     }
 
-                    // request for a local page
-                    if (Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else if (string.IsNullOrEmpty(model.ReturnUrl))
-                    {
-                        return Redirect("~/");
-                    }
-                    else
-                    {
-                        // user might have clicked on a malicious link - should be logged
-                        throw new Exception("invalid return URL");
-                    }
+                    await _Events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials"));
+                    ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
                 }
 
-                await _Events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials"));
-                ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
+                // something went wrong, show form with error
+                var vm = await BuildLoginViewModelAsync(model);
+                return View(vm);
             }
 
-            // something went wrong, show form with error
-            var vm = await BuildLoginViewModelAsync(model);
-            return View(vm);
+            if (button == "register")
+            {
+                var ReturnUrl = model.ReturnUrl;
+                //var register_model = new RegisterViewModel
+                //{
+                //    ReturnUrl = model.ReturnUrl
+                //};
+                return RedirectToAction("Register", "Register", new { ReturnUrl });
+            }
+
+            if (context != null)
+            {
+                // if the user cancels, send a result back into IdentityServer as if they 
+                // denied the consent (even if this client does not require consent).
+                // this will send back an access denied OIDC error response to the client.
+                await _Interaction.GrantConsentAsync(context, new ConsentResponse { Error = AuthorizationError.AccessDenied });
+
+                // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                if (await _ClientStore.IsPkceClientAsync(context.Client.ClientId))
+                {
+                    // if the client is PKCE then we assume it's native, so this change in how to
+                    // return the response is for better UX for the end user.
+                    return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                }
+
+                return Redirect(model.ReturnUrl);
+            }
+            else
+            {
+                // since we don't have a valid context, then we just go back to the home page
+                return Redirect("~/");
+            }
         }
 
 

@@ -1,6 +1,7 @@
 ﻿@model RegisterViewModel
 <h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
+<form method="post" asp-controller="Register" asp-action="Register">
+    <input type="hidden" asp-for="ReturnUrl"/>
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br/>
