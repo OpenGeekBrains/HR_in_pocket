@@ -17,6 +17,7 @@ namespace HRInPocket.WPF
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<LoginWindowViewModel>();
             services.AddTransient<ISaveDataToJSON, SaveDataToJSON>();
             services.AddSingleton<IParsehhService, ParsehhService>();
         }

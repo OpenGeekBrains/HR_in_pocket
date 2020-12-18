@@ -6,26 +6,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="350"
     Height="250"
+    DataContext="{Binding LoginWindowVM, Source={StaticResource Locator}}"
     ResizeMode="NoResize"
+    Topmost="True"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <StackPanel VerticalAlignment="Center">
         <TextBlock
             Margin="10,5"
+            Foreground="Red"
+            IsEnabled="False"
+            Text="{Binding Message}"
+            TextAlignment="Center" />
+        <TextBlock
+            Margin="10,5"
             Text="Имя пользователя:"
             TextAlignment="Center" />
-        <TextBox Margin="50,5" Text="{Binding Login}" />
+        <TextBox Margin="50,5" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock
             Margin="10,5"
             Text="Пароль:"
             TextAlignment="Center" />
-        <TextBox Margin="50,5" Text="{Binding Password}" />
+        <PasswordBox Name="txtPassword" Margin="50,5" />
         <Button
             Margin="100,10"
+            Background="DeepSkyBlue"
             Command="{Binding LoginCommand}"
+            CommandParameter="{Binding ElementName=txtPassword}"
             Content="Войти" />
         <Button
             Margin="100,5"
-            Command="{Binding CancelCommand}"
-            Content="Отмена" />
+            Content="Отмена"
+            IsCancel="True" />
     </StackPanel>
 </Window>

@@ -14,6 +14,7 @@ using HRInPocket.WPF.Data;
 using HRInPocket.WPF.Infrastructure.Commands;
 using HRInPocket.WPF.Services.Interfaces;
 using HRInPocket.WPF.ViewModels.Core;
+using HRInPocket.WPF.Views;
 
 namespace HRInPocket.WPF.ViewModels
 {
@@ -226,7 +227,9 @@ namespace HRInPocket.WPF.ViewModels
         /// <summary>Авторизация</summary>
         private void OnOpenLoginWindowCommandExecuted(object parameter)
         {
-            throw new NotImplementedException();
+            var loginWindow = new LoginWindow();
+            //loginWindow.Owner = MainWindow;
+            loginWindow.ShowDialog();
         }
 
         private bool CanOpenLoginWindowCommandExecute(object parameter) => true;

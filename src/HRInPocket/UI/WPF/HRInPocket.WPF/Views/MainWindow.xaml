@@ -7,7 +7,7 @@
     Title="{Binding Title}"
     Width="800"
     Height="450"
-    DataContext="{Binding MWViewModel, Source={StaticResource Locator}}"
+    DataContext="{Binding MainWindowVM, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

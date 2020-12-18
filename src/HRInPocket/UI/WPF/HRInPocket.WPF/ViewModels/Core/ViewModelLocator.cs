@@ -8,6 +8,8 @@ namespace HRInPocket.WPF.ViewModels.Core
 {
     internal class ViewModelLocator
     {
-        public MainWindowViewModel MWViewModel => App.Host.Services.GetRequiredService<MainWindowViewModel>();
+        public MainWindowViewModel MainWindowVM => App.Host.Services.GetRequiredService<MainWindowViewModel>();
+        public LoginWindowViewModel LoginWindowVM => App.Host.Services.GetRequiredService<LoginWindowViewModel>();
+
     }
 }
