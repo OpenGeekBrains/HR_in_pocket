@@ -28,12 +28,12 @@ namespace HRInPocket.Extensions
         {
             var result = string.Empty;
             var user = context.User;
-            if (user != null && user.IsAuthenticated())
+            if (user.IsAuthenticated())
             {
-                result = user.FindFirst(c => c.Type.Equals("email", System.StringComparison.Ordinal)).Value;
+                result = user.FindFirst(c => c.Type.Equals("email", System.StringComparison.Ordinal))?.Value;
                 if (string.IsNullOrEmpty(result) || string.IsNullOrWhiteSpace(result))
                 {
-                    result = user.FindFirst(c => c.Type.Equals("name", System.StringComparison.Ordinal)).Value;
+                    result = user.FindFirst(c => c.Type.Equals("name", System.StringComparison.Ordinal))?.Value;
                 }
             }
 
