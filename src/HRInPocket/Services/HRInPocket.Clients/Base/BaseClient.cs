@@ -4,30 +4,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
+using HRInPocket.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace HRInPocket.Clients.Base
 {
     public abstract class BaseClient
     {
-     
-        protected readonly string ServiceAddress;
-        protected readonly HttpClient Client;
+        protected HttpClient Client { get; }
 
-        protected BaseClient(IConfiguration configuration, string serviceAddress)
-        {
-            ServiceAddress = serviceAddress;
-
-            Client = new HttpClient
-            {
-                BaseAddress = new Uri(configuration["WebAPI"]),
-                DefaultRequestHeaders =
-                {
-                    Accept = { new MediaTypeWithQualityHeaderValue("application/json") }
-                }
-            };
-        }
+        protected BaseClient(HttpClient client) => Client = client;
 
 
         protected void Post<T>(string url, T item) => PostAsync(url, item).Wait();

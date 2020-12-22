@@ -17,8 +17,9 @@ namespace HRInPocket.Clients.Vacancy
 {
     public class VacancyClient : BaseClient, IVacancyClient
     {
-        public VacancyClient(IConfiguration configuration) : base(configuration, WebAPI.Vacancy) { }
+        public VacancyClient(HttpClient Client) : base(Client) { }
 
+        protected string ServiceAddress = WebAPI.Vacancy;
         ///// <summary>
         ///// запрос всех данных из таблицы
         ///// </summary>
