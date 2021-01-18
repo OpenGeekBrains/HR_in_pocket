@@ -26,7 +26,7 @@ namespace HRInPocket.Controllers.API
         public JsonResult Get()
         {
             var content = _feedbackService.Requests.GroupBy(f => f.email).ToArray();
-            return new JsonResult(new ArrayContent(content, content.Any()));
+            return new JsonResult(new ArrayContent(content, content.Length > 0));
         }
 
         [HttpPost("/user/feedback")]
