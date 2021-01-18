@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 using HRInPocket.Clients.Base;
+using HRInPocket.Clients.Service;
 using HRInPocket.Domain.DTO;
 using HRInPocket.Interfaces;
 using HRInPocket.Interfaces.Clients;
@@ -81,10 +82,7 @@ namespace HRInPocket.Clients.Vacancy
         //    PostAsync(ServiceAddress, items).Wait();
 
 
-        public async Task<bool> CreateRangeAsync(VacancyCollection items) =>
-            await (await PostAsync($"{ServiceAddress}/CreateRange", items))
-                .Content
-                .ReadAsAsync<bool>();
+        public async Task<bool> CreateRangeAsync(VacancyCollection items) => await PostAsync($"{ServiceAddress}/CreateRange", items).ResultAs<bool>();
 
         ///// <summary>
         ///// редактировать объект в базе данных

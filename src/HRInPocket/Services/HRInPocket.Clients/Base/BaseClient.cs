@@ -15,7 +15,6 @@ namespace HRInPocket.Clients.Base
 
         protected BaseClient(HttpClient client) => Client = client;
 
-
         protected void Post<T>(string url, T item) => PostAsync(url, item).Wait();
         
         protected async Task<HttpResponseMessage> PostAsync<T>(string url, T item)
