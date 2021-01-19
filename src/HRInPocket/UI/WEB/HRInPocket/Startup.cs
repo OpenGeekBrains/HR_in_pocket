@@ -123,6 +123,8 @@ namespace HRInPocket
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseSerilogRequestLogging();
@@ -133,13 +135,15 @@ namespace HRInPocket
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandkingMiddleware>();
-            app.UseMiddleware<TimeLoadMiddleware>();
+            //app.UseMiddleware<TimeLoadMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }
