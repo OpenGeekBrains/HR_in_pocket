@@ -1,0 +1,32 @@
+﻿@using HRInPocket.Domain.Entities.Data
+@inject HttpClient Http
+
+<div class="tarifs">
+    <p class="maintitle-tarifs">Тарифы</p>
+    <section id="tarifs">
+        <div class="row no-gutters tarifs-block">
+
+            @if (_Tarifs is null)
+            {
+                <p>Загрузка тарифов...</p>
+            }
+            else
+            {
+                foreach (var tarif in _Tarifs)
+                {
+                    <TarifInfo Tarif="tarif"/>
+                }
+            }
+        </div>
+    </section>
+</div>
+
+@code
+{
+    private IEnumerable<Tarif> _Tarifs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

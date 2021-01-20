@@ -1,0 +1,13 @@
+﻿@using HRInPocket.Domain.Entities.Data
+
+<div class="col tarifs-block-each tarifs-w ">
+    <p class="title-tarifs">@Tarif.Name</p>
+    <p class="desc-tarifs">@Tarif.Description</p>
+    <p class="numb-visits">@Tarif.Visits приглашений</p>
+    <p class="price-tarifs">@Tarif.Price руб.</p>
+    <button type="button" class="buy"><a href="#">Купить</a></button>
+</div>
+
+@code{
+    [Parameter] public Tarif Tarif { get; set; }
+}

@@ -1,0 +1,73 @@
+﻿.callback {
+    margin-left: 48px;
+    margin-right: 50px;
+}
+
+.make-callback-form {
+
+}
+
+.maintitle-callback {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+    margin-top: 139px;
+    text-align: center;
+}
+
+.make-callback input {
+    margin: 0 auto;
+}
+
+.form_control-cb1 {
+    margin-top: 55px;
+}
+
+.form_control-cb2,
+.form_control-cb4 {
+    margin-top: 32px;
+}
+
+.form_control-cb2 input,
+.form_control-cb1 input,
+.form_control-cb4 input {
+    border: 1px solid #C8D7DB;
+    box-sizing: border-box;
+    width: 800px;
+    height: 70px;
+    border-radius: 21px;
+    padding-left: 43px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #BFC6C8;
+}
+
+.form_control-cb4 input {
+    height: 150px;
+}
+
+.send-callback {
+    width: 300px;
+    height: 70px;
+    margin-left: 20%;
+    margin-top: 32px;
+    background: #FCE55A;
+    border-radius: 12px;
+    border: 0px;
+}
+
+.send-callback a {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}

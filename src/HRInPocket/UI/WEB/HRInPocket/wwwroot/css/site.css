@@ -584,7 +584,9 @@ a:hover {
         line-height: 29px;
     }
 
-
+    .header_item:last-child {
+        margin-right: 295px;
+    }
 
 .active-item a {
     color: #353031;
@@ -592,10 +594,6 @@ a:hover {
 
 .nonactive-item a {
     color: #A0A0A0;
-}
-
-.header_item:last-child {
-    margin-right: 295px;
 }
 
 .header-notify-count {
@@ -793,7 +791,6 @@ a:hover {
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-  
     /* identical to box height, or 200% */
     display: flex;
     text-align: center;
@@ -1438,9 +1435,11 @@ footer {
     height: 60px;
     text-align: center;
 }
+
 .form-group-salary {
     margin-left: 17px;
 }
+
 .maketask-table {
     margin-top: 38px;
     width: 800px !important;
@@ -1492,6 +1491,7 @@ footer {
         line-height: 24px;
         color: #000;
     }
+
 .checkbox-salary {
     margin-top: 38px;
     margin-left: 136px;

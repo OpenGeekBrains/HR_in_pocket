@@ -1,0 +1,19 @@
+﻿.tarifs {
+    margin-left: 48px;
+    margin-right: 50px;
+}
+
+.maintitle-tarifs {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+}
+
+#tarifs {
+    margin-left: 50px;
+    margin-top: 84.5px;
+}

@@ -1,0 +1,17 @@
+﻿@using HRInPocket.Domain.Entities.Data
+
+<table class="table table-reflow price-table">
+    <tbody>
+        <tr>
+            <td scope="row" id="first-ch-tb">@Price.Name</td>
+            <td id="price-tb">@Price.Price руб.</td>
+            <td id="last-td-price">
+                <button type="button" class="buy"><a href="">Купить</a></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public PriceItem Price { get; set; }
+}

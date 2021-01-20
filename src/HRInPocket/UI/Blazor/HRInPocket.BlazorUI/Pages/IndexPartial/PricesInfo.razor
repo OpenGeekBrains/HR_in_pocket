@@ -1,0 +1,24 @@
+﻿<div class="price">
+    @if (_Prices is null)
+    {
+        <p>Загрузка цен...</p>
+    }
+    else
+    {
+        @foreach (var price in _Prices)
+        {
+            <PriceInfo Price="price" />
+        }
+    }
+</div>
+
+@code
+{
+    private IEnumerable<Domain.Entities.Data.PriceItem> _Prices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+    }
+}

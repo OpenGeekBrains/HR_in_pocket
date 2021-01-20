@@ -1,0 +1,39 @@
+﻿.page-footer {
+}
+
+.font-small {
+}
+
+.indigo {
+}
+
+.index-footer {
+    margin-left: 162px;
+    margin-right: 117px;
+}
+
+.footer-list {
+    margin-top: 16px;
+}
+
+    .footer-list a {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        /* identical to box height */
+        color: #FFFFFF;
+    }
+
+        .footer-list a:hover {
+            color: #ffffff;
+        }
+
+.footer-list-1 {
+    margin-top: 32px;
+}
+
+.footer-logo {
+    text-align: right;
+}

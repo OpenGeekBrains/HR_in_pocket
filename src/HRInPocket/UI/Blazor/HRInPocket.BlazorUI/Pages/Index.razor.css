@@ -1,0 +1,121 @@
+﻿.menu-rectangle {
+}
+
+.plashka-top {
+    position: absolute;
+    top: 118px;
+    margin-left: 1225px;
+    z-index: 1;
+}
+
+.content {
+    margin-top: 84.87px;
+}
+
+.executor {
+    margin-top: 84px;
+}
+
+.media {
+    margin-left: 48px;
+    margin-right: 50px;
+}
+
+.media-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.media-text {
+    margin-right: 18%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.title {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 116.9%;
+    /* or 75px */
+    color: #000000;
+    padding-bottom: 30px;
+}
+
+.color-text {
+    color: #FCE55A;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.make-task {
+    height: 100px;
+    margin-top: 32px;
+    margin-right: 0.5%;
+}
+
+.form_control {
+    height: 60px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    /* identical to box height, or 200% */
+    display: flex;
+    text-align: center;
+    letter-spacing: 0.2px;
+    color: #A0A0A0;
+    width: 330px;
+}
+
+.form_control-1 {
+    border-radius: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #A0A0A0;
+    border-right: 0.1px;
+}
+
+.form_control-2 {
+    border-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #A0A0A0;
+    border-left: 0.1px solid #A0A0A0;
+}
+
+.send {
+    background: #FCE55A;
+    border-radius: 10px;
+    border: 0px;
+    height: 60px;
+    width: 228px;
+    margin-top: 32px;
+    color: #353031;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+    .send a {
+        color: #353031;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+
+.main-photo {
+    margin-right: 103px;
+    margin-top: 20px;
+}

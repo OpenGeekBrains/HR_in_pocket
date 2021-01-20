@@ -1,0 +1,20 @@
+﻿.tarifs-block-each {
+    box-shadow: 2px 2px 15px #000000;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-right: 36px;
+    position: relative;
+}
+
+.tarifs-w {
+    width: 308px;
+}
+
+.title-tarifs,
+.desc-tarifs,
+.numb-visits,
+.price-tarifs,
+.buy {
+    font-family: Montserrat;
+    font-style: normal;
+}

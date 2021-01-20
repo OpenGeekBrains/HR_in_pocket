@@ -1,0 +1,56 @@
+﻿.how-works {
+    margin-left: 48px;
+    margin-right: 50px;
+}
+
+.maintitle-how-works {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.maintitle-how-works {
+    text-align: center;
+    margin-top: 230px;
+}
+
+#how-works {
+    margin-left: 50px;
+    margin-top: 84.5px;
+}
+
+.rectangles-how-works {
+    text-align: center;
+    max-width: 1310px;
+}
+
+.even {
+    margin-top: 6.5%;
+}
+
+.odd {
+    width: 250px;
+}
+
+.title-how-works {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.describtion-how-works {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #353031;
+}

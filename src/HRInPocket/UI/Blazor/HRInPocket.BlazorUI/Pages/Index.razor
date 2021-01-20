@@ -1,7 +1,36 @@
-﻿@page "/"
+﻿ @* ReSharper disable once RedundantUsingDirective *@
+ @using HRInPocket.BlazorUI.Pages.IndexPartial
 
-<h1>Hello, world!</h1>
+@page "/"
 
-Welcome to your new app.
+<div class=" d-flex plashka ">
+    <img src="img-blazor/svg/plashka.svg" alt="" class="d-flex ml-0 menu-rectangle">
+</div>
+<img src="img-blazor/svg/dots2.svg" alt="" class="plashka-top">
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="content">
+    <div class="executor">
+        <div class="media">
+            <div class="media-body">
+                <div class="media-text">
+                    <h5 class="mt-0 mb-1 title">Устройся на работу мечты</h5> <span class="color-text">HR в кармане</span> - это веб-платформа, которая позволяет соискателю создавать задания на поиск работы с оплатой за приглашения. Вам останется лишь ходить на интервью.
+                </div>
+                <form class="make-task" method="get" asp-controller="Tasks" asp-action="Create" asp-antiforgery="true">
+                    <div class="row no-gutters">
+                        <input asp-for="Position" type="text" class="form_control  form_control-1" placeholder="Желаемая специальность">
+                        <input asp-for="ResumeUrl" type="text" class="form_control form_control-2" placeholder="Ссылка на резюме">
+                    </div>
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <button type="submit" class="send">Создать задание</button>
+                </form>
+            </div> <img class="d-flex ml-0 main-photo" src="img-blazor/plashka-photo.png" alt="img">
+        </div>
+        
+        <HowItWorks/>
+        <TarifsInfo/>
+        <PricesInfo/>
+        <CallbackForm/>
+        <PromoGetDreamJob/>
+
+    </div>
+</div>
