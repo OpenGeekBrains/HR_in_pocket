@@ -1,6 +1,13 @@
 ﻿.menu-rectangle {
 }
 
+.plashka {
+    position: absolute;
+    top: 0px;
+    margin-left: 807px;
+    z-index: -5;
+}
+
 .plashka-top {
     position: absolute;
     top: 118px;

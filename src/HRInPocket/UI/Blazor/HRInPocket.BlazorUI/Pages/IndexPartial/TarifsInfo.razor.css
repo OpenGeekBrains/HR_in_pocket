@@ -4,6 +4,11 @@
 }
 
 .maintitle-tarifs {
+    margin-top: 95px;
+    text-align: center;
+}
+
+.maintitle-tarifs {
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;

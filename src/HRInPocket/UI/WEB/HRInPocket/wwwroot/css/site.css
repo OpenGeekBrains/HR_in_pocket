@@ -1167,26 +1167,26 @@ footer {
     text-align: right;
 }
 
-.footer-list a {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    /* identical to box height */
-    color: #FFFFFF;
-}
-
 .footer-list {
     margin-top: 16px;
 }
 
+    .footer-list a {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        /* identical to box height */
+        color: #FFFFFF;
+    }
+
+        .footer-list a:hover {
+            color: #ffffff;
+        }
+
 .footer-list-1 {
     margin-top: 32px;
-}
-
-.footer-list a:hover {
-    color: #ffffff;
 }
 
 .index-footer {
