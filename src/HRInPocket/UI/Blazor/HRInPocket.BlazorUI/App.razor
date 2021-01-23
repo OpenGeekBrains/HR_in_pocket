@@ -1,4 +1,4 @@
-<CascadingAuthenticationState>
+п»ї<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -9,14 +9,14 @@
                     }
                     else
                     {
-                        <p>Требуется авторизация.</p>
+                        <p>РўСЂРµР±СѓРµС‚СЃСЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ.</p>
                     }
                 </NotAuthorized>
             </AuthorizeRouteView>
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>По запрошенному адресу ничего нет.</p>
+                <p>РџРѕ Р·Р°РїСЂРѕС€РµРЅРЅРѕРјСѓ Р°РґСЂРµСЃСѓ РЅРёС‡РµРіРѕ РЅРµС‚.</p>
             </LayoutView>
         </NotFound>
     </Router>
