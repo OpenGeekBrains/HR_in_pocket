@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.IdentityServer",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C1F88014-758E-4148-8360-16E27AA63264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocket.HHApi", "Services\HRInPocket.HHApi\HRInPocket.HHApi.csproj", "{361437A0-36D0-4D67-BB2F-7FE59878C5A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361437A0-36D0-4D67-BB2F-7FE59878C5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361437A0-36D0-4D67-BB2F-7FE59878C5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361437A0-36D0-4D67-BB2F-7FE59878C5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361437A0-36D0-4D67-BB2F-7FE59878C5A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +138,7 @@ Global
 		{45E7FE81-C786-4010-8AF7-38EABAE8D337} = {E45F3360-3E02-465D-84B5-069DB5007F3B}
 		{F8FD857A-1B5D-49CF-9049-F0BA09C54255} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 		{40CD4FEE-0AE4-413B-9FDF-B8E846BE11E1} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
+		{361437A0-36D0-4D67-BB2F-7FE59878C5A8} = {2C70DDAE-87CF-4A2A-990C-E2FE1ACBDD06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AACFA313-15B6-4805-8B8F-4077F8582B52}
