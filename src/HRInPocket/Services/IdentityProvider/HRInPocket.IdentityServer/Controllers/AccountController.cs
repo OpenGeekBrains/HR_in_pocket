@@ -193,8 +193,12 @@ namespace HRInPocket.IdentityServer.Controllers
                 await _Events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
             }
 
-            // если через наш сервер никуда не входили - показываем окно с предупреждением о выходе
-            if (!vm.TriggerExternalSignout) return View("LoggedOut", vm);
+            // если через наш сервер никуда не входили
+            if (!vm.TriggerExternalSignout)
+            {
+                if(!vm.AutomaticRedirectAfterSignOut) return View("LoggedOut", vm);
+                return Redirect(vm.PostLogoutRedirectUri);
+            }
             
             //создаем ссылку на возврат после выхода из других серверов
             var url = Url.Action("Logout", new { logoutId = vm.LogoutId });
