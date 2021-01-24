@@ -30,7 +30,7 @@ namespace HRInPocket.IdentityServer.InMemoryConfig
             };
 
         /// <summary>
-        /// Создает и возвращает колеекцию базовых пользователей
+        /// Создает и возвращает коллекцию базовых пользователей
         /// </summary>
         /// <returns></returns>
         public static List<TestUser> GetUsers() =>
@@ -93,31 +93,60 @@ namespace HRInPocket.IdentityServer.InMemoryConfig
         public IEnumerable<Client> GetClients() =>
             new List<Client>
             {
-                //Основной клиент - MVC-приложение
+                #region Old ASP Client
+		        //Основной клиент - MVC-приложение
+                //new Client
+                //{
+                //    ClientName = "HRInPocket WebClient MVC",
+                //    ClientId = "HRInPocket-WebClient-MVC",
+                //    AllowedGrantTypes = GrantTypes.Hybrid,
+                //    RedirectUris = new List<string>{ "https://localhost:5001/signin-oidc" }, //адрес клиента + /signin-oidc 
+                //    ClientSecrets = { new Secret(_Configuration["OpenIdConnect:HRInPocket-WebClient-MVC-Secret"].Sha512()) },
+                //    PostLogoutRedirectUris = new List<string> { "https://localhost:5001/signout-callback-oidc" }, //адрес клиента + /signout-callback-oidc 
+                //    RequireConsent = false, //не показывать страницу согласия на передачу данных между сервером и клиентом
+                //    RequirePkce = false,
+                //    AllowedScopes =
+                //    { 
+                //        //здесь добавляются разрешенные для клиента области
+                //        //то, к чему клиент сможет получать доступ
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        IdentityServerConstants.StandardScopes.Profile,
+                //        IdentityServerConstants.StandardScopes.Email,
+                //        IdentityServerConstants.StandardScopes.Address,
+                //        "roles",
+                //        //"weatherApi", // это скоп указан для примера.
+                //        "position",
+                //        "country"
+                //    }
+                //}, 
+	            #endregion
+
+                ///////////////////////////////////////////
+                // HRInPocket.BlazorUI with PKCE
+                //////////////////////////////////////////
                 new Client
                 {
-                    ClientName = "HRInPocket WebClient MVC",
-                    ClientId = "HRInPocket-WebClient-MVC",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
-                    RedirectUris = new List<string>{ "https://localhost:5001/signin-oidc" }, //адрес клиента + /signin-oidc 
-                    ClientSecrets = { new Secret(_Configuration["OpenIdConnect:HRInPocket-WebClient-MVC-Secret"].Sha512()) },
-                    PostLogoutRedirectUris = new List<string> { "https://localhost:5001/signout-callback-oidc" }, //адрес клиента + /signout-callback-oidc 
-                    RequireConsent = false, //не показывать страницу согласия на передачу данных между сервером и клиентом
-                    RequirePkce = false,
-                    AllowedScopes = 
-                    { 
-                        //здесь добавляются разрешенные для клиента области
-                        //то, к чему клиент сможет получать доступ
-                        IdentityServerConstants.StandardScopes.OpenId, 
+                    ClientId = "HRInPocket.BlazorUI",
+                    ClientName = "HR In Pocket Blazor UI",
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+                    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedCorsOrigins = { "https://localhost:6001" },
+                    PostLogoutRedirectUris = { "https://localhost:6001" },
+                    RedirectUris = { "https://localhost:6001/authentication/login-callback" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        //"weatherApi", // это скоп указан для примера.
                         "position",
                         "country"
-                    }
-                }
+                       },
+                    Enabled = true
+                },
             };
 
         /// <summary>
@@ -125,14 +154,18 @@ namespace HRInPocket.IdentityServer.InMemoryConfig
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<ApiScope> GetApiScopes() =>
-            new List<ApiScope> { new ApiScope("weatherApi", "Weather Forecast API") };// для примера указан API
+            new List<ApiScope>
+            {
+                new ApiScope("weatherApi", "Weather Forecast API"), // для примера указан API
+            };
+
 
         /// <summary>
         /// Список API ресурсов, к которым можно предоставлять доступ
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<ApiResource> GetApiResources() =>
-            new List<ApiResource>
+        new List<ApiResource>
             {
                 new ApiResource("weatherApi", "Weather Forecast API") // для примера
                 {
