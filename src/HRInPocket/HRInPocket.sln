@@ -55,9 +55,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRInPocket.IdentityServer",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C1F88014-758E-4148-8360-16E27AA63264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRInPocket.HHApi", "Services\HRInPocket.HHApi\HRInPocket.HHApi.csproj", "{361437A0-36D0-4D67-BB2F-7FE59878C5A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBD}") = "HRInPocket.HHApi", "Services\HRInPocket.HHApi\HRInPocket.HHApi.csproj", "{361437A0-36D0-4D67-BB2F-7FE59878C5A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHApiServices-Console-Test", "Test\HHApiServices-Console-Test\HHApiServices-Console-Test.csproj", "{E9BFC8A9-68B0-4BC9-922E-31E5C044B49A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBD}") = "HHApiServices-Console-Test", "Test\HHApiServices-Console-Test\HHApiServices-Console-Test.csproj", "{E9BFC8A9-68B0-4BC9-922E-31E5C044B49A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
