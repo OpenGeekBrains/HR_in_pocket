@@ -1,14 +1,10 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
-using System.Security.Claims;
 
+using HRInPocket.HHApi.Authentication.Extension.HH;
 using HRInPocket.IdentityServer.Data;
 using HRInPocket.IdentityServer.Models;
 
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -96,35 +92,14 @@ namespace HRInPocket.IdentityServer
                 config.ClientSecret = _Configuration["Authentication:Google:ServiceApiSecret"];
                 config.Scope.Add("email");
             })
-           .AddOAuth("HH", config =>
+
+           //HH.RU
+           .AddHH(config => 
            {
-               var apiHhDomain = ""; //_Configuration["HH:ApiDomain"];
-               config.ClientId = ""; //_Configuration["Authentication:HH:ServiceApiKey"];
-               config.ClientSecret = ""; // _Configuration["Authentication:HH:ServiceApiSecret"];
-               config.AuthorizationEndpoint = "https://hh.ru/oauth/authorize";
-               config.TokenEndpoint = "https://hh.ru/oauth/token";
-               config.UserInformationEndpoint = $"{apiHhDomain}/me";
-
-               config.Events = new OAuthEvents
-               {
-                   OnCreatingTicket = async context => 
-                   {
-                       //¬ызываетс€ после того, как провайдер успешно аутентифицирует пользовател€.
-
-                       var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
-                       request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                       request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
-
-                       //«апрашиваем данные о пользователе
-                       var respone = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
-                       respone.EnsureSuccessStatusCode();
-
-                       //ƒесериализовать из строки respone.Content.ReadAsStringAsync() информацию о пользователе
-                       //≈сли есть пользователь с таким id, просто авторизовываем его на нашем сервере
-                       //»наче создаем нового пользовател€ и авторизовываем
-                   }
-               };
+               config.ClientId = "1";
+               config.ClientSecret = "1";
            });
+
             //... и т.д.
             #endregion
 
