@@ -94,12 +94,11 @@ namespace HRInPocket.IdentityServer
             })
 
            //HH.RU
-           .AddHH(config => 
+           .AddHH(config =>
            {
-               config.ClientId = "1";
-               config.ClientSecret = "1";
+               config.ClientId = _Configuration["Authentication:HH:ServiceApiKey"];
+               config.ClientSecret = _Configuration["Authentication:HH:ServiceApiSecret"];
            });
-
             //... è ò.ä.
             #endregion
 

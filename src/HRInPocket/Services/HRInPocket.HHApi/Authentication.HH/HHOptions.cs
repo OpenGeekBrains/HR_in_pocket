@@ -20,6 +20,7 @@ namespace HRInPocket.HHApi.Authentication.HH
             ClaimActions.MapJsonKey("http://schemas.xmlsoap.org/claims/EmailAddress", "email");
             ClaimActions.MapJsonKey("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname", "first_name");
             ClaimActions.MapJsonKey("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname", "last_name");
+
         }
         public string AccessType { get; set; }
 

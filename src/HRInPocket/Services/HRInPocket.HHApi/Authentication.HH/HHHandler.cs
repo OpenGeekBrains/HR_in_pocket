@@ -1,22 +1,18 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using Newtonsoft.Json.Linq;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace HRInPocket.HHApi.Authentication.HH
 {
@@ -30,24 +26,22 @@ namespace HRInPocket.HHApi.Authentication.HH
 
         protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity, AuthenticationProperties properties, OAuthTokenResponse tokens)
         {
-            var hhHandler = this;
-            var httpResponseMessage = await hhHandler.Backchannel.SendAsync(
-                new HttpRequestMessage(HttpMethod.Get, hhHandler.Options.UserInformationEndpoint)
+            var httpResponseMessage = await Backchannel.SendAsync(
+                new HttpRequestMessage(HttpMethod.Get, Options.UserInformationEndpoint)
                 {
                     Headers = { Authorization = new AuthenticationHeaderValue("Bearer", tokens.AccessToken) }
-                }, hhHandler.Context.RequestAborted);
+                }, Context.RequestAborted);
             httpResponseMessage.EnsureSuccessStatusCode();
+
             AuthenticationTicket authenticationTicket;
 
-            var payload = JObject.Parse(await httpResponseMessage.Content.ReadAsStringAsync());
-            var context =
-                new OAuthCreatingTicketContext(
-                    new ClaimsPrincipal(identity), properties, hhHandler.Context, hhHandler.Scheme,
-                    hhHandler.Options, hhHandler.Backchannel, tokens, payload);
-            context.RunClaimActions();
-            await hhHandler.Events.CreatingTicket(context);
-
-            authenticationTicket = new AuthenticationTicket(context.Principal, context.Properties, hhHandler.Scheme.Name);
+            using (var payload = JsonDocument.Parse(await httpResponseMessage.Content.ReadAsStringAsync()))
+            {
+                var context = new OAuthCreatingTicketContext(new ClaimsPrincipal(identity), properties, Context, Scheme, Options, Backchannel, tokens, payload.RootElement);
+                context.RunClaimActions();
+                await Events.CreatingTicket(context);
+                authenticationTicket = new AuthenticationTicket(context.Principal, context.Properties, Scheme.Name);
+            }
 
             return authenticationTicket;
         }

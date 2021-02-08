@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HRInPocket.HHApi.Authentication.HH
+﻿namespace HRInPocket.HHApi.Authentication.HH
 {
     public static class HHDefault
     {
@@ -21,7 +15,7 @@ namespace HRInPocket.HHApi.Authentication.HH
         /// <summary>
         /// Адрес запроса авторизации на НН
         /// </summary>
-        public static readonly string AuthorizationEndpoint = "https://hh.ru/oauth/authorize";
+        public static readonly string AuthorizationEndpoint = "https://hh.ru/oauth/authorize?skip_choose_account=true&";//
 
         /// <summary>
         /// Адрес запроса получения токенов на НН
