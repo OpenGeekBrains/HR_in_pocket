@@ -13,6 +13,8 @@
         public const string Notify = "api/v1/notify";
         public const string Applicants = "api/v1/applicants";
         
-        public const string Company = "api/company";
+        public const string Company = "api/v1/company";
+        public const string Tarifs = "api/v1/tarifs";
+        public const string Prices = "api/v1/prices";
     }
 }

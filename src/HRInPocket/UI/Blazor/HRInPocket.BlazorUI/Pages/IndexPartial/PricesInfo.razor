@@ -1,4 +1,8 @@
-﻿<div class="price">
+﻿@using HRInPocket.Domain.Entities.Data
+@using HRInPocket.Interfaces
+@inject HttpClient Http
+
+<div class="price">
     @if (_Prices is null)
     {
         <p>Загрузка цен...</p>
@@ -14,11 +18,12 @@
 
 @code
 {
-    private IEnumerable<Domain.Entities.Data.PriceItem> _Prices;
+    private IEnumerable<PriceItem> _Prices;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
+        _Prices = await Http.GetFromJsonAsync<IEnumerable<PriceItem>>(WebAPI.Prices);
     }
 }

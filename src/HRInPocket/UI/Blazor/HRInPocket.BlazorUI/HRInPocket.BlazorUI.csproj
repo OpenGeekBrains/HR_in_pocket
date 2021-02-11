@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\HRInPocket.Domain\HRInPocket.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Services\HRInPocket.Interfaces\HRInPocket.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

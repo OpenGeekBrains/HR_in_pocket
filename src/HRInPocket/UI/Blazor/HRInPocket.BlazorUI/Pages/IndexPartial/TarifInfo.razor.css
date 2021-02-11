@@ -18,3 +18,60 @@
     font-family: Montserrat;
     font-style: normal;
 }
+
+.title-tarifs {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    /* Yellow */
+    color: #FCE55A;
+    margin-top: 55px;
+}
+
+.desc-tarifs {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #353031;
+    margin-top: 37px;
+}
+
+.numb-visits,
+.numb-visits- {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    font-family: Montserrat;
+    font-style: normal;
+}
+
+.numb-visits {
+    margin-top: 38px;
+}
+
+.price-tarifs {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    color: #353031;
+    margin-top: 92px;
+}
+
+.buy {
+    width: 100%;
+    height: 70px;
+    border: 0px;
+    background: #FCE55A;
+    border-radius: 10px;
+}
+
+    .buy a {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        color: #353031;
+    }

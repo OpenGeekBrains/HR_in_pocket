@@ -18,11 +18,6 @@
     top: 0.5rem;
 }
 
-#app {
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
 /* Сброс стилей браузера*/
 
 html,
