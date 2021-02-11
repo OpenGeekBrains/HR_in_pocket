@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using HRInPocket.IdentityServer.Data;
@@ -28,7 +29,7 @@ namespace HRInPocket.IdentityServer
                 Log.Information("Application initialize...");
                 var host = CreateHostBuilder(args).Build();
                 Log.Debug("host created");
-
+#if !DEBUG
                 using (var scope = host.Services.CreateScope())
                 {
                     Log.Debug("Initialize server settings Db");
@@ -37,7 +38,9 @@ namespace HRInPocket.IdentityServer
                     Log.Debug("Initialize users Db");
                     UsersDbInitializer.Init(scope.ServiceProvider);
                 }
-
+#else
+                Log.Warning("!!! IdentityServer Run with InMemory Database !!!");
+#endif
                 Log.Information("Application run");
                 host.Run();
                 return 0;
