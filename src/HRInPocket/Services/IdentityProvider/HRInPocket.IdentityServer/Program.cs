@@ -28,16 +28,16 @@ namespace HRInPocket.IdentityServer
                 Log.Information("Application initialize...");
                 var host = CreateHostBuilder(args).Build();
                 Log.Debug("host created");
+#if !DEBUG
+                //using (var scope = host.Services.CreateScope())
+                //{
+                //    Log.Debug("Initialize server settings Db");
+                //    ServerDbInitializer.Init(scope.ServiceProvider);
 
-                using (var scope = host.Services.CreateScope())
-                {
-                    Log.Debug("Initialize server settings Db");
-                    ServerDbInitializer.Init(scope.ServiceProvider);
-
-                    Log.Debug("Initialize users Db");
-                    UsersDbInitializer.Init(scope.ServiceProvider);
-                }
-
+                //    Log.Debug("Initialize users Db");
+                //    UsersDbInitializer.Init(scope.ServiceProvider);
+                //}
+#endif
                 Log.Information("Application run");
                 host.Run();
                 return 0;

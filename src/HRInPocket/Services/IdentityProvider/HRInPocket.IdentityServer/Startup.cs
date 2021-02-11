@@ -27,9 +27,16 @@ namespace HRInPocket.IdentityServer
 
             //Конфигурация пользователей
             #region IdentityUsers
-            services.AddDbContext<UsersDbContext>(config => config.UseSqlServer(
+            services.AddDbContext<UsersDbContext>(config =>
+#if DEBUG
+                config.UseInMemoryDatabase("InMemoryDb")
+#else
+                    config.UseSqlServer(
                     _Configuration.GetConnectionString("UsersDbConnectionString"),
-                    sql => sql.MigrationsAssembly(migration_assembly)))
+                    sql => sql.MigrationsAssembly(migration_assembly))
+#endif
+                    
+                    )
                   .AddIdentity<ApplicationUser, IdentityRole<Guid>>(
                    options =>
                    {
