@@ -1,8 +1,11 @@
 using System;
 using System.Reflection;
+
+using HRInPocket.HHApi.Authentication.Extension.HH;
 using HRInPocket.IdentityServer.Data;
 using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+
 
 using Serilog;
 
@@ -102,7 +107,14 @@ namespace HRInPocket.IdentityServer
                 config.ClientId = _Configuration["Authentication:Google:ServiceApiKey"];
                 config.ClientSecret = _Configuration["Authentication:Google:ServiceApiSecret"];
                 config.Scope.Add("email");
-            });
+            })
+
+           //HH.RU
+           .AddHH(config =>
+           {
+               config.ClientId = _Configuration["Authentication:HH:ServiceApiKey"];
+               config.ClientSecret = _Configuration["Authentication:HH:ServiceApiSecret"];
+           });
             //... è ò.ä.
             #endregion
 
