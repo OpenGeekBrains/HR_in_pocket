@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using HRInPocket.IdentityServer.Data;
+using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,9 +53,16 @@ namespace HRInPocket.IdentityServer
 
             //Конфигурация IdentityServer4
             #region IdentityServer
+
             services.AddIdentityServer() // добавляем в систему IdentityServer
-               .AddDeveloperSigningCredential() // только на время разработки. При развертывании необходим реальный сертификат
-               .AddAspNetIdentity<ApplicationUser>()
+                .AddDeveloperSigningCredential() // только на время разработки. При развертывании необходим реальный сертификат
+                .AddAspNetIdentity<ApplicationUser>()
+#if DEBUG
+                .AddInMemoryClients(new DefaultConfig(_Configuration).GetClients())
+                .AddInMemoryApiResources(DefaultConfig.GetApiResources())
+                .AddInMemoryIdentityResources(DefaultConfig.GetIdentityResources())
+                .AddInMemoryApiScopes(DefaultConfig.GetApiScopes());
+#else
                .AddConfigurationStore(options =>
                     {
                         options.ConfigureDbContext = c => c.UseSqlServer(
@@ -66,6 +74,7 @@ namespace HRInPocket.IdentityServer
                         options.ConfigureDbContext = o => o.UseSqlServer(_Configuration.GetConnectionString("ServerConfigDbConnectionString"),
                             sql => sql.MigrationsAssembly(migration_assembly));
                     });
+#endif
             #endregion
 
             #region Аутентификация через соцсети
