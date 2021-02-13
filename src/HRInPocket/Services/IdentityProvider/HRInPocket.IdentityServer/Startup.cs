@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-using HRInPocket.HHApi.Authentication.Extension.HH;
+using HRInPocket.Authentication.Extension.HH;
 using HRInPocket.IdentityServer.Data;
 using HRInPocket.IdentityServer.InMemoryConfig;
 using HRInPocket.IdentityServer.Models;
