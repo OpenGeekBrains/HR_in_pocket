@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\HRInPocket.HHApi\HRInPocket.HHApi.csproj" />
+    <ProjectReference Include="..\..\HRInPocket.Authentication.HH\HRInPocket.Authentication.HH.csproj" />
   </ItemGroup>
 
 </Project>

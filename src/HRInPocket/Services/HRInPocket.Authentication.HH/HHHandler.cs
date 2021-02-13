@@ -8,13 +8,15 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+using HRInPocket.Authentication.HH;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace HRInPocket.HHApi.Authentication.HH
+namespace HRInPocket.Authentication.HH
 {
     public class HHHandler : OAuthHandler<HHOptions>
     {

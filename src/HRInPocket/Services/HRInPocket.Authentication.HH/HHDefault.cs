@@ -1,4 +1,4 @@
-﻿namespace HRInPocket.HHApi.Authentication.HH
+﻿namespace HRInPocket.Authentication.HH
 {
     public static class HHDefault
     {

@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Authentication.OAuth;
 
-namespace HRInPocket.HHApi.Authentication.HH
+namespace HRInPocket.Authentication.HH
 {
     public class HHChallengeProperties : OAuthChallengeProperties
     {

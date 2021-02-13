@@ -1,12 +1,12 @@
 ﻿
 using System;
 
-using HRInPocket.HHApi.Authentication.HH;
+using HRInPocket.Authentication.HH;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HRInPocket.HHApi.Authentication.Extension.HH
+namespace HRInPocket.Authentication.Extension.HH
 {
     public static class HHExtensions
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http;
 
-namespace HRInPocket.HHApi.Authentication.HH
+namespace HRInPocket.Authentication.HH
 {
     public class HHOptions : OAuthOptions
     {
