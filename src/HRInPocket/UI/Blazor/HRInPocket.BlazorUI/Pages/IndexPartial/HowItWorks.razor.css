@@ -152,7 +152,7 @@
     text-align: left;
 }
 
-.v352_369 {
+.steps {
     width: 100%;
     height: 80px;
     /*background: url("images/v352_369.png");*/
@@ -166,138 +166,18 @@
     overflow: hidden;
 }
 
-.v352_370 {
-    width: 100%;
+.steps-arrow {
     height: 12px;
     background: #212429;
     background: rgba(33,36,41,1);
     opacity: 1;
     position: absolute;
     top: 34px;
-    left: 29px;
+    left: 30px;
+    width: 1250.07px;
 }
 
-.v352_371 {
-    width: 80px;
-    height: 80px;
-    /*background: url("images/v352_371.png");*/
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    opacity: 1;
-    position: absolute;
-    top: 0;
-    left: 979px;
-    overflow: hidden;
-}
-
-.v352_372 {
-    width: 80px;
-    height: 80px;
-    background: #212429;
-    background: rgba(33,36,41,1);
-    opacity: 1;
-    position: relative;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-}
-
-.v352_373 {
-    width: 33px;
-    color: #fdfdfd;
-    color: rgba(253,253,253,1);
-    position: absolute;
-    top: 7px;
-    left: 22px;
-    font-family: Montserrat;
-    font-weight: 800;
-    font-size: 48px;
-    opacity: 1;
-    text-align: center;
-}
-
-.v352_374 {
-    width: 80px;
-    height: 80px;
-    /*background: url("images/v352_374.png");*/
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    opacity: 1;
-    position: absolute;
-    top: 0;
-    left: 652px;
-    overflow: hidden;
-}
-
-.v352_375 {
-    width: 80px;
-    height: 80px;
-    background: #212429;
-    background: rgba(33,36,41,1);
-    opacity: 1;
-    position: relative;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-}
-
-.v352_376 {
-    width: 28px;
-    color: #fdfdfd;
-    color: rgba(253,253,253,1);
-    position: absolute;
-    top: 10px;
-    left: 25px;
-    font-family: Montserrat;
-    font-weight: 800;
-    font-size: 48px;
-    opacity: 1;
-    text-align: center;
-}
-
-.v352_377 {
-    width: 80px;
-    height: 80px;
-    /*background: url("images/v352_377.png");*/
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    opacity: 1;
-    position: absolute;
-    top: 0;
-    left: 329px;
-    overflow: hidden;
-}
-
-.v352_378 {
-    width: 80px;
-    height: 80px;
-    background: #212429;
-    background: rgba(33,36,41,1);
-    opacity: 1;
-    position: relative;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-}
-
-.v352_379 {
-    width: 28px;
-    color: #fdfdfd;
-    color: rgba(253,253,253,1);
-    position: absolute;
-    top: 8px;
-    left: 25px;
-    font-family: Montserrat;
-    font-weight: 800;
-    font-size: 48px;
-    opacity: 1;
-    text-align: center;
-}
-
-.v352_380 {
+.step {
     width: 80px;
     height: 80px;
     /*background: url("images/v352_380.png");*/
@@ -307,11 +187,66 @@
     opacity: 1;
     position: relative;
     top: 0;
-    left: 0;
     overflow: hidden;
 }
 
-.v352_381 {
+.step-1 {
+    left: 0;
+    width: 80px;
+    height: 80px;
+    /*background: url("images/v352_380.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    overflow: hidden;
+}
+
+.step-2 {
+    left: 329px;
+    width: 80px;
+    height: 80px;
+    /*background: url("images/v352_380.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    overflow: hidden;
+}
+
+.step-3 {
+    left: 652px;
+    width: 80px;
+    height: 80px;
+    /*background: url("images/v352_380.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    overflow: hidden;
+}
+
+.step-4 {
+    left: 979px;
+    width: 80px;
+    height: 80px;
+    /*background: url("images/v352_380.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    overflow: hidden;
+}
+
+.ellipse {
     width: 80px;
     height: 80px;
     background: #212429;
@@ -323,7 +258,7 @@
     border-radius: 50%;
 }
 
-.v352_382 {
+.ellipse-text {
     width: 20px;
     color: #fdfdfd;
     color: rgba(253,253,253,1);
