@@ -1,0 +1,98 @@
+﻿.landing-page-intro {
+    width: 100%;
+    height: 688px;
+    background: url("images/v352_384.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    overflow: hidden;
+}
+
+.name {
+    color: #fff;
+}
+
+.landing-page-intro-background {
+    width: 100%;
+    height: 688px;
+    background: url("images/v352_385.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.v352_386 {
+    width: 600px;
+    height: 600px;
+    background: url("images/v352_386.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 66px;
+    left: 949px;
+    overflow: hidden;
+}
+
+.v352_387 {
+    width: 600px;
+    height: 600px;
+    background: #c4c4c4;
+    background: rgba(196,196,196,1);
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.landing-page-intro-image {
+    width: 908px;
+    height: 604px;
+    background: url("images/v352_388.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 229px;
+    overflow: hidden;
+}
+
+.landing-page-intro-about {
+    width: 615px;
+    color: #fdfdfd;
+    color: rgba(253,253,253,1);
+    position: absolute;
+    top: 332px;
+    left: 80px;
+    font-family: Montserrat;
+    font-weight: SemiBold;
+    font-size: 24px;
+    opacity: 1;
+    text-align: left;
+}
+
+.landing-page-intro-details {
+    width: 845px;
+    color: #fdfdfd;
+    color: rgba(253,253,253,1);
+    position: absolute;
+    top: 120px;
+    left: 80px;
+    font-family: Montserrat;
+    font-weight: SemiBold;
+    font-size: 64px;
+    opacity: 1;
+    text-align: left;
+}

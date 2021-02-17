@@ -1,41 +1,193 @@
 ﻿@* ReSharper disable once RedundantUsingDirective *@
+@using HRInPocket.BlazorUI.Pages.IndexPartial
 
 @page "/"
 
-<div class="wrapper">
+<div class="landing-page-wrapper">
+    <IndexHeader />
+    
+    <IndexIntro/>
+
     <div class="v352_203">
-        <div class="v352_204"></div><div class="v352_205"><span class="v352_206">Можете, создавать дополнительное задание и резюме. Обратите внимание, что для каждого резюме необходимо приобрести отдельный тариф</span><span class="v352_207"> Могу я продвигать несколько резюме одновременно?</span><div class="v352_208"></div><div class="name"></div></div><div class="v352_212">
+        <div class="v352_204"></div>
+        <div class="v352_205">
+            <span class="v352_206">Можете, создавать дополнительное задание и резюме. Обратите внимание, что для каждого резюме необходимо приобрести отдельный тариф</span>
+            <span class="v352_207"> Могу я продвигать несколько резюме одновременно?</span>
+            <div class="v352_208"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_212">
             <span class="v352_213">
                 Наш виртуальный HR ничуть не хуже реального и даже превосходит его в точности
                 и скорости обработки данных. До начала поиска вы сможете указать все нюансы
                 по вакансиям, уровень заработной платы, удалённость от дома и другое
-            </span><span class="v352_214"> Как сервис поймёт, что мне нужно?</span><div class="v352_215"></div><div class="name"></div>
-        </div><div class="v352_219"><span class="v352_220">Вы будете получать отклики от работодателей отталкиваясь от составленного задания. При заполнении формы для поиска работы указывайте ключевые слова и теги. Алгоритм учтёт каждый важный критерий для Вас</span><span class="v352_221">Устроят ли меня полученные приглашения?</span><div class="v352_222"></div><div class="name"></div></div><div class="v352_226">
-            <span class="v352_227">В какие сроки я смогу найти работу?</span><span class="v352_228">
+            </span>
+            <span class="v352_214"> Как сервис поймёт, что мне нужно?</span>
+            <div class="v352_215"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_219">
+            <span class="v352_220">Вы будете получать отклики от работодателей отталкиваясь от составленного задания. При заполнении формы для поиска работы указывайте ключевые слова и теги. Алгоритм учтёт каждый важный критерий для Вас</span>
+            <span class="v352_221">Устроят ли меня полученные приглашения?</span>
+            <div class="v352_222"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_226">
+            <span class="v352_227">В какие сроки я смогу найти работу?</span>
+            <span class="v352_228">
                 Самостоятельный поиск работы в среднем занимает 6 месяцев. Многое зависит
                 от специфики вакансий. Алгоритм платформы, позволяет сократить срок трудоустройства до 1 месяца. Бывают сложные/индивидуальные случаи и может потребоваться больше времени
-            </span><div class="v352_229"></div><div class="name"></div>
-        </div><span class="v352_233">Часто задаваемые вопросы</span>
-    </div><div class="v464_670"><div class="v464_671"></div><span class="v464_672">+7 (111) 222-33-44</span><span class="v464_673">support@neojob.ru</span><span class="v464_674">© 2020. Все права защищены</span><div class="v464_675"><div class="v464_676"></div><span class="v464_677">Сообщение</span></div><div class="name"></div><div class="v464_681"><div class="v464_682"></div><span class="v464_683">E-mail</span></div><div class="v464_684"><div class="v464_685"></div><span class="v464_686">Имя</span></div><span class="v464_687">Остались вопросы?</span></div><div class="v352_252"><span class="v352_253">Найдите работу мечты</span><div class="name"></div></div><div class="v496_50"><span class="v352_257">Дополнительные услуги</span><div class="v352_258"><span class="v352_259">Составление продающего резюме</span><span class="v352_260">В предложение входит Базовая подписка и составление на языке рекрутов резюме, описывающее Ваш опыт, профессиональные навыки и достижения, которое будет заметно выделять Вашу кандидатуру</span><div class="name"></div><div class="v352_264"></div><span class="v352_265">2 000 руб.</span><div class="name"></div></div><div class="v352_269"><span class="v456_0">Для каждого соискателя создаются уникальные сопроводительные письма повышающие интерес к просмотру Вашего резюме</span><div class="v456_4"></div><div class="name"></div><span class="v352_270">Написание сопроводительного письма</span><span class="v352_271">500 руб.</span><div class="name"></div></div></div><div class="v352_256">
+            </span>
+            <div class="v352_229"></div>
+            <div class="name"></div>
+        </div>
+        <span class="v352_233">Часто задаваемые вопросы</span>
+    </div>
+    <div class="v464_670">
+        <div class="v464_671"></div>
+        <span class="v464_672">+7 (111) 222-33-44</span>
+        <span class="v464_673">support@neojob.ru</span>
+        <span class="v464_674">© 2020. Все права защищены</span>
+        <div class="v464_675">
+            <div class="v464_676"></div>
+            <span class="v464_677">Сообщение</span>
+        </div>
+        <div class="name"></div>
+        <div class="v464_681">
+            <div class="v464_682"></div>
+            <span class="v464_683">E-mail</span>
+        </div>
+        <div class="v464_684">
+            <div class="v464_685"></div>
+            <span class="v464_686">Имя</span>
+        </div><span class="v464_687">Остались вопросы?</span>
+    </div>
+    <div class="v352_252">
+        <span class="v352_253">Найдите работу мечты</span>
+        <div class="name"></div>
+    </div>
+    <div class="v496_50">
+        <span class="v352_257">Дополнительные услуги</span>
+        <div class="v352_258">
+            <span class="v352_259">Составление продающего резюме</span>
+            <span class="v352_260">В предложение входит Базовая подписка и составление на языке рекрутов резюме, описывающее Ваш опыт, профессиональные навыки и достижения, которое будет заметно выделять Вашу кандидатуру</span>
+            <div class="name"></div>
+            <div class="v352_264"></div>
+            <span class="v352_265">2 000 руб.</span>
+            <div class="name"></div>
+        </div>
+        <div class="v352_269">
+            <span class="v456_0">Для каждого соискателя создаются уникальные сопроводительные письма повышающие интерес к просмотру Вашего резюме</span>
+            <div class="v456_4"></div>
+            <div class="name"></div>
+            <span class="v352_270">Написание сопроводительного письма</span>
+            <span class="v352_271">500 руб.</span>
+            <div class="name"></div>
+        </div>
+    </div>
+    <div class="v352_256">
         <div class="v352_275">
-            <div class="v352_276"></div><div class="v352_277"></div><span class="v352_278">ПРЕМИУМ</span><span class="v352_279">
+            <div class="v352_276"></div>
+            <div class="v352_277"></div>
+            <span class="v352_278">ПРЕМИУМ</span>
+            <span class="v352_279">
                 Максимум предложений
                 и карьерный взлёт
-            </span><span class="v352_280">1 месяц</span><span class="v352_281">5 000 руб.</span><div class="name"></div><div class="name"></div>
-        </div><div class="v352_286">
-            <div class="v352_287"></div><div class="v352_288"></div><span class="v352_289">ПЛЮС</span><span class="v352_290">
+            </span>
+            <span class="v352_280">1 месяц</span>
+            <span class="v352_281">5 000 руб.</span>
+            <div class="name"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_286">
+            <div class="v352_287"></div>
+            <div class="v352_288"></div>
+            <span class="v352_289">ПЛЮС</span>
+            <span class="v352_290">
                 Выбирайте и сравнивайте
                 разные предложения
-            </span><span class="v352_291">15 дней</span><span class="v352_292">2 500 руб.</span><div class="name"></div><div class="name"></div>
-        </div><div class="v352_297"><div class="v352_298"></div><div class="v352_299"></div><span class="v352_300">БАЗОВЫЙ</span><span class="v352_301">Хороший повод начать</span><span class="v352_302">1 день</span><span class="v352_303">500 руб.</span><div class="name"></div><div class="name"></div></div><div class="v352_308"><div class="v352_309"></div><div class="v352_310"></div><span class="v352_311">СТАНДАРТ</span><span class="v352_312">Набирайте обороты</span><span class="v352_313">5 дней</span><span class="v352_314">1 500 руб.</span><div class="name"></div><div class="name"></div></div><span class="v352_319">Тарифы</span><span class="v352_320">В течение выбранного периода система подбирает подходящие под ваши параметры вакансии и рассылает ваше резюме. Вся информация о количестве откликов, приглашениях на собеседования доступна в Личном кабинете</span>
-    </div><div class="v352_321"><div class="v352_322"></div><div class="v352_323"><div class="v352_324"></div><div class="v352_325"></div></div><div class="v352_326"><span class="v352_327">Разрабатываем продающие резюме с нуля и создаём уникальные сопроводительные письма</span><span class="v352_328">Сервис</span><div class="name"></div></div><div class="v352_336"><span class="v352_337">Используем в работе технический опыт разработки и профессиональные навыки HR-специалистов</span><span class="v352_338">Эффективность методов</span><div class="name"></div></div><div class="v352_344"><span class="v352_345">Выбирайте оптимальные тарифы и получайте результат уже в первый день</span><span class="v352_346">Выгодные тарифы</span><div class="name"></div></div><div class="v352_351"><span class="v352_352">Берём на себя весь рутинный процесс поиска и откликов на вакансии. Вы только ходите на собеседования</span><span class="v352_353">Экономия времени</span><div class="name"></div></div><span class="v352_358">Преимущества</span></div><div class="v352_359"><span class="v352_360">Просматривайте полученные отклики от работодателей, записывайтесь на интервью и получайте работу в короткие сроки</span><span class="v352_361">По заданным параметрам алгоритмы платформы подбирают актуальные вакансии и отправляют  отклики</span><span class="v352_362">Приобретите подходящую подписку. Загрузите резюме и сопроводительное письмо или закажите у нас на платформе</span><span class="v352_363">Зарегистрируйтесь на платформе. Заполните форму поиска работы, указав важные для вас параметры вакансии</span><div class="v352_364"><span class="v352_365">Предложения</span><span class="v352_366">Поиск</span><span class="v352_367">Подписка</span><span class="v352_368">Регистрация</span></div><div class="v352_369"><div class="v352_370"></div><div class="v352_371"><div class="v352_372"></div><span class="v352_373">4</span></div><div class="v352_374"><div class="v352_375"></div><span class="v352_376">3</span></div><div class="v352_377"><div class="v352_378"></div><span class="v352_379">2</span></div><div class="v352_380"><div class="v352_381"></div><span class="v352_382">1</span></div></div><span class="v352_383">Как это работает</span></div><div class="v352_384">
-        <div class="v352_385"></div><div class="v352_386"><div class="v352_387"></div><div class="v352_388"></div></div><span class="v352_389">
-            MYJOB - сервис автоматизации поиска работы
-            Мы расскажем работодателям о вас
-            Вам останется только ходить на интервью
-        </span><span class="v352_390">
-            Инновационный подход
-            к поиску работы
-        </span><div class="name"></div>
-    </div><div class="v352_393"><div class="name"></div><span class="v352_397">Преимущества</span><span class="v352_398">Тарифы</span><span class="v352_399">Поулярные вопросы</span><span class="v352_396">Как это работает</span><span class="v352_402">myjob</span></div>
+            </span>
+            <span class="v352_291">15 дней</span>
+            <span class="v352_292">2 500 руб.</span>
+            <div class="name"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_297">
+            <div class="v352_298"></div>
+            <div class="v352_299"></div>
+            <span class="v352_300">БАЗОВЫЙ</span>
+            <span class="v352_301">Хороший повод начать</span>
+            <span class="v352_302">1 день</span>
+            <span class="v352_303">500 руб.</span>
+            <div class="name"></div>
+            <div class="name"></div>
+        </div>
+        <div class="v352_308">
+            <div class="v352_309"></div>
+            <div class="v352_310"></div>
+            <span class="v352_311">СТАНДАРТ</span>
+            <span class="v352_312">Набирайте обороты</span>
+            <span class="v352_313">5 дней</span>
+            <span class="v352_314">1 500 руб.</span>
+            <div class="name"></div>
+            <div class="name"></div>
+        </div>
+        <span class="v352_319">Тарифы</span>
+        <span class="v352_320">В течение выбранного периода система подбирает подходящие под ваши параметры вакансии и рассылает ваше резюме. Вся информация о количестве откликов, приглашениях на собеседования доступна в Личном кабинете</span>
+    </div>
+    <div class="v352_321">
+        <div class="v352_322"></div>
+        <div class="v352_323">
+            <div class="v352_324"></div>
+            <div class="v352_325"></div>
+        </div>
+        <div class="v352_326">
+            <span class="v352_327">Разрабатываем продающие резюме с нуля и создаём уникальные сопроводительные письма</span>
+            <span class="v352_328">Сервис</span>
+            <div class="name"></div>
+        </div>
+        <div class="v352_336">
+            <span class="v352_337">Используем в работе технический опыт разработки и профессиональные навыки HR-специалистов</span>
+            <span class="v352_338">Эффективность методов</span>
+            <div class="name"></div>
+        </div>
+        <div class="v352_344">
+            <span class="v352_345">Выбирайте оптимальные тарифы и получайте результат уже в первый день</span>
+            <span class="v352_346">Выгодные тарифы</span>
+            <div class="name"></div>
+        </div>
+        <div class="v352_351">
+            <span class="v352_352">Берём на себя весь рутинный процесс поиска и откликов на вакансии. Вы только ходите на собеседования</span>
+            <span class="v352_353">Экономия времени</span>
+            <div class="name"></div>
+        </div><span class="v352_358">Преимущества</span>
+    </div>
+    <div class="v352_359">
+        <span class="v352_360">Просматривайте полученные отклики от работодателей, записывайтесь на интервью и получайте работу в короткие сроки</span>
+        <span class="v352_361">По заданным параметрам алгоритмы платформы подбирают актуальные вакансии и отправляют отклики</span>
+        <span class="v352_362">Приобретите подходящую подписку. Загрузите резюме и сопроводительное письмо или закажите у нас на платформе</span>
+        <span class="v352_363">Зарегистрируйтесь на платформе. Заполните форму поиска работы, указав важные для вас параметры вакансии</span>
+        <div class="v352_364">
+            <span class="v352_365">Предложения</span>
+            <span class="v352_366">Поиск</span>
+            <span class="v352_367">Подписка</span>
+            <span class="v352_368">Регистрация</span>
+        </div>
+        <div class="v352_369">
+            <div class="v352_370"></div>
+            <div class="v352_371">
+                <div class="v352_372"></div><span class="v352_373">4</span>
+            </div>
+            <div class="v352_374">
+                <div class="v352_375"></div><span class="v352_376">3</span>
+            </div>
+            <div class="v352_377">
+                <div class="v352_378"></div><span class="v352_379">2</span>
+            </div>
+            <div class="v352_380">
+                <div class="v352_381"></div><span class="v352_382">1</span>
+            </div>
+        </div>
+        <span class="v352_383">Как это работает</span>
+    </div>
 </div>

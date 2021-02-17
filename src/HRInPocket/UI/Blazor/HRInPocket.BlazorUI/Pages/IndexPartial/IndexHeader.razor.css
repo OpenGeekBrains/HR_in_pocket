@@ -1,51 +1,85 @@
-﻿header {
-    /* Heder */
-    position: absolute;
+﻿.landing-page-header {
+    width: 100%;
     height: 100px;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    /* MJ Colors / White */
-    background: #FEFEFE;
+    background: #fdfdfd;
+    background: rgba(253,253,253,1);
+    padding: 24px 80px;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.logo {
-    position: absolute;
+.landing-header-logo {
     width: 192px;
-    height: 52px;
-    left: 80px;
+    color: url("images/v352_402.png");
+    position: absolute;
     top: 24px;
+    left: 80px;
     font-family: Righteous;
-    font-style: normal;
-    font-weight: normal;
+    font-weight: Regular;
     font-size: 42px;
-    line-height: 52px;
-    display: flex;
-    align-items: center;
-    /* MJ Colors / Black */
-    color: #212429;
+    opacity: 1;
+    text-align: left;
 }
 
-    .logo span {
-        color: #FFCD4E;
+.landing-header-logo span {
+    color: darkorange;
+}
+
+    .landing-header-advantages {
+        width: 146px;
+        color: #212429;
+        color: rgba(33,36,41,1);
+        position: absolute;
+        top: 35px;
+        left: 629px;
+        font-family: Montserrat;
+        font-weight: Medium;
+        font-size: 18px;
+        opacity: 1;
+        text-align: center;
     }
 
-.how-it-work {
-    position: absolute;
-    width: 160px;
-    height: 29px;
-    left: 407px;
-    top: 35px;
-    /* Desktop / text */
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 160%;
-    /* identical to box height, or 29px */
-    display: flex;
-    align-items: center;
-    text-align: center;
-    /* MJ Colors / Black */
+.landing-header-tariff {
+    width: 75px;
     color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 35px;
+    left: 837px;
+    font-family: Montserrat;
+    font-weight: Medium;
+    font-size: 18px;
+    opacity: 1;
+    text-align: center;
+}
+
+.landing-header-FAQ {
+    width: 199px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 35px;
+    left: 974px;
+    font-family: Montserrat;
+    font-weight: Medium;
+    font-size: 18px;
+    opacity: 1;
+    text-align: center;
+}
+
+.landing-header-howitworks {
+    width: 160px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 35px;
+    left: 407px;
+    font-family: Montserrat;
+    font-weight: Medium;
+    font-size: 18px;
+    opacity: 1;
+    text-align: center;
 }
