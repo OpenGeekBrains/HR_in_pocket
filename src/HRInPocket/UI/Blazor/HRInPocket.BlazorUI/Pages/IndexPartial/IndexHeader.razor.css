@@ -1,0 +1,51 @@
+﻿header {
+    /* Heder */
+    position: absolute;
+    height: 100px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    /* MJ Colors / White */
+    background: #FEFEFE;
+}
+
+.logo {
+    position: absolute;
+    width: 192px;
+    height: 52px;
+    left: 80px;
+    top: 24px;
+    font-family: Righteous;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 42px;
+    line-height: 52px;
+    display: flex;
+    align-items: center;
+    /* MJ Colors / Black */
+    color: #212429;
+}
+
+    .logo span {
+        color: #FFCD4E;
+    }
+
+.how-it-work {
+    position: absolute;
+    width: 160px;
+    height: 29px;
+    left: 407px;
+    top: 35px;
+    /* Desktop / text */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    /* identical to box height, or 29px */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /* MJ Colors / Black */
+    color: #212429;
+}
