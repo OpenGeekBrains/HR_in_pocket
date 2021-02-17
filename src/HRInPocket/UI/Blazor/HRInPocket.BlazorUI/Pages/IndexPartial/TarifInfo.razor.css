@@ -1,77 +1,106 @@
-﻿.tarifs-block-each {
-    box-shadow: 2px 2px 15px #000000;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    margin-right: 36px;
+﻿.landing-page-tarif-cart {
+    width: 260px;
+    height: 386px;
+    /*background: url("images/v352_308.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 288px;
+    overflow: hidden;
+}
+
+.landing-page-tarif-cart-border1 {
+    width: 252px;
+    height: 378px;
+    background: #212429;
+    background: rgba(33,36,41,1);
+    opacity: 1;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 4px #000000;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.landing-page-tarif-cart-border2 {
+    width: 252px;
+    height: 378px;
+    background: #fdfdfd;
+    background: rgba(253,253,253,1);
+    opacity: 1;
     position: relative;
+    top: 0;
+    left: 0;
+    border: 2px solid #212429;
+    border: 2px solid rgba(33,36,41,1);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 4px #000000;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
 }
 
-.tarifs-w {
-    width: 308px;
-}
-
-.title-tarifs,
-.desc-tarifs,
-.numb-visits,
-.price-tarifs,
-.buy {
+.landing-page-tarif-cart-title {
+    width: 204px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 32px;
+    left: 24px;
     font-family: Montserrat;
-    font-style: normal;
-}
-
-.title-tarifs {
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 44px;
-    /* identical to box height */
-    /* Yellow */
-    color: #FCE55A;
-    margin-top: 55px;
-}
-
-.desc-tarifs {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    /* identical to box height */
-    color: #353031;
-    margin-top: 37px;
-}
-
-.numb-visits,
-.numb-visits- {
-    font-weight: 500;
+    font-weight: SemiBold;
     font-size: 24px;
-    line-height: 29px;
-    color: #000000;
+    opacity: 1;
+    text-align: center;
+}
+
+.landing-page-tarif-cart-description {
+    width: 200px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 108px;
+    left: 26px;
     font-family: Montserrat;
-    font-style: normal;
+    font-weight: Medium;
+    font-size: 14px;
+    opacity: 1;
+    text-align: center;
 }
 
-.numb-visits {
-    margin-top: 38px;
+.landing-page-tarif-cart-duration {
+    width: 200px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 172px;
+    left: 26px;
+    font-family: Montserrat;
+    font-weight: Medium;
+    font-size: 18px;
+    opacity: 1;
+    text-align: center;
 }
 
-.price-tarifs {
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 44px;
-    /* identical to box height */
-    color: #353031;
-    margin-top: 92px;
+.landing-page-tarif-cart-price {
+    width: 204px;
+    color: #212429;
+    color: rgba(33,36,41,1);
+    position: absolute;
+    top: 238px;
+    left: 24px;
+    font-family: Montserrat;
+    font-weight: SemiBold;
+    font-size: 24px;
+    opacity: 1;
+    text-align: center;
 }
-
-.buy {
-    width: 100%;
-    height: 70px;
-    border: 0px;
-    background: #FCE55A;
-    border-radius: 10px;
-}
-
-    .buy a {
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 24px;
-        color: #353031;
-    }
