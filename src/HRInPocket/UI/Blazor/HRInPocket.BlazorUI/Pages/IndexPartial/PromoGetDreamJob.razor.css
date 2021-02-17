@@ -25,3 +25,44 @@
     opacity: 1;
     text-align: center;
 }
+
+.primary-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 17px 62px;
+    position: absolute;
+    width: 224px;
+    height: 56px;
+    left: 202px;
+    top: 104px;
+    /* MJ Colors / Action */
+    background: #DD513E;
+    border-radius: 16px;
+}
+
+    .primary-btn span {
+        position: static;
+        width: 130px;
+        left: calc(50% - 130px/2);
+        top: 24.11%;
+        bottom: 24.11%;
+        /* Desktop / text */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 160%;
+        /* identical to box height, or 29px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        /* MJ Colors / White */
+        color: #FEFEFE;
+        /* Inside Auto Layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 10px;
+    }

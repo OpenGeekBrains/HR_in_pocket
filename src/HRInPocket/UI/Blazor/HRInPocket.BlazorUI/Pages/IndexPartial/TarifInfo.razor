@@ -5,7 +5,7 @@
     <div class="cart-border"></div>
     <span class="title">@Tarif.Name.ToUpper()</span>
     <span class="description">@Tarif.Description</span>
-    <span class="duration">@DaysCounter(Tarif.Visits)</span>
+    <span class="duration">@($"{Tarif.Visits} {(Tarif.Visits % 10) switch { 1 => "день", > 1 and < 5 => "дня", _ => "дней" }}")</span>
     <span class="price">@Tarif.Price руб.</span>
     
     <button class="purchase-button">
@@ -17,11 +17,4 @@
     [Parameter] public Tarif Tarif { get; set; }
 
     [Parameter] public int Left { get; set; }
-
-    public string DaysCounter(int count) => (count % 10) switch
-    {
-        1 => "1 день",
-        > 1 and < 5 => $"{count} дня",
-        _ => $"{count} дней"
-    };
 }
