@@ -1,19 +1,23 @@
 ﻿@using HRInPocket.Domain.Entities.Data
 @using HRInPocket.Interfaces
+@using HRInPocket.BlazorUI.Pages.IndexPartial
 @inject HttpClient Http
 
 <div class="price">
+    <span class="header">Дополнительные услуги</span>
+
     @if (_Prices is null)
     {
-        <p>Загрузка цен...</p>
+        <p>Загрузка...</p>
     }
     else
     {
-        @foreach (var price in _Prices)
+        foreach (var (price, i) in _Prices.Select((price, i) => (price, i)))
         {
-            <PriceInfo Price="price" />
+            <PriceInfo Price="price" Top="@(i * 234 + 116)"/>
         }
     }
+
 </div>
 
 @code

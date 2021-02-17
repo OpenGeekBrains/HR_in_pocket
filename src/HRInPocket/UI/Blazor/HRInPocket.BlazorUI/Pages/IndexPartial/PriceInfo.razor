@@ -1,17 +1,24 @@
 ﻿@using HRInPocket.Domain.Entities.Data
 
-<table class="table table-reflow price-table">
-    <tbody>
-        <tr>
-            <td scope="row" id="first-ch-tb">@Price.Name</td>
-            <td id="price-tb">@Price.Price руб.</td>
-            <td id="last-td-price">
-                <button type="button" class="buy"><a href="">Купить</a></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="price-cart" style="top: @(Top)px">
+    <span class="header">@Price.Name</span>
+    <span class="description">(описание)</span>
+    <div class="border"></div>
+    <span class="price-value">@Price.Price руб.</span>
+    
+    <div class="expander-button">
+        <svg viewBox="0 0 1024 1024">
+            <path d="M813.44 338.56c-11.568-11.501-27.514-18.611-45.12-18.611s-33.552 7.109-45.123 18.614l-211.197 211.197-210.56-211.2c-11.629-11.629-27.695-18.822-45.44-18.822-35.491 0-64.262 28.771-64.262 64.262 0 17.745 7.193 33.811 18.822 45.44l256 256c11.568 11.501 27.514 18.611 45.12 18.611s33.552-7.109 45.123-18.614l255.997-255.997c11.885-11.63 19.253-27.833 19.253-45.757 0-17.607-7.11-33.554-18.616-45.126z"></path>
+        </svg>
+    </div>
+
+    <button class="purchase-button">
+        <span>Купить</span>
+    </button>
+</div>
 
 @code {
     [Parameter] public PriceItem Price { get; set; }
+
+    [Parameter] public int Top { get; set; }
 }

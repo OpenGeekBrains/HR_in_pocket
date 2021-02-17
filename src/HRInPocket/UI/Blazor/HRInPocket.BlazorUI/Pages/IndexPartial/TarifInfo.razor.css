@@ -1,4 +1,4 @@
-﻿.landing-page-tarif-cart {
+﻿.question-cart {
     width: 260px;
     height: 386px;
     /*background: url("images/v352_308.png");*/
@@ -11,7 +11,7 @@
     overflow: hidden;
 }
 
-.landing-page-tarif-cart-border1 {
+.cart-shadow {
     width: 252px;
     height: 378px;
     background: #212429;
@@ -29,7 +29,7 @@
     overflow: hidden;
 }
 
-.landing-page-tarif-cart-border2 {
+.cart-border {
     width: 252px;
     height: 378px;
     background: #fdfdfd;
@@ -49,7 +49,7 @@
     overflow: hidden;
 }
 
-.landing-page-tarif-cart-title {
+.title {
     width: 204px;
     color: #212429;
     color: rgba(33,36,41,1);
@@ -57,13 +57,13 @@
     top: 32px;
     left: 24px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: center;
 }
 
-.landing-page-tarif-cart-description {
+.description {
     width: 200px;
     color: #212429;
     color: rgba(33,36,41,1);
@@ -71,13 +71,13 @@
     top: 108px;
     left: 26px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 14px;
     opacity: 1;
     text-align: center;
 }
 
-.landing-page-tarif-cart-duration {
+.duration {
     width: 200px;
     color: #212429;
     color: rgba(33,36,41,1);
@@ -85,13 +85,13 @@
     top: 172px;
     left: 26px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 18px;
     opacity: 1;
     text-align: center;
 }
 
-.landing-page-tarif-cart-price {
+.price {
     width: 204px;
     color: #212429;
     color: rgba(33,36,41,1);
@@ -99,8 +99,49 @@
     top: 238px;
     left: 24px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: center;
+}
+
+.purchase-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 14px;
+    position: absolute;
+    width: 124px;
+    height: 40px;
+    left: 64px;
+    top: 300px;
+    border: 2px solid #DD513E;
+    box-sizing: border-box;
+    border-radius: 16px;
+}
+
+    .purchase-button span {
+        position: static;
+        left: 11.29%;
+        right: 11.29%;
+        top: 12.5%;
+        bottom: 12.5%;
+        /* Desktop / text */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 160%;
+        /* or 29px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        /* MJ Colors / Action */
+        color: #DD513E;
+        /* Inside Auto Layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 10px;
 }

@@ -1,7 +1,7 @@
 ﻿.landing-page-advantages {
     width: 100%;
     height: 952px;
-    background: url("images/v352_321.png");
+    /*background: url("images/v352_321.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -20,7 +20,7 @@
     top: 120px;
     left: 935px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 48px;
     opacity: 1;
     text-align: center;
@@ -39,7 +39,7 @@
     background-size: cover;
     opacity: 1;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 110px;
     overflow: hidden;
 }
@@ -47,7 +47,7 @@
 .v352_323 {
     width: 600px;
     height: 600px;
-    background: url("images/v352_323.png");
+    /*background: url("images/v352_323.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -91,7 +91,7 @@
 .v352_326 {
     width: 520px;
     height: 116px;
-    background: url("images/v352_326.png");
+    /*background: url("images/v352_326.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -110,7 +110,7 @@
     top: 44px;
     left: 109px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 18px;
     opacity: 1;
     text-align: left;
@@ -121,10 +121,10 @@
     color: #fdfdfd;
     color: rgba(253,253,253,1);
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 109px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -133,7 +133,7 @@
 .v352_336 {
     width: 520px;
     height: 116px;
-    background: url("images/v352_336.png");
+    /*background: url("images/v352_336.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -152,7 +152,7 @@
     top: 44px;
     left: 109px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 18px;
     opacity: 1;
     text-align: left;
@@ -163,10 +163,10 @@
     color: #fdfdfd;
     color: rgba(253,253,253,1);
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 109px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -175,7 +175,7 @@
 .v352_344 {
     width: 520px;
     height: 116px;
-    background: url("images/v352_344.png");
+    /*background: url("images/v352_344.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -194,7 +194,7 @@
     top: 44px;
     left: 109px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 18px;
     opacity: 1;
     text-align: left;
@@ -205,10 +205,10 @@
     color: #fdfdfd;
     color: rgba(253,253,253,1);
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 109px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -217,7 +217,7 @@
 .v352_351 {
     width: 521px;
     height: 116px;
-    background: url("images/v352_351.png");
+    /*background: url("images/v352_351.png");*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -236,7 +236,7 @@
     top: 44px;
     left: 110px;
     font-family: Montserrat;
-    font-weight: Medium;
+    font-weight: 500;
     font-size: 18px;
     opacity: 1;
     text-align: left;
@@ -247,10 +247,10 @@
     color: #fdfdfd;
     color: rgba(253,253,253,1);
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 109px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;

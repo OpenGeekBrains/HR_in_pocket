@@ -1,73 +1,246 @@
-﻿.callback {
-    margin-left: 48px;
-    margin-right: 50px;
+﻿.callback-form {
+    width: 100%;
+    height: 669px;
+    /*background: url("images/v464_670.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 5400px;
+    left: 0;
+    overflow: hidden;
 }
 
-.make-callback-form {
-
+.callback-form-background {
+    width: 100%;
+    height: 681px;
+    background: url("images/v464_671.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.maintitle-callback {
+.callback-form-header {
+    width: 518px;
+    color: #fdfdfd;
+    color: rgba(253,253,253,1);
+    position: absolute;
+    top: 120px;
+    left: 190px;
     font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 48px;
-    line-height: 59px;
-    /* identical to box height */
-    color: #000000;
-    margin-top: 139px;
+    opacity: 1;
     text-align: center;
 }
 
-.make-callback input {
-    margin: 0 auto;
+.name-input-group {
+    width: 410px;
+    height: 56px;
+    /*background: url("images/v464_684.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 224px;
+    left: 190px;
+    overflow: hidden;
 }
 
-.form_control-cb1 {
-    margin-top: 55px;
-}
-
-.form_control-cb2,
-.form_control-cb4 {
-    margin-top: 32px;
-}
-
-.form_control-cb2 input,
-.form_control-cb1 input,
-.form_control-cb4 input {
-    border: 1px solid #C8D7DB;
-    box-sizing: border-box;
-    width: 800px;
-    height: 70px;
-    border-radius: 21px;
-    padding-left: 43px;
+.name-label {
+    width: 150px;
+    color: #646b77;
+    color: rgba(100,107,119,1);
+    position: absolute;
+    top: 15px;
+    left: 20px;
     font-family: Montserrat;
-    font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #BFC6C8;
+    font-size: 18px;
+    opacity: 1;
+    text-align: left;
 }
 
-.form_control-cb4 input {
-    height: 150px;
+.name-input {
+    width: 410px;
+    height: 56px;
+    background: #31353d;
+    background: rgba(49,53,61,1);
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
 }
 
-.send-callback {
-    width: 300px;
-    height: 70px;
-    margin-left: 20%;
-    margin-top: 32px;
-    background: #FCE55A;
-    border-radius: 12px;
-    border: 0px;
+.email-input-group {
+    width: 410px;
+    height: 56px;
+    /*background: url("images/v464_681.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 295px;
+    left: 190px;
+    overflow: hidden;
 }
 
-.send-callback a {
+.email-input {
+    width: 410px;
+    height: 56px;
+    background: #31353d;
+    background: rgba(49,53,61,1);
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+}
+
+.email-input-label {
+    width: 150px;
+    color: #646b77;
+    color: rgba(100,107,119,1);
+    position: absolute;
+    top: 15px;
+    left: 20px;
     font-family: Montserrat;
-    font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
+    font-size: 18px;
+    opacity: 1;
+    text-align: left;
 }
+
+.message-input-group {
+    width: 410px;
+    height: 200px;
+    /*background: url("images/v464_675.png");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 224px;
+    left: 624px;
+    overflow: hidden;
+}
+
+.message-input {
+    width: 410px;
+    height: 200px;
+    background: #31353d;
+    background: rgba(49,53,61,1);
+    opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+}
+
+.message-input-label {
+    width: 150px;
+    color: #646b77;
+    color: rgba(100,107,119,1);
+    position: absolute;
+    top: 23px;
+    left: 20px;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 18px;
+    opacity: 1;
+    text-align: left;
+}
+
+.phone-number {
+    width: 183px;
+    color: #fdfdfd;
+    color: rgba(253,253,253,1);
+    position: absolute;
+    top: 591px;
+    left: 1177px;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 18px;
+    opacity: 1;
+    text-align: right;
+}
+
+.email {
+    width: 215px;
+    color: #fdfdfd;
+    color: rgba(253,253,253,1);
+    position: absolute;
+    top: 544px;
+    left: 1145px;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 18px;
+    opacity: 1;
+    text-align: right;
+}
+
+.copyrights {
+    width: 266px;
+    color: #646b77;
+    color: rgba(100,107,119,1);
+    position: absolute;
+    top: 589px;
+    left: 80px;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 14px;
+    opacity: 1;
+    text-align: left;
+}
+
+.send-button {
+    position: absolute;
+    width: 410px;
+    height: 56px;
+    left: 190px;
+    top: 368px;
+    opacity: 0.5;
+    background: #FEFEFE;
+    border-radius: 16px;
+}
+
+    .send-button span {
+        position: absolute;
+        left: 37.32%;
+        right: 37.32%;
+        top: 26.37%;
+        bottom: 21.84%;
+        /* Desktop / text SB */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 160%;
+        /* identical to box height, or 29px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        /* MJ Colors / Black */
+        color: #212429;
+    }

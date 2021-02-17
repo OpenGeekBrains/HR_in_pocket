@@ -1,17 +1,27 @@
 ﻿@using HRInPocket.Domain.Entities.Data
 
-<div class="landing-page-tarif-cart">
-    <div class="landing-page-tarif-cart-border1"></div>
-    <div class="landing-page-tarif-cart-border2"></div>
-    <span class="landing-page-tarif-cart-title">ПРЕМИУМ</span>
-    <span class="landing-page-tarif-cart-description">
-        Максимум предложений
-        и карьерный взлёт
-    </span>
-    <span class="landing-page-tarif-cart-duration">1 месяц</span>
-    <span class="landing-page-tarif-cart-price">5 000 руб.</span>
+<div class="question-cart" style="left: @(Left)px">
+    <div class="cart-shadow"></div>
+    <div class="cart-border"></div>
+    <span class="title">@Tarif.Name.ToUpper()</span>
+    <span class="description">@Tarif.Description</span>
+    <span class="duration">@DaysCounter(Tarif.Visits)</span>
+    <span class="price">@Tarif.Price руб.</span>
+    
+    <button class="purchase-button">
+        <span>Купить</span>
+    </button>
 </div>
 
 @code{
     [Parameter] public Tarif Tarif { get; set; }
+
+    [Parameter] public int Left { get; set; }
+
+    public string DaysCounter(int count) => (count % 10) switch
+    {
+        1 => "1 день",
+        > 1 and < 5 => $"{count} дня",
+        _ => $"{count} дней"
+    };
 }

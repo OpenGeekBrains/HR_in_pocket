@@ -2,48 +2,21 @@
 @using HRInPocket.Interfaces
 @inject HttpClient Http
 
-<div class="landing-page-tarifs">
-    <span class="landing-page-tarifs-header">Тарифы</span>
-    <span class="landing-page-tarifs-about">В течение выбранного периода система подбирает подходящие под ваши параметры вакансии и рассылает ваше резюме. Вся информация о количестве откликов, приглашениях на собеседования доступна в Личном кабинете</span>
+<div class="tarifs">
+    <span class="header">Тарифы</span>
+    <span class="about">В течение выбранного периода система подбирает подходящие под ваши параметры вакансии и рассылает ваше резюме. Вся информация о количестве откликов, приглашениях на собеседования доступна в Личном кабинете</span>
 
-    <div class="landing-page-tarif-cart-premium landing-page-tarif-cart">
-        <div class="landing-page-tarif-cart-border1"></div>
-        <div class="landing-page-tarif-cart-border2"></div>
-        <span class="landing-page-tarif-cart-title">ПРЕМИУМ</span>
-        <span class="landing-page-tarif-cart-description">
-            Максимум предложений
-            и карьерный взлёт
-        </span>
-        <span class="landing-page-tarif-cart-duration">1 месяц</span>
-        <span class="landing-page-tarif-cart-price">5 000 руб.</span>
-    </div>
-    <div class="landing-page-tarif-cart-pluse landing-page-tarif-cart">
-        <div class="landing-page-tarif-cart-border1"></div>
-        <div class="landing-page-tarif-cart-border2"></div>
-        <span class="landing-page-tarif-cart-title">ПЛЮС</span>
-        <span class="landing-page-tarif-cart-description">
-            Выбирайте и сравнивайте
-            разные предложения
-        </span>
-        <span class="landing-page-tarif-cart-duration">15 дней</span>
-        <span class="landing-page-tarif-cart-price">2 500 руб.</span>
-    </div>
-    <div class="landing-page-tarif-cart-base landing-page-tarif-cart">
-        <div class="landing-page-tarif-cart-border1"></div>
-        <div class="landing-page-tarif-cart-border2"></div>
-        <span class="landing-page-tarif-cart-title">БАЗОВЫЙ</span>
-        <span class="landing-page-tarif-cart-description">Хороший повод начать</span>
-        <span class="v352_302">1 день</span>
-        <span class="landing-page-tarif-cart-price">500 руб.</span>
-    </div>
-    <div class="landing-page-tarif-cart-standard landing-page-tarif-cart">
-        <div class="landing-page-tarif-cart-border1"></div>
-        <div class="landing-page-tarif-cart-border2"></div>
-        <span class="landing-page-tarif-cart-title">СТАНДАРТ</span>
-        <span class="landing-page-tarif-cart-description">Набирайте обороты</span>
-        <span class="landing-page-tarif-cart-duration">5 дней</span>
-        <span class="landing-page-tarif-cart-price">1 500 руб.</span>
-    </div>
+    @if (_Tarifs is null)
+    {
+        <p>Загрузка данных</p>
+    }
+    else
+    {
+        @foreach (var (tarif, i) in _Tarifs.Select((tarif, i) => (tarif, i)))
+        {
+            <TarifInfo Tarif="tarif" Left="@(i * 340)" />
+        }
+    }
 </div>
 
 @code
