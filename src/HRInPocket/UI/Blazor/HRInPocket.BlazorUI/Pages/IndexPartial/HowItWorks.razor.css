@@ -20,7 +20,7 @@
     top: 0;
     left: 420px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 48px;
     opacity: 1;
     text-align: left;
@@ -104,7 +104,8 @@
     top: 0;
     left: 977px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    /*font-weight: SemiBold;*/
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -118,7 +119,7 @@
     top: 0;
     left: 652px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -132,7 +133,7 @@
     top: 0;
     left: 326px;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -146,7 +147,7 @@
     top: 0;
     left: 0;
     font-family: Montserrat;
-    font-weight: SemiBold;
+    font-weight: 600;
     font-size: 24px;
     opacity: 1;
     text-align: left;
@@ -211,7 +212,7 @@
     top: 7px;
     left: 22px;
     font-family: Montserrat;
-    font-weight: ExtraBold;
+    font-weight: 800;
     font-size: 48px;
     opacity: 1;
     text-align: center;
@@ -251,7 +252,7 @@
     top: 10px;
     left: 25px;
     font-family: Montserrat;
-    font-weight: ExtraBold;
+    font-weight: 800;
     font-size: 48px;
     opacity: 1;
     text-align: center;
@@ -291,7 +292,7 @@
     top: 8px;
     left: 25px;
     font-family: Montserrat;
-    font-weight: ExtraBold;
+    font-weight: 800;
     font-size: 48px;
     opacity: 1;
     text-align: center;
@@ -331,7 +332,7 @@
     top: 10px;
     left: 30px;
     font-family: Montserrat;
-    font-weight: ExtraBold;
+    font-weight: 800;
     font-size: 48px;
     opacity: 1;
     text-align: center;
